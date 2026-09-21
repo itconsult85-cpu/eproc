@@ -10,13 +10,15 @@
             <table id="quotations-table" class="table table-hover align-middle w-100">
                 <thead>
                     <tr>
-                        <th>No.</th>
-                        <th>Perusahaan</th>
-                        <th>Judul</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Dibuat</th>
-                        <th>Aksi</th>
+                        <th class="all"></th>
+                        <th class="all">No.</th>
+                        <th class="all">Nomor Penawaran</th>
+                        <th class="min-tablet">Perusahaan</th>
+                        <th class="all">Judul</th>
+                        <th class="min-tablet">Total</th>
+                        <th class="min-tablet">Status</th>
+                        <th class="min-tablet">Dibuat</th>
+                        <th class="all">Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -29,6 +31,12 @@
 new DataTable('#quotations-table', {
     serverSide: true,
     processing: true,
+    responsive: {
+        details: {
+            type: 'column',
+            target: 0
+        }
+    },
     ajax: {
         url: '<?= esc(site_url('quotations/datatable')) ?>',
         type: 'GET',
@@ -37,6 +45,20 @@ new DataTable('#quotations-table', {
         }
     },
     columns: [{
+        data: null,
+        defaultContent: '',
+        className: 'dtr-control',
+        orderable: false,
+        searchable: false
+    }, {
+        data: null,
+        className: 'text-nowrap',
+        orderable: false,
+        searchable: false,
+        render: function(data, type, row, meta) {
+            return meta.row + meta.settings._iDisplayStart + 1;
+        }
+    }, {
         data: 'quotation_no'
     }, {
         data: 'company_name'
@@ -54,7 +76,7 @@ new DataTable('#quotations-table', {
         searchable: false
     }],
     order: [
-        [5, 'desc']
+        [7, 'desc']
     ],
     pageLength: 10,
     language: {

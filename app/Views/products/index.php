@@ -12,12 +12,14 @@
             <table id="products-table" class="table table-hover align-middle w-100">
                 <thead>
                     <tr>
-                        <th>Media</th>
-                        <th>Produk</th>
-                        <th>Harga Modal</th>
-                        <th>Harga Jual</th>
-                        <th>Toko/PIC</th>
-                        <th>Aksi</th>
+                        <th class="all"></th>
+                        <th class="all">No.</th>
+                        <th class="min-tablet">Media</th>
+                        <th class="all">Produk</th>
+                        <th class="min-tablet">Harga Modal</th>
+                        <th class="min-tablet">Harga Jual</th>
+                        <th class="min-tablet">Toko/PIC</th>
+                        <th class="all">Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -30,6 +32,12 @@
 new DataTable('#products-table', {
     serverSide: true,
     processing: true,
+    responsive: {
+        details: {
+            type: 'column',
+            target: 0
+        }
+    },
     ajax: {
         url: '<?= esc(site_url('products/datatable')) ?>',
         type: 'GET',
@@ -38,6 +46,20 @@ new DataTable('#products-table', {
         }
     },
     columns: [{
+        data: null,
+        defaultContent: '',
+        className: 'dtr-control',
+        orderable: false,
+        searchable: false
+    }, {
+        data: null,
+        className: 'text-nowrap',
+        orderable: false,
+        searchable: false,
+        render: function(data, type, row, meta) {
+            return meta.row + meta.settings._iDisplayStart + 1;
+        }
+    }, {
         data: 'media',
         orderable: false,
         searchable: false
@@ -55,7 +77,7 @@ new DataTable('#products-table', {
         searchable: false
     }],
     order: [
-        [1, 'asc']
+        [3, 'asc']
     ],
     pageLength: 10,
     language: {

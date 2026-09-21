@@ -32,9 +32,9 @@ class Products extends BaseController
             $builder->groupStart()->like('name', $search)->orLike('sku', $search)->orLike('brand', $search)->orLike('store_name', $search)->groupEnd();
         }
         $filtered = $builder->countAllResults(false);
-        // Indeks mengikuti kolom tabel: media, produk, harga modal, harga jual, toko, aksi.
-        $columns = ['name', 'name', 'cost_price', 'selling_price', 'store_name', 'created_at'];
-        $orderColumn = (int) ($request['order'][0]['column'] ?? 1);
+        // Indeks mengikuti kolom tabel: kontrol, nomor, media, produk, harga modal, harga jual, toko, aksi.
+        $columns = ['name', 'name', 'name', 'name', 'cost_price', 'selling_price', 'store_name', 'created_at'];
+        $orderColumn = (int) ($request['order'][0]['column'] ?? 3);
         $orderDirection = strtolower((string) ($request['order'][0]['dir'] ?? 'asc')) === 'desc' ? 'desc' : 'asc';
         $builder->orderBy($columns[$orderColumn] ?? 'name', $orderDirection);
         $rows = $builder->get($length, $start)->getResultArray();

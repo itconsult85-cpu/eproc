@@ -37,8 +37,9 @@ class Quotations extends BaseController
             $builder->groupStart()->like('quotations.quotation_no', $search)->orLike('companies.name', $search)->orLike('quotations.title', $search)->orLike('quotations.status', $search)->groupEnd();
         }
         $filtered = $builder->countAllResults(false);
-        $columns = ['quotation_no', 'company_name', 'title', 'grand_total', 'status', 'created_at'];
-        $orderColumn = (int) ($request['order'][0]['column'] ?? 0);
+        // Indeks mengikuti kolom tabel: kontrol, nomor, no quotation, perusahaan, judul, total, status, dibuat, aksi.
+        $columns = ['created_at', 'created_at', 'quotation_no', 'company_name', 'title', 'grand_total', 'status', 'created_at', 'created_at'];
+        $orderColumn = (int) ($request['order'][0]['column'] ?? 7);
         $orderDirection = strtolower((string) ($request['order'][0]['dir'] ?? 'desc')) === 'asc' ? 'asc' : 'desc';
         $builder->orderBy($columns[$orderColumn] ?? 'created_at', $orderDirection);
         $rows = $builder->get($length, $start)->getResultArray();

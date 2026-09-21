@@ -13,10 +13,12 @@
             <table id="companies-table" class="table table-hover align-middle w-100">
                 <thead>
                     <tr>
-                        <th>Nama</th>
-                        <th>PIC</th>
-                        <th>Telepon</th>
-                        <th>Aksi</th>
+                        <th class="all"></th>
+                        <th class="all">No.</th>
+                        <th class="all">Nama</th>
+                        <th class="min-tablet">PIC</th>
+                        <th class="min-tablet">Telepon</th>
+                        <th class="all">Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -29,6 +31,12 @@
 new DataTable('#companies-table', {
     serverSide: true,
     processing: true,
+    responsive: {
+        details: {
+            type: 'column',
+            target: 0
+        }
+    },
     ajax: {
         url: '<?= esc(site_url('companies/datatable')) ?>',
         type: 'GET',
@@ -37,6 +45,20 @@ new DataTable('#companies-table', {
         }
     },
     columns: [{
+        data: null,
+        defaultContent: '',
+        className: 'dtr-control',
+        orderable: false,
+        searchable: false
+    }, {
+        data: null,
+        className: 'text-nowrap',
+        orderable: false,
+        searchable: false,
+        render: function(data, type, row, meta) {
+            return meta.row + meta.settings._iDisplayStart + 1;
+        }
+    }, {
         data: 'name'
     }, {
         data: 'pic_name'
@@ -48,7 +70,7 @@ new DataTable('#companies-table', {
         searchable: false
     }],
     order: [
-        [0, 'asc']
+        [2, 'asc']
     ],
     pageLength: 10,
     language: {

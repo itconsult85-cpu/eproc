@@ -38,8 +38,9 @@ class Companies extends BaseController
         }
 
         $filtered = $builder->countAllResults(false);
-        $columns = ['name', 'pic_name', 'phone', 'email', 'created_at'];
-        $orderColumn = (int) ($request['order'][0]['column'] ?? 0);
+        // Indeks mengikuti kolom tabel: kontrol, nomor, nama, PIC, telepon, aksi.
+        $columns = ['name', 'name', 'name', 'pic_name', 'phone', 'created_at'];
+        $orderColumn = (int) ($request['order'][0]['column'] ?? 2);
         $orderDirection = strtolower((string) ($request['order'][0]['dir'] ?? 'asc')) === 'desc' ? 'desc' : 'asc';
         $builder->orderBy($columns[$orderColumn] ?? 'name', $orderDirection);
         $rows = $builder->get($length, $start)->getResultArray();
