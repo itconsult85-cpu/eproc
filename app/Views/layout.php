@@ -170,8 +170,7 @@
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
             <div class="sidebar-brand"><a href="<?= esc(site_url('/')) ?>" class="brand-link text-decoration-none">
                     <?php if ($sidebarLogoUrl): ?>
-                    <img src="<?= esc($sidebarLogoUrl) ?>" class="brand-image rounded opacity-75"
-                        alt="Logo EPROC">
+                    <img src="<?= esc($sidebarLogoUrl) ?>" class="brand-image rounded opacity-75" alt="Logo EPROC">
                     <?php else: ?>
                     <i class="bi bi-file-earmark-richtext brand-image opacity-75"></i>
                     <?php endif; ?>
@@ -206,11 +205,7 @@
             </div>
         </aside>
         <main class="app-main">
-            <div class="app-content-header content-header py-3">
-                <div class="container-fluid">
-                    <h1 class="mb-0"><?= esc($title ?? 'Eprocurement') ?></h1>
-                </div>
-            </div>
+
             <div class="app-content">
                 <div class="container-fluid">
                     <?php if ($message = session()->getFlashdata('message')): ?><div
