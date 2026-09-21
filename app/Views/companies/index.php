@@ -30,8 +30,11 @@ new DataTable('#companies-table', {
     serverSide: true,
     processing: true,
     ajax: {
-        url: '/companies/datatable',
-        type: 'GET'
+        url: '<?= esc(site_url('companies/datatable')) ?>',
+        type: 'GET',
+        error: function(xhr, textStatus, errorThrown) {
+            console.error('Gagal memuat data perusahaan:', xhr.status, textStatus, errorThrown, xhr.responseText);
+        }
     },
     columns: [{
         data: 'name'
