@@ -44,17 +44,34 @@ class Products extends BaseController
 
     private function save(?int $id = null)
     {
-        $data = $this->request->getPost(['sku', 'name', 'brand', 'description', 'datasheet', 'image_url', 'video_url', 'cost_price', 'selling_price', 'store_name', 'store_url', 'store_phone', 'store_pic', 'is_active']);
+        $data = $this->request->getPost(['sku', 'name', 'brand', 'description', 'datasheet', 'applications', 'standards', 'cost_price', 'selling_price', 'store_name', 'store_url', 'store_phone', 'store_pic', 'is_active']);
         if (! $this->validateData($data, ['name' => 'required|max_length[180]', 'selling_price' => 'permit_empty|decimal'])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $labels = (array) $this->request->getPost('spec_label');
+        $values = (array) $this->request->getPost('spec_value');
+        $specifications = [];
+        foreach ($labels as $index => $label) {
+            $label = trim((string) $label);
+            $value = trim((string) ($values[$index] ?? ''));
+            if ($label !== '' && $value !== '') {
+                $specifications[] = ['label' => $label, 'value' => $value];
+            }
+        }
+        $data['technical_specs'] = $specifications ? json_encode($specifications, JSON_UNESCAPED_UNICODE) : null;
+
         $existing = $id ? $this->model->find($id) : [];
-        foreach (['image' => ['image_path', ['jpg', 'jpeg', 'png', 'webp'], 5242880], 'video' => ['video_path', ['mp4', 'webm', 'mov'], 52428800]] as $field => [$column, $extensions, $maxSize]) {
+        $uploads = [
+            'image' => ['image_path', ['jpg', 'jpeg', 'png', 'webp'], 5242880, 'Format atau ukuran file gambar tidak valid.'],
+            'video' => ['video_path', ['mp4', 'webm', 'mov'], 52428800, 'Format atau ukuran file video tidak valid.'],
+            'datasheet_file' => ['datasheet_file_path', ['pdf'], 20971520, 'Datasheet harus berupa PDF maksimal 20 MB.'],
+        ];
+        foreach ($uploads as $field => [$column, $extensions, $maxSize, $message]) {
             $file = $this->request->getFile($field);
             if ($file && $file->isValid() && ! $file->hasMoved()) {
                 if ($file->getSize() > $maxSize || ! in_array(strtolower($file->getExtension()), $extensions, true)) {
-                    return redirect()->back()->withInput()->with('errors', [$field => 'Format atau ukuran file ' . $field . ' tidak valid.']);
+                    return redirect()->back()->withInput()->with('errors', [$field => $message]);
                 }
                 $directory = FCPATH . 'uploads/products';
                 if (! is_dir($directory)) {
