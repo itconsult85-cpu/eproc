@@ -2,44 +2,44 @@
     <div>
         <h1><?= esc($quotation['title']) ?></h1>
         <div class="text-secondary"><?= esc($quotation['quotation_no']) ?> &middot; <?= esc($quotation['company_name']) ?></div>
-    </div><a href="/quotations/<?= $quotation['id'] ?>/pdf" class="btn btn-primary">Unduh PDF</a>
-</div>
-<div class="card">
-    <div class="card-body">
-        <p><?= nl2br(esc($quotation['customer_address'] ?? '')) ?></p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Produk</th>
-                    <th>Qty</th>
-                    <th>Harga</th>
-                    <th>Diskon</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody><?php foreach ($quotation['items'] as $item): ?><tr>
-                        <td><?= esc($item['product_name']) ?><br><small><?= esc($item['description'] ?? '') ?></small></td>
-                        <td><?= esc($item['quantity']) ?> <?= esc($item['unit']) ?></td>
-                        <td>Rp <?= number_format((float)$item['unit_price'], 0, ',', '.') ?></td>
-                        <td><?= esc($item['discount_percent']) ?>%</td>
-                        <td>Rp <?= number_format((float)$item['line_total'], 0, ',', '.') ?></td>
-                    </tr><?php endforeach; ?></tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="4" class="text-end">Subtotal</th>
-                    <th>Rp <?= number_format((float)$quotation['subtotal'], 0, ',', '.') ?></th>
-                </tr>
-                <tr>
-                    <th colspan="4" class="text-end">Pajak (<?= esc($quotation['tax_percent']) ?>%)</th>
-                    <th>Rp <?= number_format((float)$quotation['tax_amount'], 0, ',', '.') ?></th>
-                </tr>
-                <tr>
-                    <th colspan="4" class="text-end">Grand Total</th>
-                    <th>Rp <?= number_format((float)$quotation['grand_total'], 0, ',', '.') ?></th>
-                </tr>
-            </tfoot>
-        </table><?php if ($quotation['notes']): ?>
-            <hr>
-            <p><strong>Catatan:</strong><br><?= nl2br(esc($quotation['notes'])) ?></p><?php endif; ?>
-    </div>
-</div><?= $this->endSection() ?>
+        <a href="/quotations/<?= $quotation['id'] ?>/edit" class="btn btn-warning me-2">Edit</a>
+        <a href="/quotations/<?= $quotation['id'] ?>/pdf" class="btn btn-primary">Unduh PDF</a>
+        <div class="card">
+            <div class="card-body">
+                <p><?= nl2br(esc($quotation['customer_address'] ?? '')) ?></p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Produk</th>
+                            <th>Qty</th>
+                            <th>Harga</th>
+                            <th>Diskon</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody><?php foreach ($quotation['items'] as $item): ?><tr>
+                                <td><?= esc($item['product_name']) ?><br><small><?= esc($item['description'] ?? '') ?></small></td>
+                                <td><?= esc($item['quantity']) ?> <?= esc($item['unit']) ?></td>
+                                <td>Rp <?= number_format((float)$item['unit_price'], 0, ',', '.') ?></td>
+                                <td><?= esc($item['discount_percent']) ?>%</td>
+                                <td>Rp <?= number_format((float)$item['line_total'], 0, ',', '.') ?></td>
+                            </tr><?php endforeach; ?></tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" class="text-end">Subtotal</th>
+                            <th>Rp <?= number_format((float)$quotation['subtotal'], 0, ',', '.') ?></th>
+                        </tr>
+                        <tr>
+                            <th colspan="4" class="text-end">Pajak (<?= esc($quotation['tax_percent']) ?>%)</th>
+                            <th>Rp <?= number_format((float)$quotation['tax_amount'], 0, ',', '.') ?></th>
+                        </tr>
+                        <tr>
+                            <th colspan="4" class="text-end">Grand Total</th>
+                            <th>Rp <?= number_format((float)$quotation['grand_total'], 0, ',', '.') ?></th>
+                        </tr>
+                    </tfoot>
+                </table><?php if ($quotation['notes']): ?>
+                    <hr>
+                    <p><strong>Catatan:</strong><br><?= nl2br(esc($quotation['notes'])) ?></p><?php endif; ?>
+            </div>
+        </div><?= $this->endSection() ?>

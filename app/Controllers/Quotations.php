@@ -90,13 +90,105 @@ class Quotations extends BaseController
         return redirect()->to('/quotations/' . $quotationId)->with('message', 'Penawaran berhasil dibuat.');
     }
 
+    public function edit(int $id)
+    {
+        $quotation = $this->model->detail($id);
+        if (! $quotation) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        return view('quotations/form', [
+            'title' => 'Edit Penawaran',
+            'quotation' => $quotation,
+            'settings' => (new QuotationSettingModel())->current(),
+            'companies' => (new CompanyModel())->orderBy('name')->findAll(),
+            'products' => (new ProductModel())->where('is_active', 1)->orderBy('name')->findAll(),
+        ]);
+    }
+
+    public function update(int $id)
+    {
+        $rules = ['company_id' => 'required', 'title' => 'required', 'quotation_no' => 'required'];
+        if (! $this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $settings = (new QuotationSettingModel())->current();
+        $products = new ProductModel();
+        $items = [];
+        $subtotal = 0;
+
+        foreach ((array) $this->request->getPost('items') as $item) {
+            $product = $products->find((int) ($item['product_id'] ?? 0));
+            $qty = max(0, (float) ($item['quantity'] ?? 0));
+            if (! $product || $qty <= 0) continue;
+
+            $price = max(0, (float) ($item['unit_price'] ?? $product['selling_price']));
+            $discount = max(0, min(100, (float) ($item['discount_percent'] ?? 0)));
+            $line = $qty * $price * (1 - $discount / 100);
+            $subtotal += $line;
+            $items[] = ['quotation_id' => $id, 'product_id' => $product['id'], 'product_name' => $product['name'], 'description' => trim((string) ($item['description'] ?? '')) ?: $product['description'], 'quantity' => $qty, 'unit' => $item['unit'] ?? 'pcs', 'unit_price' => $price, 'discount_percent' => $discount, 'line_total' => $line];
+        }
+
+        $issueDate = $this->request->getPost('issue_date') ?: date('Y-m-d');
+        $validityDays = max(0, (int) ($this->request->getPost('validity_days') ?: $settings['default_validity_days'] ?? 10));
+        $taxPercent = max(0, (float) ($this->request->getPost('tax_percent') ?: $settings['default_tax_percent'] ?? 0));
+        $tax = $subtotal * $taxPercent / 100;
+
+        $this->model->update($id, [
+            'company_id' => $this->request->getPost('company_id'),
+            'quotation_no' => $this->request->getPost('quotation_no'),
+            'customer_name' => $this->request->getPost('customer_name'),
+            'customer_address' => $this->request->getPost('customer_address'),
+            'customer_phone' => $this->request->getPost('customer_phone'),
+            'attention' => $this->request->getPost('attention'),
+            'title' => $this->request->getPost('title'),
+            'issue_date' => $issueDate,
+            'valid_until' => date('Y-m-d', strtotime($issueDate . ' +' . $validityDays . ' days')),
+            'validity_days' => $validityDays,
+            'payment_terms' => $this->request->getPost('payment_terms'),
+            'delivery_terms' => $this->request->getPost('delivery_terms'),
+            'notes' => $this->request->getPost('notes'),
+            'subtotal' => $subtotal,
+            'tax_percent' => $taxPercent,
+            'tax_amount' => $tax,
+            'grand_total' => $subtotal + $tax,
+        ]);
+
+        (new QuotationItemModel())->where('quotation_id', $id)->delete();
+        if ($items) {
+            (new QuotationItemModel())->insertBatch($items);
+        }
+        return redirect()->to('/quotations/' . $id)->with('message', 'Penawaran berhasil diperbarui.');
+    }
+
     public function show(int $id)
     {
         $quotation = $this->model->detail($id);
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        return view('quotations/show', ['title' => 'Detail Penawaran', 'quotation' => $quotation]);
+
+        $settings = (new QuotationSettingModel())->current();
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml(view('quotations/pdf', [
+            'quotation' => $quotation,
+            'settings' => $settings,
+            'logoData' => $this->assetData($settings['logo_path'] ?? null),
+            'signatureData' => $this->assetData($settings['signature_path'] ?? null),
+            'stampData' => $this->assetData($settings['stamp_path'] ?? null)
+        ]));
+
+        // Atur ukuran kertas
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Output PDF dengan Disposition 'inline' agar tampil di browser, bukan di-download otomatis
+        return $this->response->setHeader('Content-Type', 'application/pdf')
+            ->setHeader('Content-Disposition', 'inline; filename="quotation-' . $quotation['quotation_no'] . '.pdf"')
+            ->setBody($dompdf->output());
     }
 
     public function pdf(int $id)
@@ -110,7 +202,7 @@ class Quotations extends BaseController
         $options->set('isRemoteEnabled', true);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml(view('quotations/pdf', ['quotation' => $quotation, 'settings' => $settings, 'logoData' => $this->assetData($settings['logo_path'] ?? null), 'signatureData' => $this->assetData($settings['signature_path'] ?? null), 'stampData' => $this->assetData($settings['stamp_path'] ?? null)]));
-        $dompdf->setPaper('letter');
+        $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="quotation-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }

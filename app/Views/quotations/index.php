@@ -20,7 +20,9 @@
                         <td><?= esc($row['title']) ?></td>
                         <td>Rp <?= number_format((float)$row['grand_total'], 0, ',', '.') ?></td>
                         <td><span class="badge text-bg-secondary"><?= esc($row['status']) ?></span></td>
-                        <td><a class="btn btn-sm btn-outline-primary" href="/quotations/<?= $row['id'] ?>">Lihat</a>
+                        <td>
+                            <a class="btn btn-sm btn-outline-primary" href="/quotations/<?= $row['id'] ?>">Lihat</a>
+                            <a class="btn btn-sm btn-outline-warning" href="/quotations/<?= $row['id'] ?>/edit">Edit</a>
                             <form class="d-inline" method="post" action="/quotations/<?= $row['id'] ?>/delete" onsubmit="return confirm('Hapus penawaran ini?')"><button class="btn btn-sm btn-outline-danger">Hapus</button></form>
                         </td>
                     </tr><?php endforeach; ?></tbody>
