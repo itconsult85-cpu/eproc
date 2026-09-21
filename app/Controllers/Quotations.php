@@ -21,7 +21,10 @@ class Quotations extends BaseController
 
     public function index()
     {
-        return view('quotations/index', ['title' => 'Penawaran']);
+        return view('quotations/index', [
+            'title' => 'Penawaran',
+            'quotations' => $this->model->withCompany(),
+        ]);
     }
 
     public function datatable()

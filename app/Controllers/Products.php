@@ -15,7 +15,10 @@ class Products extends BaseController
 
     public function index()
     {
-        return view('products/index', ['title' => 'Katalog Produk']);
+        return view('products/index', [
+            'title' => 'Katalog Produk',
+            'products' => $this->model->orderBy('name', 'ASC')->findAll(),
+        ]);
     }
 
     public function datatable()
