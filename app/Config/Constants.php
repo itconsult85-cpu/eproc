@@ -25,6 +25,9 @@ defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
  */
 defined('COMPOSER_PATH') || define('COMPOSER_PATH', ROOTPATH . 'vendor/autoload.php');
 
+// CI4.7.4 uses this path when booting the test environment.
+defined('SUPPORTPATH') || define('SUPPORTPATH', TESTPATH . '_support' . DIRECTORY_SEPARATOR);
+
 /*
  |--------------------------------------------------------------------------
  | Timing Constants
