@@ -161,11 +161,16 @@
                 <div class="ms-auto text-secondary small">CodeIgniter 4.7.4</div>
             </div>
         </nav>
-        <?php $sidebarLogo = model(\App\Models\QuotationSettingModel::class)->current()['logo_path'] ?? null; ?>
+        <?php
+        $sidebarLogo = model(\App\Models\QuotationSettingModel::class)->current()['logo_path'] ?? null;
+        $sidebarLogoUrl = $sidebarLogo
+            ? (preg_match('#^https?://#i', $sidebarLogo) ? $sidebarLogo : base_url(ltrim($sidebarLogo, '/')))
+            : null;
+        ?>
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
             <div class="sidebar-brand"><a href="<?= esc(site_url('/')) ?>" class="brand-link text-decoration-none">
-                    <?php if ($sidebarLogo): ?>
-                    <img src="<?= esc(site_url(ltrim($sidebarLogo, '/'))) ?>" class="brand-image rounded opacity-75"
+                    <?php if ($sidebarLogoUrl): ?>
+                    <img src="<?= esc($sidebarLogoUrl) ?>" class="brand-image rounded opacity-75"
                         alt="Logo EPROC">
                     <?php else: ?>
                     <i class="bi bi-file-earmark-richtext brand-image opacity-75"></i>
