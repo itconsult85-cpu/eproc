@@ -1,11 +1,14 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h2 class="h5 mb-1">Dashboard</h2>
-        <p class="text-body-secondary mb-0">Kelola workspace e-procurement Anda.</p>
-    </div><a href="/quotations/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Buat
-        Penawaran</a>
+<div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1"><i class="bi bi-speedometer2 me-2"></i>Dashboard</h2>
+            <p class="text-body-secondary mb-0">Kelola workspace e-procurement Anda.</p>
+        </div>
+        <a href="/quotations/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Buat
+            Penawaran</a>
+    </div>
 </div>
 <div class="row g-3 mb-4">
     <div class="col-md-4">

@@ -1,10 +1,14 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<div class="d-flex justify-content-between mb-3">
-    <div>
-        <p class="text-secondary mb-0">Kelola katalog, datasheet generik, gambar, dan video produk.</p>
+
+<div class="app-content-header">
+    <div class=" page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1"><i class="bi bi-box-seam me-2"></i>Daftar Produk</h2>
+            <p class="text-body-secondary mb-0">Kelola katalog, datasheet generik, gambar, dan video produk.</p>
+        </div>
+        <a href="/products/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Tambah Produk</a>
     </div>
-    <a href="/products/new" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Tambah Produk</a>
 </div>
 <div class="card">
     <div class="card-body">
@@ -42,7 +46,8 @@ new DataTable('#products-table', {
         url: '<?= esc(site_url('products/datatable')) ?>',
         type: 'GET',
         error: function(xhr, textStatus, errorThrown) {
-            console.error('Gagal memuat data produk:', xhr.status, textStatus, errorThrown, xhr.responseText);
+            console.error('Gagal memuat data produk:', xhr.status, textStatus, errorThrown, xhr
+                .responseText);
         }
     },
     columns: [{

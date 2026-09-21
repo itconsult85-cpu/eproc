@@ -1,8 +1,14 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<div class="d-flex justify-content-between mb-3">
-    <h1>Penawaran</h1>
-    <a href="/quotations/new" class="btn btn-primary">Buat Penawaran</a>
+<div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1"><i class="bi bi-file-earmark-text me-2"></i>Daftar Penawaran</h2>
+            <p class="text-body-secondary mb-0">Kelola data penawaran.</p>
+        </div>
+        <a href="/quotations/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Buat
+            Penawaran</a>
+    </div>
 </div>
 <div class="card">
     <div class="card-body">
@@ -41,7 +47,8 @@ new DataTable('#quotations-table', {
         url: '<?= esc(site_url('quotations/datatable')) ?>',
         type: 'GET',
         error: function(xhr, textStatus, errorThrown) {
-            console.error('Gagal memuat data quotation:', xhr.status, textStatus, errorThrown, xhr.responseText);
+            console.error('Gagal memuat data quotation:', xhr.status, textStatus, errorThrown, xhr
+                .responseText);
         }
     },
     columns: [{
