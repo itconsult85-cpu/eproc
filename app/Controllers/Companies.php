@@ -7,18 +7,64 @@ use App\Models\CompanyModel;
 class Companies extends BaseController
 {
     private CompanyModel $model;
+
     public function __construct()
     {
         $this->model = new CompanyModel();
     }
+
     public function index()
     {
-        return view('companies/index', ['title' => 'Perusahaan', 'companies' => $this->model->orderBy('name')->findAll()]);
+        return view('companies/index', ['title' => 'Perusahaan']);
     }
+
+    public function datatable()
+    {
+        $request = $this->request->getGet();
+        $draw = (int) ($request['draw'] ?? 0);
+        $start = max(0, (int) ($request['start'] ?? 0));
+        $length = min(100, max(1, (int) ($request['length'] ?? 10)));
+        $search = trim((string) ($request['search']['value'] ?? ''));
+        $total = $this->model->countAll();
+        $builder = $this->model->builder();
+
+        if ($search !== '') {
+            $builder->groupStart()
+                ->like('name', $search)
+                ->orLike('email', $search)
+                ->orLike('pic_name', $search)
+                ->orLike('phone', $search)
+                ->groupEnd();
+        }
+
+        $filtered = $builder->countAllResults(false);
+        $columns = ['name', 'pic_name', 'phone', 'email', 'created_at'];
+        $orderColumn = (int) ($request['order'][0]['column'] ?? 0);
+        $orderDirection = strtolower((string) ($request['order'][0]['dir'] ?? 'asc')) === 'desc' ? 'desc' : 'asc';
+        $builder->orderBy($columns[$orderColumn] ?? 'name', $orderDirection);
+        $rows = $builder->get($length, $start)->getResultArray();
+
+        $data = array_map(static function (array $row): array {
+            $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi perusahaan">'
+                . '<a class="btn btn-outline-secondary" href="/companies/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
+                . '<form method="post" action="/companies/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus perusahaan ini?\')">'
+                . '<button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
+            return [
+                'name' => '<strong>' . esc($row['name']) . '</strong><div class="small text-body-secondary">' . esc($row['email'] ?: 'Email belum diisi') . '</div>',
+                'pic_name' => esc($row['pic_name'] ?: '-'),
+                'phone' => esc($row['phone'] ?: '-'),
+                'actions' => $actions,
+            ];
+        }, $rows);
+
+        return $this->response->setJSON(['draw' => $draw, 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'data' => $data]);
+    }
+
     public function new()
     {
         return view('companies/form', ['title' => 'Tambah Perusahaan', 'company' => [], 'action' => '/companies']);
     }
+
     public function create()
     {
         $data = $this->request->getPost(['name', 'address', 'phone', 'email', 'pic_name', 'pic_phone', 'notes']);
@@ -26,12 +72,14 @@ class Companies extends BaseController
         $this->model->insert($data);
         return redirect()->to('/companies')->with('message', 'Perusahaan berhasil ditambahkan.');
     }
+
     public function edit(int $id)
     {
         $company = $this->model->find($id);
         if (! $company) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         return view('companies/form', ['title' => 'Edit Perusahaan', 'company' => $company, 'action' => '/companies/' . $id]);
     }
+
     public function update(int $id)
     {
         $data = $this->request->getPost(['name', 'address', 'phone', 'email', 'pic_name', 'pic_phone', 'notes']);
@@ -39,6 +87,7 @@ class Companies extends BaseController
         $this->model->update($id, $data);
         return redirect()->to('/companies')->with('message', 'Perusahaan berhasil diperbarui.');
     }
+
     public function delete(int $id)
     {
         $this->model->delete($id);

@@ -15,7 +15,43 @@ class Products extends BaseController
 
     public function index()
     {
-        return view('products/index', ['title' => 'Katalog Produk', 'products' => $this->model->orderBy('name')->findAll()]);
+        return view('products/index', ['title' => 'Katalog Produk']);
+    }
+
+    public function datatable()
+    {
+        $request = $this->request->getGet();
+        $draw = (int) ($request['draw'] ?? 0);
+        $start = max(0, (int) ($request['start'] ?? 0));
+        $length = min(100, max(1, (int) ($request['length'] ?? 10)));
+        $search = trim((string) ($request['search']['value'] ?? ''));
+        $total = $this->model->countAll();
+        $builder = $this->model->builder();
+
+        if ($search !== '') {
+            $builder->groupStart()->like('name', $search)->orLike('sku', $search)->orLike('brand', $search)->orLike('store_name', $search)->groupEnd();
+        }
+        $filtered = $builder->countAllResults(false);
+        $columns = ['name', 'sku', 'cost_price', 'selling_price', 'store_name', 'created_at'];
+        $orderColumn = (int) ($request['order'][0]['column'] ?? 1);
+        $orderDirection = strtolower((string) ($request['order'][0]['dir'] ?? 'asc')) === 'desc' ? 'desc' : 'asc';
+        $builder->orderBy($columns[$orderColumn] ?? 'name', $orderDirection);
+        $rows = $builder->get($length, $start)->getResultArray();
+
+        $data = array_map(static function (array $row): array {
+            $media = $row['image_path']
+                ? '<img src="' . esc($row['image_path']) . '" class="rounded border object-fit-cover" style="width:52px;height:52px" alt="' . esc($row['name']) . '">'
+                : '<span class="d-inline-flex bg-body-secondary rounded align-items-center justify-content-center" style="width:52px;height:52px"><i class="bi bi-image text-secondary"></i></span>';
+            if ($row['video_path']) $media .= '<div class="small text-primary mt-1"><i class="bi bi-camera-video"></i> Video</div>';
+            $details = '<strong>' . esc($row['name']) . '</strong><div class="small text-body-secondary">' . esc(trim(($row['sku'] ?? '') . ' ' . ($row['brand'] ?? '')) ?: 'SKU belum diisi') . '</div>';
+            if ($row['datasheet_file_path']) $details .= '<a href="' . esc($row['datasheet_file_path']) . '" target="_blank" rel="noopener" class="small text-danger"><i class="bi bi-file-pdf"></i> Datasheet PDF</a>';
+            $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi produk">'
+                . '<a class="btn btn-outline-secondary" href="/products/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
+                . '<form method="post" action="/products/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus produk ini?\')"><button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
+            return ['media' => $media, 'product' => $details, 'cost_price' => 'Rp ' . number_format((float) $row['cost_price'], 0, ',', '.'), 'selling_price' => 'Rp ' . number_format((float) $row['selling_price'], 0, ',', '.'), 'store' => esc($row['store_name'] ?: '-') . '<div class="small text-body-secondary">' . esc($row['store_phone'] ?: '') . '</div>', 'actions' => $actions];
+        }, $rows);
+
+        return $this->response->setJSON(['draw' => $draw, 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'data' => $data]);
     }
 
     public function new()

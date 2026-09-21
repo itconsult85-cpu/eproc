@@ -4,8 +4,10 @@
         <div class="text-secondary"><?= esc($quotation['quotation_no']) ?> &middot;
             <?= esc($quotation['company_name']) ?>
         </div>
-        <a href="/quotations/<?= $quotation['id'] ?>/edit" class="btn btn-warning me-2">Edit</a>
-        <a href="/quotations/<?= $quotation['id'] ?>/pdf" class="btn btn-primary">Unduh PDF</a>
+        <a href="/quotations/<?= $quotation['id'] ?>/edit" class="btn btn-warning text-nowrap me-2"><i
+                class="bi bi-pencil me-1"></i>Edit</a>
+        <a href="/quotations/<?= $quotation['id'] ?>/pdf" class="btn btn-primary text-nowrap"><i
+                class="bi bi-file-earmark-pdf me-1"></i>Unduh PDF</a>
         <div class="card">
             <div class="card-body">
                 <p><?= nl2br(esc($quotation['customer_address'] ?? '')) ?></p>

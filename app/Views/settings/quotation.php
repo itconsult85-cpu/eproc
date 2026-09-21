@@ -1,6 +1,6 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<form method="post" action="/settings/quotation" enctype="multipart/form-data">
+<form method="post" action="/settings/quotation" enctype="multipart/form-data" class="form-card">
     <div class="row g-3">
         <div class="col-lg-8">
             <div class="card card-primary card-outline">
@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-12"><label class="form-label">Nama perusahaan *</label>
-                            <input required name="company_name" class="form-control"
+                            <input required name="company_name" class="form-control" placeholder="Nama legal perusahaan"
                                 value="<?= old('company_name', $settings['company_name'] ?? '') ?>">
                         </div>
                         <div class="col-12"><label class="form-label">Office 1</label>
@@ -95,7 +95,8 @@
                     <div class="form-text mt-3">Format JPG, PNG, atau WEBP. Maksimal 5 MB per file.</div>
                 </div>
             </div>
-            <button class="btn btn-primary w-100"><i class="bi bi-save me-1"></i>Simpan Setting</button>
+            <button type="submit" class="btn btn-primary w-100"><i class="bi bi-check2-circle me-1"></i>Simpan
+                Setting</button>
         </div>
     </div>
 </form>

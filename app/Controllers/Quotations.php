@@ -21,7 +21,36 @@ class Quotations extends BaseController
 
     public function index()
     {
-        return view('quotations/index', ['title' => 'Penawaran', 'quotations' => $this->model->withCompany()]);
+        return view('quotations/index', ['title' => 'Penawaran']);
+    }
+
+    public function datatable()
+    {
+        $request = $this->request->getGet();
+        $draw = (int) ($request['draw'] ?? 0);
+        $start = max(0, (int) ($request['start'] ?? 0));
+        $length = min(100, max(1, (int) ($request['length'] ?? 10)));
+        $search = trim((string) ($request['search']['value'] ?? ''));
+        $total = $this->model->countAll();
+        $builder = $this->model->builder()->select('quotations.*, companies.name AS company_name')->join('companies', 'companies.id = quotations.company_id', 'left');
+        if ($search !== '') {
+            $builder->groupStart()->like('quotations.quotation_no', $search)->orLike('companies.name', $search)->orLike('quotations.title', $search)->orLike('quotations.status', $search)->groupEnd();
+        }
+        $filtered = $builder->countAllResults(false);
+        $columns = ['quotation_no', 'company_name', 'title', 'grand_total', 'status', 'created_at'];
+        $orderColumn = (int) ($request['order'][0]['column'] ?? 0);
+        $orderDirection = strtolower((string) ($request['order'][0]['dir'] ?? 'desc')) === 'asc' ? 'asc' : 'desc';
+        $builder->orderBy($columns[$orderColumn] ?? 'created_at', $orderDirection);
+        $rows = $builder->get($length, $start)->getResultArray();
+        $data = array_map(static function (array $row): array {
+            $statusClass = ['draft' => 'secondary', 'sent' => 'primary', 'approved' => 'success', 'rejected' => 'danger'][$row['status']] ?? 'secondary';
+            $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi penawaran">'
+                . '<a class="btn btn-outline-primary" href="/quotations/' . (int) $row['id'] . '" title="Lihat" aria-label="Lihat"><i class="bi bi-eye"></i></a>'
+                . '<a class="btn btn-outline-warning" href="/quotations/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
+                . '<form method="post" action="/quotations/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus penawaran ini?\')"><button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
+            return ['id' => (int) $row['id'], 'quotation_no' => '<strong>' . esc($row['quotation_no']) . '</strong>', 'company_name' => esc($row['company_name'] ?: '-'), 'title' => esc($row['title']), 'grand_total' => 'Rp ' . number_format((float) $row['grand_total'], 0, ',', '.'), 'status' => '<span class="badge text-bg-' . $statusClass . '">' . esc(ucfirst($row['status'])) . '</span>', 'created_at' => esc($row['created_at'] ?? '-'), 'actions' => $actions];
+        }, $rows);
+        return $this->response->setJSON(['draw' => $draw, 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'data' => $data]);
     }
 
     public function new()

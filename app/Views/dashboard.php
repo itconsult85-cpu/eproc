@@ -1,9 +1,11 @@
-<?= $this->extend('layout') ?><?= $this->section('content') ?><div
-    class="d-flex justify-content-between align-items-center mb-4">
+<?= $this->extend('layout') ?>
+<?= $this->section('content') ?>
+<div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h1 class="mb-1">Dashboard</h1>
-        <p class="text-secondary mb-0">Kelola workspace e-procurement Anda.</p>
-    </div><a href="/quotations/new" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Buat Penawaran</a>
+        <h2 class="h5 mb-1">Dashboard</h2>
+        <p class="text-body-secondary mb-0">Kelola workspace e-procurement Anda.</p>
+    </div><a href="/quotations/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Buat
+        Penawaran</a>
 </div>
 <div class="row g-3 mb-4">
     <div class="col-md-4">
@@ -33,30 +35,61 @@
 </div>
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Penawaran Terbaru</h3>
+        <h3 class="card-title mb-0"><i class="bi bi-clock-history me-2 text-primary"></i>Penawaran Terbaru</h3>
     </div>
-    <div class="card-body p-0">
-        <table class="table mb-0">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Judul</th>
-                    <th>Status</th>
-                    <th>Dibuat</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($recentQuotations as $row): ?>
-                <tr>
-                    <td><a href="/quotations/<?= $row['id'] ?>"><?= esc($row['quotation_no']) ?></a></td>
-                    <td><?= esc($row['title']) ?></td>
-                    <td><span class="badge text-bg-secondary"><?= esc($row['status']) ?></span></td>
-                    <td><?= esc($row['created_at'] ?? '-') ?></td>
-                </tr><?php endforeach; ?><?php if (!$recentQuotations): ?><tr>
-                    <td colspan="4" class="text-center text-secondary py-4">Belum ada penawaran.</td>
-                </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="recent-quotations-table" class="table table-hover align-middle w-100">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Judul</th>
+                        <th>Status</th>
+                        <th>Dibuat</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
-</div><?= $this->endSection() ?>
+</div>
+<?= $this->endSection() ?>
+<?= $this->section('scripts') ?>
+<script>
+new DataTable('#recent-quotations-table', {
+    serverSide: true,
+    processing: true,
+    ajax: {
+        url: '/quotations/datatable',
+        type: 'GET'
+    },
+    columns: [{
+        data: 'quotation_no',
+        render: (data, type, row) => type === 'display' ? '<a href="/quotations/' + row.id + '">' +
+            data + '</a>' : data
+    }, {
+        data: 'title'
+    }, {
+        data: 'status'
+    }, {
+        data: 'created_at'
+    }],
+    order: [
+        [3, 'desc']
+    ],
+    pageLength: 5,
+    lengthChange: false,
+    searching: false,
+    language: {
+        processing: 'Memuat data...',
+        info: 'Menampilkan _START_–_END_ dari _TOTAL_ data',
+        infoEmpty: 'Belum ada data',
+        zeroRecords: 'Belum ada penawaran.',
+        emptyTable: 'Belum ada penawaran.',
+        paginate: {
+            next: 'Berikutnya',
+            previous: 'Sebelumnya'
+        }
+    }
+});
+</script>
+<?= $this->endSection() ?>
