@@ -1,4 +1,5 @@
-<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="d-flex justify-content-between align-items-center mb-4">
+<?= $this->extend('layout') ?><?= $this->section('content') ?><div
+    class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h1 class="mb-1">Dashboard</h1>
         <p class="text-secondary mb-0">Kelola workspace e-procurement Anda.</p>
@@ -44,14 +45,18 @@
                     <th>Dibuat</th>
                 </tr>
             </thead>
-            <tbody><?php foreach ($recentQuotations as $row): ?><tr>
-                        <td><a href="/quotations/<?= $row['id'] ?>"><?= esc($row['quotation_no']) ?></a></td>
-                        <td><?= esc($row['title']) ?></td>
-                        <td><span class="badge text-bg-secondary"><?= esc($row['status']) ?></span></td>
-                        <td><?= esc($row['created_at'] ?? '-') ?></td>
-                    </tr><?php endforeach; ?><?php if (!$recentQuotations): ?><tr>
-                        <td colspan="4" class="text-center text-secondary py-4">Belum ada penawaran.</td>
-                    </tr><?php endif; ?></tbody>
+            <tbody>
+                <?php foreach ($recentQuotations as $row): ?>
+                <tr>
+                    <td><a href="/quotations/<?= $row['id'] ?>"><?= esc($row['quotation_no']) ?></a></td>
+                    <td><?= esc($row['title']) ?></td>
+                    <td><span class="badge text-bg-secondary"><?= esc($row['status']) ?></span></td>
+                    <td><?= esc($row['created_at'] ?? '-') ?></td>
+                </tr><?php endforeach; ?><?php if (!$recentQuotations): ?><tr>
+                    <td colspan="4" class="text-center text-secondary py-4">Belum ada penawaran.</td>
+                </tr>
+                <?php endif; ?>
+            </tbody>
         </table>
     </div>
 </div><?= $this->endSection() ?>
