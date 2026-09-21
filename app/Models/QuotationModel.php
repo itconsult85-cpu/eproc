@@ -10,7 +10,7 @@ class QuotationModel extends Model
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     protected $useTimestamps = true;
-    protected $allowedFields = ['company_id', 'quotation_no', 'customer_name', 'customer_address', 'customer_phone', 'title', 'valid_until', 'notes', 'status', 'subtotal', 'tax_percent', 'tax_amount', 'grand_total'];
+    protected $allowedFields = ['company_id', 'quotation_no', 'customer_name', 'customer_address', 'customer_phone', 'attention', 'title', 'issue_date', 'valid_until', 'validity_days', 'payment_terms', 'delivery_terms', 'notes', 'status', 'subtotal', 'tax_percent', 'tax_amount', 'grand_total'];
 
     public function withCompany(): array
     {
@@ -28,4 +28,3 @@ class QuotationModel extends Model
         return $quotation;
     }
 }
-
