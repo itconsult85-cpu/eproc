@@ -25,6 +25,7 @@ $routes->get('quotations/new', 'Quotations::new');
 $routes->post('quotations', 'Quotations::create');
 $routes->get('quotations/(:num)/edit', 'Quotations::edit/$1');
 $routes->post('quotations/(:num)/update', 'Quotations::update/$1');
+$routes->post('quotations/(:num)/status', 'Quotations::changeStatus/$1');
 $routes->get('quotations/(:num)', 'Quotations::show/$1');
 $routes->get('quotations/(:num)/pdf', 'Quotations::pdf/$1');
 $routes->post('quotations/(:num)/delete', 'Quotations::delete/$1');

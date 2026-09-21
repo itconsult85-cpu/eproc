@@ -7,6 +7,7 @@ use App\Models\ProductModel;
 use App\Models\QuotationItemModel;
 use App\Models\QuotationModel;
 use App\Models\QuotationSettingModel;
+use App\Models\QuotationStatusLogModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -21,11 +22,13 @@ class Quotations extends BaseController
 
     public function index()
     {
+        $this->model->expireOverdue();
         return view('quotations/index', ['title' => 'Penawaran']);
     }
 
     public function datatable()
     {
+        $this->model->expireOverdue();
         $request = $this->request->getGet();
         $draw = (int) ($request['draw'] ?? 0);
         $start = max(0, (int) ($request['start'] ?? 0));
@@ -44,11 +47,20 @@ class Quotations extends BaseController
         $builder->orderBy($columns[$orderColumn] ?? 'created_at', $orderDirection);
         $rows = $builder->get($length, $start)->getResultArray();
         $data = array_map(static function (array $row): array {
-            $statusClass = ['draft' => 'secondary', 'sent' => 'primary', 'approved' => 'success', 'rejected' => 'danger'][$row['status']] ?? 'secondary';
+            $statusClass = ['draft' => 'secondary', 'sent' => 'primary', 'approved' => 'success', 'rejected' => 'danger', 'expired' => 'warning'][$row['status']] ?? 'secondary';
             $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi penawaran">'
                 . '<a class="btn btn-outline-primary" href="/quotations/' . (int) $row['id'] . '" title="Lihat" aria-label="Lihat"><i class="bi bi-eye"></i></a>'
                 . '<a class="btn btn-outline-warning" href="/quotations/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
                 . '<form method="post" action="/quotations/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus penawaran ini?\')"><button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
+            $statusActions = '';
+            if ($row['status'] === 'draft') {
+                $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="sent"><button class="btn btn-sm btn-outline-primary" title="Tandai terkirim" onclick="return confirm(\'Ubah status menjadi terkirim?\')"><i class="bi bi-send"></i></button></form>';
+                $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" onclick="return confirm(\'Ubah status menjadi disetujui?\')"><i class="bi bi-check2-circle"></i></button></form>';
+            } elseif ($row['status'] === 'sent') {
+                $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" onclick="return confirm(\'Ubah status menjadi disetujui?\')"><i class="bi bi-check2-circle"></i></button></form>';
+                $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="rejected"><button class="btn btn-sm btn-outline-danger" title="Tolak" onclick="return confirm(\'Ubah status menjadi ditolak?\')"><i class="bi bi-x-circle"></i></button></form>';
+            }
+            $actions = '<div class="d-flex flex-wrap gap-1">' . $statusActions . $actions . '</div>';
             return ['id' => (int) $row['id'], 'quotation_no' => '<strong>' . esc($row['quotation_no']) . '</strong>', 'company_name' => esc($row['company_name'] ?: '-'), 'title' => esc($row['title']), 'grand_total' => 'Rp ' . number_format((float) $row['grand_total'], 0, ',', '.'), 'status' => '<span class="badge text-bg-' . $statusClass . '">' . esc(ucfirst($row['status'])) . '</span>', 'created_at' => esc($row['created_at'] ?? '-'), 'actions' => $actions];
         }, $rows);
         return $this->response->setJSON(['draw' => $draw, 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'data' => $data]);
@@ -110,6 +122,14 @@ class Quotations extends BaseController
             'tax_percent' => $taxPercent,
             'tax_amount' => $tax,
             'grand_total' => $subtotal + $tax,
+        ]);
+        (new QuotationStatusLogModel())->insert([
+            'quotation_id' => $quotationId,
+            'from_status' => null,
+            'to_status' => 'draft',
+            'changed_by' => (string) (session()->get('username') ?: 'system'),
+            'reason' => 'Quotation dibuat.',
+            'created_at' => date('Y-m-d H:i:s'),
         ]);
         if ($items) {
             foreach ($items as &$item) {
@@ -191,8 +211,26 @@ class Quotations extends BaseController
         return redirect()->to('/quotations/' . $id)->with('message', 'Penawaran berhasil diperbarui.');
     }
 
+    public function changeStatus(int $id)
+    {
+        $status = strtolower(trim((string) $this->request->getPost('status')));
+        $allowed = ['sent', 'approved', 'rejected'];
+        if (! in_array($status, $allowed, true)) {
+            return redirect()->back()->with('errors', ['status' => 'Status tujuan tidak valid.']);
+        }
+
+        try {
+            $changedBy = (string) (session()->get('username') ?: 'system');
+            $this->model->changeStatus($id, $status, $changedBy, 'Diubah melalui tombol aksi quotation.');
+            return redirect()->to('/quotations')->with('message', 'Status quotation berhasil diubah menjadi ' . $status . '.');
+        } catch (\InvalidArgumentException | \RuntimeException $exception) {
+            return redirect()->back()->with('errors', ['status' => $exception->getMessage()]);
+        }
+    }
+
     public function show(int $id)
     {
+        $this->model->expireOverdue();
         $quotation = $this->model->detail($id);
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -223,6 +261,7 @@ class Quotations extends BaseController
 
     public function pdf(int $id)
     {
+        $this->model->expireOverdue();
         $quotation = $this->model->detail($id);
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
