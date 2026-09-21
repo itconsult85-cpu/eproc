@@ -161,10 +161,17 @@
                 <div class="ms-auto text-secondary small">CodeIgniter 4.7.4</div>
             </div>
         </nav>
+        <?php $sidebarLogo = model(\App\Models\QuotationSettingModel::class)->current()['logo_path'] ?? null; ?>
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-            <div class="sidebar-brand"><a href="/" class="brand-link text-decoration-none"><i
-                        class="bi bi-file-earmark-richtext brand-image opacity-75"></i><span
-                        class="brand-text fw-light">EPROC</span></a></div>
+            <div class="sidebar-brand"><a href="<?= esc(site_url('/')) ?>" class="brand-link text-decoration-none">
+                    <?php if ($sidebarLogo): ?>
+                    <img src="<?= esc(site_url(ltrim($sidebarLogo, '/'))) ?>" class="brand-image rounded opacity-75"
+                        alt="Logo EPROC">
+                    <?php else: ?>
+                    <i class="bi bi-file-earmark-richtext brand-image opacity-75"></i>
+                    <?php endif; ?>
+                    <span class="brand-text fw-light">EPROC</span>
+                </a></div>
             <div class="sidebar-wrapper">
                 <nav class="mt-2">
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu">
