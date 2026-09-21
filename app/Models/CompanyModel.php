@@ -12,4 +12,3 @@ class CompanyModel extends Model
     protected $useTimestamps = true;
     protected $allowedFields = ['name', 'address', 'phone', 'email', 'pic_name', 'pic_phone', 'notes'];
 }
-

@@ -11,4 +11,3 @@ class QuotationItemModel extends Model
     protected $returnType = 'array';
     protected $allowedFields = ['quotation_id', 'product_id', 'product_name', 'description', 'quantity', 'unit', 'unit_price', 'discount_percent', 'line_total'];
 }
-

@@ -62,11 +62,24 @@ class Quotations extends BaseController
         $taxPercent = max(0, (float) ($this->request->getPost('tax_percent') ?: $settings['default_tax_percent'] ?? 0));
         $tax = $subtotal * $taxPercent / 100;
         $quotationId = $this->model->insert([
-            'company_id' => $this->request->getPost('company_id'), 'quotation_no' => $this->request->getPost('quotation_no'),
-            'customer_name' => $this->request->getPost('customer_name'), 'customer_address' => $this->request->getPost('customer_address'), 'customer_phone' => $this->request->getPost('customer_phone'), 'attention' => $this->request->getPost('attention'),
-            'title' => $this->request->getPost('title'), 'issue_date' => $issueDate, 'valid_until' => $validUntil, 'validity_days' => $validityDays,
-            'payment_terms' => $this->request->getPost('payment_terms') ?: ($settings['default_payment_terms'] ?? null), 'delivery_terms' => $this->request->getPost('delivery_terms') ?: ($settings['default_delivery_terms'] ?? null),
-            'notes' => $this->request->getPost('notes'), 'status' => 'draft', 'subtotal' => $subtotal, 'tax_percent' => $taxPercent, 'tax_amount' => $tax, 'grand_total' => $subtotal + $tax,
+            'company_id' => $this->request->getPost('company_id'),
+            'quotation_no' => $this->request->getPost('quotation_no'),
+            'customer_name' => $this->request->getPost('customer_name'),
+            'customer_address' => $this->request->getPost('customer_address'),
+            'customer_phone' => $this->request->getPost('customer_phone'),
+            'attention' => $this->request->getPost('attention'),
+            'title' => $this->request->getPost('title'),
+            'issue_date' => $issueDate,
+            'valid_until' => $validUntil,
+            'validity_days' => $validityDays,
+            'payment_terms' => $this->request->getPost('payment_terms') ?: ($settings['default_payment_terms'] ?? null),
+            'delivery_terms' => $this->request->getPost('delivery_terms') ?: ($settings['default_delivery_terms'] ?? null),
+            'notes' => $this->request->getPost('notes'),
+            'status' => 'draft',
+            'subtotal' => $subtotal,
+            'tax_percent' => $taxPercent,
+            'tax_amount' => $tax,
+            'grand_total' => $subtotal + $tax,
         ]);
         if ($items) {
             foreach ($items as &$item) {
