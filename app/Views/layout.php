@@ -48,14 +48,37 @@
         padding: 1.5rem;
     }
 
-    .form-label {
-        font-weight: 600;
-        color: #344054;
+    .field-label {
+        display: inline-block;
+        margin-bottom: .42rem;
+        color: #f1f5f9;
+        font-size: .78rem;
+        font-weight: 700;
+        letter-spacing: .045em;
+        line-height: 1.3;
+        text-transform: uppercase;
     }
 
-    .form-label.required::after {
+    .field-label.required::after {
         content: ' *';
         color: var(--bs-danger);
+    }
+
+    .form-control,
+    .form-select {
+        color: #f8fafc;
+        background-color: rgba(15, 23, 42, .28);
+    }
+
+    .form-control::placeholder {
+        color: #a8b4c5;
+        opacity: 1;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        color: #ffffff;
+        background-color: rgba(15, 23, 42, .42);
     }
 
     .form-control,

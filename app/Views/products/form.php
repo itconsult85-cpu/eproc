@@ -8,44 +8,44 @@
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-4">
-                <label>SKU</label>
+                <label class="field-label">SKU</label>
                 <input name="sku" class="form-control" value="<?= old('sku', $product['sku'] ?? '') ?>">
             </div>
             <div class="col-md-8">
-                <label>Nama Produk *</label>
+                <label class="field-label">Nama Produk *</label>
                 <input required name="name" class="form-control" value="<?= old('name', $product['name'] ?? '') ?>">
             </div>
             <div class="col-md-4">
-                <label>Brand</label>
+                <label class="field-label">Brand</label>
                 <input name="brand" class="form-control" value="<?= old('brand', $product['brand'] ?? '') ?>">
             </div>
             <div class="col-md-4">
-                <label>Harga Modal</label>
+                <label class="field-label">Harga Modal</label>
                 <input type="number" step="0.01" name="cost_price" class="form-control"
                     value="<?= old('cost_price', $product['cost_price'] ?? 0) ?>">
             </div>
             <div class="col-md-4">
-                <label>Harga Jual</label>
+                <label class="field-label">Harga Jual</label>
                 <input type="number" step="0.01" name="selling_price" class="form-control"
                     value="<?= old('selling_price', $product['selling_price'] ?? 0) ?>">
             </div>
             <div class="col-12">
-                <label>Deskripsi Produk</label>
+                <label class="field-label">Deskripsi Produk</label>
                 <textarea name="description" class="form-control" rows="4"
                     placeholder="Penjelasan umum produk seperti pada katalog PDF..."><?= old('description', $product['description'] ?? '') ?></textarea>
             </div>
             <div class="col-12">
-                <label>Aplikasi / Fungsi Utama</label>
+                <label class="field-label">Aplikasi / Fungsi Utama</label>
                 <textarea name="applications" class="form-control" rows="3"
                     placeholder="Contoh: dapur komersial, laboratorium, pabrik, kendaraan..."><?= old('applications', $product['applications'] ?? '') ?></textarea>
             </div>
             <div class="col-12">
-                <label>Sertifikasi / Standar</label>
+                <label class="field-label">Sertifikasi / Standar</label>
                 <input name="standards" class="form-control" placeholder="Contoh: SNI 7079, CE EN ISO 20345"
                     value="<?= old('standards', $product['standards'] ?? '') ?>">
             </div>
             <div class="col-12">
-                <label>Spesifikasi Teknis</label>
+                <label class="field-label">Spesifikasi Teknis</label>
                 <div class="form-text mb-2">Buat baris parameter dan spesifikasinya. Contoh: <em>Material Utama → Woven
                         Fiberglass</em>, <em>Kapasitas → 6 KG</em>, atau <em>Ukuran → 47</em>.
                 </div>
@@ -73,13 +73,13 @@
                 </button>
             </div>
             <div class="col-12">
-                <label>Catatan Datasheet</label>
+                <label class="field-label">Catatan Datasheet</label>
                 <textarea name="datasheet" class="form-control" rows="3"
                     placeholder="Fitur tambahan, catatan teknis, atau informasi lain..."><?= old('datasheet', $product['datasheet'] ?? '') ?>
                 </textarea>
             </div>
             <div class="col-md-4">
-                <label>Upload Gambar Produk</label>
+                <label class="field-label">Upload Gambar Produk</label>
                 <input type="file" name="image" accept="image/png,image/jpeg,image/webp" class="form-control">
                 <div class="form-text">JPG, PNG, WEBP maksimal 5 MB.</div>
                 <?php if (!empty($product['image_path'])): ?>
@@ -88,7 +88,7 @@
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
-                <label>Upload Video Produk</label>
+                <label class="field-label">Upload Video Produk</label>
                 <input type="file" name="video" accept="video/mp4,video/webm,video/quicktime" class="form-control">
                 <div class="form-text">MP4, WEBM, MOV maksimal 50 MB.</div>
                 <?php if (!empty($product['video_path'])): ?>
@@ -98,7 +98,7 @@
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
-                <label>Upload File Datasheet</label>
+                <label class="field-label">Upload File Datasheet</label>
                 <input type="file" name="datasheet_file" accept="application/pdf" class="form-control">
                 <div class="form-text">PDF maksimal 20 MB.</div>
                 <?php if (!empty($product['datasheet_file_path'])): ?>
@@ -109,27 +109,27 @@
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
-                <label>Nama Toko</label>
+                <label class="field-label">Nama Toko</label>
                 <input name="store_name" class="form-control"
                     value="<?= old('store_name', $product['store_name'] ?? '') ?>">
             </div>
             <div class="col-md-4">
-                <label>URL Toko Online</label>
+                <label class="field-label">URL Toko Online</label>
                 <input type="url" name="store_url" class="form-control"
                     value="<?= old('store_url', $product['store_url'] ?? '') ?>">
             </div>
             <div class="col-md-4">
-                <label>Telepon Toko</label>
+                <label class="field-label">Telepon Toko</label>
                 <input name="store_phone" class="form-control"
                     value="<?= old('store_phone', $product['store_phone'] ?? '') ?>">
             </div>
             <div class="col-md-4">
-                <label>PIC Toko</label>
+                <label class="field-label">PIC Toko</label>
                 <input name="store_pic" class="form-control"
                     value="<?= old('store_pic', $product['store_pic'] ?? '') ?>">
             </div>
             <div class="col-md-4">
-                <label>Status Produk</label>
+                <label class="field-label">Status Produk</label>
                 <select name="is_active" class="form-control">
                     <option value="1" <?= old('is_active', $product['is_active'] ?? 1) == 1 ? 'selected' : '' ?>>
                         Aktif
