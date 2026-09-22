@@ -62,13 +62,13 @@
                         </div>
                         <div class="col-md-1">
                             <button type="button" class="btn btn-outline-danger w-100"
-                                onclick="this.closest('.spec-row').remove()"><i class="bi bi-trash"></i>
+                                data-action="remove-spec"><i class="bi bi-trash"></i>
                             </button>
                         </div>
                     </div>
                     <?php endforeach; ?>
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-primary" onclick="addSpec()"><i
+                <button type="button" class="btn btn-sm btn-outline-primary" data-action="add-spec"><i
                         class="bi bi-plus-lg"></i> Tambah parameter
                 </button>
             </div>
@@ -146,11 +146,4 @@
         <button class="btn btn-primary"><i class="bi bi-save me-1"></i>Simpan</button>
     </div>
 </form>
-<script>
-function addSpec() {
-    const row = document.querySelector('.spec-row').cloneNode(true);
-    row.querySelectorAll('input').forEach(input => input.value = '');
-    document.querySelector('#specifications').appendChild(row)
-}
-</script>
 <?= $this->endSection() ?>

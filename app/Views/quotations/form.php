@@ -5,7 +5,7 @@ $isEdit = isset($quotation);
 $action = $isEdit ? "/quotations/{$quotation['id']}/update" : "/quotations";
 $items = $isEdit ? $quotation['items'] : [[]];
 ?>
-<form method="post" action="<?= $action ?>" class="card card-primary card-outline"><?= csrf_field() ?>
+<form method="post" action="<?= $action ?>" class="card card-primary card-outline" data-companies="<?= esc(json_encode($companies), 'attr') ?>" data-products="<?= esc(json_encode($products), 'attr') ?>" data-item-count="<?= count($items) ?>"><?= csrf_field() ?>
     <div class="card-header">
         <h3 class="card-title"><i class="bi bi-file-earmark-plus me-2"></i><?= $title ?></h3>
     </div>
@@ -13,7 +13,7 @@ $items = $isEdit ? $quotation['items'] : [[]];
         <div class="row g-3">
             <div class="col-md-4">
                 <label class="field-label">Perusahaan penerbit *</label>
-                <select name="company_id" required class="form-select" onchange="autoFillCompany(this)">
+                <select name="company_id" required class="form-select" data-action="company-change">
                     <option value="">Pilih perusahaan</option>
                     <?php foreach ($companies as $company): ?>
                     <option value="<?= $company['id'] ?>"
@@ -109,7 +109,7 @@ $items = $isEdit ? $quotation['items'] : [[]];
                                         }
                                         ?>
                                     <select name="items[<?= $i ?>][product_id]" class="form-select mb-1"
-                                        onchange="autoFillProduct(this)">
+                                        data-action="product-change">
                                         <option value="">Pilih produk</option>
                                         <?php foreach ($products as $product): ?>
                                         <option value="<?= $product['id'] ?>"
@@ -144,7 +144,7 @@ $items = $isEdit ? $quotation['items'] : [[]];
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-outline-secondary"
-                                        onclick="removeItem(this)">
+                                        data-action="remove-item">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -153,7 +153,7 @@ $items = $isEdit ? $quotation['items'] : [[]];
                         </tbody>
                     </table>
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-primary" onclick="addItem()">
+                <button type="button" class="btn btn-sm btn-outline-primary" data-action="add-item">
                     <i class="bi bi-plus-lg"></i> Tambah item
                 </button>
             </div>
@@ -174,92 +174,4 @@ $items = $isEdit ? $quotation['items'] : [[]];
     </div>
 </form>
 
-<script>
-const companiesData = <?= json_encode($companies) ?>;
-const productsData = <?= json_encode($products) ?>;
-let n = <?= count($items) ?>;
-
-function autoFillCompany(select) {
-    const nameInput = document.querySelector('[name="customer_name"]');
-    const addressInput = document.querySelector('[name="customer_address"]');
-
-    if (select.value) {
-        const company = companiesData.find(c => c.id == select.value);
-        if (company) {
-            nameInput.value = company.name || '';
-            addressInput.value = company.address || '';
-            document.querySelector('[name="customer_phone"]').value = company.phone || '';
-            document.querySelector('[name="attention"]').value = company.pic_name || '';
-
-            // Kunci (readonly) input nama dan alamat perusahaan agar tidak bisa diedit
-            nameInput.readOnly = true;
-            addressInput.readOnly = true;
-        }
-    } else {
-        // Jika memilih "Pilih perusahaan" (kosong), buka kembali form
-        nameInput.readOnly = false;
-        addressInput.readOnly = false;
-        nameInput.value = '';
-        addressInput.value = '';
-    }
-}
-
-function autoFillProduct(select) {
-    const product = productsData.find(p => p.id == select.value);
-    const tr = select.closest('tr');
-    if (product) {
-        // Deskripsi dikosongkan agar bisa diisi manual sesuai data tender
-        tr.querySelector('[name$="[description]"]').value = '';
-        tr.querySelector('[name$="[unit_price]"]').value = product.selling_price || 0;
-
-        const img = tr.querySelector('.product-thumb');
-        if (product.image_path) {
-            img.src = product.image_path;
-            img.style.display = 'block';
-        } else {
-            img.style.display = 'none';
-        }
-    }
-}
-
-function addItem() {
-    const row = document.querySelector('#items tbody tr:last-child').cloneNode(true);
-    row.querySelectorAll('[name]').forEach(e => e.name = e.name.replace(/items\[\d+\]/, 'items[' + n + ']'));
-    row.querySelectorAll('input').forEach(e => {
-        if (e.name.includes('quantity')) e.value = 1;
-        else if (e.name.includes('unit_price') || e.name.includes('discount')) e.value = 0;
-        else e.value = '';
-    });
-    row.querySelector('.product-thumb').style.display = 'none';
-    document.querySelector('#items tbody').appendChild(row);
-    n++;
-    renumberItems();
-}
-
-function removeItem(button) {
-    const rows = document.querySelectorAll('#items tbody tr');
-    if (rows.length > 1) {
-        button.closest('tr').remove();
-    } else {
-        button.closest('tr').querySelectorAll('input').forEach(input => input.value = '');
-        button.closest('tr').querySelector('select').value = '';
-        button.closest('tr').querySelector('.product-thumb').style.display = 'none';
-    }
-    renumberItems();
-}
-
-function renumberItems() {
-    document.querySelectorAll('#items tbody .item-row-number').forEach((cell, index) => {
-        cell.textContent = index + 1;
-    });
-}
-
-// Jalankan pengecekan saat halaman edit pertama kali diload
-window.onload = function() {
-    const companySelect = document.querySelector('[name="company_id"]');
-    if (companySelect.value) {
-        autoFillCompany(companySelect);
-    }
-};
-</script>
 <?= $this->endSection() ?>
