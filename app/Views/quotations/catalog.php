@@ -70,7 +70,6 @@
                     <?php if (!empty($product['description']) || !empty($item['description'])): ?>
                     <p><?= nl2br(esc($product['description'] ?? $item['description'])) ?></p>
                     <?php endif; ?>
-                    <?php if (!empty($product['store_name'])): ?><p><span class="label">Toko/PIC:</span> <?= esc($product['store_name']) ?><?= !empty($product['store_pic']) ? ' · ' . esc($product['store_pic']) : '' ?></p><?php endif; ?>
                 </td>
             </tr>
         </table>

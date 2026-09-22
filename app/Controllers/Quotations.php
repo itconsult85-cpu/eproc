@@ -51,7 +51,7 @@ class Quotations extends BaseController
             $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi penawaran">'
                 . '<a class="btn btn-outline-primary" href="/quotations/' . (int) $row['id'] . '" title="Lihat" aria-label="Lihat"><i class="bi bi-eye"></i></a>'
                 . '<a class="btn btn-outline-warning" href="/quotations/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
-                . '<a class="btn btn-outline-success" href="/quotations/' . (int) $row['id'] . '/catalog" title="Unduh katalog produk"><i class="bi bi-journal-richtext"></i> Katalog</a>'
+                . '<a class="btn btn-outline-success" href="/quotations/' . (int) $row['id'] . '/catalog/preview" title="Preview katalog produk"><i class="bi bi-journal-richtext"></i> Katalog</a>'
                 . '<form method="post" action="/quotations/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus penawaran ini?\')"><button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
             $statusActions = '';
             if ($row['status'] === 'draft') {
@@ -277,9 +277,32 @@ class Quotations extends BaseController
         return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="quotation-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }
 
+    public function catalogPreview(int $id)
+    {
+        $this->model->expireOverdue();
+        $context = $this->catalogContext($id);
+        return view('quotations/catalog_preview', $context);
+    }
+
     public function catalog(int $id)
     {
         $this->model->expireOverdue();
+        $context = $this->catalogContext($id);
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml(view('quotations/catalog', $context));
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return $this->response
+            ->setHeader('Content-Type', 'application/pdf')
+            ->setHeader('Content-Disposition', 'attachment; filename="katalog-' . $context['quotation']['quotation_no'] . '.pdf"')
+            ->setBody($dompdf->output());
+    }
+
+    private function catalogContext(int $id): array
+    {
         $quotation = $this->model->detail($id);
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -297,22 +320,12 @@ class Quotations extends BaseController
         }
 
         $settings = (new QuotationSettingModel())->current();
-        $options = new Options();
-        $options->set('isRemoteEnabled', true);
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml(view('quotations/catalog', [
+        return [
             'quotation' => $quotation,
             'settings' => $settings,
             'items' => $items,
             'logoData' => $this->assetData($settings['logo_path'] ?? null),
-        ]));
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-
-        return $this->response
-            ->setHeader('Content-Type', 'application/pdf')
-            ->setHeader('Content-Disposition', 'attachment; filename="katalog-' . $quotation['quotation_no'] . '.pdf"')
-            ->setBody($dompdf->output());
+        ];
     }
 
     private function assetData(?string $path): ?string

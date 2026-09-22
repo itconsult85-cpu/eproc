@@ -10,7 +10,7 @@
     </div>
     <div class="d-flex flex-wrap gap-2">
         <a href="<?= esc(site_url('quotations/' . $quotation['id'] . '/edit')) ?>" class="btn btn-warning text-nowrap"><i class="bi bi-pencil me-1"></i>Edit</a>
-        <a href="<?= esc(site_url('quotations/' . $quotation['id'] . '/catalog')) ?>" class="btn btn-outline-success text-nowrap"><i class="bi bi-journal-richtext me-1"></i>Unduh Katalog Produk</a>
+        <a href="<?= esc(site_url('quotations/' . $quotation['id'] . '/catalog/preview')) ?>" class="btn btn-outline-success text-nowrap"><i class="bi bi-journal-richtext me-1"></i>Preview Katalog Produk</a>
         <a href="<?= esc(site_url('quotations/' . $quotation['id'] . '/pdf')) ?>" class="btn btn-primary text-nowrap"><i class="bi bi-file-earmark-pdf me-1"></i>Unduh PDF Quotation</a>
     </div>
 </div>
