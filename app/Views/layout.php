@@ -132,7 +132,7 @@
 
     .datatable-container {
         width: 100%;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .datatable-container table {

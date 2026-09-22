@@ -16,12 +16,12 @@
             <table id="companies-table" class="table table-hover align-middle w-100">
                 <thead>
                     <tr>
-                        <th class="all"></th>
-                        <th class="all">No.</th>
-                        <th class="all">Nama</th>
-                        <th class="min-tablet">PIC</th>
-                        <th class="min-tablet">Telepon</th>
-                        <th class="all">Aksi</th>
+                        <th></th>
+                        <th>No.</th>
+                        <th>Nama</th>
+                        <th>PIC</th>
+                        <th>Telepon</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -52,24 +52,30 @@ new DataTable('#companies-table', {
         data: null,
         defaultContent: '',
         className: 'dtr-control',
+        responsivePriority: 1,
         orderable: false,
         searchable: false
     }, {
         data: null,
         className: 'text-nowrap',
+        responsivePriority: 2,
         orderable: false,
         searchable: false,
         render: function(data, type, row, meta) {
             return meta.row + meta.settings._iDisplayStart + 1;
         }
     }, {
-        data: 'name'
+        data: 'name',
+        responsivePriority: 3
     }, {
-        data: 'pic_name'
+        data: 'pic_name',
+        responsivePriority: 10
     }, {
-        data: 'phone'
+        data: 'phone',
+        responsivePriority: 10
     }, {
         data: 'actions',
+        responsivePriority: 1,
         orderable: false,
         searchable: false
     }],

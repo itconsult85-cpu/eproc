@@ -44,12 +44,12 @@
             <table id="recent-quotations-table" class="table table-hover align-middle w-100">
                 <thead>
                     <tr>
-                        <th class="all"></th>
-                        <th class="all">No.</th>
-                        <th class="all">Nomor Quotation</th>
-                        <th class="all">Judul</th>
-                        <th class="min-tablet">Status</th>
-                        <th class="min-tablet">Dibuat</th>
+                        <th></th>
+                        <th>No.</th>
+                        <th>Nomor Quotation</th>
+                        <th>Judul</th>
+                        <th>Status</th>
+                        <th>Dibuat</th>
                     </tr>
                 </thead>
             </table>
@@ -79,24 +79,30 @@ new DataTable('#recent-quotations-table', {
         data: null,
         defaultContent: '',
         className: 'dtr-control',
+        responsivePriority: 1,
         orderable: false,
         searchable: false
     }, {
         data: null,
         className: 'text-nowrap',
+        responsivePriority: 2,
         orderable: false,
         searchable: false,
         render: function(data, type, row, meta) {
             return meta.row + meta.settings._iDisplayStart + 1;
         }
     }, {
-        data: 'quotation_no'
+        data: 'quotation_no',
+        responsivePriority: 3
     }, {
-        data: 'title'
+        data: 'title',
+        responsivePriority: 4
     }, {
-        data: 'status'
+        data: 'status',
+        responsivePriority: 10
     }, {
-        data: 'created_at'
+        data: 'created_at',
+        responsivePriority: 10
     }],
     order: [
         [5, 'desc']

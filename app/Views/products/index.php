@@ -16,14 +16,14 @@
             <table id="products-table" class="table table-hover align-middle w-100">
                 <thead>
                     <tr>
-                        <th class="all"></th>
-                        <th class="all">No.</th>
-                        <th class="min-tablet">Media</th>
-                        <th class="all">Produk</th>
-                        <th class="min-tablet">Harga Modal</th>
-                        <th class="min-tablet">Harga Jual</th>
-                        <th class="min-tablet">Toko/PIC</th>
-                        <th class="all">Aksi</th>
+                        <th></th>
+                        <th>No.</th>
+                        <th>Media</th>
+                        <th>Produk</th>
+                        <th>Harga Modal</th>
+                        <th>Harga Jual</th>
+                        <th>Toko/PIC</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -54,11 +54,13 @@ new DataTable('#products-table', {
         data: null,
         defaultContent: '',
         className: 'dtr-control',
+        responsivePriority: 1,
         orderable: false,
         searchable: false
     }, {
         data: null,
         className: 'text-nowrap',
+        responsivePriority: 2,
         orderable: false,
         searchable: false,
         render: function(data, type, row, meta) {
@@ -66,18 +68,24 @@ new DataTable('#products-table', {
         }
     }, {
         data: 'media',
+        responsivePriority: 10,
         orderable: false,
         searchable: false
     }, {
-        data: 'product'
+        data: 'product',
+        responsivePriority: 3
     }, {
-        data: 'cost_price'
+        data: 'cost_price',
+        responsivePriority: 10
     }, {
-        data: 'selling_price'
+        data: 'selling_price',
+        responsivePriority: 10
     }, {
-        data: 'store'
+        data: 'store',
+        responsivePriority: 10
     }, {
         data: 'actions',
+        responsivePriority: 1,
         orderable: false,
         searchable: false
     }],

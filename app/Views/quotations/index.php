@@ -16,15 +16,15 @@
             <table id="quotations-table" class="table table-hover align-middle w-100">
                 <thead>
                     <tr>
-                        <th class="all"></th>
-                        <th class="all">No.</th>
-                        <th class="all">Nomor Penawaran</th>
-                        <th class="min-tablet">Perusahaan</th>
-                        <th class="all">Judul</th>
-                        <th class="min-tablet">Total</th>
-                        <th class="min-tablet">Status</th>
-                        <th class="min-tablet">Dibuat</th>
-                        <th class="all">Aksi</th>
+                        <th></th>
+                        <th>No.</th>
+                        <th>Nomor Penawaran</th>
+                        <th>Perusahaan</th>
+                        <th>Judul</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Dibuat</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -55,30 +55,39 @@ new DataTable('#quotations-table', {
         data: null,
         defaultContent: '',
         className: 'dtr-control',
+        responsivePriority: 1,
         orderable: false,
         searchable: false
     }, {
         data: null,
         className: 'text-nowrap',
+        responsivePriority: 2,
         orderable: false,
         searchable: false,
         render: function(data, type, row, meta) {
             return meta.row + meta.settings._iDisplayStart + 1;
         }
     }, {
-        data: 'quotation_no'
+        data: 'quotation_no',
+        responsivePriority: 3
     }, {
-        data: 'company_name'
+        data: 'company_name',
+        responsivePriority: 10
     }, {
-        data: 'title'
+        data: 'title',
+        responsivePriority: 4
     }, {
-        data: 'grand_total'
+        data: 'grand_total',
+        responsivePriority: 10
     }, {
-        data: 'status'
+        data: 'status',
+        responsivePriority: 10
     }, {
-        data: 'created_at'
+        data: 'created_at',
+        responsivePriority: 10
     }, {
         data: 'actions',
+        responsivePriority: 1,
         orderable: false,
         searchable: false
     }],
