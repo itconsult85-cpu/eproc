@@ -130,6 +130,19 @@
         margin-bottom: 0;
     }
 
+    .datatable-container {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .datatable-container table {
+        width: 100% !important;
+    }
+
+    .dtr-control {
+        cursor: pointer;
+    }
+
     .dt-empty {
         padding: 2.5rem 1rem !important;
         color: #667085;

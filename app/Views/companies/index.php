@@ -12,7 +12,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <div class="table-responsive">
+        <div class="datatable-container">
             <table id="companies-table" class="table table-hover align-middle w-100">
                 <thead>
                     <tr>

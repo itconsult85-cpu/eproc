@@ -6,8 +6,7 @@
             <h2 class="h5 mb-1"><i class="bi bi-speedometer2 me-2"></i>Dashboard</h2>
             <p class="text-body-secondary mb-0">Kelola workspace e-procurement Anda.</p>
         </div>
-        <a href="/quotations/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Buat
-            Penawaran</a>
+        <a href="<?= esc(site_url('quotations/new')) ?>" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Buat Penawaran</a>
     </div>
 </div>
 <div class="row g-3 mb-4">
@@ -41,14 +40,16 @@
         <h3 class="card-title mb-0"><i class="bi bi-clock-history me-2 text-primary"></i>Penawaran Terbaru</h3>
     </div>
     <div class="card-body">
-        <div class="table-responsive">
+        <div class="datatable-container">
             <table id="recent-quotations-table" class="table table-hover align-middle w-100">
                 <thead>
                     <tr>
-                        <th>No.</th>
-                        <th>Judul</th>
-                        <th>Status</th>
-                        <th>Dibuat</th>
+                        <th class="all"></th>
+                        <th class="all">No.</th>
+                        <th class="all">Nomor Quotation</th>
+                        <th class="all">Judul</th>
+                        <th class="min-tablet">Status</th>
+                        <th class="min-tablet">Dibuat</th>
                     </tr>
                 </thead>
             </table>
@@ -61,14 +62,35 @@
 new DataTable('#recent-quotations-table', {
     serverSide: true,
     processing: true,
+    responsive: {
+        details: {
+            type: 'column',
+            target: 0
+        }
+    },
     ajax: {
-        url: '/quotations/datatable',
-        type: 'GET'
+        url: '<?= esc(site_url('quotations/datatable')) ?>',
+        type: 'GET',
+        error: function(xhr, textStatus, errorThrown) {
+            console.error('Gagal memuat quotation terbaru:', xhr.status, textStatus, errorThrown, xhr.responseText);
+        }
     },
     columns: [{
-        data: 'quotation_no',
-        render: (data, type, row) => type === 'display' ? '<a href="/quotations/' + row.id + '">' +
-            data + '</a>' : data
+        data: null,
+        defaultContent: '',
+        className: 'dtr-control',
+        orderable: false,
+        searchable: false
+    }, {
+        data: null,
+        className: 'text-nowrap',
+        orderable: false,
+        searchable: false,
+        render: function(data, type, row, meta) {
+            return meta.row + meta.settings._iDisplayStart + 1;
+        }
+    }, {
+        data: 'quotation_no'
     }, {
         data: 'title'
     }, {
@@ -77,7 +99,7 @@ new DataTable('#recent-quotations-table', {
         data: 'created_at'
     }],
     order: [
-        [3, 'desc']
+        [5, 'desc']
     ],
     pageLength: 5,
     lengthChange: false,

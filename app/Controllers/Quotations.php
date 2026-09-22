@@ -276,6 +276,44 @@ class Quotations extends BaseController
         return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="quotation-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }
 
+    public function catalog(int $id)
+    {
+        $this->model->expireOverdue();
+        $quotation = $this->model->detail($id);
+        if (! $quotation) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $products = new ProductModel();
+        $items = [];
+        foreach ($quotation['items'] as $item) {
+            $product = ! empty($item['product_id']) ? $products->find((int) $item['product_id']) : null;
+            $imageData = $product ? $this->assetData($product['image_path'] ?? null) : null;
+            if (! $imageData && $product && ! empty($product['image_url'])) {
+                $imageData = $product['image_url'];
+            }
+            $items[] = ['item' => $item, 'product' => $product, 'imageData' => $imageData];
+        }
+
+        $settings = (new QuotationSettingModel())->current();
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml(view('quotations/catalog', [
+            'quotation' => $quotation,
+            'settings' => $settings,
+            'items' => $items,
+            'logoData' => $this->assetData($settings['logo_path'] ?? null),
+        ]));
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return $this->response
+            ->setHeader('Content-Type', 'application/pdf')
+            ->setHeader('Content-Disposition', 'attachment; filename="katalog-' . $quotation['quotation_no'] . '.pdf"')
+            ->setBody($dompdf->output());
+    }
+
     private function assetData(?string $path): ?string
     {
         if (! $path || ! is_file(FCPATH . ltrim($path, '/'))) {

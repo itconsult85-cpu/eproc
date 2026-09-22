@@ -78,9 +78,10 @@ $items = $isEdit ? $quotation['items'] : [[]];
 
             <div class="col-12"><label class="form-label">Item Produk</label>
                 <div class="table-responsive">
-                    <table class="table align-middle" id="items">
+                    <table class="table align-middle quotation-items-table" id="items">
                         <thead>
                             <tr>
+                                <th width="55">No.</th>
                                 <th width="200">Brand / Produk</th>
                                 <th>Description</th>
                                 <th width="90">Qty</th>
@@ -93,6 +94,7 @@ $items = $isEdit ? $quotation['items'] : [[]];
                         <tbody>
                             <?php foreach ($items as $i => $it): ?>
                             <tr>
+                                <td class="item-row-number text-center"><?= $i + 1 ?></td>
                                 <td>
                                     <?php
                                         // Cari path gambar untuk produk yang sudah tersimpan (saat edit)
@@ -142,7 +144,7 @@ $items = $isEdit ? $quotation['items'] : [[]];
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-outline-secondary"
-                                        onclick="this.closest('tr').remove()">
+                                        onclick="removeItem(this)">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -231,6 +233,25 @@ function addItem() {
     row.querySelector('.product-thumb').style.display = 'none';
     document.querySelector('#items tbody').appendChild(row);
     n++;
+    renumberItems();
+}
+
+function removeItem(button) {
+    const rows = document.querySelectorAll('#items tbody tr');
+    if (rows.length > 1) {
+        button.closest('tr').remove();
+    } else {
+        button.closest('tr').querySelectorAll('input').forEach(input => input.value = '');
+        button.closest('tr').querySelector('select').value = '';
+        button.closest('tr').querySelector('.product-thumb').style.display = 'none';
+    }
+    renumberItems();
+}
+
+function renumberItems() {
+    document.querySelectorAll('#items tbody .item-row-number').forEach((cell, index) => {
+        cell.textContent = index + 1;
+    });
 }
 
 // Jalankan pengecekan saat halaman edit pertama kali diload
