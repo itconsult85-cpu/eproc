@@ -13,6 +13,7 @@
         .header-table, .product-table { width: 100%; border-collapse: collapse; }
         .header-table td { vertical-align: top; }
         .logo { max-width: 135px; max-height: 50px; }
+        .watermark { position: fixed; top: 34%; left: 25%; width: 50%; opacity: .075; z-index: -1; }
         .meta { text-align: right; color: #4b5563; }
         .product { page-break-inside: avoid; border: 1px solid #cbd5e1; margin-bottom: 13px; padding: 0 10px 10px; }
         .product + .product { page-break-before: always; }
@@ -31,6 +32,7 @@
     </style>
 </head>
 <body>
+    <?php if ($logoData): ?><img src="<?= $logoData ?>" class="watermark" alt=""><?php endif; ?>
     <div class="header">
         <table class="header-table">
             <tr>
