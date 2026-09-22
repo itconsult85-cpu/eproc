@@ -9,7 +9,7 @@ Aplikasi ini dibangun di atas **CodeIgniter 4.7.4**, AdminLTE 4, dan Bootstrap 5
 3. Jalankan migration dengan `php spark migrate`.
 4. Pastikan `public/uploads` dapat ditulis oleh web server.
 5. Arahkan web server ke folder `public/`.
-6. Buka `/` untuk dashboard.
+6. Buka `/setup` sekali untuk membuat superadmin pertama, lalu gunakan `/login`. Halaman setup otomatis tertutup setelah user pertama dibuat.
 
 Alternatif deployment manual tersedia pada `database/eprocurement.sql`. Migration adalah cara yang direkomendasikan karena dapat dikelola dan di-rollback oleh CodeIgniter.
 
@@ -25,4 +25,4 @@ Alternatif deployment manual tersedia pada `database/eprocurement.sql`. Migratio
 
 ## Catatan keamanan dan kompatibilitas
 
-Perubahan bersifat additive terhadap CodeIgniter starter. Tidak ada tabel atau kode existing yang dihapus. Validasi tipe/ukuran file diterapkan pada upload media: gambar maksimal 5 MB (JPG/PNG/WEBP), video maksimal 50 MB (MP4/WEBM/MOV), dan datasheet maksimal 20 MB (PDF). Kolom URL media lama tetap ada untuk menjaga data existing, tetapi tidak lagi ditampilkan atau digunakan oleh form baru. Untuk production, tambahkan autentikasi/otorisasi, CSRF sesuai kebijakan deployment, backup media, dan audit log sebelum aplikasi dibuka ke publik.
+Perubahan bersifat additive terhadap CodeIgniter starter. Tidak ada tabel atau kode existing yang dihapus. Sistem auth menyediakan role `superadmin`, `admin`, dan `user`, permission per menu/fungsi, ganti password, avatar, lockout setelah lima percobaan login gagal selama 15 menit, audit log login, session regeneration, password hashing, CSRF global, dan validasi upload. Superadmin dapat menetapkan permission admin/user melalui `/users`; admin hanya dapat mengelola user dan permission yang dimilikinya. File `database/eprocurement_auth.sql` tersedia sebagai alternatif manual untuk migration `2026-09-23-000005_CreateAuthenticationTables.php`.

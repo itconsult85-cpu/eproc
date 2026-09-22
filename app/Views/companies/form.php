@@ -1,5 +1,5 @@
 <?= $this->extend('layout') ?><?= $this->section('content') ?><h1 class="mb-3"><?= esc($title) ?></h1>
-<form method="post" action="<?= esc($action) ?>" class="card">
+<form method="post" action="<?= esc($action) ?>" class="card"><?= csrf_field() ?>
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-8">

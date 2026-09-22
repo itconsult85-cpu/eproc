@@ -5,7 +5,7 @@ $isEdit = isset($quotation);
 $action = $isEdit ? "/quotations/{$quotation['id']}/update" : "/quotations";
 $items = $isEdit ? $quotation['items'] : [[]];
 ?>
-<form method="post" action="<?= $action ?>" class="card card-primary card-outline">
+<form method="post" action="<?= $action ?>" class="card card-primary card-outline"><?= csrf_field() ?>
     <div class="card-header">
         <h3 class="card-title"><i class="bi bi-file-earmark-plus me-2"></i><?= $title ?></h3>
     </div>

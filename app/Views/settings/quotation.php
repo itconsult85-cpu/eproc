@@ -1,6 +1,6 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<form method="post" action="/settings/quotation" enctype="multipart/form-data" class="form-card">
+<form method="post" action="/settings/quotation" enctype="multipart/form-data" class="form-card"><?= csrf_field() ?>
     <div class="row g-3">
         <div class="col-lg-8">
             <div class="card card-primary card-outline">

@@ -171,7 +171,7 @@
                     <li class="nav-item d-none d-md-block"><a href="/" class="nav-link fw-semibold">Eprocurement
                             Workspace</a></li>
                 </ul>
-                <div class="ms-auto text-secondary small">CodeIgniter 4.7.4</div>
+                <div class="ms-auto d-flex align-items-center gap-3"><span class="text-secondary small d-none d-md-inline"><?= esc(auth_user('full_name')) ?> · <?= esc(auth_user('role')) ?></span><a href="<?= site_url('password') ?>" class="btn btn-sm btn-light" title="Ganti password"><i class="bi bi-key"></i></a><form method="post" action="<?= site_url('logout') ?>" class="d-inline"><?= csrf_field() ?><button class="btn btn-sm btn-outline-danger" type="submit">Logout</button></form></div>
             </div>
         </nav>
         <?php
@@ -193,26 +193,27 @@
                 <nav class="mt-2">
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu">
                         <li class="nav-header">WORKSPACE</li>
-                        <li class="nav-item"><a href="/" class="nav-link"><i class="nav-icon bi bi-speedometer2"></i>
+                        <?php if (can('dashboard.view')): ?><li class="nav-item"><a href="/" class="nav-link"><i class="nav-icon bi bi-speedometer2"></i>
                                 <p>Dashboard</p>
-                            </a></li>
-                        <li class="nav-item"><a href="/companies" class="nav-link"><i
+                            </a></li><?php endif; ?>
+                        <?php if (can('companies.view')): ?><li class="nav-item"><a href="/companies" class="nav-link"><i
                                     class="nav-icon bi bi-buildings"></i>
                                 <p>Perusahaan</p>
-                            </a></li>
-                        <li class="nav-item"><a href="/products" class="nav-link"><i
+                            </a></li><?php endif; ?>
+                        <?php if (can('products.view')): ?><li class="nav-item"><a href="/products" class="nav-link"><i
                                     class="nav-icon bi bi-box-seam"></i>
                                 <p>Katalog Produk</p>
-                            </a></li>
-                        <li class="nav-item"><a href="/quotations" class="nav-link"><i
+                            </a></li><?php endif; ?>
+                        <?php if (can('quotations.view')): ?><li class="nav-item"><a href="/quotations" class="nav-link"><i
                                     class="nav-icon bi bi-file-earmark-text"></i>
                                 <p>Penawaran</p>
-                            </a></li>
+                            </a></li><?php endif; ?>
                         <li class="nav-header">KONFIGURASI</li>
-                        <li class="nav-item"><a href="/settings/quotation" class="nav-link"><i
+                        <?php if (can('settings.quotation')): ?><li class="nav-item"><a href="/settings/quotation" class="nav-link"><i
                                     class="nav-icon bi bi-sliders"></i>
                                 <p>Setting Quotation</p>
-                            </a></li>
+                            </a></li><?php endif; ?>
+                        <?php if (can('users.manage')): ?><li class="nav-item"><a href="/users" class="nav-link"><i class="nav-icon bi bi-people"></i><p>Manajemen Pengguna</p></a></li><?php endif; ?>
                     </ul>
                 </nav>
             </div>

@@ -1,7 +1,7 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 <?php $specs = json_decode($product['technical_specs'] ?? '', true) ?: [['label' => '', 'value' => '']]; ?>
-<form method="post" action="<?= esc($action) ?>" enctype="multipart/form-data" class="card card-primary card-outline">
+<form method="post" action="<?= esc($action) ?>" enctype="multipart/form-data" class="card card-primary card-outline"><?= csrf_field() ?>
     <div class="card-header">
         <h3 class="card-title"><i class="bi bi-box-seam me-2"></i>Data Produk & Datasheet</h3>
     </div>
