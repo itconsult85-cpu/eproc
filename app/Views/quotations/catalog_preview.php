@@ -27,7 +27,23 @@
             <?php foreach ($items as $index => $entry):
                 $product = $entry['product'] ?? null;
                 $item = $entry['item'];
-                $specs = $product ? (json_decode($product['technical_specs'] ?? '', true) ?: []) : [];
+                $rawSpecs = $product ? (json_decode($product['technical_specs'] ?? '', true) ?: []) : [];
+                if (is_array($rawSpecs) && (array_key_exists('label', $rawSpecs) || array_key_exists('value', $rawSpecs))) {
+                    $rawSpecs = [$rawSpecs];
+                }
+                $specs = [];
+                foreach ((array) $rawSpecs as $key => $spec) {
+                    if (is_array($spec) && (array_key_exists('label', $spec) || array_key_exists('value', $spec))) {
+                        $label = trim((string) ($spec['label'] ?? ''));
+                        $value = trim((string) ($spec['value'] ?? ''));
+                    } else {
+                        $label = trim((string) $key);
+                        $value = is_scalar($spec) ? trim((string) $spec) : trim((string) json_encode($spec));
+                    }
+                    if ($label !== '' && $value !== '') {
+                        $specs[] = ['label' => $label, 'value' => $value];
+                    }
+                }
             ?>
             <div class="col-12">
                 <article class="border rounded p-3 h-100">
@@ -44,7 +60,7 @@
                             <?php if ($specs): ?>
                             <div class="fw-semibold">Spesifikasi Teknis</div>
                             <ul class="mb-2">
-                                <?php foreach ($specs as $key => $value): ?><li><strong><?= esc(ucwords(str_replace(['_', '-'], ' ', (string) $key))) ?>:</strong> <?= esc(is_scalar($value) ? (string) $value : json_encode($value)) ?></li><?php endforeach; ?>
+                                <?php foreach ($specs as $spec): ?><li><strong><?= esc($spec['label']) ?>:</strong> <?= nl2br(esc($spec['value'])) ?></li><?php endforeach; ?>
                             </ul>
                             <?php endif; ?>
                             <?php if (!empty($product['applications'])): ?><p class="mb-1"><strong>Aplikasi:</strong> <?= nl2br(esc($product['applications'])) ?></p><?php endif; ?>
