@@ -83,6 +83,13 @@ class Quotations extends BaseController
         if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
+        $company = (new CompanyModel())->find((int) $this->request->getPost('company_id'));
+        $customerName = trim((string) $this->request->getPost('customer_name'));
+        $customerAddress = trim((string) $this->request->getPost('customer_address'));
+        if ($company) {
+            $customerName = $customerName !== '' ? $customerName : (string) ($company['name'] ?? '');
+            $customerAddress = $customerAddress !== '' ? $customerAddress : (string) ($company['address'] ?? '');
+        }
         $settings = (new QuotationSettingModel())->current();
         $products = new ProductModel();
         $items = [];
@@ -107,8 +114,8 @@ class Quotations extends BaseController
         $quotationId = $this->model->insert([
             'company_id' => $this->request->getPost('company_id'),
             'quotation_no' => $this->request->getPost('quotation_no'),
-            'customer_name' => $this->request->getPost('customer_name'),
-            'customer_address' => $this->request->getPost('customer_address'),
+            'customer_name' => $customerName,
+            'customer_address' => $customerAddress,
             'customer_phone' => $this->request->getPost('customer_phone'),
             'attention' => $this->request->getPost('attention'),
             'title' => $this->request->getPost('title'),
@@ -163,6 +170,14 @@ class Quotations extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $company = (new CompanyModel())->find((int) $this->request->getPost('company_id'));
+        $customerName = trim((string) $this->request->getPost('customer_name'));
+        $customerAddress = trim((string) $this->request->getPost('customer_address'));
+        if ($company) {
+            $customerName = $customerName !== '' ? $customerName : (string) ($company['name'] ?? '');
+            $customerAddress = $customerAddress !== '' ? $customerAddress : (string) ($company['address'] ?? '');
+        }
+
         $settings = (new QuotationSettingModel())->current();
         $products = new ProductModel();
         $items = [];
@@ -188,8 +203,8 @@ class Quotations extends BaseController
         $this->model->update($id, [
             'company_id' => $this->request->getPost('company_id'),
             'quotation_no' => $this->request->getPost('quotation_no'),
-            'customer_name' => $this->request->getPost('customer_name'),
-            'customer_address' => $this->request->getPost('customer_address'),
+            'customer_name' => $customerName,
+            'customer_address' => $customerAddress,
             'customer_phone' => $this->request->getPost('customer_phone'),
             'attention' => $this->request->getPost('attention'),
             'title' => $this->request->getPost('title'),

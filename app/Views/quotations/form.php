@@ -48,7 +48,7 @@ $items = $isEdit ? $quotation['items'] : [[]];
                 <label class="field-label">
                     Kepada / To
                 </label>
-                <input disabled name="customer_name" class="form-control"
+                <input readonly name="customer_name" class="form-control"
                     value="<?= old('customer_name', $quotation['customer_name'] ?? '') ?>">
             </div>
             <div class="col-md-4">
@@ -62,7 +62,7 @@ $items = $isEdit ? $quotation['items'] : [[]];
                 <label class="field-label">
                     Alamat customer
                 </label>
-                <textarea disabled name="customer_address" class="form-control" rows="2"><?= old('customer_address', $quotation['customer_address'] ?? '') ?>
+                <textarea readonly name="customer_address" class="form-control" rows="2"><?= old('customer_address', $quotation['customer_address'] ?? '') ?>
                 </textarea>
             </div>
             <div class="col-md-4">
