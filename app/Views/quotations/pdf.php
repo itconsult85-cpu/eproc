@@ -142,8 +142,8 @@
                         <td>To</td>
                         <td>:</td>
                         <td>
-                            <strong><?= esc($quotation['customer_name'] ?? '-') ?></strong><br>
-                            <?= nl2br(esc($quotation['customer_address'] ?? '')) ?>
+                            <strong><?= esc($quotation['customer_name'] ?: ($quotation['company_name'] ?? '-')) ?></strong><br>
+                            <?= nl2br(esc($quotation['customer_address'] ?: ($quotation['company_address'] ?? ''))) ?>
                         </td>
                     </tr>
                     <tr>
