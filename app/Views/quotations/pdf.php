@@ -152,7 +152,7 @@
                         <td style="padding-top:10px;"><strong><?= esc($quotation['title']) ?></strong></td>
                     </tr>
                     <tr>
-                        <td>attn</td>
+                        <td>Attn</td>
                         <td>:</td>
                         <td class="text-grey"><?= esc($quotation['attention'] ?? '-') ?></td>
                     </tr>

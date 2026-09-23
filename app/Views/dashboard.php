@@ -3,10 +3,17 @@
 <div class="app-content-header">
     <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
         <div>
-            <h2 class="h5 mb-1"><i class="bi bi-speedometer2 me-2"></i>Dashboard</h2>
-            <p class="text-body-secondary mb-0">Kelola workspace e-procurement Anda.</p>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-speedometer2 me-2"></i>Dashboard
+            </h2>
+            <p class="text-body-secondary mb-0">
+                Kelola workspace e-procurement Anda.
+            </p>
         </div>
-        <a href="<?= esc(site_url('quotations/new')) ?>" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Buat Penawaran</a>
+        <a href="<?= esc(site_url('quotations/new')) ?>" class="btn btn-primary text-nowrap">
+            <i class="bi bi-plus-lg me-1"></i>
+            Buat Penawaran
+        </a>
     </div>
 </div>
 <div class="row g-3 mb-4">
@@ -37,7 +44,10 @@
 </div>
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title mb-0"><i class="bi bi-clock-history me-2 text-primary"></i>Penawaran Terbaru</h3>
+        <h3 class="card-title mb-0">
+            <i class="bi bi-clock-history me-2 text-primary"></i>
+            Penawaran Terbaru
+        </h3>
     </div>
     <div class="card-body">
         <div class="datatable-container">

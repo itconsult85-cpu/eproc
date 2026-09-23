@@ -10,7 +10,23 @@ class QuotationSettingModel extends Model
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     protected $useTimestamps = true;
-    protected $allowedFields = ['company_name', 'office_1', 'office_2', 'phone', 'email', 'tax_id', 'logo_path', 'signature_path', 'stamp_path', 'signer_name', 'signer_phone', 'default_payment_terms', 'default_validity_days', 'default_delivery_terms', 'default_tax_percent'];
+    protected $allowedFields = [
+        'company_name',
+        'office_1',
+        'office_2',
+        'phone',
+        'email',
+        'tax_id',
+        'logo_path',
+        'signature_path',
+        'stamp_path',
+        'signer_name',
+        'signer_phone',
+        'default_payment_terms',
+        'default_validity_days',
+        'default_delivery_terms',
+        'default_tax_percent'
+    ];
 
     public function current(): array
     {

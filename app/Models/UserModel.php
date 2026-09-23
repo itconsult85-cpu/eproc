@@ -10,7 +10,19 @@ class UserModel extends Model
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     protected $useTimestamps = true;
-    protected $allowedFields = ['username', 'email', 'full_name', 'password_hash', 'role', 'avatar_path', 'is_active', 'failed_login_attempts', 'locked_until', 'last_login_at', 'last_login_ip'];
+    protected $allowedFields = [
+        'username',
+        'email',
+        'full_name',
+        'password_hash',
+        'role',
+        'avatar_path',
+        'is_active',
+        'failed_login_attempts',
+        'locked_until',
+        'last_login_at',
+        'last_login_ip'
+    ];
     protected $beforeInsert = ['normalize'];
     protected $beforeUpdate = ['normalize'];
 

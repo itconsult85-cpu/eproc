@@ -5,78 +5,125 @@ $isEdit = isset($quotation);
 $action = $isEdit ? "/quotations/{$quotation['id']}/update" : "/quotations";
 $items = $isEdit ? $quotation['items'] : [[]];
 ?>
-<form method="post" action="<?= $action ?>" class="card card-primary card-outline" data-companies="<?= esc(json_encode($companies), 'attr') ?>" data-products="<?= esc(json_encode($products), 'attr') ?>" data-item-count="<?= count($items) ?>"><?= csrf_field() ?>
+<form method="post" action="<?= $action ?>" class="card card-primary card-outline"
+    data-companies="<?= esc(json_encode($companies), 'attr') ?>"
+    data-products="<?= esc(json_encode($products), 'attr') ?>" data-item-count="<?= count($items) ?>">
+    <?= csrf_field() ?>
     <div class="card-header">
-        <h3 class="card-title"><i class="bi bi-file-earmark-plus me-2"></i><?= $title ?></h3>
+        <h3 class="card-title">
+            <i class="bi bi-file-earmark-plus me-2"></i><?= $title ?>
+        </h3>
     </div>
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-4">
-                <label class="field-label">Perusahaan penerbit *</label>
+                <label class="field-label">
+                    Perusahaan penerbit *
+                </label>
                 <select name="company_id" required class="form-select" data-action="company-change">
                     <option value="">Pilih perusahaan</option>
                     <?php foreach ($companies as $company): ?>
                     <option value="<?= $company['id'] ?>"
                         <?= old('company_id', $quotation['company_id'] ?? '') == $company['id'] ? 'selected' : '' ?>>
-                        <?= esc($company['name']) ?></option>
+                        <?= esc($company['name']) ?>
+                    </option>
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="col-md-4"><label class="field-label">Nomor quotation *</label><input required name="quotation_no"
-                    class="form-control"
+            <div class="col-md-4">
+                <label class="field-label">
+                    Nomor quotation *
+                </label>
+                <input required name="quotation_no" class="form-control"
                     value="<?= old('quotation_no', $quotation['quotation_no'] ?? 'Q-' . date('Ymd-His')) ?>">
             </div>
-            <div class="col-md-4"><label class="field-label">Tanggal</label>
+            <div class="col-md-4"><label class="field-label">
+                    Tanggal
+                </label>
                 <input type="date" name="issue_date" class="form-control"
                     value="<?= old('issue_date', $quotation['issue_date'] ?? date('Y-m-d')) ?>">
             </div>
 
-            <div class="col-md-8"><label class="field-label">Kepada / To</label>
+            <div class="col-md-8">
+                <label class="field-label">
+                    Kepada / To
+                </label>
                 <input disabled name="customer_name" class="form-control"
                     value="<?= old('customer_name', $quotation['customer_name'] ?? '') ?>">
             </div>
-            <div class="col-md-4"><label class="field-label">Attn</label>
+            <div class="col-md-4">
+                <label class="field-label">
+                    Attn
+                </label>
                 <input name="attention" class="form-control"
                     value="<?= old('attention', $quotation['attention'] ?? '') ?>">
             </div>
-            <div class="col-12"><label class="field-label">Alamat customer</label>
-                <textarea disabled name="customer_address" class="form-control"
-                    rows="2"><?= old('customer_address', $quotation['customer_address'] ?? '') ?></textarea>
+            <div class="col-12">
+                <label class="field-label">
+                    Alamat customer
+                </label>
+                <textarea disabled name="customer_address" class="form-control" rows="2"><?= old('customer_address', $quotation['customer_address'] ?? '') ?>
+                </textarea>
             </div>
-            <div class="col-md-4"><label class="field-label">Telepon customer</label>
+            <div class="col-md-4">
+                <label class="field-label">
+                    Telepon customer
+                </label>
                 <input name="customer_phone" class="form-control"
                     value="<?= old('customer_phone', $quotation['customer_phone'] ?? '') ?>">
             </div>
-            <div class="col-md-8"><label class="field-label">About / Perihal *</label>
+            <div class="col-md-8">
+                <label class="field-label">
+                    About / Perihal *
+                </label>
                 <input required name="title" class="form-control"
                     value="<?= old('title', $quotation['title'] ?? '') ?>">
             </div>
 
-            <div class="col-md-3"><label class="field-label">PPN (%)</label>
+            <div class="col-md-3">
+                <label class="field-label">
+                    PPN (%)
+                </label>
                 <input type="number" step="0.01" name="tax_percent" class="form-control"
                     value="<?= old('tax_percent', $quotation['tax_percent'] ?? $settings['default_tax_percent'] ?? 11) ?>">
             </div>
-            <div class="col-md-3"><label class="field-label">Masa berlaku (hari)</label>
+            <div class="col-md-3"><label class="field-label">
+                    Masa berlaku (hari)
+                </label>
                 <input type="number" min="0" name="validity_days" class="form-control"
                     value="<?= old('validity_days', $quotation['validity_days'] ?? $settings['default_validity_days'] ?? 10) ?>">
             </div>
-            <div class="col-md-3"><label class="field-label">Telepon penandatangan</label>
+            <div class="col-md-3">
+                <label class="field-label">
+                    Telepon penandatangan
+                </label>
                 <input disabled class="form-control" value="<?= esc($settings['signer_phone'] ?? '') ?>">
             </div>
-            <div class="col-md-3"><label class="field-label">Penandatangan</label>
+            <div class="col-md-3">
+                <label class="field-label">
+                    Penandatangan
+                </label>
                 <input disabled class="form-control" value="<?= esc($settings['signer_name'] ?? '') ?>">
             </div>
 
-            <div class="col-md-6"><label class="field-label">Terms of payment</label>
+            <div class="col-md-6"><label class="field-label">
+                    Terms of payment
+                </label>
                 <input name="payment_terms" class="form-control"
                     value="<?= old('payment_terms', $quotation['payment_terms'] ?? $settings['default_payment_terms'] ?? '') ?>">
             </div>
-            <div class="col-md-6"><label class="field-label">Delivery</label>
+            <div class="col-md-6">
+                <label class="field-label">
+                    Delivery
+                </label>
                 <input name="delivery_terms" class="form-control"
                     value="<?= old('delivery_terms', $quotation['delivery_terms'] ?? $settings['default_delivery_terms'] ?? '') ?>">
             </div>
 
-            <div class="col-12"><label class="field-label">Item Produk</label>
+            <div class="col-12">
+                <label class="field-label">
+                    Item Produk
+                </label>
                 <div class="table-responsive">
                     <table class="table align-middle quotation-items-table" id="items">
                         <thead>
@@ -97,7 +144,6 @@ $items = $isEdit ? $quotation['items'] : [[]];
                                 <td class="item-row-number text-center"><?= $i + 1 ?></td>
                                 <td>
                                     <?php
-                                        // Cari path gambar untuk produk yang sudah tersimpan (saat edit)
                                         $productImagePath = '';
                                         if (!empty($it['product_id'])) {
                                             foreach ($products as $p) {
@@ -143,8 +189,7 @@ $items = $isEdit ? $quotation['items'] : [[]];
                                         max="100" class="form-control" value="<?= $it['discount_percent'] ?? 0 ?>">
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-secondary"
-                                        data-action="remove-item">
+                                    <button type="button" class="btn btn-outline-secondary" data-action="remove-item">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -158,9 +203,11 @@ $items = $isEdit ? $quotation['items'] : [[]];
                 </button>
             </div>
             <div class="col-12">
-                <label class="field-label">Catatan / syarat tambahan</label>
-                <textarea name="notes" class="form-control"
-                    rows="3"><?= old('notes', $quotation['notes'] ?? '') ?></textarea>
+                <label class="field-label">
+                    Catatan / syarat tambahan
+                </label>
+                <textarea name="notes" class="form-control" rows="3"><?= old('notes', $quotation['notes'] ?? '') ?>
+                </textarea>
             </div>
         </div>
     </div>

@@ -4,10 +4,16 @@
 <div class="app-content-header">
     <div class=" page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
         <div>
-            <h2 class="h5 mb-1"><i class="bi bi-box-seam me-2"></i>Daftar Produk</h2>
-            <p class="text-body-secondary mb-0">Kelola katalog, datasheet generik, gambar, dan video produk.</p>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-box-seam me-2"></i>Daftar Produk
+            </h2>
+            <p class="text-body-secondary mb-0">
+                Kelola katalog, datasheet generik, gambar, dan video produk.
+            </p>
         </div>
-        <a href="/products/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Tambah Produk</a>
+        <a href="/products/new" class="btn btn-primary text-nowrap">
+            <i class="bi bi-plus-lg me-1"></i>Tambah Produk
+        </a>
     </div>
 </div>
 <div class="card">

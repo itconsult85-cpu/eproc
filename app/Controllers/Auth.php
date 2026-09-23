@@ -9,7 +9,10 @@ use App\Models\UserModel;
 class Auth extends BaseController
 {
     private UserModel $users;
-    public function __construct() { $this->users = new UserModel(); }
+    public function __construct()
+    {
+        $this->users = new UserModel();
+    }
 
     public function login()
     {
@@ -30,7 +33,9 @@ class Auth extends BaseController
             if ($user && ! $locked) {
                 $attempts = ((int) $user['failed_login_attempts']) + 1;
                 $data = ['failed_login_attempts' => $attempts];
-                if ($attempts >= 5) { $data['locked_until'] = date('Y-m-d H:i:s', time() + 900); }
+                if ($attempts >= 5) {
+                    $data['locked_until'] = date('Y-m-d H:i:s', time() + 900);
+                }
                 $this->users->update($user['id'], $data);
             }
             $audit->insert(['user_id' => $user['id'] ?? null, 'username' => $login, 'event' => 'login_failed', 'ip_address' => $this->request->getIPAddress(), 'user_agent' => substr((string) $this->request->getUserAgent(), 0, 500), 'details' => 'Invalid credentials or locked account', 'created_at' => $now]);
@@ -74,7 +79,9 @@ class Auth extends BaseController
 
     public function updatePassword()
     {
-        $current = (string) $this->request->getPost('current_password'); $password = (string) $this->request->getPost('password'); $confirmation = (string) $this->request->getPost('password_confirmation');
+        $current = (string) $this->request->getPost('current_password');
+        $password = (string) $this->request->getPost('password');
+        $confirmation = (string) $this->request->getPost('password_confirmation');
         $user = $this->users->find((int) auth_user('id'));
         if (! $user || ! password_verify($current, $user['password_hash'])) return redirect()->back()->with('error', 'Password saat ini salah.');
         if (strlen($password) < 12 || strlen($password) > 72 || $password !== $confirmation) return redirect()->back()->with('error', 'Password baru minimal 12 karakter dan konfirmasi harus sama.');

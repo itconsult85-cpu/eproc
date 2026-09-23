@@ -1,1 +1,132 @@
-<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="d-flex justify-content-between align-items-center mb-3"><div><h1 class="h3 mb-1"><?= esc($title) ?></h1><p class="text-body-secondary mb-0">Permission ditetapkan langsung per akun.</p></div><a href="<?= site_url('users') ?>" class="btn btn-light">Kembali</a></div><?php if ($errors = session()->getFlashdata('errors')): ?><div class="alert alert-danger"><ul class="mb-0"><?php foreach ($errors as $e): ?><li><?= esc($e) ?></li><?php endforeach; ?></ul></div><?php endif; ?><form method="post" enctype="multipart/form-data" action="<?= $user ? site_url('users/' . $user['id']) : site_url('users') ?>"><?= csrf_field() ?><div class="row g-3"><div class="col-lg-7"><div class="card card-primary card-outline"><div class="card-body"><div class="row g-3"><div class="col-md-6"><label class="field-label">Nama lengkap</label><input name="full_name" class="form-control" required value="<?= old('full_name', $user['full_name'] ?? '') ?>"></div><div class="col-md-6"><label class="field-label">Username</label><input name="username" class="form-control" required value="<?= old('username', $user['username'] ?? '') ?>"></div><div class="col-md-6"><label class="field-label">Email</label><input type="email" name="email" class="form-control" required value="<?= old('email', $user['email'] ?? '') ?>"></div><div class="col-md-6"><label class="field-label">Role</label><select name="role" class="form-select"><option value="user" <?= old('role', $user['role'] ?? '') === 'user' ? 'selected' : '' ?>>User</option><option value="admin" <?= old('role', $user['role'] ?? '') === 'admin' ? 'selected' : '' ?>>Admin</option></select></div><div class="col-md-6"><label class="field-label">Password <?= $user ? '(kosongkan jika tidak diubah)' : '' ?></label><input type="password" name="password" class="form-control" minlength="12" <?= $user ? '' : 'required' ?>><small class="text-body-secondary">Minimal 12 karakter.</small></div><div class="col-md-6"><label class="field-label">Avatar</label><input type="file" name="avatar" accept="image/jpeg,image/png,image/webp" class="form-control"></div><div class="col-12 form-check form-switch"><input class="form-check-input" type="checkbox" name="is_active" value="1" id="active" <?= old('is_active', $user['is_active'] ?? 1) ? 'checked' : '' ?>><label class="form-check-label" for="active">Akun aktif</label></div></div></div></div></div><div class="col-lg-5"><div class="card card-secondary card-outline"><div class="card-header"><h3 class="card-title">Permission</h3></div><div class="card-body"><?php $group = ''; foreach ($permissions as $p): ?><?php if ($group !== $p['group_name']): ?><?php if ($group !== ''): ?></div><?php endif; ?><?php $group = $p['group_name']; ?><h6 class="text-uppercase text-body-secondary mt-2"><?= esc($group) ?></h6><div class="vstack gap-2"><?php endif; ?><label class="form-check"><input class="form-check-input" type="checkbox" name="permissions[]" value="<?= esc($p['permission_key']) ?>" <?= in_array($p['permission_key'], $assigned, true) ? 'checked' : '' ?>><span class="form-check-label"><?= esc($p['label']) ?></span></label><?php endforeach; ?></div></div><button class="btn btn-primary w-100">Simpan pengguna</button></div></div></form><?= $this->endSection() ?>
+<?= $this->extend('layout') ?>
+<?= $this->section('content') ?>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h3 mb-1"><?= esc($title) ?></h1>
+        <p class="text-body-secondary mb-0">
+            Permission ditetapkan langsung per akun.
+        </p>
+    </div>
+    <a href="<?= site_url('users') ?>" class="btn btn-light">
+        Kembali
+    </a>
+</div>
+<?php if ($errors = session()->getFlashdata('errors')): ?>
+<div class="alert alert-danger">
+    <ul class="mb-0">
+        <?php foreach ($errors as $e): ?>
+        <li>
+            <?= esc($e) ?>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>
+<form method="post" enctype="multipart/form-data"
+    action="<?= $user ? site_url('users/' . $user['id']) : site_url('users') ?>">
+    <?= csrf_field() ?>
+    <div class="row g-3">
+        <div class="col-lg-7">
+            <div class="card card-primary card-outline">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="field-label">
+                                Nama lengkap
+                            </label>
+                            <input name="full_name" class="form-control" required
+                                value="<?= old('full_name', $user['full_name'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="field-label">
+                                Username
+                            </label>
+                            <input name="username" class="form-control" required
+                                value="<?= old('username', $user['username'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="field-label">
+                                Email
+                            </label>
+                            <input type="email" name="email" class="form-control" required
+                                value="<?= old('email', $user['email'] ?? '') ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="field-label">
+                                Role
+                            </label>
+                            <select name="role" class="form-select">
+                                <option value="user"
+                                    <?= old('role', $user['role'] ?? '') === 'user' ? 'selected' : '' ?>>
+                                    User
+                                </option>
+                                <option value="admin"
+                                    <?= old('role', $user['role'] ?? '') === 'admin' ? 'selected' : '' ?>>
+                                    Admin
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="field-label">
+                                Password
+                                <?= $user ? '(kosongkan jika tidak diubah)' : '' ?>
+                            </label>
+                            <input type="password" name="password" class="form-control" minlength="12"
+                                <?= $user ? '' : 'required' ?>>
+                            <small class="text-body-secondary">
+                                Minimal 12 karakter.
+                            </small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="field-label">
+                                Avatar
+                            </label>
+                            <input type="file" name="avatar" accept="image/jpeg,image/png,image/webp"
+                                class="form-control">
+                        </div>
+                        <div class="col-12 form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="is_active" value="1" id="active"
+                                <?= old('is_active', $user['is_active'] ?? 1) ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="active">
+                                Akun aktif
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card card-secondary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Permission
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <?php $group = '';
+                    foreach ($permissions as $p): ?>
+                    <?php if ($group !== $p['group_name']): ?>
+                    <?php if ($group !== ''): ?>
+                </div>
+                <?php endif; ?>
+                <?php $group = $p['group_name']; ?>
+                <h6 class="text-uppercase text-body-secondary mt-2"><?= esc($group) ?></h6>
+                <div class="vstack gap-2">
+                    <?php endif; ?>
+                    <label class="form-check">
+                        <input class="form-check-input" type="checkbox" name="permissions[]"
+                            value="<?= esc($p['permission_key']) ?>"
+                            <?= in_array($p['permission_key'], $assigned, true) ? 'checked' : '' ?>>
+                        <span class="form-check-label">
+                            <?= esc($p['label']) ?>
+                        </span>
+                    </label>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <button class="btn btn-primary w-100">
+                Simpan pengguna
+            </button>
+        </div>
+    </div>
+</form><?= $this->endSection() ?>
