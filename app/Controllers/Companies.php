@@ -68,8 +68,11 @@ class Companies extends BaseController
 
     public function create()
     {
-        $data = $this->request->getPost(['name', 'address', 'phone', 'email', 'pic_name', 'pic_phone', 'notes']);
-        if (! $this->validateData($data, ['name' => 'required|max_length[160]'])) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        $data = $this->request->getPost(['name', 'quotation_prefix', 'quotation_code', 'address', 'phone', 'email', 'pic_name', 'pic_phone', 'notes']);
+        if (! $this->validateData($data, ['name' => 'required|max_length[160]', 'quotation_prefix' => 'permit_empty|alpha_numeric|max_length[12]', 'quotation_code' => 'permit_empty|regex_match[/^[A-Za-z0-9_-]+$/]|max_length[30]'])) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        $data['quotation_prefix'] = strtoupper(trim((string) ($data['quotation_prefix'] ?? 'CCIP'))) ?: 'CCIP';
+        $data['quotation_code'] = strtoupper(trim((string) ($data['quotation_code'] ?? '')));
+        $data['quotation_sequence'] = 0;
         $this->model->insert($data);
         return redirect()->to('/companies')->with('message', 'Perusahaan berhasil ditambahkan.');
     }
@@ -83,8 +86,10 @@ class Companies extends BaseController
 
     public function update(int $id)
     {
-        $data = $this->request->getPost(['name', 'address', 'phone', 'email', 'pic_name', 'pic_phone', 'notes']);
-        if (! $this->validateData($data, ['name' => 'required|max_length[160]'])) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        $data = $this->request->getPost(['name', 'quotation_prefix', 'quotation_code', 'address', 'phone', 'email', 'pic_name', 'pic_phone', 'notes']);
+        if (! $this->validateData($data, ['name' => 'required|max_length[160]', 'quotation_prefix' => 'permit_empty|alpha_numeric|max_length[12]', 'quotation_code' => 'permit_empty|regex_match[/^[A-Za-z0-9_-]+$/]|max_length[30]'])) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        $data['quotation_prefix'] = strtoupper(trim((string) ($data['quotation_prefix'] ?? 'CCIP'))) ?: 'CCIP';
+        $data['quotation_code'] = strtoupper(trim((string) ($data['quotation_code'] ?? '')));
         $this->model->update($id, $data);
         return redirect()->to('/companies')->with('message', 'Perusahaan berhasil diperbarui.');
     }

@@ -12,6 +12,9 @@ class CompanyModel extends Model
     protected $useTimestamps = true;
     protected $allowedFields = [
         'name',
+        'quotation_prefix',
+        'quotation_code',
+        'quotation_sequence',
         'address',
         'phone',
         'email',

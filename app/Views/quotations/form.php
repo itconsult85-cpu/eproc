@@ -32,10 +32,10 @@ $items = $isEdit ? $quotation['items'] : [[]];
             </div>
             <div class="col-md-4">
                 <label class="field-label">
-                    Nomor quotation *
+                    Nomor quotation
                 </label>
-                <input required name="quotation_no" class="form-control"
-                    value="<?= old('quotation_no', $quotation['quotation_no'] ?? 'Q-' . date('Ymd-His')) ?>">
+                <input readonly class="form-control"
+                    value="<?= esc($quotation['quotation_no'] ?? 'Otomatis saat disimpan') ?>">
             </div>
             <div class="col-md-4"><label class="field-label">
                     Tanggal

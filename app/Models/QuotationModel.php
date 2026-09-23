@@ -55,6 +55,45 @@ class QuotationModel extends Model
         return $quotation;
     }
 
+    public function nextQuotationNumber(int $companyId, string $issueDate): string
+    {
+        $db = $this->db;
+        $company = $db->query('SELECT * FROM companies WHERE id = ? FOR UPDATE', [$companyId])->getRowArray();
+        if (! $company) {
+            throw new \InvalidArgumentException('Perusahaan quotation tidak ditemukan.');
+        }
+
+        $prefix = strtoupper(trim((string) ($company['quotation_prefix'] ?? 'CCIP'))) ?: 'CCIP';
+        $code = strtoupper(trim((string) ($company['quotation_code'] ?? '')));
+        if ($code === '') {
+            $words = preg_split('/\s+/', trim((string) preg_replace('/\bPT\.?\s*/i', '', $company['name'] ?? '')));
+            $initials = '';
+            foreach ((array) $words as $word) {
+                if ($word !== '') $initials .= strtoupper($word[0]);
+            }
+            $code = 'TRE-' . ($initials ?: 'GEN');
+        }
+
+        $monthRoman = [1 => 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+        $timestamp = strtotime($issueDate) ?: time();
+        $day = date('d', $timestamp);
+        $month = $monthRoman[(int) date('n', $timestamp)];
+        $year = date('Y', $timestamp);
+        $sequence = (int) ($company['quotation_sequence'] ?? 0);
+
+        $rows = $db->table('quotations')->select('quotation_no')->where('company_id', $companyId)->get()->getResultArray();
+        $pattern = '/^' . preg_quote($prefix, '/') . '(\d+)\d{2}\/' . preg_quote($code, '/') . '\//';
+        foreach ($rows as $row) {
+            if (preg_match($pattern, (string) ($row['quotation_no'] ?? ''), $matches)) {
+                $sequence = max($sequence, (int) $matches[1]);
+            }
+        }
+        $sequence++;
+        $db->table('companies')->where('id', $companyId)->update(['quotation_sequence' => $sequence]);
+
+        return $prefix . str_pad((string) $sequence, 3, '0', STR_PAD_LEFT) . $day . '/' . $code . '/' . $month . '/' . $year;
+    }
+
     public function changeStatus(int $id, string $toStatus, string $changedBy = 'system', ?string $reason = null): bool
     {
         $quotation = $this->find($id);

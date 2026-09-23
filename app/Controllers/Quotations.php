@@ -79,7 +79,7 @@ class Quotations extends BaseController
 
     public function create()
     {
-        $rules = ['company_id' => 'required|is_natural_no_zero', 'title' => 'required|max_length[220]', 'quotation_no' => 'required|max_length[60]'];
+        $rules = ['company_id' => 'required|is_natural_no_zero', 'title' => 'required|max_length[220]'];
         if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -107,13 +107,16 @@ class Quotations extends BaseController
             $items[] = ['product_id' => $product['id'], 'product_name' => $product['name'], 'description' => trim((string) ($item['description'] ?? '')) ?: $product['description'], 'quantity' => $qty, 'unit' => $item['unit'] ?? 'pcs', 'unit_price' => $price, 'discount_percent' => $discount, 'line_total' => $line];
         }
         $issueDate = $this->request->getPost('issue_date') ?: date('Y-m-d');
+        $db = db_connect();
+        $db->transStart();
+        $quotationNo = $this->model->nextQuotationNumber((int) $this->request->getPost('company_id'), date('Y-m-d'));
         $validityDays = max(0, (int) ($this->request->getPost('validity_days') ?: $settings['default_validity_days'] ?? 10));
         $validUntil = date('Y-m-d', strtotime($issueDate . ' +' . $validityDays . ' days'));
         $taxPercent = max(0, (float) ($this->request->getPost('tax_percent') ?: $settings['default_tax_percent'] ?? 0));
         $tax = $subtotal * $taxPercent / 100;
         $quotationId = $this->model->insert([
             'company_id' => $this->request->getPost('company_id'),
-            'quotation_no' => $this->request->getPost('quotation_no'),
+            'quotation_no' => $quotationNo,
             'customer_name' => $customerName,
             'customer_address' => $customerAddress,
             'customer_phone' => $this->request->getPost('customer_phone'),
@@ -145,6 +148,10 @@ class Quotations extends BaseController
             }
             (new QuotationItemModel())->insertBatch($items);
         }
+        $db->transComplete();
+        if ($db->transStatus() === false) {
+            return redirect()->back()->withInput()->with('errors', ['quotation_no' => 'Nomor quotation gagal dibuat. Silakan coba lagi.']);
+        }
         return redirect()->to('/quotations/' . $quotationId)->with('message', 'Penawaran berhasil dibuat.');
     }
 
@@ -165,7 +172,7 @@ class Quotations extends BaseController
 
     public function update(int $id)
     {
-        $rules = ['company_id' => 'required', 'title' => 'required', 'quotation_no' => 'required'];
+        $rules = ['company_id' => 'required', 'title' => 'required'];
         if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -202,7 +209,7 @@ class Quotations extends BaseController
 
         $this->model->update($id, [
             'company_id' => $this->request->getPost('company_id'),
-            'quotation_no' => $this->request->getPost('quotation_no'),
+            'quotation_no' => $this->model->find($id)['quotation_no'],
             'customer_name' => $customerName,
             'customer_address' => $customerAddress,
             'customer_phone' => $this->request->getPost('customer_phone'),

@@ -15,6 +15,19 @@
                 </label>
                 <input name="phone" class="form-control" value="<?= old('phone', $company['phone'] ?? '') ?>">
             </div>
+            <div class="col-md-4">
+                <label class="field-label">Prefix quotation</label>
+                <input name="quotation_prefix" maxlength="12" class="form-control" placeholder="CCIP"
+                    value="<?= old('quotation_prefix', $company['quotation_prefix'] ?? 'CCIP') ?>">
+            </div>
+            <div class="col-md-4">
+                <label class="field-label">Kode quotation</label>
+                <input name="quotation_code" maxlength="30" class="form-control" placeholder="TRE-ICA"
+                    value="<?= old('quotation_code', $company['quotation_code'] ?? '') ?>">
+            </div>
+            <div class="col-12">
+                <div class="form-text">Nomor dibuat otomatis: prefix + nomor urut 3 digit + tanggal + kode + bulan Romawi + tahun. Kosongkan kode untuk memakai kode otomatis dari nama perusahaan.</div>
+            </div>
             <div class="col-12">
                 <label class="field-label">
                     Alamat
