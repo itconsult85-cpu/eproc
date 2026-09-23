@@ -184,23 +184,29 @@
     const company = (window.companiesData || []).find(
       (c) => c.id == select.value,
     );
-    const nameInput = document.querySelector('[name="customer_name"]');
-    const addressInput = document.querySelector('[name="customer_address"]');
-    if (!nameInput || !addressInput) return;
+    const nameInput = document.querySelector('[data-auto-field="customer_name"]');
+    const addressInput = document.querySelector('[data-auto-field="customer_address"]');
+    const nameValue = document.querySelector('[name="customer_name"]');
+    const addressValue = document.querySelector('[name="customer_address"]');
+    if (!nameInput || !addressInput || !nameValue || !addressValue) return;
     if (company) {
       nameInput.value = company.name || "";
       addressInput.value = company.address || "";
+      nameValue.value = nameInput.value;
+      addressValue.value = addressInput.value;
       document.querySelector('[name="customer_phone"]').value =
         company.phone || "";
       document.querySelector('[name="attention"]').value =
         company.pic_name || "";
-      nameInput.readOnly = true;
-      addressInput.readOnly = true;
+      nameInput.disabled = true;
+      addressInput.disabled = true;
     } else {
-      nameInput.readOnly = false;
-      addressInput.readOnly = false;
+      nameInput.disabled = true;
+      addressInput.disabled = true;
       nameInput.value = "";
       addressInput.value = "";
+      nameValue.value = "";
+      addressValue.value = "";
     }
   };
   window.autoFillProduct = function (select) {

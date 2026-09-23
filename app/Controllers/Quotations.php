@@ -109,7 +109,7 @@ class Quotations extends BaseController
         $issueDate = $this->request->getPost('issue_date') ?: date('Y-m-d');
         $db = db_connect();
         $db->transStart();
-        $quotationNo = $this->model->nextQuotationNumber((int) $this->request->getPost('company_id'), date('Y-m-d'));
+        $quotationNo = $this->model->nextQuotationNumber((int) $this->request->getPost('company_id'), $issueDate);
         $validityDays = max(0, (int) ($this->request->getPost('validity_days') ?: $settings['default_validity_days'] ?? 10));
         $validUntil = date('Y-m-d', strtotime($issueDate . ' +' . $validityDays . ' days'));
         $taxPercent = max(0, (float) ($this->request->getPost('tax_percent') ?: $settings['default_tax_percent'] ?? 0));

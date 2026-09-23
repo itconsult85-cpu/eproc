@@ -34,7 +34,7 @@ $items = $isEdit ? $quotation['items'] : [[]];
                 <label class="field-label">
                     Nomor quotation
                 </label>
-                <input readonly class="form-control"
+                <input disabled class="form-control"
                     value="<?= esc($quotation['quotation_no'] ?? 'Otomatis saat disimpan') ?>">
             </div>
             <div class="col-md-4"><label class="field-label">
@@ -48,8 +48,10 @@ $items = $isEdit ? $quotation['items'] : [[]];
                 <label class="field-label">
                     Kepada / To
                 </label>
-                <input readonly name="customer_name" class="form-control"
+                <input disabled data-auto-field="customer_name" class="form-control"
                     value="<?= old('customer_name', $quotation['customer_name'] ?? '') ?>">
+                <input type="hidden" name="customer_name"
+                    value="<?= esc(old('customer_name', $quotation['customer_name'] ?? '')) ?>">
             </div>
             <div class="col-md-4">
                 <label class="field-label">
@@ -62,8 +64,10 @@ $items = $isEdit ? $quotation['items'] : [[]];
                 <label class="field-label">
                     Alamat customer
                 </label>
-                <textarea readonly name="customer_address" class="form-control" rows="2"><?= old('customer_address', $quotation['customer_address'] ?? '') ?>
+                <textarea disabled data-auto-field="customer_address" class="form-control" rows="2"><?= old('customer_address', $quotation['customer_address'] ?? '') ?>
                 </textarea>
+                <input type="hidden" name="customer_address"
+                    value="<?= esc(old('customer_address', $quotation['customer_address'] ?? '')) ?>">
             </div>
             <div class="col-md-4">
                 <label class="field-label">
