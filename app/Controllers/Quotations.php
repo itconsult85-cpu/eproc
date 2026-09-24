@@ -422,7 +422,68 @@ class Quotations extends BaseController
             'title' => 'Detail Penawaran',
             'quotation' => $quotation,
             'products' => (new ProductModel())->orderBy('name')->findAll(),
+            'negotiationHistory' => $this->negotiationHistory($quotation['negotiations'] ?? []),
         ]);
+    }
+
+    private function negotiationHistory(array $negotiations): array
+    {
+        usort($negotiations, static fn(array $a, array $b): int => ((int) $a['round_no']) <=> ((int) $b['round_no']));
+        $previous = null;
+        $history = [];
+        foreach ($negotiations as $negotiation) {
+            $snapshot = json_decode((string) ($negotiation['snapshot_json'] ?? ''), true);
+            $snapshot = is_array($snapshot) ? $snapshot : [];
+            $changes = [];
+            if ($previous === null) {
+                $changes[] = 'Putaran pertama: seluruh nilai di bawah merupakan usulan negosiasi.';
+            } else {
+                foreach ([
+                    'payment_terms' => 'Termin pembayaran',
+                    'delivery_terms' => 'Termin pengiriman',
+                    'notes' => 'Catatan atau syarat',
+                ] as $field => $label) {
+                    $before = trim((string) ($previous[$field] ?? ''));
+                    $after = trim((string) ($snapshot[$field] ?? ''));
+                    if ($before !== $after) $changes[] = $label . ' diubah.';
+                }
+                if (abs((float) ($previous['tax_percent'] ?? 0) - (float) ($snapshot['tax_percent'] ?? 0)) > 0.0001) {
+                    $changes[] = 'Persentase pajak diubah dari ' . $previous['tax_percent'] . '% menjadi ' . $snapshot['tax_percent'] . '%.';
+                }
+                $beforeItems = [];
+                foreach ((array) ($previous['items'] ?? []) as $item) $beforeItems[(string) ($item['product_id'] ?? $item['product_name'] ?? uniqid())] = $item;
+                $afterItems = [];
+                foreach ((array) ($snapshot['items'] ?? []) as $item) $afterItems[(string) ($item['product_id'] ?? $item['product_name'] ?? uniqid())] = $item;
+                foreach ($afterItems as $key => $item) {
+                    $name = (string) ($item['product_name'] ?? 'Produk');
+                    if (! isset($beforeItems[$key])) {
+                        $changes[] = 'Item ditambahkan: ' . $name . '.';
+                        continue;
+                    }
+                    $beforeItem = $beforeItems[$key];
+                    $itemChanges = [];
+                    foreach ([
+                        'quantity' => 'qty',
+                        'unit_price' => 'harga',
+                        'discount_percent' => 'diskon',
+                        'description' => 'deskripsi',
+                        'unit' => 'satuan',
+                    ] as $field => $label) {
+                        if ((string) ($beforeItem[$field] ?? '') !== (string) ($item[$field] ?? '')) $itemChanges[] = $label;
+                    }
+                    if ($itemChanges) $changes[] = 'Item ' . $name . ' diubah: ' . implode(', ', $itemChanges) . '.';
+                }
+                foreach ($beforeItems as $key => $item) {
+                    if (! isset($afterItems[$key])) $changes[] = 'Item dihapus: ' . ($item['product_name'] ?? 'Produk') . '.';
+                }
+                if (! $changes) $changes[] = 'Tidak ada perubahan dibandingkan putaran sebelumnya.';
+            }
+            $negotiation['snapshot'] = $snapshot;
+            $negotiation['changes'] = $changes;
+            $history[] = $negotiation;
+            $previous = $snapshot;
+        }
+        return array_reverse($history);
     }
 
     public function pdf(string $id)
@@ -440,7 +501,8 @@ class Quotations extends BaseController
         $dompdf->loadHtml(view('quotations/pdf', ['quotation' => $quotation, 'settings' => $settings, 'logoData' => $this->assetData($settings['logo_path'] ?? null), 'signatureData' => $this->assetData($settings['signature_path'] ?? null), 'stampData' => $this->assetData($settings['stamp_path'] ?? null)]));
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="quotation-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
+        $filenamePrefix = $quotation['status'] === 'approved' ? 'final-quotation-' : 'quotation-';
+        return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="' . $filenamePrefix . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }
 
     public function catalogPreview(string $id)
