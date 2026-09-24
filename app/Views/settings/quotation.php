@@ -5,6 +5,14 @@ $settingsLogo = $settings['logo_path'] ?? null;
 $settingsLogoUrl = $settingsLogo
     ? (preg_match('#^https?://#i', $settingsLogo) ? $settingsLogo : base_url(ltrim($settingsLogo, '/')))
     : null;
+$settingsSignature = $settings['signature_path'] ?? null;
+$settingsSignatureUrl = $settingsSignature
+    ? (preg_match('#^https?://#i', $settingsSignature) ? $settingsSignature : base_url(ltrim($settingsSignature, '/')))
+    : null;
+$settingsStamp = $settings['stamp_path'] ?? null;
+$settingsStampUrl = $settingsStamp
+    ? (preg_match('#^https?://#i', $settingsStamp) ? $settingsStamp : base_url(ltrim($settingsStamp, '/')))
+    : null;
 ?>
 <form method="post" action="/settings/quotation" enctype="multipart/form-data" class="form-card">
     <?= csrf_field() ?>
@@ -139,16 +147,16 @@ $settingsLogoUrl = $settingsLogo
                     </label>
                     <input type="file" name="signature" accept="image/png,image/jpeg,image/webp"
                         class="form-control mb-2">
-                    <?php if (!empty($settings['signature_path'])): ?>
-                    <img src="<?= esc($settings['signature_path']) ?>" class="img-thumbnail mb-3"
+                    <?php if ($settingsSignatureUrl): ?>
+                    <img src="<?= esc($settingsSignatureUrl) ?>" class="img-thumbnail mb-3"
                         style="max-height:100px" alt="Tanda tangan saat ini">
                     <?php endif; ?>
                     <label class="field-label">
                         Stempel (image)
                     </label>
                     <input type="file" name="stamp" accept="image/png,image/jpeg,image/webp" class="form-control mb-2">
-                    <?php if (!empty($settings['stamp_path'])): ?>
-                    <img src="<?= esc($settings['stamp_path']) ?>" class="img-thumbnail" style="max-height:100px"
+                    <?php if ($settingsStampUrl): ?>
+                    <img src="<?= esc($settingsStampUrl) ?>" class="img-thumbnail" style="max-height:100px"
                         alt="Stempel saat ini">
                     <?php endif; ?>
                     <div class="form-text mt-3">Format JPG, PNG, atau WEBP. Maksimal 5 MB per file.</div>

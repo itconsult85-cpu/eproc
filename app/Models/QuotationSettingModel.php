@@ -30,6 +30,8 @@ class QuotationSettingModel extends Model
 
     public function current(): array
     {
-        return $this->find(1) ?? ['id' => 1, 'default_validity_days' => 10, 'default_tax_percent' => 11];
+        return $this->find(1)
+            ?? $this->orderBy($this->primaryKey, 'ASC')->first()
+            ?? ['id' => 1, 'default_validity_days' => 10, 'default_tax_percent' => 11];
     }
 }
