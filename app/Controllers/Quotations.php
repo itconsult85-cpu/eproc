@@ -339,6 +339,12 @@ class Quotations extends BaseController
         if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         if (! in_array($quotation['status'], ['draft', 'sent', 'negotiation'], true)) return redirect()->back()->with('errors', ['status' => 'Quotation sudah final dan tidak dapat dinegosiasikan lagi.']);
         $negotiations = new QuotationNegotiationModel();
+        $negotiationBase = $quotation;
+        $latestNegotiation = $negotiations->where('quotation_id', $id)->orderBy('round_no', 'DESC')->first();
+        if ($latestNegotiation) {
+            $latestSnapshot = json_decode((string) $latestNegotiation['snapshot_json'], true);
+            if (is_array($latestSnapshot)) $negotiationBase = array_merge($quotation, $latestSnapshot);
+        }
         if ($negotiations->latestPending($id)) return redirect()->back()->with('errors', ['negotiation' => 'Masih ada negosiasi yang menunggu keputusan.']);
         $latest = $negotiations->selectMax('round_no')->where('quotation_id', $id)->first();
         $round = (int) ($latest['round_no'] ?? 0) + 1;
@@ -381,14 +387,14 @@ class Quotations extends BaseController
             $masterSnapshot = ['payment_terms' => $quotation['payment_terms'], 'delivery_terms' => $quotation['delivery_terms'], 'notes' => $quotation['notes'], 'tax_percent' => $quotation['tax_percent'], 'subtotal' => $quotation['subtotal'], 'tax_amount' => $quotation['tax_amount'], 'grand_total' => $quotation['grand_total'], 'items' => $quotation['items']];
             $this->model->update($id, ['master_snapshot_json' => json_encode($masterSnapshot, JSON_UNESCAPED_UNICODE)]);
         }
-        $taxPercent = (float) ($this->request->getPost('tax_percent') ?? $quotation['tax_percent']);
+        $taxPercent = (float) ($this->request->getPost('tax_percent') ?? $negotiationBase['tax_percent']);
         if ($taxPercent < 0 || $taxPercent > 100) return redirect()->back()->withInput()->with('errors', ['tax_percent' => 'Pajak harus berada antara 0 sampai 100 persen.']);
         $taxAmount = round($subtotal * $taxPercent / 100, 2);
         $grandTotal = $subtotal + $taxAmount;
         $snapshot = [
-            'payment_terms' => trim((string) ($this->request->getPost('payment_terms') ?? $quotation['payment_terms'])),
-            'delivery_terms' => trim((string) ($this->request->getPost('delivery_terms') ?? $quotation['delivery_terms'])),
-            'notes' => trim((string) ($this->request->getPost('notes') ?? $quotation['notes'])),
+            'payment_terms' => trim((string) ($this->request->getPost('payment_terms') ?? $negotiationBase['payment_terms'])),
+            'delivery_terms' => trim((string) ($this->request->getPost('delivery_terms') ?? $negotiationBase['delivery_terms'])),
+            'notes' => trim((string) ($this->request->getPost('notes') ?? $negotiationBase['notes'])),
             'tax_percent' => $taxPercent,
             'items' => $items,
         ];

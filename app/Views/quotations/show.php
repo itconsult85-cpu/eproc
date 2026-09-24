@@ -106,8 +106,9 @@ $masterQuotation = $masterQuotation ?? $quotation;
 </div>
 <?php if (can('quotations.status') && in_array($quotation['status'], ['draft', 'sent', 'negotiation'], true)): ?>
 <?php $hasPendingNegotiation = ! empty(array_filter($quotation['negotiations'] ?? [], static fn($n) => $n['status'] === 'pending')); ?>
-<?php $negotiationItems = old('items'); $negotiationItems = is_array($negotiationItems) && $negotiationItems !== [] ? $negotiationItems : $quotation['items']; ?>
+<?php $latestNegotiation = $quotation['negotiations'][0] ?? null; $negotiationBase = $quotation; if ($latestNegotiation) { $latestSnapshot = json_decode((string) ($latestNegotiation['snapshot_json'] ?? ''), true); if (is_array($latestSnapshot)) $negotiationBase = array_merge($quotation, $latestSnapshot); } $negotiationItems = old('items'); $negotiationItems = is_array($negotiationItems) && $negotiationItems !== [] ? $negotiationItems : ($negotiationBase['items'] ?? []); ?>
 <div class="card mt-3"><div class="card-header"><strong><i class="bi bi-chat-square-text me-1"></i>Proses Negosiasi Quotation</strong></div><div class="card-body">
+    <div class="alert alert-info py-2 small"><i class="bi bi-info-circle me-1"></i>Baseline editor ini berasal dari <strong><?= $latestNegotiation ? 'hasil Putaran ' . esc($latestNegotiation['round_no']) : 'Quotation Master' ?></strong>. Card ini hanya untuk mengajukan perubahan nego dan tidak mengubah data master.</div>
     <p class="text-body-secondary small mb-3">
         Ubah nilai yang diminta client pada editor di bawah. Perubahan disimpan sebagai <strong>versi usulan</strong> dan belum mengubah quotation utama sampai dipilih
         <strong>Terima &amp; Final</strong> pada riwayat negosiasi.
@@ -136,10 +137,10 @@ $masterQuotation = $masterQuotation ?? $quotation;
             </div>
             <button type="button" class="btn btn-sm btn-outline-primary mb-3" data-action="add-negotiation-item"><i class="bi bi-plus-lg me-1"></i>Tambah item</button>
             <div class="row g-2 mb-3">
-                <div class="col-md-4"><label class="form-label">Pajak (%)</label><input name="tax_percent" type="number" step="0.01" min="0" max="100" class="form-control" value="<?= esc($quotation['tax_percent'] ?? 0) ?>" required></div>
-                <div class="col-md-4"><label class="form-label">Termin pembayaran</label><input name="payment_terms" class="form-control" value="<?= esc($quotation['payment_terms'] ?? '') ?>"></div>
-                <div class="col-md-4"><label class="form-label">Termin pengiriman</label><input name="delivery_terms" class="form-control" value="<?= esc($quotation['delivery_terms'] ?? '') ?>"></div>
-                <div class="col-12"><label class="form-label">Catatan / syarat tambahan</label><textarea name="notes" class="form-control" rows="2"><?= esc($quotation['notes'] ?? '') ?></textarea></div>
+                <div class="col-md-4"><label class="form-label">Pajak (%)</label><input name="tax_percent" type="number" step="0.01" min="0" max="100" class="form-control" value="<?= esc($negotiationBase['tax_percent'] ?? 0) ?>" required></div>
+                <div class="col-md-4"><label class="form-label">Termin pembayaran</label><input name="payment_terms" class="form-control" value="<?= esc($negotiationBase['payment_terms'] ?? '') ?>"></div>
+                <div class="col-md-4"><label class="form-label">Termin pengiriman</label><input name="delivery_terms" class="form-control" value="<?= esc($negotiationBase['delivery_terms'] ?? '') ?>"></div>
+                <div class="col-12"><label class="form-label">Catatan / syarat tambahan</label><textarea name="notes" class="form-control" rows="2"><?= esc($negotiationBase['notes'] ?? '') ?></textarea></div>
             </div>
             <div class="negotiation-total-preview text-end mb-3"><span>Subtotal: <strong data-negotiation-subtotal>Rp 0</strong></span><span class="ms-3">Pajak: <strong data-negotiation-tax>Rp 0</strong></span><span class="ms-3">Grand total: <strong data-negotiation-grand-total>Rp 0</strong></span></div>
             <div class="row g-2"><div class="col-md-6"><label class="form-label">Pesan dari client</label><textarea name="customer_message" class="form-control" rows="2" placeholder="Contoh: minta harga khusus atau perubahan termin"></textarea></div><div class="col-md-6"><label class="form-label">Catatan internal</label><textarea name="internal_notes" class="form-control" rows="2"></textarea></div></div>
