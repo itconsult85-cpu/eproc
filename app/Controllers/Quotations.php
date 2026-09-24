@@ -366,6 +366,10 @@ class Quotations extends BaseController
             $subtotal += $lineTotal;
         }
         if ($items === []) return redirect()->back()->withInput()->with('errors', ['items' => 'Minimal satu item harus diisi untuk membuat putaran negosiasi.']);
+        if (empty($quotation['master_snapshot_json'])) {
+            $masterSnapshot = ['payment_terms' => $quotation['payment_terms'], 'delivery_terms' => $quotation['delivery_terms'], 'notes' => $quotation['notes'], 'tax_percent' => $quotation['tax_percent'], 'subtotal' => $quotation['subtotal'], 'tax_amount' => $quotation['tax_amount'], 'grand_total' => $quotation['grand_total'], 'items' => $quotation['items']];
+            $this->model->update($id, ['master_snapshot_json' => json_encode($masterSnapshot, JSON_UNESCAPED_UNICODE)]);
+        }
         $taxPercent = (float) ($this->request->getPost('tax_percent') ?? $quotation['tax_percent']);
         if ($taxPercent < 0 || $taxPercent > 100) return redirect()->back()->withInput()->with('errors', ['tax_percent' => 'Pajak harus berada antara 0 sampai 100 persen.']);
         $taxAmount = round($subtotal * $taxPercent / 100, 2);
@@ -436,9 +440,15 @@ class Quotations extends BaseController
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+        $masterQuotation = $quotation;
+        if (! empty($quotation['master_snapshot_json'])) {
+            $snapshot = json_decode((string) $quotation['master_snapshot_json'], true);
+            if (is_array($snapshot)) $masterQuotation = array_merge($quotation, $snapshot);
+        }
         return view('quotations/show', [
             'title' => 'Detail Penawaran',
             'quotation' => $quotation,
+            'masterQuotation' => $masterQuotation,
             'products' => (new ProductModel())->orderBy('name')->findAll(),
             'bankAccounts' => (new CompanyBankAccountModel())->active(),
             'negotiationHistory' => $this->negotiationHistory($quotation['negotiations'] ?? []),
