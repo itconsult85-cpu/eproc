@@ -94,6 +94,41 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
 }
+.letter-spacing-1 {
+  letter-spacing: 0.08em;
+}
+.confirm-modal-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 0.9rem;
+  color: var(--bs-primary);
+  background: rgba(13, 110, 253, 0.1);
+  font-size: 1.25rem;
+}
+.confirm-modal-icon-success {
+  color: var(--bs-success);
+  background: rgba(25, 135, 84, 0.12);
+}
+.confirm-modal-icon-warning {
+  color: #997404;
+  background: rgba(255, 193, 7, 0.18);
+}
+.confirm-modal-icon-danger {
+  color: var(--bs-danger);
+  background: rgba(220, 53, 69, 0.1);
+}
+#appConfirmModal .modal-content {
+  border-radius: 1.1rem;
+}
+#appConfirmModal .modal-footer .btn {
+  min-width: 7rem;
+}
+#appConfirmModal .modal-body {
+  line-height: 1.65;
+}
 .table thead th {
   white-space: nowrap;
   color: #475467;

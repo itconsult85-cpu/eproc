@@ -66,6 +66,61 @@
     };
   };
 
+  function initConfirmationModal() {
+    const modalElement = document.querySelector("#appConfirmModal");
+    if (!modalElement || typeof bootstrap === "undefined") return;
+
+    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+    const title = modalElement.querySelector("[data-confirm-title]");
+    const message = modalElement.querySelector("[data-confirm-message]");
+    const icon = modalElement.querySelector("[data-confirm-icon]");
+    const submit = modalElement.querySelector("[data-confirm-submit]");
+    let pendingForm = null;
+
+    const variantIcons = {
+      primary: "bi-send",
+      success: "bi-check2-circle",
+      warning: "bi-clock-history",
+      danger: "bi-trash3",
+    };
+
+    const open = (form) => {
+      pendingForm = form;
+      const variant = form.dataset.confirmVariant || "primary";
+      title.textContent = form.dataset.confirmTitle || "Konfirmasi";
+      message.textContent = form.dataset.confirmMessage || "Apakah Anda yakin ingin melanjutkan tindakan ini?";
+      submit.textContent = form.dataset.confirmLabel || "Konfirmasi";
+      submit.className = `btn btn-${variant}`;
+      icon.className = `confirm-modal-icon confirm-modal-icon-${variant}`;
+      icon.innerHTML = `<i class="bi ${variantIcons[variant] || "bi-question-lg"}"></i>`;
+      modal.show();
+    };
+
+    document.addEventListener("submit", (event) => {
+      const form = event.target.closest("form[data-confirm]");
+      if (!form) return;
+      if (form.dataset.confirmed === "true") {
+        delete form.dataset.confirmed;
+        return;
+      }
+      event.preventDefault();
+      open(form);
+    });
+
+    submit.addEventListener("click", () => {
+      if (!pendingForm) return;
+      const form = pendingForm;
+      pendingForm = null;
+      form.dataset.confirmed = "true";
+      modal.hide();
+      form.requestSubmit();
+    });
+
+    modalElement.addEventListener("hidden.bs.modal", () => {
+      pendingForm = null;
+    });
+  }
+
   initTable(
     "#companies-table",
     dataTableBase(
@@ -313,6 +368,7 @@
   };
 
   document.addEventListener("DOMContentLoaded", function () {
+    initConfirmationModal();
     const quotationForm = document.querySelector("form[data-companies]");
     if (quotationForm) {
       try {

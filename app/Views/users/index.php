@@ -46,7 +46,9 @@
                             </a>
                             <form class="d-inline" method="post"
                                 action="<?= site_url('users/' . $u['id'] . '/delete') ?>"
-                                onsubmit="return confirm('Hapus pengguna ini?')">
+                                data-confirm data-confirm-title="Hapus pengguna?"
+                                data-confirm-message="Pengguna ini akan dihapus dan tidak dapat dipulihkan."
+                                data-confirm-label="Ya, hapus" data-confirm-variant="danger">
                                 <?= csrf_field() ?>
                                 <button class="btn btn-sm btn-outline-danger">
                                     <i class="bi bi-trash"></i>

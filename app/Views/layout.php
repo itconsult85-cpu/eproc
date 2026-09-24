@@ -176,6 +176,29 @@
             <strong>Eprocurement</strong> &mdash; internal workspace
         </footer>
     </div>
+    <div class="modal fade" id="appConfirmModal" tabindex="-1" aria-labelledby="appConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="confirm-modal-icon" data-confirm-icon aria-hidden="true"><i class="bi bi-question-lg"></i></div>
+                        <div>
+                            <div class="small text-uppercase text-body-secondary fw-semibold letter-spacing-1">Konfirmasi tindakan</div>
+                            <h5 class="modal-title mb-0" id="appConfirmModalLabel" data-confirm-title>Konfirmasi</h5>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body pt-3">
+                    <p class="mb-0 text-body-secondary" data-confirm-message>Apakah Anda yakin ingin melanjutkan tindakan ini?</p>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" data-confirm-submit>Konfirmasi</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">

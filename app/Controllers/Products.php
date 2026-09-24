@@ -48,7 +48,7 @@ class Products extends BaseController
             if ($row['datasheet_file_path']) $details .= '<a href="' . esc($row['datasheet_file_path']) . '" target="_blank" rel="noopener" class="small text-danger"><i class="bi bi-file-pdf"></i> Datasheet PDF</a>';
             $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi produk">'
                 . '<a class="btn btn-outline-secondary" href="/products/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
-                . '<form method="post" action="/products/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus produk ini?\')"><button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
+                . '<form method="post" action="/products/' . (int) $row['id'] . '/delete" data-confirm data-confirm-title="Hapus produk?" data-confirm-message="Produk ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
             return ['media' => $media, 'product' => $details, 'cost_price' => 'Rp ' . number_format((float) $row['cost_price'], 0, ',', '.'), 'selling_price' => 'Rp ' . number_format((float) $row['selling_price'], 0, ',', '.'), 'store' => esc($row['store_name'] ?: '-') . '<div class="small text-body-secondary">' . esc($row['store_phone'] ?: '') . '</div>', 'actions' => $actions];
         }, $rows);
 
