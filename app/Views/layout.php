@@ -53,6 +53,12 @@
         $sidebarLogoUrl = $sidebarLogo
             ? (preg_match('#^https?://#i', $sidebarLogo) ? $sidebarLogo : base_url(ltrim($sidebarLogo, '/')))
             : null;
+        $currentPath = trim((string) service('uri')->getPath(), '/');
+        $isSidebarActive = static function (string $path) use ($currentPath): bool {
+            return $path === ''
+                ? $currentPath === ''
+                : ($currentPath === $path || str_starts_with($currentPath, $path . '/'));
+        };
         ?>
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
             <div class="sidebar-brand"><a href="<?= esc(site_url('/')) ?>" class="brand-link text-decoration-none">
@@ -74,7 +80,7 @@
                         </li>
                         <?php if (can('dashboard.view')): ?>
                         <li class="nav-item">
-                            <a href="/" class="nav-link">
+                            <a href="/" class="nav-link <?= $isSidebarActive('') ? 'active' : '' ?>">
                                 <i class="nav-icon bi bi-speedometer2"></i>
                                 <p>
                                     Dashboard
@@ -84,7 +90,7 @@
                         <?php endif; ?>
                         <?php if (can('companies.view')): ?>
                         <li class="nav-item">
-                            <a href="/companies" class="nav-link">
+                            <a href="/companies" class="nav-link <?= $isSidebarActive('companies') ? 'active' : '' ?>">
                                 <i class="nav-icon bi bi-buildings"></i>
                                 <p>
                                     Perusahaan
@@ -94,7 +100,7 @@
                         <?php endif; ?>
                         <?php if (can('products.view')): ?>
                         <li class="nav-item">
-                            <a href="/products" class="nav-link">
+                            <a href="/products" class="nav-link <?= $isSidebarActive('products') ? 'active' : '' ?>">
                                 <i class="nav-icon bi bi-box-seam"></i>
                                 <p>
                                     Katalog Produk
@@ -104,7 +110,7 @@
                         <?php endif; ?>
                         <?php if (can('quotations.view')): ?>
                         <li class="nav-item">
-                            <a href="/quotations" class="nav-link">
+                            <a href="/quotations" class="nav-link <?= $isSidebarActive('quotations') ? 'active' : '' ?>">
                                 <i class="nav-icon bi bi-file-earmark-text"></i>
                                 <p>
                                     Penawaran
@@ -117,7 +123,7 @@
                         </li>
                         <?php if (can('settings.quotation')): ?>
                         <li class="nav-item">
-                            <a href="/settings/quotation" class="nav-link">
+                            <a href="/settings/quotation" class="nav-link <?= $isSidebarActive('settings/quotation') ? 'active' : '' ?>">
                                 <i class="nav-icon bi bi-sliders"></i>
                                 <p>
                                     Setting Quotation
@@ -127,7 +133,7 @@
                         <?php endif; ?>
                         <?php if (can('users.manage')): ?>
                         <li class="nav-item">
-                            <a href="/users" class="nav-link">
+                            <a href="/users" class="nav-link <?= $isSidebarActive('users') ? 'active' : '' ?>">
                                 <i class="nav-icon bi bi-people"></i>
                                 <p>
                                     Manajemen Pengguna
