@@ -28,7 +28,8 @@ class QuotationModel extends BaseModel
         'subtotal',
         'tax_percent',
         'tax_amount',
-        'grand_total'
+        'grand_total',
+        'bank_account_id'
     ];
 
     private const STATUS_TRANSITIONS = [
@@ -49,8 +50,8 @@ class QuotationModel extends BaseModel
 
     public function detail(int $id): ?array
     {
-        $quotation = $this->select('quotations.*, companies.name AS company_name, companies.address AS company_address, companies.phone AS company_phone, companies.email AS company_email, companies.pic_name')
-            ->join('companies', 'companies.id = quotations.company_id', 'left')->find($id);
+        $quotation = $this->select('quotations.*, companies.name AS company_name, companies.address AS company_address, companies.phone AS company_phone, companies.email AS company_email, companies.pic_name, company_bank_accounts.bank_name, company_bank_accounts.account_name AS bank_account_name, company_bank_accounts.account_number AS bank_account_number, company_bank_accounts.branch AS bank_branch, company_bank_accounts.currency AS bank_currency')
+            ->join('companies', 'companies.id = quotations.company_id', 'left')->join('company_bank_accounts', 'company_bank_accounts.id = quotations.bank_account_id', 'left')->find($id);
         if ($quotation === null) return null;
         $quotation['items'] = (new QuotationItemModel())->where('quotation_id', $id)->findAll();
         $quotation['negotiations'] = (new QuotationNegotiationModel())->forQuotation($id);

@@ -1,0 +1,4 @@
+-- Migration CodeIgniter: 2026-09-24-000010_CreateCompanyBankAccounts.php
+CREATE TABLE company_bank_accounts (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, bank_name VARCHAR(120) NOT NULL, account_name VARCHAR(160) NOT NULL, account_number VARCHAR(80) NOT NULL, branch VARCHAR(120) NULL, currency VARCHAR(10) NOT NULL DEFAULT 'IDR', is_active TINYINT NOT NULL DEFAULT 1, is_default TINYINT NOT NULL DEFAULT 0, notes VARCHAR(255) NULL, created_at DATETIME NULL, updated_at DATETIME NULL);
+ALTER TABLE quotations ADD bank_account_id INT UNSIGNED NULL;
+INSERT INTO company_bank_accounts (bank_name, account_name, account_number, branch, is_active, is_default, created_at, updated_at) SELECT bank_name, bank_account_name, bank_account_number, bank_branch, 1, 1, NOW(), NOW() FROM quotation_settings WHERE id = 1 AND COALESCE(bank_name, '') <> '' AND COALESCE(bank_account_number, '') <> '';

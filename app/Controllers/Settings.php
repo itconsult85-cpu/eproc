@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\QuotationSettingModel;
+use App\Models\CompanyBankAccountModel;
 
 class Settings extends BaseController
 {
@@ -15,7 +16,27 @@ class Settings extends BaseController
 
     public function quotation()
     {
-        return view('settings/quotation', ['title' => 'Setting Quotation', 'settings' => $this->model->current()]);
+        return view('settings/quotation', ['title' => 'Setting Quotation', 'settings' => $this->model->current(), 'bankAccounts' => (new CompanyBankAccountModel())->orderBy('is_default', 'DESC')->orderBy('bank_name')->findAll()]);
+    }
+
+    public function saveBankAccount(?string $id = null)
+    {
+        $accounts = new CompanyBankAccountModel();
+        $id = $id ? $this->resolveId($id, $accounts) : null;
+        $data = $this->request->getPost(['bank_name', 'account_name', 'account_number', 'branch', 'currency', 'notes']);
+        $data['is_active'] = $this->request->getPost('is_active') ? 1 : 0;
+        $data['is_default'] = $this->request->getPost('is_default') ? 1 : 0;
+        if (! $data['bank_name'] || ! $data['account_name'] || ! $data['account_number']) return redirect()->back()->withInput()->with('errors', ['bank' => 'Bank, nama pemilik, dan nomor rekening wajib diisi.']);
+        if ($data['is_default']) $accounts->where('id !=', (int) ($id ?? 0))->set(['is_default' => 0])->update();
+        $id ? $accounts->update($id, $data) : $accounts->insert($data);
+        return redirect()->to('/settings/quotation')->with('message', 'Rekening perusahaan berhasil disimpan.');
+    }
+
+    public function deleteBankAccount(string $id)
+    {
+        $accounts = new CompanyBankAccountModel();
+        $accounts->delete($this->resolveId($id, $accounts));
+        return redirect()->to('/settings/quotation')->with('message', 'Rekening perusahaan berhasil dihapus.');
     }
 
     public function saveQuotation()

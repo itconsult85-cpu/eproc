@@ -10,6 +10,7 @@ use App\Models\QuotationNegotiationModel;
 use App\Models\QuotationSettingModel;
 use App\Models\QuotationStatusLogModel;
 use App\Models\ProformaInvoiceModel;
+use App\Models\CompanyBankAccountModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -417,6 +418,16 @@ class Quotations extends BaseController
         return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="proforma-invoice-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }
 
+    public function saveBankAccount(string $id)
+    {
+        $id = $this->resolveId($id, $this->model);
+        $accountId = (int) $this->request->getPost('bank_account_id');
+        $account = (new CompanyBankAccountModel())->where('id', $accountId)->where('is_active', 1)->first();
+        if (! $account) return redirect()->back()->with('errors', ['bank_account' => 'Rekening perusahaan tidak valid atau sudah nonaktif.']);
+        $this->model->update($id, ['bank_account_id' => $accountId]);
+        return redirect()->to('/quotations/' . public_id($id))->with('message', 'Rekening pembayaran quotation berhasil dipilih.');
+    }
+
     public function show(string $id)
     {
         $id = $this->resolveId($id, $this->model);
@@ -429,6 +440,7 @@ class Quotations extends BaseController
             'title' => 'Detail Penawaran',
             'quotation' => $quotation,
             'products' => (new ProductModel())->orderBy('name')->findAll(),
+            'bankAccounts' => (new CompanyBankAccountModel())->active(),
             'negotiationHistory' => $this->negotiationHistory($quotation['negotiations'] ?? []),
         ]);
     }
