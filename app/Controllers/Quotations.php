@@ -193,6 +193,9 @@ class Quotations extends BaseController
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+        if ($quotation['status'] === 'approved' || (new QuotationNegotiationModel())->latestPending($id)) {
+            return redirect()->to('/quotations/' . public_id($id))->with('errors', ['edit' => 'Edit master tidak tersedia saat quotation final atau masih ada negosiasi pending. Gunakan proses negosiasi untuk mengajukan perubahan.']);
+        }
         return view('quotations/form', [
             'title' => 'Edit Penawaran',
             'quotation' => $quotation,
@@ -205,6 +208,11 @@ class Quotations extends BaseController
     public function update(string $id)
     {
         $id = $this->resolveId($id, $this->model);
+        $currentQuotation = $this->model->find($id);
+        if (! $currentQuotation) return redirect()->back()->with('errors', ['quotation' => 'Quotation tidak ditemukan.']);
+        if ($currentQuotation['status'] === 'approved' || (new QuotationNegotiationModel())->latestPending($id)) {
+            return redirect()->to('/quotations/' . public_id($id))->with('errors', ['edit' => 'Edit master tidak tersedia saat quotation final atau masih ada negosiasi pending. Gunakan proses negosiasi untuk mengajukan perubahan.']);
+        }
         $rules = ['company_id' => 'required', 'title' => 'required'];
         if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -239,6 +247,7 @@ class Quotations extends BaseController
         $validityDays = max(0, (int) ($this->request->getPost('validity_days') ?: $settings['default_validity_days'] ?? 10));
         $taxPercent = max(0, (float) ($this->request->getPost('tax_percent') ?: $settings['default_tax_percent'] ?? 0));
         $tax = $subtotal * $taxPercent / 100;
+        $masterSnapshot = ['payment_terms' => $this->request->getPost('payment_terms'), 'delivery_terms' => $this->request->getPost('delivery_terms'), 'notes' => $this->request->getPost('notes'), 'tax_percent' => $taxPercent, 'subtotal' => $subtotal, 'tax_amount' => $tax, 'grand_total' => $subtotal + $tax, 'items' => $items];
 
         $this->model->update($id, [
             'company_id' => $this->request->getPost('company_id'),
@@ -258,6 +267,8 @@ class Quotations extends BaseController
             'tax_percent' => $taxPercent,
             'tax_amount' => $tax,
             'grand_total' => $subtotal + $tax,
+            'master_snapshot_json' => json_encode($masterSnapshot, JSON_UNESCAPED_UNICODE),
+            'final_snapshot_json' => null,
         ]);
 
         (new QuotationItemModel())->where('quotation_id', $id)->delete();
@@ -400,8 +411,8 @@ class Quotations extends BaseController
         $negotiations->update($negotiationId, ['status' => $decision, 'responded_at' => $now, 'responded_by' => $user]);
         if ($decision === 'accepted') {
             $snapshot = json_decode((string) $negotiation['snapshot_json'], true) ?: [];
-            $this->model->update($id, ['status' => 'approved', 'payment_terms' => $snapshot['payment_terms'] ?? $quotation['payment_terms'], 'delivery_terms' => $snapshot['delivery_terms'] ?? $quotation['delivery_terms'], 'notes' => $snapshot['notes'] ?? $quotation['notes'], 'subtotal' => $negotiation['subtotal'], 'tax_percent' => $snapshot['tax_percent'] ?? $quotation['tax_percent'], 'tax_amount' => $negotiation['tax_amount'], 'grand_total' => $negotiation['grand_total']]);
-            if (! empty($snapshot['items'])) { (new QuotationItemModel())->where('quotation_id', $id)->delete(); (new QuotationItemModel())->insertBatch($snapshot['items']); }
+            $finalSnapshot = array_merge($snapshot, ['subtotal' => $negotiation['subtotal'], 'tax_amount' => $negotiation['tax_amount'], 'grand_total' => $negotiation['grand_total']]);
+            $this->model->update($id, ['status' => 'approved', 'final_snapshot_json' => json_encode($finalSnapshot, JSON_UNESCAPED_UNICODE)]);
             $proforma = new ProformaInvoiceModel();
             if (! $proforma->where('quotation_id', $id)->first()) $proforma->insert(['quotation_id' => $id, 'invoice_no' => 'PI-' . $quotation['quotation_no'], 'invoice_date' => date('Y-m-d'), 'due_date' => date('Y-m-d', strtotime('+30 days')), 'amount' => $negotiation['grand_total'], 'payment_status' => 'unpaid', 'created_at' => $now]);
             (new QuotationStatusLogModel())->insert(['quotation_id' => $id, 'from_status' => $quotation['status'], 'to_status' => 'approved', 'changed_by' => $user, 'reason' => 'Negosiasi putaran ' . $negotiation['round_no'] . ' diterima; menjadi kondisi final.', 'created_at' => $now]);
@@ -417,6 +428,8 @@ class Quotations extends BaseController
         $quotation = $this->model->detail($id);
         if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         if ($quotation['status'] !== 'approved') return redirect()->to('/quotations/' . public_id($id))->with('errors', ['status' => 'Proforma Invoice hanya dapat dicetak setelah quotation final disetujui.']);
+        $finalSnapshot = json_decode((string) ($quotation['final_snapshot_json'] ?? ''), true);
+        if (is_array($finalSnapshot)) $quotation = array_merge($quotation, $finalSnapshot);
         $settings = (new QuotationSettingModel())->current(); $options = new Options(); $options->set('isRemoteEnabled', true); $dompdf = new Dompdf($options);
         $dompdf->loadHtml(view('quotations/proforma_invoice', ['quotation' => $quotation, 'settings' => $settings])); $dompdf->setPaper('A4', 'portrait'); $dompdf->render();
         return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="proforma-invoice-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
@@ -523,6 +536,8 @@ class Quotations extends BaseController
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+        $finalSnapshot = json_decode((string) ($quotation['final_snapshot_json'] ?? ''), true);
+        if ($quotation['status'] === 'approved' && is_array($finalSnapshot)) $quotation = array_merge($quotation, $finalSnapshot);
         $settings = (new QuotationSettingModel())->current();
         $options = new Options();
         $options->set('isRemoteEnabled', true);
