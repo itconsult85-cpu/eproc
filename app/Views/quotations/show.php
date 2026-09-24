@@ -9,6 +9,7 @@ $workflowLabels = [
     'rejected' => 'Ditolak',
     'expired' => 'Kedaluwarsa',
 ];
+$masterQuotation = $masterQuotation ?? $quotation;
 ?>
 <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
     <div>
@@ -48,9 +49,10 @@ $workflowLabels = [
 </div>
 <?php endif; ?>
 <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center"><strong><i class="bi bi-file-earmark-text me-1"></i>Quotation Master</strong><span class="badge text-bg-secondary">Data awal quotation</span></div>
     <div class="card-body">
         <p>
-            <?= nl2br(esc($quotation['customer_address'] ?? '')) ?>
+            <?= nl2br(esc($masterQuotation['customer_address'] ?? '')) ?>
         </p>
         <div class="table-responsive">
             <table class="table table-hover align-middle quotation-detail-table">
@@ -65,7 +67,7 @@ $workflowLabels = [
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($quotation['items'] as $index => $item): ?>
+                    <?php foreach ($masterQuotation['items'] as $index => $item): ?>
                     <tr>
                         <td><?= $index + 1 ?></td>
                         <td><?= esc($item['product_name']) ?><br><small><?= esc($item['description'] ?? '') ?></small>
@@ -80,24 +82,24 @@ $workflowLabels = [
                 <tfoot>
                     <tr>
                         <th colspan="5" class="text-end">Subtotal</th>
-                        <th>Rp <?= number_format((float) $quotation['subtotal'], 0, ',', '.') ?></th>
+                        <th>Rp <?= number_format((float) $masterQuotation['subtotal'], 0, ',', '.') ?></th>
                     </tr>
                     <tr>
-                        <th colspan="5" class="text-end">Pajak (<?= esc($quotation['tax_percent']) ?>%)</th>
-                        <th>Rp <?= number_format((float) $quotation['tax_amount'], 0, ',', '.') ?></th>
+                        <th colspan="5" class="text-end">Pajak (<?= esc($masterQuotation['tax_percent']) ?>%)</th>
+                        <th>Rp <?= number_format((float) $masterQuotation['tax_amount'], 0, ',', '.') ?></th>
                     </tr>
                     <tr>
                         <th colspan="5" class="text-end">Grand Total</th>
-                        <th>Rp <?= number_format((float) $quotation['grand_total'], 0, ',', '.') ?></th>
+                        <th>Rp <?= number_format((float) $masterQuotation['grand_total'], 0, ',', '.') ?></th>
                     </tr>
                 </tfoot>
             </table>
         </div>
-        <?php if ($quotation['notes']): ?>
+        <?php if ($masterQuotation['notes']): ?>
         <hr>
         <p>
             <strong>Catatan:</strong><br>
-            <?= nl2br(esc($quotation['notes'])) ?>
+            <?= nl2br(esc($masterQuotation['notes'])) ?>
         </p>
         <?php endif; ?>
     </div>
