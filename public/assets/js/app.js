@@ -2,6 +2,16 @@
 (function () {
   "use strict";
 
+  function initSearchableSelects() {
+    if (typeof window.jQuery === "undefined" || !jQuery.fn.select2) return;
+    jQuery("select[data-searchable-select]").each(function () {
+      const select = jQuery(this);
+      if (!select.hasClass("select2-hidden-accessible")) {
+        select.select2({ theme: "bootstrap-5", width: "100%", placeholder: select.data("placeholder") || "Pilih data", allowClear: true });
+      }
+    });
+  }
+
   function initTable(selector, options) {
     if (typeof DataTable !== "undefined" && document.querySelector(selector))
       new DataTable(selector, options);
@@ -450,6 +460,7 @@
   };
 
   document.addEventListener("DOMContentLoaded", function () {
+    initSearchableSelects();
     initConfirmationModal();
     const quotationForm = document.querySelector("form[data-companies]");
     if (quotationForm) {

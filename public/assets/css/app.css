@@ -72,6 +72,15 @@
   border-color: #86b7fe;
   box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.12);
 }
+.select2-container--bootstrap-5 .select2-selection { min-height: 2.55rem; color: var(--eproc-input); background-color: rgba(15, 23, 42, 0.28); border-color: #d0d5dd; }
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered, .select2-container--bootstrap-5 .select2-selection--single .select2-selection__placeholder { line-height: 2.35rem; color: var(--eproc-input); }
+.select2-container--bootstrap-5 .select2-dropdown, .select2-container--bootstrap-5 .select2-search__field { color: #fff; background-color: #1f2937; }
+.select2-container--bootstrap-5 .select2-results__option--highlighted { background-color: var(--bs-primary); }
+.po-items-wrapper { border: 1px solid rgba(148, 163, 184, 0.22); border-radius: 0.65rem; }
+.po-items-table { min-width: 960px; margin-bottom: 0; }
+.po-items-table th { padding: 0.75rem 0.65rem; }
+.po-items-table td { padding: 0.55rem 0.65rem; }
+.section-heading { padding: 0.85rem 1rem; border: 1px solid rgba(13, 110, 253, 0.18); border-radius: 0.65rem 0.65rem 0 0; background: rgba(13, 110, 253, 0.05); }
 textarea.form-control {
   min-height: 6rem;
 }
