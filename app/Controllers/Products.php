@@ -47,9 +47,16 @@ class Products extends BaseController
             $details = '<strong>' . esc($row['name']) . '</strong><div class="small text-body-secondary">' . esc(trim(($row['sku'] ?? '') . ' ' . ($row['brand'] ?? '')) ?: 'SKU belum diisi') . '</div>';
             if ($row['datasheet_file_path']) $details .= '<a href="' . esc($row['datasheet_file_path']) . '" target="_blank" rel="noopener" class="small text-danger"><i class="bi bi-file-pdf"></i> Datasheet PDF</a>';
             $publicId = public_id((int) $row['id']);
-            $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi produk">'
-                . '<a class="btn btn-outline-secondary" href="/products/' . $publicId . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
-                . '<form method="post" action="/products/' . $publicId . '/delete" data-confirm data-confirm-title="Hapus produk?" data-confirm-message="Produk ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
+            $actions = '';
+            if (can('products.edit')) {
+                $actions .= '<li><a class="dropdown-item" href="/products/' . $publicId . '/edit"><i class="bi bi-pencil me-2 text-warning"></i>Edit produk</a></li>';
+            }
+            if (can('products.delete')) {
+                $actions .= '<li><form method="post" action="/products/' . $publicId . '/delete" data-confirm data-confirm-title="Hapus produk?" data-confirm-message="Produk ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="dropdown-item text-danger" type="submit"><i class="bi bi-trash3 me-2"></i>Hapus produk</button></form></li>';
+            }
+            $actions = $actions !== ''
+                ? '<div class="dropdown datatable-actions"><button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-expanded="false"><i class="bi bi-three-dots me-1"></i>Aksi</button><ul class="dropdown-menu dropdown-menu-end shadow-sm">' . $actions . '</ul></div>'
+                : '<span class="text-body-secondary small">Tidak ada aksi</span>';
             return ['media' => $media, 'product' => $details, 'cost_price' => 'Rp ' . number_format((float) $row['cost_price'], 0, ',', '.'), 'selling_price' => 'Rp ' . number_format((float) $row['selling_price'], 0, ',', '.'), 'store' => esc($row['store_name'] ?: '-') . '<div class="small text-body-secondary">' . esc($row['store_phone'] ?: '') . '</div>', 'actions' => $actions];
         }, $rows);
 

@@ -10,9 +10,9 @@
                 Pantau pengajuan, negosiasi, persetujuan, dan quotation final dari satu tabel.
             </p>
         </div>
-        <a href="/quotations/new" class="btn btn-primary text-nowrap">
+        <?php if (can('quotations.create')): ?><a href="/quotations/new" class="btn btn-primary text-nowrap">
             <i class="bi bi-plus-lg me-1"></i>Buat Penawaran
-        </a>
+        </a><?php endif; ?>
     </div>
 </div>
 <div class="card quotation-workflow-guide mb-3">

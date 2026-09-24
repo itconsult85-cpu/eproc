@@ -11,9 +11,9 @@
                 Kelola katalog, datasheet generik, gambar, dan video produk.
             </p>
         </div>
-        <a href="/products/new" class="btn btn-primary text-nowrap">
+        <?php if (can('products.create')): ?><a href="/products/new" class="btn btn-primary text-nowrap">
             <i class="bi bi-plus-lg me-1"></i>Tambah Produk
-        </a>
+        </a><?php endif; ?>
     </div>
 </div>
 <div class="card">

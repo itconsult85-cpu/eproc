@@ -162,29 +162,36 @@ textarea.form-control {
   color: var(--bs-secondary-color);
   line-height: 1.25;
 }
-.quotation-actions {
+.quotation-actions,
+.datatable-actions {
   min-width: 5.5rem;
   text-align: right;
 }
-.quotation-actions .dropdown-toggle {
+.quotation-actions .dropdown-toggle,
+.datatable-actions .dropdown-toggle {
   min-width: 5.5rem;
   font-weight: 600;
 }
-.quotation-actions .dropdown-menu {
+.quotation-actions .dropdown-menu,
+.datatable-actions .dropdown-menu {
   min-width: 14rem;
   padding: 0.4rem;
   border: 1px solid rgba(148, 163, 184, 0.25);
 }
-.quotation-actions .dropdown-item {
+.quotation-actions .dropdown-item,
+.datatable-actions .dropdown-item {
   padding: 0.55rem 0.7rem;
   border-radius: 0.35rem;
   font-size: 0.875rem;
 }
 .quotation-actions .dropdown-item:focus,
-.quotation-actions .dropdown-item:hover {
+.quotation-actions .dropdown-item:hover,
+.datatable-actions .dropdown-item:focus,
+.datatable-actions .dropdown-item:hover {
   background-color: rgba(13, 110, 253, 0.1);
 }
-.quotation-actions form {
+.quotation-actions form,
+.datatable-actions form {
   margin: 0;
 }
 .quotation-items-table {
