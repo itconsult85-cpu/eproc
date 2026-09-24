@@ -384,6 +384,66 @@
     }
     window.renumberItems();
   };
+  window.updateNegotiationTotals = function () {
+    const form = document.querySelector("[data-negotiation-editor]");
+    if (!form) return;
+    let subtotal = 0;
+    form.querySelectorAll(".negotiation-item-row").forEach((row, index) => {
+      const quantity = Number(row.querySelector('[name$="[quantity]"]')?.value || 0);
+      const price = Number(row.querySelector('[name$="[unit_price]"]')?.value || 0);
+      const discount = Number(row.querySelector('[name$="[discount_percent]"]')?.value || 0);
+      const lineTotal = Math.max(0, quantity * price * (1 - discount / 100));
+      subtotal += lineTotal;
+      const line = row.querySelector("[data-negotiation-line-total]");
+      if (line) line.textContent = `Rp ${Math.round(lineTotal).toLocaleString("id-ID")}`;
+      const number = row.querySelector(".negotiation-row-number");
+      if (number) number.textContent = index + 1;
+    });
+    const taxPercent = Number(form.querySelector('[name="tax_percent"]')?.value || 0);
+    const tax = subtotal * taxPercent / 100;
+    const format = (value) => `Rp ${Math.round(value).toLocaleString("id-ID")}`;
+    const subtotalNode = form.querySelector("[data-negotiation-subtotal]");
+    const taxNode = form.querySelector("[data-negotiation-tax]");
+    const grandNode = form.querySelector("[data-negotiation-grand-total]");
+    if (subtotalNode) subtotalNode.textContent = format(subtotal);
+    if (taxNode) taxNode.textContent = format(tax);
+    if (grandNode) grandNode.textContent = format(subtotal + tax);
+  };
+  window.addNegotiationItem = function () {
+    const target = document.querySelector("#negotiation-items tbody");
+    const last = target?.querySelector("tr:last-child");
+    if (!target || !last) return;
+    const row = last.cloneNode(true);
+    const next = target.querySelectorAll("tr").length;
+    row.querySelectorAll("[name]").forEach((element) => {
+      element.name = element.name.replace(/items\[\d+\]/, `items[${next}]`);
+      if (element.tagName === "SELECT") element.value = "";
+      else if (element.name.includes("[quantity]")) element.value = 1;
+      else if (element.name.includes("[unit]")) element.value = "pcs";
+      else element.value = "";
+    });
+    const total = row.querySelector("[data-negotiation-line-total]");
+    if (total) total.textContent = "Rp 0";
+    target.appendChild(row);
+    window.updateNegotiationTotals();
+  };
+  window.removeNegotiationItem = function (button) {
+    const target = document.querySelector("#negotiation-items tbody");
+    const row = button.closest("tr");
+    if (!target || !row) return;
+    const rows = target.querySelectorAll("tr");
+    if (rows.length > 1) row.remove();
+    else row.querySelectorAll("input").forEach((input) => (input.value = ""));
+    window.updateNegotiationTotals();
+  };
+  window.autoFillNegotiationProduct = function (select) {
+    const option = select.options[select.selectedIndex];
+    const price = option?.dataset.price;
+    const row = select.closest("tr");
+    const priceInput = row?.querySelector('[name$="[unit_price]"]');
+    if (priceInput && price) priceInput.value = price;
+    window.updateNegotiationTotals();
+  };
 
   document.addEventListener("DOMContentLoaded", function () {
     initConfirmationModal();
@@ -416,6 +476,8 @@
       if (action === "remove-spec") control.closest(".spec-row")?.remove();
       if (action === "add-item") window.addItem();
       if (action === "remove-item") window.removeItem(control);
+      if (action === "add-negotiation-item") window.addNegotiationItem();
+      if (action === "remove-negotiation-item") window.removeNegotiationItem(control);
     });
 
     document.addEventListener("change", function (event) {
@@ -425,11 +487,15 @@
         window.autoFillCompany(control), window.updateQuotationNumberPreview();
       if (control.dataset.action === "product-change")
         window.autoFillProduct(control);
+      if (control.dataset.action === "negotiation-product-change")
+        window.autoFillNegotiationProduct(control);
     });
+    document.querySelectorAll("[data-negotiation-editor] .negotiation-number, [data-negotiation-editor] [name='tax_percent']").forEach((input) => input.addEventListener("input", window.updateNegotiationTotals));
     const quotationDate = document.querySelector('[name="issue_date"]');
     if (quotationDate) {
       quotationDate.addEventListener("change", window.updateQuotationNumberPreview);
     }
     window.updateQuotationNumberPreview();
+    window.updateNegotiationTotals();
   });
 })();

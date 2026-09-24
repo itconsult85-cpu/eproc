@@ -102,18 +102,46 @@ $workflowLabels = [
     </div>
 </div>
 <?php if (can('quotations.status') && in_array($quotation['status'], ['draft', 'sent', 'negotiation'], true)): ?>
+<?php $hasPendingNegotiation = ! empty(array_filter($quotation['negotiations'] ?? [], static fn($n) => $n['status'] === 'pending')); ?>
+<?php $negotiationItems = old('items'); $negotiationItems = is_array($negotiationItems) && $negotiationItems !== [] ? $negotiationItems : $quotation['items']; ?>
 <div class="card mt-3"><div class="card-header"><strong><i class="bi bi-chat-square-text me-1"></i>Proses Negosiasi Quotation</strong></div><div class="card-body">
     <p class="text-body-secondary small mb-3">
-        Halaman ini digunakan untuk mencatat permintaan client sebagai satu putaran negosiasi. Setelah disimpan,
-        status quotation menjadi <strong>Sedang negosiasi</strong>. Jika hasilnya sudah disepakati, pilih
-        <strong>Terima &amp; Final</strong> pada riwayat di bawah; jika belum disepakati, pilih <strong>Tolak</strong>
-        untuk mengembalikannya ke tahap terkirim.
+        Ubah nilai yang diminta client pada editor di bawah. Perubahan disimpan sebagai <strong>versi usulan</strong> dan belum mengubah quotation utama sampai dipilih
+        <strong>Terima &amp; Final</strong> pada riwayat negosiasi.
     </p>
-    <form method="post" action="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/negotiations')) ?>" class="row g-2" data-confirm data-confirm-title="Simpan putaran negosiasi?" data-confirm-message="Putaran negosiasi ini akan dicatat dan quotation akan masuk ke status negosiasi." data-confirm-label="Ya, simpan" data-confirm-variant="primary">
+    <?php if ($hasPendingNegotiation): ?><div class="alert alert-warning py-2"><i class="bi bi-hourglass-split me-1"></i>Masih ada putaran negosiasi yang menunggu keputusan. Putaran baru dapat dibuat setelah putaran tersebut diterima atau ditolak.</div><?php endif; ?>
+    <form method="post" action="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/negotiations')) ?>" data-negotiation-editor data-confirm data-confirm-title="Simpan putaran negosiasi?" data-confirm-message="Perubahan item dan syarat akan disimpan sebagai versi usulan negosiasi." data-confirm-label="Ya, simpan usulan" data-confirm-variant="primary">
         <?= csrf_field() ?>
-        <div class="col-md-6"><label class="form-label">Pesan dari client</label><textarea name="customer_message" class="form-control" rows="2" placeholder="Contoh: minta harga khusus atau perubahan termin"></textarea></div>
-        <div class="col-md-6"><label class="form-label">Catatan internal</label><textarea name="internal_notes" class="form-control" rows="2"></textarea></div>
-        <div class="col-12"><button class="btn btn-outline-primary" <?= !empty(array_filter($quotation['negotiations'] ?? [], static fn($n) => $n['status'] === 'pending')) ? 'disabled' : '' ?>><i class="bi bi-chat-square-text me-1"></i>Simpan Putaran Negosiasi</button></div>
+        <fieldset <?= $hasPendingNegotiation ? 'disabled' : '' ?>>
+            <div class="table-responsive mb-3">
+                <table class="table table-sm align-middle negotiation-items-table" id="negotiation-items">
+                    <thead><tr><th>No.</th><th>Produk</th><th>Deskripsi</th><th>Qty</th><th>Satuan</th><th>Harga</th><th>Disc %</th><th>Total</th><th></th></tr></thead>
+                    <tbody>
+                    <?php foreach ($negotiationItems as $i => $item): ?><tr class="negotiation-item-row">
+                        <td class="negotiation-row-number"><?= $i + 1 ?></td>
+                        <td><select name="items[<?= $i ?>][product_id]" class="form-select form-select-sm" data-action="negotiation-product-change" required><option value="">Pilih produk</option><?php foreach (($products ?? []) as $product): ?><option value="<?= (int) $product['id'] ?>" data-price="<?= esc($product['selling_price'] ?? 0) ?>" <?= (int) $product['id'] === (int) ($item['product_id'] ?? 0) ? 'selected' : '' ?>><?= esc(($product['brand'] ? $product['brand'] . ' / ' : '') . $product['name']) ?></option><?php endforeach; ?></select></td>
+                        <td><input name="items[<?= $i ?>][description]" class="form-control form-control-sm" value="<?= esc($item['description'] ?? '') ?>"></td>
+                        <td><input name="items[<?= $i ?>][quantity]" type="number" step="0.01" min="0.01" class="form-control form-control-sm negotiation-number" value="<?= esc($item['quantity'] ?? 1) ?>" required></td>
+                        <td><input name="items[<?= $i ?>][unit]" class="form-control form-control-sm" value="<?= esc($item['unit'] ?? 'pcs') ?>" required></td>
+                        <td><input name="items[<?= $i ?>][unit_price]" type="number" step="0.01" min="0" class="form-control form-control-sm negotiation-number" value="<?= esc($item['unit_price'] ?? 0) ?>" required></td>
+                        <td><input name="items[<?= $i ?>][discount_percent]" type="number" step="0.01" min="0" max="100" class="form-control form-control-sm negotiation-number" value="<?= esc($item['discount_percent'] ?? 0) ?>" required></td>
+                        <td class="text-end text-nowrap"><span data-negotiation-line-total>Rp 0</span></td>
+                        <td><button type="button" class="btn btn-sm btn-outline-danger" data-action="remove-negotiation-item" title="Hapus item"><i class="bi bi-trash3"></i></button></td>
+                    </tr><?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-primary mb-3" data-action="add-negotiation-item"><i class="bi bi-plus-lg me-1"></i>Tambah item</button>
+            <div class="row g-2 mb-3">
+                <div class="col-md-4"><label class="form-label">Pajak (%)</label><input name="tax_percent" type="number" step="0.01" min="0" max="100" class="form-control" value="<?= esc($quotation['tax_percent'] ?? 0) ?>" required></div>
+                <div class="col-md-4"><label class="form-label">Termin pembayaran</label><input name="payment_terms" class="form-control" value="<?= esc($quotation['payment_terms'] ?? '') ?>"></div>
+                <div class="col-md-4"><label class="form-label">Termin pengiriman</label><input name="delivery_terms" class="form-control" value="<?= esc($quotation['delivery_terms'] ?? '') ?>"></div>
+                <div class="col-12"><label class="form-label">Catatan / syarat tambahan</label><textarea name="notes" class="form-control" rows="2"><?= esc($quotation['notes'] ?? '') ?></textarea></div>
+            </div>
+            <div class="negotiation-total-preview text-end mb-3"><span>Subtotal: <strong data-negotiation-subtotal>Rp 0</strong></span><span class="ms-3">Pajak: <strong data-negotiation-tax>Rp 0</strong></span><span class="ms-3">Grand total: <strong data-negotiation-grand-total>Rp 0</strong></span></div>
+            <div class="row g-2"><div class="col-md-6"><label class="form-label">Pesan dari client</label><textarea name="customer_message" class="form-control" rows="2" placeholder="Contoh: minta harga khusus atau perubahan termin"></textarea></div><div class="col-md-6"><label class="form-label">Catatan internal</label><textarea name="internal_notes" class="form-control" rows="2"></textarea></div></div>
+            <button class="btn btn-primary mt-3" type="submit"><i class="bi bi-chat-square-text me-1"></i>Simpan Usulan Negosiasi</button>
+        </fieldset>
     </form>
 </div></div>
 <?php endif; ?>
