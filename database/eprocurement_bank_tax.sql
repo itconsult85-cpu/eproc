@@ -1,0 +1,5 @@
+-- Migration CodeIgniter: 2026-09-24-000009_AddBankAndTaxFields.php
+ALTER TABLE quotation_settings ADD bank_name VARCHAR(120) NULL, ADD bank_account_name VARCHAR(160) NULL, ADD bank_account_number VARCHAR(80) NULL, ADD bank_branch VARCHAR(120) NULL;
+ALTER TABLE vendors ADD bank_name VARCHAR(120) NULL, ADD bank_account_name VARCHAR(160) NULL, ADD bank_account_number VARCHAR(80) NULL, ADD bank_branch VARCHAR(120) NULL, ADD tax_id VARCHAR(80) NULL;
+ALTER TABLE purchase_orders ADD use_ppn TINYINT NOT NULL DEFAULT 0, ADD ppn_percent DECIMAL(5,2) NOT NULL DEFAULT 11, ADD use_pph TINYINT NOT NULL DEFAULT 0, ADD pph_percent DECIMAL(5,2) NOT NULL DEFAULT 0, ADD pph_amount DECIMAL(18,2) NOT NULL DEFAULT 0;
+ALTER TABLE vendor_bills ADD use_ppn TINYINT NOT NULL DEFAULT 0, ADD ppn_percent DECIMAL(5,2) NOT NULL DEFAULT 11, ADD ppn_amount DECIMAL(18,2) NOT NULL DEFAULT 0, ADD use_pph TINYINT NOT NULL DEFAULT 0, ADD pph_percent DECIMAL(5,2) NOT NULL DEFAULT 0, ADD pph_amount DECIMAL(18,2) NOT NULL DEFAULT 0, ADD net_amount DECIMAL(18,2) NOT NULL DEFAULT 0;

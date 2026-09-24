@@ -1,0 +1,13 @@
+<?php
+namespace App\Database\Migrations;
+use CodeIgniter\Database\Migration;
+class AddBankAndTaxFields extends Migration
+{
+ public function up(){
+  $this->forge->addColumn('quotation_settings',['bank_name'=>['type'=>'VARCHAR','constraint'=>120,'null'=>true,'after'=>'tax_id'],'bank_account_name'=>['type'=>'VARCHAR','constraint'=>160,'null'=>true,'after'=>'bank_name'],'bank_account_number'=>['type'=>'VARCHAR','constraint'=>80,'null'=>true,'after'=>'bank_account_name'],'bank_branch'=>['type'=>'VARCHAR','constraint'=>120,'null'=>true,'after'=>'bank_account_number']]);
+  $this->forge->addColumn('vendors',['bank_name'=>['type'=>'VARCHAR','constraint'=>120,'null'=>true,'after'=>'payment_terms'],'bank_account_name'=>['type'=>'VARCHAR','constraint'=>160,'null'=>true,'after'=>'bank_name'],'bank_account_number'=>['type'=>'VARCHAR','constraint'=>80,'null'=>true,'after'=>'bank_account_name'],'bank_branch'=>['type'=>'VARCHAR','constraint'=>120,'null'=>true,'after'=>'bank_account_number'],'tax_id'=>['type'=>'VARCHAR','constraint'=>80,'null'=>true,'after'=>'bank_branch']]);
+  $this->forge->addColumn('purchase_orders',['use_ppn'=>['type'=>'TINYINT','default'=>0,'after'=>'tax_percent'],'ppn_percent'=>['type'=>'DECIMAL','constraint'=>'5,2','default'=>11,'after'=>'use_ppn'],'use_pph'=>['type'=>'TINYINT','default'=>0,'after'=>'ppn_percent'],'pph_percent'=>['type'=>'DECIMAL','constraint'=>'5,2','default'=>0,'after'=>'use_pph'],'pph_amount'=>['type'=>'DECIMAL','constraint'=>'18,2','default'=>0,'after'=>'tax_amount']]);
+  $this->forge->addColumn('vendor_bills',['use_ppn'=>['type'=>'TINYINT','default'=>0,'after'=>'amount'],'ppn_percent'=>['type'=>'DECIMAL','constraint'=>'5,2','default'=>11,'after'=>'use_ppn'],'ppn_amount'=>['type'=>'DECIMAL','constraint'=>'18,2','default'=>0,'after'=>'ppn_percent'],'use_pph'=>['type'=>'TINYINT','default'=>0,'after'=>'ppn_amount'],'pph_percent'=>['type'=>'DECIMAL','constraint'=>'5,2','default'=>0,'after'=>'use_pph'],'pph_amount'=>['type'=>'DECIMAL','constraint'=>'18,2','default'=>0,'after'=>'pph_percent'],'net_amount'=>['type'=>'DECIMAL','constraint'=>'18,2','default'=>0,'after'=>'pph_amount']]);
+ }
+ public function down(){ $this->forge->dropColumn('quotation_settings',['bank_name','bank_account_name','bank_account_number','bank_branch']);$this->forge->dropColumn('vendors',['bank_name','bank_account_name','bank_account_number','bank_branch','tax_id']);$this->forge->dropColumn('purchase_orders',['use_ppn','ppn_percent','use_pph','pph_percent','pph_amount']);$this->forge->dropColumn('vendor_bills',['use_ppn','ppn_percent','ppn_amount','use_pph','pph_percent','pph_amount','net_amount']); }
+}
