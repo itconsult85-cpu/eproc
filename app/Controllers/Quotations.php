@@ -63,7 +63,9 @@ class Quotations extends BaseController
                 $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="rejected"><button class="btn btn-sm btn-outline-danger" title="Tolak" onclick="return confirm(\'Ubah status menjadi ditolak?\')"><i class="bi bi-x-circle"></i></button></form>';
             }
             $actions = '<div class="d-flex flex-wrap gap-1">' . $statusActions . $actions . '</div>';
-            return ['id' => (int) $row['id'], 'quotation_no' => '<strong>' . esc($row['quotation_no']) . '</strong>', 'company_name' => esc($row['company_name'] ?: '-'), 'title' => esc($row['title']), 'grand_total' => 'Rp ' . number_format((float) $row['grand_total'], 0, ',', '.'), 'status' => '<span class="badge text-bg-' . $statusClass . '">' . esc(ucfirst($row['status'])) . '</span>', 'created_at' => esc($row['created_at'] ?? '-'), 'actions' => $actions];
+            $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && in_array($row['status'], ['draft', 'sent', 'negotiation', 'expired'], true);
+            $statusLabel = esc(ucfirst($row['status'])) . ($pastDue ? '<br><small class="text-danger">Masa berlaku lewat</small>' : '');
+            return ['id' => (int) $row['id'], 'quotation_no' => '<strong>' . esc($row['quotation_no']) . '</strong>', 'company_name' => esc($row['company_name'] ?: '-'), 'title' => esc($row['title']), 'grand_total' => 'Rp ' . number_format((float) $row['grand_total'], 0, ',', '.'), 'status' => '<span class="badge text-bg-' . $statusClass . '">' . $statusLabel . '</span>', 'created_at' => esc($row['created_at'] ?? '-'), 'actions' => $actions];
         }, $rows);
         return $this->response->setJSON(['draw' => $draw, 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'data' => $data]);
     }
@@ -250,6 +252,32 @@ class Quotations extends BaseController
         } catch (\InvalidArgumentException | \RuntimeException $exception) {
             return redirect()->back()->with('errors', ['status' => $exception->getMessage()]);
         }
+    }
+
+    public function extendValidity(int $id)
+    {
+        $quotation = $this->model->find($id);
+        if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (! in_array($quotation['status'], ['draft', 'sent', 'negotiation', 'expired'], true)) {
+            return redirect()->back()->with('errors', ['validity' => 'Quotation final atau ditolak tidak dapat diperpanjang.']);
+        }
+        $days = (int) $this->request->getPost('validity_days');
+        if ($days < 1 || $days > 3650) return redirect()->back()->with('errors', ['validity' => 'Masa berlaku harus antara 1 sampai 3650 hari.']);
+        $today = date('Y-m-d');
+        $baseDate = (! empty($quotation['valid_until']) && $quotation['valid_until'] > $today) ? $quotation['valid_until'] : $today;
+        $newValidUntil = date('Y-m-d', strtotime($baseDate . ' +' . $days . ' days'));
+        $issueDate = $quotation['issue_date'] ?: $today;
+        $totalDays = max(1, (int) ((strtotime($newValidUntil) - strtotime($issueDate)) / 86400));
+        $user = (string) (session()->get('username') ?: 'system');
+        $db = db_connect(); $db->transStart();
+        $this->model->update($id, ['valid_until' => $newValidUntil, 'validity_days' => $totalDays]);
+        (new QuotationStatusLogModel())->insert(['quotation_id' => $id, 'from_status' => $quotation['status'], 'to_status' => $quotation['status'], 'changed_by' => $user, 'reason' => 'Masa berlaku diperpanjang ' . $days . ' hari sampai ' . $newValidUntil . '.', 'created_at' => date('Y-m-d H:i:s')]);
+        if ($quotation['status'] === 'expired') {
+            $this->model->changeStatus($id, 'sent', $user, 'Quotation dibuka kembali setelah masa berlaku diperpanjang.');
+        }
+        $db->transComplete();
+        if ($db->transStatus() === false) return redirect()->back()->with('errors', ['validity' => 'Perpanjangan masa berlaku gagal disimpan.']);
+        return redirect()->to('/quotations/' . $id)->with('message', 'Masa berlaku diperpanjang sampai ' . $newValidUntil . '.');
     }
 
     public function proposeNegotiation(int $id)

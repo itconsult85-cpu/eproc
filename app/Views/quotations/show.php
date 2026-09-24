@@ -27,6 +27,12 @@
         <?php if ($quotation['status'] === 'approved'): ?><a href="<?= esc(site_url('quotations/' . $quotation['id'] . '/proforma-invoice')) ?>" class="btn btn-success text-nowrap"><i class="bi bi-receipt me-1"></i>Cetak Proforma Invoice</a><?php endif; ?>
     </div>
 </div>
+<?php $isPastDue = ! empty($quotation['valid_until']) && $quotation['valid_until'] < date('Y-m-d') && in_array($quotation['status'], ['draft', 'sent', 'negotiation', 'expired'], true); ?>
+<?php if ($isPastDue): ?>
+<div class="alert alert-warning mt-3"><strong>Masa berlaku terlewati.</strong> Quotation tetap dapat digunakan untuk nego atau persetujuan, tetapi sebaiknya perpanjang terlebih dahulu agar tanggal berlaku terdokumentasi. Masa berlaku saat ini: <?= esc($quotation['valid_until']) ?>.
+    <?php if (in_array($quotation['status'], ['draft', 'sent', 'negotiation', 'expired'], true)): ?><form method="post" action="<?= esc(site_url('quotations/' . $quotation['id'] . '/extend-validity')) ?>" class="row g-2 align-items-end mt-2"><div class="col-auto"><label class="form-label mb-1">Tambahkan masa berlaku</label><div class="input-group"><input type="number" name="validity_days" class="form-control" value="10" min="1" max="3650" required><span class="input-group-text">hari</span></div></div><div class="col-auto"><button class="btn btn-warning" onclick="return confirm('Perpanjang masa berlaku quotation ini?')">Perpanjang & Catat</button></div></form><?php endif; ?>
+</div>
+<?php endif; ?>
 <div class="card">
     <div class="card-body">
         <p>

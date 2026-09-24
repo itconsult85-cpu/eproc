@@ -38,7 +38,7 @@ class QuotationModel extends Model
         'negotiation' => ['approved', 'rejected', 'sent', 'expired'],
         'approved' => [],
         'rejected' => [],
-        'expired' => [],
+        'expired' => ['sent'],
     ];
 
     public function withCompany(): array
@@ -132,16 +132,8 @@ class QuotationModel extends Model
 
     public function expireOverdue(): int
     {
-        $rows = $this->whereIn('status', ['draft', 'sent'])
-            ->where('valid_until IS NOT NULL', null, false)
-            ->where('valid_until <', date('Y-m-d'))
-            ->findAll();
-        $expired = 0;
-        foreach ($rows as $row) {
-            $this->changeStatus((int) $row['id'], 'expired', 'system', 'Otomatis karena melewati tanggal jatuh tempo.');
-            $expired++;
-        }
-
-        return $expired;
+        // Masa berlaku adalah peringatan komersial, bukan pemblokiran otomatis.
+        // Perpanjangan harus dilakukan eksplisit oleh user agar ada jejak audit.
+        return 0;
     }
 }

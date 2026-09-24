@@ -34,6 +34,7 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
     $routes->get('quotations/(:num)/edit', 'Quotations::edit/$1', ['filter' => 'permission:quotations.edit']);
     $routes->post('quotations/(:num)/update', 'Quotations::update/$1', ['filter' => 'permission:quotations.edit']);
     $routes->post('quotations/(:num)/status', 'Quotations::changeStatus/$1', ['filter' => 'permission:quotations.status']);
+    $routes->post('quotations/(:num)/extend-validity', 'Quotations::extendValidity/$1', ['filter' => 'permission:quotations.edit']);
     $routes->post('quotations/(:num)/negotiations', 'Quotations::proposeNegotiation/$1', ['filter' => 'permission:quotations.status']);
     $routes->post('quotations/(:num)/negotiations/(:num)/(:segment)', 'Quotations::respondNegotiation/$1/$2/$3', ['filter' => 'permission:quotations.status']);
     $routes->get('quotations/(:num)', 'Quotations::show/$1', ['filter' => 'permission:quotations.view']);
