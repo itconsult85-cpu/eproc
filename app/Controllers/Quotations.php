@@ -57,14 +57,16 @@ class Quotations extends BaseController
             $statusActions = '';
             if ($row['status'] === 'draft') {
                 if (empty($row['valid_until']) || $row['valid_until'] >= date('Y-m-d')) {
-                    $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="sent"><button class="btn btn-sm btn-outline-primary" title="Tandai terkirim" onclick="return confirm(\'Ubah status menjadi terkirim?\')"><i class="bi bi-send"></i></button></form>';
+                    $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="sent"><button class="btn btn-sm btn-outline-primary" title="Tandai terkirim" aria-label="Kirim quotation" onclick="return confirm(\'Ubah status menjadi terkirim?\')"><i class="bi bi-send me-1"></i>Kirim</button></form>';
                 } else {
-                    $statusActions .= '<a class="btn btn-sm btn-outline-warning" href="/quotations/' . (int) $row['id'] . '" title="Perpanjang masa berlaku sebelum dikirim"><i class="bi bi-clock-history"></i></a>';
+                    $statusActions .= '<a class="btn btn-sm btn-outline-warning" href="/quotations/' . (int) $row['id'] . '" title="Perpanjang masa berlaku sebelum dikirim"><i class="bi bi-clock-history me-1"></i>Perpanjang</a>';
                 }
                 if (empty($row['valid_until']) || $row['valid_until'] >= date('Y-m-d')) $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" onclick="return confirm(\'Ubah status menjadi disetujui?\')"><i class="bi bi-check2-circle"></i></button></form>';
             } elseif ($row['status'] === 'sent') {
                 $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" onclick="return confirm(\'Ubah status menjadi disetujui?\')"><i class="bi bi-check2-circle"></i></button></form>';
                 $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="rejected"><button class="btn btn-sm btn-outline-danger" title="Tolak" onclick="return confirm(\'Ubah status menjadi ditolak?\')"><i class="bi bi-x-circle"></i></button></form>';
+            } elseif ($row['status'] === 'expired') {
+                $statusActions .= '<a class="btn btn-sm btn-outline-warning" href="/quotations/' . (int) $row['id'] . '" title="Perpanjang masa berlaku"><i class="bi bi-clock-history me-1"></i>Perpanjang</a>';
             }
             $actions = '<div class="d-flex flex-wrap gap-1">' . $statusActions . $actions . '</div>';
             $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && in_array($row['status'], ['draft', 'sent', 'negotiation', 'expired'], true);
