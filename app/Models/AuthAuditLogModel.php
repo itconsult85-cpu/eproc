@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
 
-class AuthAuditLogModel extends Model
+class AuthAuditLogModel extends BaseModel
 {
     protected $table = 'auth_audit_logs';
     protected $primaryKey = 'id';

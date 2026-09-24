@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
 
-class QuotationItemModel extends Model
+class QuotationItemModel extends BaseModel
 {
     protected $table = 'quotation_items';
     protected $primaryKey = 'id';

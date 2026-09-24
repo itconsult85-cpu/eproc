@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
 use App\Models\QuotationNegotiationModel;
 
-class QuotationModel extends Model
+class QuotationModel extends BaseModel
 {
     protected $table = 'quotations';
     protected $primaryKey = 'id';
