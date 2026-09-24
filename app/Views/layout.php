@@ -156,6 +156,12 @@
                         </button>
                     </div>
                     <?php endif; ?>
+                    <?php if ($error = session()->getFlashdata('error')): ?>
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <i class="bi bi-exclamation-triangle me-1"></i><?= esc($error) ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                    </div>
+                    <?php endif; ?>
                     <?php if ($errors = session()->getFlashdata('errors')): ?>
                     <div class="alert alert-danger alert-dismissible fade show">
                         <i class="bi bi-exclamation-triangle me-1"></i>

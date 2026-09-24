@@ -49,6 +49,10 @@ class Quotations extends BaseController
         $rows = $builder->get($length, $start)->getResultArray();
         $data = array_map(static function (array $row): array {
             $publicId = public_id((int) $row['id']);
+            $canEdit = can('quotations.edit');
+            $canStatus = can('quotations.status');
+            $canExport = can('quotations.export');
+            $canDelete = can('quotations.delete');
             $statusClass = ['draft' => 'secondary', 'sent' => 'primary', 'negotiation' => 'warning', 'approved' => 'success', 'rejected' => 'danger', 'expired' => 'warning'][$row['status']] ?? 'secondary';
             $statusMeta = [
                 'draft' => ['label' => 'Draft / Belum diajukan', 'hint' => 'Siapkan lalu kirim ke proses berikutnya.'],
@@ -58,28 +62,32 @@ class Quotations extends BaseController
                 'rejected' => ['label' => 'Ditolak', 'hint' => 'Proses quotation telah dihentikan.'],
                 'expired' => ['label' => 'Kedaluwarsa', 'hint' => 'Perpanjang masa berlaku sebelum diproses.'],
             ][$row['status']] ?? ['label' => 'Status tidak dikenal', 'hint' => 'Buka detail untuk memeriksa quotation.'];
-            $actions = '<li><a class="dropdown-item" href="/quotations/' . $publicId . '"><i class="bi bi-eye me-2 text-primary"></i>Detail quotation</a></li>'
-                . '<li><a class="dropdown-item" href="/quotations/' . $publicId . '/edit"><i class="bi bi-pencil me-2 text-warning"></i>Edit quotation</a></li>'
-                . '<li><a class="dropdown-item" href="/quotations/' . $publicId . '/catalog/preview"><i class="bi bi-journal-richtext me-2 text-success"></i>Preview katalog</a></li>';
+            $actions = '<li><a class="dropdown-item" href="/quotations/' . $publicId . '"><i class="bi bi-eye me-2 text-primary"></i>Detail quotation</a></li>';
+            if ($canEdit) {
+                $actions .= '<li><a class="dropdown-item" href="/quotations/' . $publicId . '/edit"><i class="bi bi-pencil me-2 text-warning"></i>Edit quotation</a></li>';
+            }
+            if ($canExport) {
+                $actions .= '<li><a class="dropdown-item" href="/quotations/' . $publicId . '/catalog/preview"><i class="bi bi-journal-richtext me-2 text-success"></i>Preview katalog</a></li>';
+            }
             $statusActions = '';
-            if ($row['status'] === 'draft') {
+            if ($canStatus && $row['status'] === 'draft') {
                 if (empty($row['valid_until']) || $row['valid_until'] >= date('Y-m-d')) {
                     $statusActions .= '<li><form method="post" action="/quotations/' . $publicId . '/status" data-confirm data-confirm-title="Kirim quotation?" data-confirm-message="Quotation akan ditandai sebagai terkirim dan siap diproses lebih lanjut." data-confirm-label="Ya, kirim" data-confirm-variant="primary">' . csrf_field() . '<input type="hidden" name="status" value="sent"><button class="dropdown-item" type="submit"><i class="bi bi-send me-2 text-primary"></i>Kirim quotation</button></form></li>';
                 } else {
                     $statusActions .= '<li><a class="dropdown-item" href="/quotations/' . $publicId . '"><i class="bi bi-clock-history me-2 text-warning"></i>Perpanjang masa berlaku</a></li>';
                 }
                 if (empty($row['valid_until']) || $row['valid_until'] >= date('Y-m-d')) $statusActions .= '<li><form method="post" action="/quotations/' . $publicId . '/status" data-confirm data-confirm-title="Setujui quotation?" data-confirm-message="Quotation akan menjadi final dan dapat digunakan untuk mencetak Proforma Invoice." data-confirm-label="Ya, setujui" data-confirm-variant="success">' . csrf_field() . '<input type="hidden" name="status" value="approved"><button class="dropdown-item" type="submit"><i class="bi bi-check2-circle me-2 text-success"></i>Setujui sebagai final</button></form></li>';
-            } elseif ($row['status'] === 'sent') {
+            } elseif ($canStatus && $row['status'] === 'sent') {
                 $statusActions .= '<li><form method="post" action="/quotations/' . $publicId . '/status" data-confirm data-confirm-title="Setujui quotation?" data-confirm-message="Quotation akan menjadi final dan dapat digunakan untuk mencetak Proforma Invoice." data-confirm-label="Ya, setujui" data-confirm-variant="success">' . csrf_field() . '<input type="hidden" name="status" value="approved"><button class="dropdown-item" type="submit"><i class="bi bi-check2-circle me-2 text-success"></i>Setujui sebagai final</button></form></li>'
                     . '<li><form method="post" action="/quotations/' . $publicId . '/status" data-confirm data-confirm-title="Tolak quotation?" data-confirm-message="Quotation akan ditandai sebagai ditolak dan tidak dapat diproses sebagai quotation final." data-confirm-label="Ya, tolak" data-confirm-variant="danger">' . csrf_field() . '<input type="hidden" name="status" value="rejected"><button class="dropdown-item text-danger" type="submit"><i class="bi bi-x-circle me-2"></i>Tolak quotation</button></form></li>';
-            } elseif ($row['status'] === 'expired') {
+            } elseif ($canEdit && $row['status'] === 'expired') {
                 $statusActions .= '<li><a class="dropdown-item" href="/quotations/' . $publicId . '"><i class="bi bi-clock-history me-2 text-warning"></i>Perpanjang masa berlaku</a></li>';
             }
-            if (in_array($row['status'], ['draft', 'sent', 'negotiation'], true)) {
+            if ($canStatus && in_array($row['status'], ['draft', 'sent', 'negotiation'], true)) {
                 $statusActions = '<li><hr class="dropdown-divider"></li>' . $statusActions;
                 $statusActions .= '<li><a class="dropdown-item" href="/quotations/' . $publicId . '"><i class="bi bi-chat-square-text me-2 text-warning"></i>Proses negosiasi</a></li>';
             }
-            $deleteAction = '<li><hr class="dropdown-divider"></li><li><form method="post" action="/quotations/' . $publicId . '/delete" data-confirm data-confirm-title="Hapus quotation?" data-confirm-message="Quotation ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="dropdown-item text-danger" type="submit"><i class="bi bi-trash3 me-2"></i>Hapus quotation</button></form></li>';
+            $deleteAction = $canDelete ? '<li><hr class="dropdown-divider"></li><li><form method="post" action="/quotations/' . $publicId . '/delete" data-confirm data-confirm-title="Hapus quotation?" data-confirm-message="Quotation ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="dropdown-item text-danger" type="submit"><i class="bi bi-trash3 me-2"></i>Hapus quotation</button></form></li>' : '';
             $actions = '<div class="dropdown quotation-actions"><button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-expanded="false"><i class="bi bi-three-dots me-1"></i>Aksi</button><ul class="dropdown-menu dropdown-menu-end shadow-sm">' . $actions . $statusActions . $deleteAction . '</ul></div>';
             $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && in_array($row['status'], ['draft', 'sent', 'negotiation', 'expired'], true);
             $statusLabel = '<span class="d-inline-block"><span class="badge text-bg-' . $statusClass . '">' . esc($statusMeta['label']) . '</span><small class="quotation-status-hint d-block">' . esc($statusMeta['hint']) . '</small></span>' . ($pastDue ? '<small class="text-danger d-block">Masa berlaku lewat</small>' : '');
