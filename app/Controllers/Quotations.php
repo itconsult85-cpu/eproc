@@ -56,8 +56,12 @@ class Quotations extends BaseController
                 . '<form method="post" action="/quotations/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus penawaran ini?\')"><button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
             $statusActions = '';
             if ($row['status'] === 'draft') {
-                $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="sent"><button class="btn btn-sm btn-outline-primary" title="Tandai terkirim" onclick="return confirm(\'Ubah status menjadi terkirim?\')"><i class="bi bi-send"></i></button></form>';
-                $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" onclick="return confirm(\'Ubah status menjadi disetujui?\')"><i class="bi bi-check2-circle"></i></button></form>';
+                if (empty($row['valid_until']) || $row['valid_until'] >= date('Y-m-d')) {
+                    $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="sent"><button class="btn btn-sm btn-outline-primary" title="Tandai terkirim" onclick="return confirm(\'Ubah status menjadi terkirim?\')"><i class="bi bi-send"></i></button></form>';
+                } else {
+                    $statusActions .= '<a class="btn btn-sm btn-outline-warning" href="/quotations/' . (int) $row['id'] . '" title="Perpanjang masa berlaku sebelum dikirim"><i class="bi bi-clock-history"></i></a>';
+                }
+                if (empty($row['valid_until']) || $row['valid_until'] >= date('Y-m-d')) $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" onclick="return confirm(\'Ubah status menjadi disetujui?\')"><i class="bi bi-check2-circle"></i></button></form>';
             } elseif ($row['status'] === 'sent') {
                 $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" onclick="return confirm(\'Ubah status menjadi disetujui?\')"><i class="bi bi-check2-circle"></i></button></form>';
                 $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status"><input type="hidden" name="status" value="rejected"><button class="btn btn-sm btn-outline-danger" title="Tolak" onclick="return confirm(\'Ubah status menjadi ditolak?\')"><i class="bi bi-x-circle"></i></button></form>';
@@ -246,6 +250,11 @@ class Quotations extends BaseController
         }
 
         try {
+            $quotation = $this->model->find($id);
+            if (! $quotation) return redirect()->back()->with('errors', ['status' => 'Quotation tidak ditemukan.']);
+            if (in_array($status, ['sent', 'approved'], true) && ! empty($quotation['valid_until']) && $quotation['valid_until'] < date('Y-m-d')) {
+                return redirect()->back()->with('errors', ['validity' => 'Quotation belum dapat dikirim atau disetujui karena masa berlaku sudah lewat. Perpanjang masa berlaku terlebih dahulu.']);
+            }
             $changedBy = (string) (session()->get('username') ?: 'system');
             $this->model->changeStatus($id, $status, $changedBy, 'Diubah melalui tombol aksi quotation.');
             return redirect()->to('/quotations')->with('message', 'Status quotation berhasil diubah menjadi ' . $status . '.');

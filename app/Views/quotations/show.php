@@ -24,6 +24,7 @@
         <a href="<?= esc(site_url('quotations/' . $quotation['id'] . '/pdf')) ?>" class="btn btn-primary text-nowrap">
             <i class="bi bi-file-earmark-pdf me-1"></i>Unduh PDF Quotation
         </a>
+        <?php if ($quotation['status'] === 'draft' && (empty($quotation['valid_until']) || $quotation['valid_until'] >= date('Y-m-d'))): ?><form method="post" action="<?= esc(site_url('quotations/' . $quotation['id'] . '/status')) ?>" class="d-inline"><input type="hidden" name="status" value="sent"><button class="btn btn-primary text-nowrap" onclick="return confirm('Tandai quotation ini sebagai terkirim?')"><i class="bi bi-send me-1"></i>Kirim / Tandai Terkirim</button></form><?php endif; ?>
         <?php if ($quotation['status'] === 'approved'): ?><a href="<?= esc(site_url('quotations/' . $quotation['id'] . '/proforma-invoice')) ?>" class="btn btn-success text-nowrap"><i class="bi bi-receipt me-1"></i>Cetak Proforma Invoice</a><?php endif; ?>
     </div>
 </div>
