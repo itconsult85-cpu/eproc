@@ -344,28 +344,7 @@ class Quotations extends BaseController
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-
-        $settings = (new QuotationSettingModel())->current();
-        $options = new Options();
-        $options->set('isRemoteEnabled', true);
-
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml(view('quotations/pdf', [
-            'quotation' => $quotation,
-            'settings' => $settings,
-            'logoData' => $this->assetData($settings['logo_path'] ?? null),
-            'signatureData' => $this->assetData($settings['signature_path'] ?? null),
-            'stampData' => $this->assetData($settings['stamp_path'] ?? null)
-        ]));
-
-        // Atur ukuran kertas
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-
-        // Output PDF dengan Disposition 'inline' agar tampil di browser, bukan di-download otomatis
-        return $this->response->setHeader('Content-Type', 'application/pdf')
-            ->setHeader('Content-Disposition', 'inline; filename="quotation-' . $quotation['quotation_no'] . '.pdf"')
-            ->setBody($dompdf->output());
+        return view('quotations/show', ['title' => 'Detail Penawaran', 'quotation' => $quotation]);
     }
 
     public function pdf(int $id)
