@@ -180,6 +180,49 @@
     target.appendChild(row);
   };
 
+  window.updateQuotationNumberPreview = function () {
+    const preview = document.querySelector("[data-quotation-preview]");
+    const companySelect = document.querySelector('[name="company_id"]');
+    const dateInput = document.querySelector('[name="issue_date"]');
+    if (!preview || preview.dataset.quotationPreview === "static" || !companySelect || !dateInput) return;
+    const company = (window.companiesData || []).find(
+      (item) => item.id == companySelect.value,
+    );
+    const selectedDate = dateInput.value;
+    if (!company || !selectedDate) {
+      preview.value = "";
+      return;
+    }
+    const parts = selectedDate.split("-").map(Number);
+    const monthRoman = [
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V",
+      "VI",
+      "VII",
+      "VIII",
+      "IX",
+      "X",
+      "XI",
+      "XII",
+    ];
+    const companyName = (company.name || "")
+      .replace(/^PT\.?\s*/i, "")
+      .trim();
+    const initials = companyName
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase())
+      .join("");
+    const prefix = (company.quotation_prefix || "CCIP").trim().toUpperCase();
+    const code =
+      (company.quotation_code || "").trim().toUpperCase() || `TRE-${initials || "GEN"}`;
+    const sequence = Number(company.quotation_sequence || 0) + 1;
+    preview.value = `${prefix}${String(sequence).padStart(3, "0")}${String(parts[2]).padStart(2, "0")}/${code}/${monthRoman[parts[1] - 1]}/${parts[0]}`;
+  };
+
   window.autoFillCompany = function (select) {
     const company = (window.companiesData || []).find(
       (c) => c.id == select.value,
@@ -305,9 +348,14 @@
       const control = event.target.closest("[data-action]");
       if (!control) return;
       if (control.dataset.action === "company-change")
-        window.autoFillCompany(control);
+        window.autoFillCompany(control), window.updateQuotationNumberPreview();
       if (control.dataset.action === "product-change")
         window.autoFillProduct(control);
     });
+    const quotationDate = document.querySelector('[name="issue_date"]');
+    if (quotationDate) {
+      quotationDate.addEventListener("change", window.updateQuotationNumberPreview);
+    }
+    window.updateQuotationNumberPreview();
   });
 })();

@@ -34,8 +34,11 @@ $items = $isEdit ? $quotation['items'] : [[]];
                 <label class="field-label">
                     Nomor quotation
                 </label>
-                <input disabled class="form-control"
-                    value="<?= esc($quotation['quotation_no'] ?? 'Otomatis saat disimpan') ?>">
+                <input disabled data-quotation-preview="<?= $isEdit ? 'static' : 'dynamic' ?>" class="form-control"
+                    value="<?= esc($quotation['quotation_no'] ?? '') ?>">
+                <?php if (!$isEdit): ?>
+                <div class="form-text">Preview nomor quotation berdasarkan perusahaan dan tanggal terpilih.</div>
+                <?php endif; ?>
             </div>
             <div class="col-md-4"><label class="field-label">
                     Tanggal
