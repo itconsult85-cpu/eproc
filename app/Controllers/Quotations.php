@@ -6,6 +6,7 @@ use App\Models\CompanyModel;
 use App\Models\ProductModel;
 use App\Models\QuotationItemModel;
 use App\Models\QuotationModel;
+use App\Models\QuotationNegotiationModel;
 use App\Models\QuotationSettingModel;
 use App\Models\QuotationStatusLogModel;
 use Dompdf\Dompdf;
@@ -47,7 +48,7 @@ class Quotations extends BaseController
         $builder->orderBy($columns[$orderColumn] ?? 'created_at', $orderDirection);
         $rows = $builder->get($length, $start)->getResultArray();
         $data = array_map(static function (array $row): array {
-            $statusClass = ['draft' => 'secondary', 'sent' => 'primary', 'approved' => 'success', 'rejected' => 'danger', 'expired' => 'warning'][$row['status']] ?? 'secondary';
+            $statusClass = ['draft' => 'secondary', 'sent' => 'primary', 'negotiation' => 'warning', 'approved' => 'success', 'rejected' => 'danger', 'expired' => 'warning'][$row['status']] ?? 'secondary';
             $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi penawaran">'
                 . '<a class="btn btn-outline-primary" href="/quotations/' . (int) $row['id'] . '" title="Lihat" aria-label="Lihat"><i class="bi bi-eye"></i></a>'
                 . '<a class="btn btn-outline-warning" href="/quotations/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
@@ -249,6 +250,52 @@ class Quotations extends BaseController
         } catch (\InvalidArgumentException | \RuntimeException $exception) {
             return redirect()->back()->with('errors', ['status' => $exception->getMessage()]);
         }
+    }
+
+    public function proposeNegotiation(int $id)
+    {
+        $quotation = $this->model->detail($id);
+        if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (! in_array($quotation['status'], ['draft', 'sent', 'negotiation'], true)) return redirect()->back()->with('errors', ['status' => 'Quotation sudah final dan tidak dapat dinegosiasikan lagi.']);
+        $negotiations = new QuotationNegotiationModel();
+        if ($negotiations->latestPending($id)) return redirect()->back()->with('errors', ['negotiation' => 'Masih ada negosiasi yang menunggu keputusan.']);
+        $latest = $negotiations->selectMax('round_no')->where('quotation_id', $id)->first();
+        $round = (int) ($latest['round_no'] ?? 0) + 1;
+        $snapshot = ['payment_terms' => $quotation['payment_terms'], 'delivery_terms' => $quotation['delivery_terms'], 'notes' => $quotation['notes'], 'tax_percent' => (float) $quotation['tax_percent'], 'items' => $quotation['items']];
+        $user = (string) (session()->get('username') ?: 'system');
+        $negotiations->insert(['quotation_id' => $id, 'round_no' => $round, 'status' => 'pending', 'proposed_by' => $user, 'customer_message' => trim((string) $this->request->getPost('customer_message')) ?: null, 'internal_notes' => trim((string) $this->request->getPost('internal_notes')) ?: null, 'snapshot_json' => json_encode($snapshot, JSON_UNESCAPED_UNICODE), 'subtotal' => $quotation['subtotal'], 'tax_amount' => $quotation['tax_amount'], 'grand_total' => $quotation['grand_total'], 'created_at' => date('Y-m-d H:i:s')]);
+        if ($quotation['status'] !== 'negotiation') $this->model->changeStatus($id, 'negotiation', $user, 'Negosiasi putaran ' . $round . ' diajukan.');
+        return redirect()->to('/quotations/' . $id)->with('message', 'Negosiasi putaran ' . $round . ' berhasil disimpan.');
+    }
+
+    public function respondNegotiation(int $id, int $negotiationId, string $decision)
+    {
+        $quotation = $this->model->find($id); $negotiations = new QuotationNegotiationModel();
+        $negotiation = $negotiations->where(['id' => $negotiationId, 'quotation_id' => $id])->first();
+        if (! $quotation || ! $negotiation || $negotiation['status'] !== 'pending') return redirect()->back()->with('errors', ['negotiation' => 'Negosiasi tidak ditemukan atau sudah diproses.']);
+        $decision = strtolower($decision);
+        if (! in_array($decision, ['accepted', 'rejected'], true)) return redirect()->back()->with('errors', ['negotiation' => 'Keputusan negosiasi tidak valid.']);
+        $user = (string) (session()->get('username') ?: 'system'); $now = date('Y-m-d H:i:s'); $db = db_connect(); $db->transStart();
+        $negotiations->update($negotiationId, ['status' => $decision, 'responded_at' => $now, 'responded_by' => $user]);
+        if ($decision === 'accepted') {
+            $snapshot = json_decode((string) $negotiation['snapshot_json'], true) ?: [];
+            $this->model->update($id, ['status' => 'approved', 'payment_terms' => $snapshot['payment_terms'] ?? $quotation['payment_terms'], 'delivery_terms' => $snapshot['delivery_terms'] ?? $quotation['delivery_terms'], 'notes' => $snapshot['notes'] ?? $quotation['notes'], 'subtotal' => $negotiation['subtotal'], 'tax_percent' => $snapshot['tax_percent'] ?? $quotation['tax_percent'], 'tax_amount' => $negotiation['tax_amount'], 'grand_total' => $negotiation['grand_total']]);
+            if (! empty($snapshot['items'])) { (new QuotationItemModel())->where('quotation_id', $id)->delete(); (new QuotationItemModel())->insertBatch($snapshot['items']); }
+            (new QuotationStatusLogModel())->insert(['quotation_id' => $id, 'from_status' => $quotation['status'], 'to_status' => 'approved', 'changed_by' => $user, 'reason' => 'Negosiasi putaran ' . $negotiation['round_no'] . ' diterima; menjadi kondisi final.', 'created_at' => $now]);
+        } else { $this->model->changeStatus($id, 'sent', $user, 'Negosiasi putaran ' . $negotiation['round_no'] . ' ditolak.'); }
+        $db->transComplete();
+        if ($db->transStatus() === false) return redirect()->back()->with('errors', ['negotiation' => 'Keputusan negosiasi gagal disimpan.']);
+        return redirect()->to('/quotations/' . $id)->with('message', 'Negosiasi berhasil ' . ($decision === 'accepted' ? 'diterima sebagai final.' : 'ditolak.') );
+    }
+
+    public function proformaInvoice(int $id)
+    {
+        $quotation = $this->model->detail($id);
+        if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if ($quotation['status'] !== 'approved') return redirect()->to('/quotations/' . $id)->with('errors', ['status' => 'Proforma Invoice hanya dapat dicetak setelah quotation final disetujui.']);
+        $settings = (new QuotationSettingModel())->current(); $options = new Options(); $options->set('isRemoteEnabled', true); $dompdf = new Dompdf($options);
+        $dompdf->loadHtml(view('quotations/proforma_invoice', ['quotation' => $quotation, 'settings' => $settings])); $dompdf->setPaper('A4', 'portrait'); $dompdf->render();
+        return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="proforma-invoice-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }
 
     public function show(int $id)

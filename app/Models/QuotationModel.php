@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Models\QuotationNegotiationModel;
 
 class QuotationModel extends Model
 {
@@ -32,8 +33,9 @@ class QuotationModel extends Model
     ];
 
     private const STATUS_TRANSITIONS = [
-        'draft' => ['sent', 'approved', 'expired'],
-        'sent' => ['approved', 'rejected', 'expired'],
+        'draft' => ['sent', 'approved', 'negotiation', 'expired'],
+        'sent' => ['approved', 'rejected', 'negotiation', 'expired'],
+        'negotiation' => ['approved', 'rejected', 'sent', 'expired'],
         'approved' => [],
         'rejected' => [],
         'expired' => [],
@@ -52,6 +54,7 @@ class QuotationModel extends Model
             ->join('companies', 'companies.id = quotations.company_id', 'left')->find($id);
         if ($quotation === null) return null;
         $quotation['items'] = (new QuotationItemModel())->where('quotation_id', $id)->findAll();
+        $quotation['negotiations'] = (new QuotationNegotiationModel())->forQuotation($id);
         return $quotation;
     }
 
