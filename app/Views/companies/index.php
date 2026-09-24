@@ -6,8 +6,8 @@
             <h2 class="h5 mb-1"><i class="bi bi-buildings text-primary me-2"></i>Daftar Perusahaan</h2>
             <p class="text-body-secondary mb-0">Kelola data customer dan PIC untuk kebutuhan quotation.</p>
         </div>
-        <a href="/companies/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Tambah
-            Perusahaan</a>
+        <?php if (can('companies.create')): ?><a href="/companies/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Tambah
+            Perusahaan</a><?php endif; ?>
     </div>
 </div>
 <div class="card">

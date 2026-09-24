@@ -47,10 +47,16 @@ class Companies extends BaseController
 
         $data = array_map(static function (array $row): array {
             $publicId = public_id((int) $row['id']);
-            $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi perusahaan">'
-                . '<a class="btn btn-outline-secondary" href="/companies/' . $publicId . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
-                . '<form method="post" action="/companies/' . $publicId . '/delete" data-confirm data-confirm-title="Hapus perusahaan?" data-confirm-message="Data perusahaan ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field()
-                . '<button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
+            $actions = '';
+            if (can('companies.edit')) {
+                $actions .= '<li><a class="dropdown-item" href="/companies/' . $publicId . '/edit"><i class="bi bi-pencil me-2 text-warning"></i>Edit perusahaan</a></li>';
+            }
+            if (can('companies.delete')) {
+                $actions .= '<li><form method="post" action="/companies/' . $publicId . '/delete" data-confirm data-confirm-title="Hapus perusahaan?" data-confirm-message="Data perusahaan ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="dropdown-item text-danger" type="submit"><i class="bi bi-trash3 me-2"></i>Hapus perusahaan</button></form></li>';
+            }
+            $actions = $actions !== ''
+                ? '<div class="dropdown datatable-actions"><button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-expanded="false"><i class="bi bi-three-dots me-1"></i>Aksi</button><ul class="dropdown-menu dropdown-menu-end shadow-sm">' . $actions . '</ul></div>'
+                : '<span class="text-body-secondary small">Tidak ada aksi</span>';
             return [
                 'name' => '<strong>' . esc($row['name']) . '</strong><div class="small text-body-secondary">' . esc($row['email'] ?: 'Email belum diisi') . '</div>',
                 'pic_name' => esc($row['pic_name'] ?: '-'),
