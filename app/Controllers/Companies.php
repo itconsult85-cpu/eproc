@@ -48,7 +48,7 @@ class Companies extends BaseController
         $data = array_map(static function (array $row): array {
             $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi perusahaan">'
                 . '<a class="btn btn-outline-secondary" href="/companies/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
-                . '<form method="post" action="/companies/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus perusahaan ini?\')">'
+                . '<form method="post" action="/companies/' . (int) $row['id'] . '/delete" data-confirm data-confirm-title="Hapus perusahaan?" data-confirm-message="Data perusahaan ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field()
                 . '<button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
             return [
                 'name' => '<strong>' . esc($row['name']) . '</strong><div class="small text-body-secondary">' . esc($row['email'] ?: 'Email belum diisi') . '</div>',
