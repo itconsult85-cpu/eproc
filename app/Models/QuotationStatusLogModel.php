@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
 
-class QuotationStatusLogModel extends Model
+class QuotationStatusLogModel extends BaseModel
 {
     protected $table = 'quotation_status_logs';
     protected $primaryKey = 'id';

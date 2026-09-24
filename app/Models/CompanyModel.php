@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
 
-class CompanyModel extends Model
+class CompanyModel extends BaseModel
 {
     protected $table = 'companies';
     protected $primaryKey = 'id';

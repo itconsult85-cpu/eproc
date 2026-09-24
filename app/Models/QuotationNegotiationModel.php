@@ -1,9 +1,8 @@
 <?php
 namespace App\Models;
 
-use CodeIgniter\Model;
 
-class QuotationNegotiationModel extends Model
+class QuotationNegotiationModel extends BaseModel
 {
     protected $table = 'quotation_negotiations';
     protected $primaryKey = 'id';
