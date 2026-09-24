@@ -33,7 +33,12 @@
                         </a>
                     </li>
                 </ul>
+                <?php \App\Libraries\NotificationService::sync(); $notificationModel = model(\App\Models\NotificationModel::class); $notifications = $notificationModel->forUser((int) auth_user('id')); $unreadNotifications = $notificationModel->unreadCount((int) auth_user('id')); ?>
                 <div class="ms-auto d-flex align-items-center gap-3">
+                    <?php if (can('notifications.view')): ?><div class="dropdown">
+                        <button class="btn btn-sm btn-light position-relative" data-bs-toggle="dropdown" aria-label="Notifikasi"><i class="bi bi-bell"></i><?php if ($unreadNotifications): ?><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?= $unreadNotifications > 99 ? '99+' : $unreadNotifications ?></span><?php endif; ?></button>
+                        <div class="dropdown-menu dropdown-menu-end notification-menu shadow-sm"><div class="d-flex justify-content-between px-3 py-2"><strong>Notifikasi</strong><form method="post" action="<?= site_url('notifications/read-all') ?>"><?= csrf_field() ?><button class="btn btn-link btn-sm p-0">Tandai dibaca</button></form></div><div class="dropdown-divider"></div><?php if (!$notifications): ?><span class="dropdown-item-text text-body-secondary">Tidak ada notifikasi.</span><?php else: foreach ($notifications as $notification): ?><a class="dropdown-item notification-item <?= $notification['is_read'] ? '' : 'unread' ?>" href="<?= esc(site_url('notifications/'.$notification['id'].'/read?return='.urlencode(current_url()))) ?>"><strong><?= esc($notification['title']) ?></strong><small class="d-block text-body-secondary"><?= esc($notification['message']) ?></small></a><?php endforeach; endif; ?></div>
+                    </div><?php endif; ?>
                     <span class="text-secondary small d-none d-md-inline"><?= esc(auth_user('full_name')) ?> ·
                         <?= esc(auth_user('role')) ?>
                     </span>
@@ -118,6 +123,10 @@
                             </a>
                         </li>
                         <?php endif; ?>
+                        <?php if (can('proforma.view')): ?><li class="nav-item"><a href="/proforma-invoices" class="nav-link <?= $isSidebarActive('proforma-invoices') ? 'active' : '' ?>"><i class="nav-icon bi bi-receipt"></i><p>Proforma Invoice</p></a></li><?php endif; ?>
+                        <?php if (can('vendors.view')): ?><li class="nav-item"><a href="/vendors" class="nav-link <?= $isSidebarActive('vendors') ? 'active' : '' ?>"><i class="nav-icon bi bi-truck"></i><p>Vendor</p></a></li><?php endif; ?>
+                        <?php if (can('purchase_orders.view')): ?><li class="nav-item"><a href="/purchase-orders" class="nav-link <?= $isSidebarActive('purchase-orders') ? 'active' : '' ?>"><i class="nav-icon bi bi-cart-check"></i><p>Purchase Order</p></a></li><?php endif; ?>
+                        <?php if (can('vendor_bills.view')): ?><li class="nav-item"><a href="/vendor-bills" class="nav-link <?= $isSidebarActive('vendor-bills') ? 'active' : '' ?>"><i class="nav-icon bi bi-journal-text"></i><p>Tagihan Vendor</p></a></li><?php endif; ?>
                         <li class="nav-header">
                             KONFIGURASI
                         </li>

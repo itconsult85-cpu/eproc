@@ -9,6 +9,7 @@ use App\Models\QuotationModel;
 use App\Models\QuotationNegotiationModel;
 use App\Models\QuotationSettingModel;
 use App\Models\QuotationStatusLogModel;
+use App\Models\ProformaInvoiceModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -282,6 +283,10 @@ class Quotations extends BaseController
             }
             $changedBy = (string) (session()->get('username') ?: 'system');
             $this->model->changeStatus($id, $status, $changedBy, 'Diubah melalui tombol aksi quotation.');
+            if ($status === 'approved') {
+                $proforma = new ProformaInvoiceModel();
+                if (! $proforma->where('quotation_id', $id)->first()) $proforma->insert(['quotation_id' => $id, 'invoice_no' => 'PI-' . $quotation['quotation_no'], 'invoice_date' => date('Y-m-d'), 'due_date' => date('Y-m-d', strtotime('+30 days')), 'amount' => $quotation['grand_total'], 'payment_status' => 'unpaid', 'created_at' => date('Y-m-d H:i:s')]);
+            }
             return redirect()->to('/quotations')->with('message', 'Status quotation berhasil diubah menjadi ' . $status . '.');
         } catch (\InvalidArgumentException | \RuntimeException $exception) {
             return redirect()->back()->with('errors', ['status' => $exception->getMessage()]);
@@ -392,6 +397,8 @@ class Quotations extends BaseController
             $snapshot = json_decode((string) $negotiation['snapshot_json'], true) ?: [];
             $this->model->update($id, ['status' => 'approved', 'payment_terms' => $snapshot['payment_terms'] ?? $quotation['payment_terms'], 'delivery_terms' => $snapshot['delivery_terms'] ?? $quotation['delivery_terms'], 'notes' => $snapshot['notes'] ?? $quotation['notes'], 'subtotal' => $negotiation['subtotal'], 'tax_percent' => $snapshot['tax_percent'] ?? $quotation['tax_percent'], 'tax_amount' => $negotiation['tax_amount'], 'grand_total' => $negotiation['grand_total']]);
             if (! empty($snapshot['items'])) { (new QuotationItemModel())->where('quotation_id', $id)->delete(); (new QuotationItemModel())->insertBatch($snapshot['items']); }
+            $proforma = new ProformaInvoiceModel();
+            if (! $proforma->where('quotation_id', $id)->first()) $proforma->insert(['quotation_id' => $id, 'invoice_no' => 'PI-' . $quotation['quotation_no'], 'invoice_date' => date('Y-m-d'), 'due_date' => date('Y-m-d', strtotime('+30 days')), 'amount' => $negotiation['grand_total'], 'payment_status' => 'unpaid', 'created_at' => $now]);
             (new QuotationStatusLogModel())->insert(['quotation_id' => $id, 'from_status' => $quotation['status'], 'to_status' => 'approved', 'changed_by' => $user, 'reason' => 'Negosiasi putaran ' . $negotiation['round_no'] . ' diterima; menjadi kondisi final.', 'created_at' => $now]);
         } else { $this->model->changeStatus($id, 'sent', $user, 'Negosiasi putaran ' . $negotiation['round_no'] . ' ditolak.'); }
         $db->transComplete();
