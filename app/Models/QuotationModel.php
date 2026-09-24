@@ -30,7 +30,8 @@ class QuotationModel extends BaseModel
         'tax_amount',
         'grand_total',
         'bank_account_id',
-        'master_snapshot_json'
+        'master_snapshot_json',
+        'final_snapshot_json'
     ];
 
     private const STATUS_TRANSITIONS = [
