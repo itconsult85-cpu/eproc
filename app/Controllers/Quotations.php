@@ -50,6 +50,14 @@ class Quotations extends BaseController
         $data = array_map(static function (array $row): array {
             $publicId = public_id((int) $row['id']);
             $statusClass = ['draft' => 'secondary', 'sent' => 'primary', 'negotiation' => 'warning', 'approved' => 'success', 'rejected' => 'danger', 'expired' => 'warning'][$row['status']] ?? 'secondary';
+            $statusMeta = [
+                'draft' => ['label' => 'Draft / Belum diajukan', 'hint' => 'Siapkan lalu kirim ke proses berikutnya.'],
+                'sent' => ['label' => 'Terkirim / Menunggu keputusan', 'hint' => 'Bisa disetujui atau diajukan ke negosiasi.'],
+                'negotiation' => ['label' => 'Sedang negosiasi', 'hint' => 'Buka detail untuk memproses putaran nego.'],
+                'approved' => ['label' => 'Final disetujui', 'hint' => 'Siap dicetak sebagai Proforma Invoice.'],
+                'rejected' => ['label' => 'Ditolak', 'hint' => 'Proses quotation telah dihentikan.'],
+                'expired' => ['label' => 'Kedaluwarsa', 'hint' => 'Perpanjang masa berlaku sebelum diproses.'],
+            ][$row['status']] ?? ['label' => 'Status tidak dikenal', 'hint' => 'Buka detail untuk memeriksa quotation.'];
             $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi penawaran">'
                 . '<a class="btn btn-outline-primary" href="/quotations/' . $publicId . '" title="Lihat" aria-label="Lihat"><i class="bi bi-eye"></i></a>'
                 . '<a class="btn btn-outline-warning" href="/quotations/' . $publicId . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
@@ -69,10 +77,13 @@ class Quotations extends BaseController
             } elseif ($row['status'] === 'expired') {
                 $statusActions .= '<a class="btn btn-sm btn-outline-warning" href="/quotations/' . $publicId . '" title="Perpanjang masa berlaku"><i class="bi bi-clock-history me-1"></i>Perpanjang</a>';
             }
+            if (in_array($row['status'], ['draft', 'sent', 'negotiation'], true)) {
+                $statusActions .= '<a class="btn btn-sm btn-outline-warning" href="/quotations/' . $publicId . '" title="Buka proses negosiasi"><i class="bi bi-chat-square-text me-1"></i>Proses Nego</a>';
+            }
             $actions = '<div class="d-flex flex-wrap gap-1">' . $statusActions . $actions . '</div>';
             $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && in_array($row['status'], ['draft', 'sent', 'negotiation', 'expired'], true);
-            $statusLabel = esc(ucfirst($row['status'])) . ($pastDue ? '<br><small class="text-danger">Masa berlaku lewat</small>' : '');
-            return ['id' => (int) $row['id'], 'quotation_no' => '<strong>' . esc($row['quotation_no']) . '</strong>', 'company_name' => esc($row['company_name'] ?: '-'), 'title' => esc($row['title']), 'grand_total' => 'Rp ' . number_format((float) $row['grand_total'], 0, ',', '.'), 'status' => '<span class="badge text-bg-' . $statusClass . '">' . $statusLabel . '</span>', 'created_at' => esc($row['created_at'] ?? '-'), 'actions' => $actions];
+            $statusLabel = '<span class="d-inline-block"><span class="badge text-bg-' . $statusClass . '">' . esc($statusMeta['label']) . '</span><small class="quotation-status-hint d-block">' . esc($statusMeta['hint']) . '</small></span>' . ($pastDue ? '<small class="text-danger d-block">Masa berlaku lewat</small>' : '');
+            return ['id' => (int) $row['id'], 'quotation_no' => '<strong>' . esc($row['quotation_no']) . '</strong>', 'company_name' => esc($row['company_name'] ?: '-'), 'title' => esc($row['title']), 'grand_total' => 'Rp ' . number_format((float) $row['grand_total'], 0, ',', '.'), 'status' => $statusLabel, 'created_at' => esc($row['created_at'] ?? '-'), 'actions' => $actions];
         }, $rows);
         return $this->response->setJSON(['draw' => $draw, 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'data' => $data]);
     }
