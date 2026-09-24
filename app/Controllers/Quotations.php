@@ -48,25 +48,26 @@ class Quotations extends BaseController
         $builder->orderBy($columns[$orderColumn] ?? 'created_at', $orderDirection);
         $rows = $builder->get($length, $start)->getResultArray();
         $data = array_map(static function (array $row): array {
+            $publicId = public_id((int) $row['id']);
             $statusClass = ['draft' => 'secondary', 'sent' => 'primary', 'negotiation' => 'warning', 'approved' => 'success', 'rejected' => 'danger', 'expired' => 'warning'][$row['status']] ?? 'secondary';
             $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi penawaran">'
-                . '<a class="btn btn-outline-primary" href="/quotations/' . (int) $row['id'] . '" title="Lihat" aria-label="Lihat"><i class="bi bi-eye"></i></a>'
-                . '<a class="btn btn-outline-warning" href="/quotations/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
-                . '<a class="btn btn-outline-success" href="/quotations/' . (int) $row['id'] . '/catalog/preview" title="Preview katalog produk"><i class="bi bi-journal-richtext"></i></a>'
-                . '<form method="post" action="/quotations/' . (int) $row['id'] . '/delete" data-confirm data-confirm-title="Hapus quotation?" data-confirm-message="Quotation ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
+                . '<a class="btn btn-outline-primary" href="/quotations/' . $publicId . '" title="Lihat" aria-label="Lihat"><i class="bi bi-eye"></i></a>'
+                . '<a class="btn btn-outline-warning" href="/quotations/' . $publicId . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
+                . '<a class="btn btn-outline-success" href="/quotations/' . $publicId . '/catalog/preview" title="Preview katalog produk"><i class="bi bi-journal-richtext"></i></a>'
+                . '<form method="post" action="/quotations/' . $publicId . '/delete" data-confirm data-confirm-title="Hapus quotation?" data-confirm-message="Quotation ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
             $statusActions = '';
             if ($row['status'] === 'draft') {
                 if (empty($row['valid_until']) || $row['valid_until'] >= date('Y-m-d')) {
-                    $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status" data-confirm data-confirm-title="Kirim quotation?" data-confirm-message="Quotation akan ditandai sebagai terkirim dan siap diproses lebih lanjut." data-confirm-label="Ya, kirim" data-confirm-variant="primary">' . csrf_field() . '<input type="hidden" name="status" value="sent"><button class="btn btn-sm btn-outline-primary" title="Tandai terkirim" aria-label="Kirim quotation"><i class="bi bi-send me-1"></i>Kirim</button></form>';
+                    $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . $publicId . '/status" data-confirm data-confirm-title="Kirim quotation?" data-confirm-message="Quotation akan ditandai sebagai terkirim dan siap diproses lebih lanjut." data-confirm-label="Ya, kirim" data-confirm-variant="primary">' . csrf_field() . '<input type="hidden" name="status" value="sent"><button class="btn btn-sm btn-outline-primary" title="Tandai terkirim" aria-label="Kirim quotation"><i class="bi bi-send me-1"></i>Kirim</button></form>';
                 } else {
-                    $statusActions .= '<a class="btn btn-sm btn-outline-warning" href="/quotations/' . (int) $row['id'] . '" title="Perpanjang masa berlaku sebelum dikirim"><i class="bi bi-clock-history me-1"></i>Perpanjang</a>';
+                    $statusActions .= '<a class="btn btn-sm btn-outline-warning" href="/quotations/' . $publicId . '" title="Perpanjang masa berlaku sebelum dikirim"><i class="bi bi-clock-history me-1"></i>Perpanjang</a>';
                 }
-                if (empty($row['valid_until']) || $row['valid_until'] >= date('Y-m-d')) $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status" data-confirm data-confirm-title="Setujui quotation?" data-confirm-message="Quotation akan menjadi final dan dapat digunakan untuk mencetak Proforma Invoice." data-confirm-label="Ya, setujui" data-confirm-variant="success">' . csrf_field() . '<input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" aria-label="Setujui quotation"><i class="bi bi-check2-circle"></i></button></form>';
+                if (empty($row['valid_until']) || $row['valid_until'] >= date('Y-m-d')) $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . $publicId . '/status" data-confirm data-confirm-title="Setujui quotation?" data-confirm-message="Quotation akan menjadi final dan dapat digunakan untuk mencetak Proforma Invoice." data-confirm-label="Ya, setujui" data-confirm-variant="success">' . csrf_field() . '<input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" aria-label="Setujui quotation"><i class="bi bi-check2-circle"></i></button></form>';
             } elseif ($row['status'] === 'sent') {
-                $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status" data-confirm data-confirm-title="Setujui quotation?" data-confirm-message="Quotation akan menjadi final dan dapat digunakan untuk mencetak Proforma Invoice." data-confirm-label="Ya, setujui" data-confirm-variant="success">' . csrf_field() . '<input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" aria-label="Setujui quotation"><i class="bi bi-check2-circle"></i></button></form>';
-                $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . (int) $row['id'] . '/status" data-confirm data-confirm-title="Tolak quotation?" data-confirm-message="Quotation akan ditandai sebagai ditolak dan tidak dapat diproses sebagai quotation final." data-confirm-label="Ya, tolak" data-confirm-variant="danger">' . csrf_field() . '<input type="hidden" name="status" value="rejected"><button class="btn btn-sm btn-outline-danger" title="Tolak" aria-label="Tolak quotation"><i class="bi bi-x-circle"></i></button></form>';
+                $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . $publicId . '/status" data-confirm data-confirm-title="Setujui quotation?" data-confirm-message="Quotation akan menjadi final dan dapat digunakan untuk mencetak Proforma Invoice." data-confirm-label="Ya, setujui" data-confirm-variant="success">' . csrf_field() . '<input type="hidden" name="status" value="approved"><button class="btn btn-sm btn-outline-success" title="Setujui" aria-label="Setujui quotation"><i class="bi bi-check2-circle"></i></button></form>';
+                $statusActions .= '<form class="d-inline" method="post" action="/quotations/' . $publicId . '/status" data-confirm data-confirm-title="Tolak quotation?" data-confirm-message="Quotation akan ditandai sebagai ditolak dan tidak dapat diproses sebagai quotation final." data-confirm-label="Ya, tolak" data-confirm-variant="danger">' . csrf_field() . '<input type="hidden" name="status" value="rejected"><button class="btn btn-sm btn-outline-danger" title="Tolak" aria-label="Tolak quotation"><i class="bi bi-x-circle"></i></button></form>';
             } elseif ($row['status'] === 'expired') {
-                $statusActions .= '<a class="btn btn-sm btn-outline-warning" href="/quotations/' . (int) $row['id'] . '" title="Perpanjang masa berlaku"><i class="bi bi-clock-history me-1"></i>Perpanjang</a>';
+                $statusActions .= '<a class="btn btn-sm btn-outline-warning" href="/quotations/' . $publicId . '" title="Perpanjang masa berlaku"><i class="bi bi-clock-history me-1"></i>Perpanjang</a>';
             }
             $actions = '<div class="d-flex flex-wrap gap-1">' . $statusActions . $actions . '</div>';
             $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && in_array($row['status'], ['draft', 'sent', 'negotiation', 'expired'], true);
@@ -161,11 +162,12 @@ class Quotations extends BaseController
         if ($db->transStatus() === false) {
             return redirect()->back()->withInput()->with('errors', ['quotation_no' => 'Nomor quotation gagal dibuat. Silakan coba lagi.']);
         }
-        return redirect()->to('/quotations/' . $quotationId)->with('message', 'Penawaran berhasil dibuat.');
+        return redirect()->to('/quotations/' . public_id($quotationId))->with('message', 'Penawaran berhasil dibuat.');
     }
 
-    public function edit(int $id)
+    public function edit(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $quotation = $this->model->detail($id);
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -179,8 +181,9 @@ class Quotations extends BaseController
         ]);
     }
 
-    public function update(int $id)
+    public function update(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $rules = ['company_id' => 'required', 'title' => 'required'];
         if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -240,11 +243,12 @@ class Quotations extends BaseController
         if ($items) {
             (new QuotationItemModel())->insertBatch($items);
         }
-        return redirect()->to('/quotations/' . $id)->with('message', 'Penawaran berhasil diperbarui.');
+        return redirect()->to('/quotations/' . public_id($id))->with('message', 'Penawaran berhasil diperbarui.');
     }
 
-    public function changeStatus(int $id)
+    public function changeStatus(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $status = strtolower(trim((string) $this->request->getPost('status')));
         $allowed = ['sent', 'approved', 'rejected'];
         if (! in_array($status, $allowed, true)) {
@@ -265,8 +269,9 @@ class Quotations extends BaseController
         }
     }
 
-    public function extendValidity(int $id)
+    public function extendValidity(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $quotation = $this->model->find($id);
         if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         if (! in_array($quotation['status'], ['draft', 'sent', 'negotiation', 'expired'], true)) {
@@ -288,11 +293,12 @@ class Quotations extends BaseController
         }
         $db->transComplete();
         if ($db->transStatus() === false) return redirect()->back()->with('errors', ['validity' => 'Perpanjangan masa berlaku gagal disimpan.']);
-        return redirect()->to('/quotations/' . $id)->with('message', 'Masa berlaku diperpanjang sampai ' . $newValidUntil . '.');
+        return redirect()->to('/quotations/' . public_id($id))->with('message', 'Masa berlaku diperpanjang sampai ' . $newValidUntil . '.');
     }
 
-    public function proposeNegotiation(int $id)
+    public function proposeNegotiation(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $quotation = $this->model->detail($id);
         if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         if (! in_array($quotation['status'], ['draft', 'sent', 'negotiation'], true)) return redirect()->back()->with('errors', ['status' => 'Quotation sudah final dan tidak dapat dinegosiasikan lagi.']);
@@ -304,11 +310,13 @@ class Quotations extends BaseController
         $user = (string) (session()->get('username') ?: 'system');
         $negotiations->insert(['quotation_id' => $id, 'round_no' => $round, 'status' => 'pending', 'proposed_by' => $user, 'customer_message' => trim((string) $this->request->getPost('customer_message')) ?: null, 'internal_notes' => trim((string) $this->request->getPost('internal_notes')) ?: null, 'snapshot_json' => json_encode($snapshot, JSON_UNESCAPED_UNICODE), 'subtotal' => $quotation['subtotal'], 'tax_amount' => $quotation['tax_amount'], 'grand_total' => $quotation['grand_total'], 'created_at' => date('Y-m-d H:i:s')]);
         if ($quotation['status'] !== 'negotiation') $this->model->changeStatus($id, 'negotiation', $user, 'Negosiasi putaran ' . $round . ' diajukan.');
-        return redirect()->to('/quotations/' . $id)->with('message', 'Negosiasi putaran ' . $round . ' berhasil disimpan.');
+        return redirect()->to('/quotations/' . public_id($id))->with('message', 'Negosiasi putaran ' . $round . ' berhasil disimpan.');
     }
 
-    public function respondNegotiation(int $id, int $negotiationId, string $decision)
+    public function respondNegotiation(string $id, string $negotiationId, string $decision)
     {
+        $id = $this->resolveId($id, $this->model);
+        $negotiationId = $this->resolveId($negotiationId, new QuotationNegotiationModel());
         $quotation = $this->model->find($id); $negotiations = new QuotationNegotiationModel();
         $negotiation = $negotiations->where(['id' => $negotiationId, 'quotation_id' => $id])->first();
         if (! $quotation || ! $negotiation || $negotiation['status'] !== 'pending') return redirect()->back()->with('errors', ['negotiation' => 'Negosiasi tidak ditemukan atau sudah diproses.']);
@@ -324,21 +332,23 @@ class Quotations extends BaseController
         } else { $this->model->changeStatus($id, 'sent', $user, 'Negosiasi putaran ' . $negotiation['round_no'] . ' ditolak.'); }
         $db->transComplete();
         if ($db->transStatus() === false) return redirect()->back()->with('errors', ['negotiation' => 'Keputusan negosiasi gagal disimpan.']);
-        return redirect()->to('/quotations/' . $id)->with('message', 'Negosiasi berhasil ' . ($decision === 'accepted' ? 'diterima sebagai final.' : 'ditolak.') );
+        return redirect()->to('/quotations/' . public_id($id))->with('message', 'Negosiasi berhasil ' . ($decision === 'accepted' ? 'diterima sebagai final.' : 'ditolak.') );
     }
 
-    public function proformaInvoice(int $id)
+    public function proformaInvoice(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $quotation = $this->model->detail($id);
         if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        if ($quotation['status'] !== 'approved') return redirect()->to('/quotations/' . $id)->with('errors', ['status' => 'Proforma Invoice hanya dapat dicetak setelah quotation final disetujui.']);
+        if ($quotation['status'] !== 'approved') return redirect()->to('/quotations/' . public_id($id))->with('errors', ['status' => 'Proforma Invoice hanya dapat dicetak setelah quotation final disetujui.']);
         $settings = (new QuotationSettingModel())->current(); $options = new Options(); $options->set('isRemoteEnabled', true); $dompdf = new Dompdf($options);
         $dompdf->loadHtml(view('quotations/proforma_invoice', ['quotation' => $quotation, 'settings' => $settings])); $dompdf->setPaper('A4', 'portrait'); $dompdf->render();
         return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="proforma-invoice-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }
 
-    public function show(int $id)
+    public function show(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $this->model->expireOverdue();
         $quotation = $this->model->detail($id);
         if (! $quotation) {
@@ -347,8 +357,9 @@ class Quotations extends BaseController
         return view('quotations/show', ['title' => 'Detail Penawaran', 'quotation' => $quotation]);
     }
 
-    public function pdf(int $id)
+    public function pdf(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $this->model->expireOverdue();
         $quotation = $this->model->detail($id);
         if (! $quotation) {
@@ -364,15 +375,17 @@ class Quotations extends BaseController
         return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="quotation-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }
 
-    public function catalogPreview(int $id)
+    public function catalogPreview(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $this->model->expireOverdue();
         $context = $this->catalogContext($id);
         return view('quotations/catalog_preview', $context);
     }
 
-    public function catalog(int $id)
+    public function catalog(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $this->model->expireOverdue();
         $context = $this->catalogContext($id);
         $options = new Options();
@@ -425,8 +438,9 @@ class Quotations extends BaseController
         return 'data:' . $mime . ';base64,' . base64_encode((string) file_get_contents($file));
     }
 
-    public function delete(int $id)
+    public function delete(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $this->model->delete($id);
         return redirect()->to('/quotations')->with('message', 'Penawaran berhasil dihapus.');
     }

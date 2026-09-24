@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 <?php
 $isEdit = isset($quotation);
-$action = $isEdit ? "/quotations/{$quotation['id']}/update" : "/quotations";
+$action = $isEdit ? '/quotations/' . public_id($quotation['id']) . '/update' : '/quotations';
 $items = $isEdit ? $quotation['items'] : [[]];
 ?>
 <form method="post" action="<?= $action ?>" class="card card-primary card-outline"

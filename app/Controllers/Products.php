@@ -46,9 +46,10 @@ class Products extends BaseController
             if ($row['video_path']) $media .= '<div class="small text-primary mt-1"><i class="bi bi-camera-video"></i> Video</div>';
             $details = '<strong>' . esc($row['name']) . '</strong><div class="small text-body-secondary">' . esc(trim(($row['sku'] ?? '') . ' ' . ($row['brand'] ?? '')) ?: 'SKU belum diisi') . '</div>';
             if ($row['datasheet_file_path']) $details .= '<a href="' . esc($row['datasheet_file_path']) . '" target="_blank" rel="noopener" class="small text-danger"><i class="bi bi-file-pdf"></i> Datasheet PDF</a>';
+            $publicId = public_id((int) $row['id']);
             $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi produk">'
-                . '<a class="btn btn-outline-secondary" href="/products/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
-                . '<form method="post" action="/products/' . (int) $row['id'] . '/delete" data-confirm data-confirm-title="Hapus produk?" data-confirm-message="Produk ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
+                . '<a class="btn btn-outline-secondary" href="/products/' . $publicId . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
+                . '<form method="post" action="/products/' . $publicId . '/delete" data-confirm data-confirm-title="Hapus produk?" data-confirm-message="Produk ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
             return ['media' => $media, 'product' => $details, 'cost_price' => 'Rp ' . number_format((float) $row['cost_price'], 0, ',', '.'), 'selling_price' => 'Rp ' . number_format((float) $row['selling_price'], 0, ',', '.'), 'store' => esc($row['store_name'] ?: '-') . '<div class="small text-body-secondary">' . esc($row['store_phone'] ?: '') . '</div>', 'actions' => $actions];
         }, $rows);
 
@@ -65,18 +66,19 @@ class Products extends BaseController
         return $this->save();
     }
 
-    public function edit(int $id)
+    public function edit(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $product = $this->model->find($id);
         if (! $product) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        return view('products/form', ['title' => 'Edit Produk', 'product' => $product, 'action' => '/products/' . $id]);
+        return view('products/form', ['title' => 'Edit Produk', 'product' => $product, 'action' => '/products/' . public_id($id)]);
     }
 
-    public function update(int $id)
+    public function update(string $id)
     {
-        return $this->save($id);
+        return $this->save($this->resolveId($id, $this->model));
     }
 
     private function save(?int $id = null)
@@ -125,8 +127,9 @@ class Products extends BaseController
         return redirect()->to('/products')->with('message', $id ? 'Produk berhasil diperbarui.' : 'Produk berhasil ditambahkan.');
     }
 
-    public function delete(int $id)
+    public function delete(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $this->model->delete($id);
         return redirect()->to('/products')->with('message', 'Produk berhasil dihapus.');
     }

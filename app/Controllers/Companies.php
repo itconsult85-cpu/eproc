@@ -46,9 +46,10 @@ class Companies extends BaseController
         $rows = $builder->get($length, $start)->getResultArray();
 
         $data = array_map(static function (array $row): array {
+            $publicId = public_id((int) $row['id']);
             $actions = '<div class="btn-group btn-group-sm" role="group" aria-label="Aksi perusahaan">'
-                . '<a class="btn btn-outline-secondary" href="/companies/' . (int) $row['id'] . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
-                . '<form method="post" action="/companies/' . (int) $row['id'] . '/delete" data-confirm data-confirm-title="Hapus perusahaan?" data-confirm-message="Data perusahaan ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field()
+                . '<a class="btn btn-outline-secondary" href="/companies/' . $publicId . '/edit" title="Edit" aria-label="Edit"><i class="bi bi-pencil"></i></a>'
+                . '<form method="post" action="/companies/' . $publicId . '/delete" data-confirm data-confirm-title="Hapus perusahaan?" data-confirm-message="Data perusahaan ini akan dihapus dan tidak dapat dipulihkan." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field()
                 . '<button class="btn btn-outline-danger" title="Hapus" aria-label="Hapus"><i class="bi bi-trash3"></i></button></form></div>';
             return [
                 'name' => '<strong>' . esc($row['name']) . '</strong><div class="small text-body-secondary">' . esc($row['email'] ?: 'Email belum diisi') . '</div>',
@@ -77,15 +78,17 @@ class Companies extends BaseController
         return redirect()->to('/companies')->with('message', 'Perusahaan berhasil ditambahkan.');
     }
 
-    public function edit(int $id)
+    public function edit(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $company = $this->model->find($id);
         if (! $company) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        return view('companies/form', ['title' => 'Edit Perusahaan', 'company' => $company, 'action' => '/companies/' . $id]);
+        return view('companies/form', ['title' => 'Edit Perusahaan', 'company' => $company, 'action' => '/companies/' . public_id($id)]);
     }
 
-    public function update(int $id)
+    public function update(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $data = $this->request->getPost(['name', 'quotation_prefix', 'quotation_code', 'address', 'phone', 'email', 'pic_name', 'pic_phone', 'notes']);
         if (! $this->validateData($data, ['name' => 'required|max_length[160]', 'quotation_prefix' => 'permit_empty|alpha_numeric|max_length[12]', 'quotation_code' => 'permit_empty|regex_match[/^[A-Za-z0-9_-]+$/]|max_length[30]'])) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         $data['quotation_prefix'] = strtoupper(trim((string) ($data['quotation_prefix'] ?? 'CCIP'))) ?: 'CCIP';
@@ -94,8 +97,9 @@ class Companies extends BaseController
         return redirect()->to('/companies')->with('message', 'Perusahaan berhasil diperbarui.');
     }
 
-    public function delete(int $id)
+    public function delete(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $this->model->delete($id);
         return redirect()->to('/companies')->with('message', 'Perusahaan berhasil dihapus.');
     }

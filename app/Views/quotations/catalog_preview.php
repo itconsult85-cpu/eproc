@@ -10,10 +10,10 @@
         </p>
     </div>
     <div class="d-flex flex-wrap gap-2">
-        <a href="<?= esc(site_url('quotations/' . $quotation['id'])) ?>" class="btn btn-outline-secondary">
+        <a href="<?= esc(site_url('quotations/' . public_id($quotation['id']))) ?>" class="btn btn-outline-secondary">
             Kembali
         </a>
-        <a href="<?= esc(site_url('quotations/' . $quotation['id'] . '/catalog')) ?>" class="btn btn-success">
+        <a href="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/catalog')) ?>" class="btn btn-success">
             <i class="bi bi-download me-1"></i>Unduh PDF Katalog
         </a>
     </div>
