@@ -4,6 +4,10 @@
 $isEdit = isset($quotation);
 $action = $isEdit ? '/quotations/' . public_id($quotation['id']) . '/update' : '/quotations';
 $items = $isEdit ? $quotation['items'] : [[]];
+$productsById = [];
+foreach ($products as $product) {
+    $productsById[(string) $product['id']] = $product;
+}
 ?>
 <form method="post" action="<?= $action ?>" class="card card-primary card-outline"
     data-companies="<?= esc(json_encode($companies), 'attr') ?>"
@@ -136,7 +140,8 @@ $items = $isEdit ? $quotation['items'] : [[]];
                         <thead>
                             <tr>
                                 <th width="55">No.</th>
-                                <th width="200">Brand / Produk</th>
+                                <th width="245">Brand / Produk</th>
+                                <th width="105" class="text-center">Gambar</th>
                                 <th>Description</th>
                                 <th width="90">Qty</th>
                                 <th width="80">UoM</th>
@@ -150,17 +155,6 @@ $items = $isEdit ? $quotation['items'] : [[]];
                             <tr>
                                 <td class="item-row-number text-center"><?= $i + 1 ?></td>
                                 <td>
-                                    <?php
-                                        $productImagePath = '';
-                                        if (!empty($it['product_id'])) {
-                                            foreach ($products as $p) {
-                                                if ($p['id'] == $it['product_id']) {
-                                                    $productImagePath = $p['image_path'] ?? '';
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        ?>
                                     <select name="items[<?= $i ?>][product_id]" class="form-select mb-1"
                                         data-action="product-change">
                                         <option value="">Pilih produk</option>
@@ -171,9 +165,22 @@ $items = $isEdit ? $quotation['items'] : [[]];
                                         </option>
                                         <?php endforeach; ?>
                                     </select>
+                                </td>
+                                <td class="quotation-item-image text-center">
+                                    <?php
+                                        $selectedProduct = $productsById[(string) ($it['product_id'] ?? '')] ?? [];
+                                        $productImagePath = $selectedProduct['image_path'] ?? ($selectedProduct['image_url'] ?? '');
+                                    ?>
+                                    <div class="product-image-preview" title="Preview gambar produk">
                                     <img class="product-thumb img-thumbnail"
-                                        style="max-height:60px; display:<?= $productImagePath ? 'block' : 'none' ?>;"
-                                        src="<?= esc($productImagePath) ?>">
+                                        src="<?= esc($productImagePath) ?>"
+                                        alt="<?= esc($selectedProduct['name'] ?? 'Gambar produk') ?>"
+                                        <?= $productImagePath ? '' : 'hidden' ?>>
+                                    <span class="product-image-placeholder" <?= $productImagePath ? 'hidden' : '' ?>>
+                                        <i class="bi bi-image"></i>
+                                        <small>Tanpa gambar</small>
+                                    </span>
+                                    </div>
                                 </td>
                                 <td>
                                     <input name="items[<?= $i ?>][description]" class="form-control"
