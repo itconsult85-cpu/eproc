@@ -20,7 +20,7 @@ class Settings extends BaseController
 
     public function saveQuotation()
     {
-        $data = $this->request->getPost(['company_name', 'office_1', 'office_2', 'phone', 'email', 'tax_id', 'signer_name', 'signer_phone', 'default_payment_terms', 'default_validity_days', 'default_delivery_terms', 'default_tax_percent']);
+        $data = $this->request->getPost(['company_name', 'office_1', 'office_2', 'phone', 'email', 'tax_id', 'bank_name', 'bank_account_name', 'bank_account_number', 'bank_branch', 'signer_name', 'signer_phone', 'default_payment_terms', 'default_validity_days', 'default_delivery_terms', 'default_tax_percent']);
         if (! $this->validateData($data, ['company_name' => 'required|max_length[180]', 'email' => 'permit_empty|valid_email', 'default_validity_days' => 'required|is_natural', 'default_tax_percent' => 'required|decimal'])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }

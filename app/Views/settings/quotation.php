@@ -68,6 +68,11 @@ $settingsStampUrl = $settingsStamp
                             <input name="tax_id" class="form-control"
                                 value="<?= old('tax_id', $settings['tax_id'] ?? '') ?>">
                         </div>
+                        <div class="col-12"><hr><h6><i class="bi bi-bank me-1"></i>Rekening Penerimaan Pembayaran Client</h6></div>
+                        <div class="col-md-3"><label class="field-label">Nama Bank</label><input name="bank_name" class="form-control" value="<?= old('bank_name', $settings['bank_name'] ?? '') ?>" placeholder="BCA / Mandiri"></div>
+                        <div class="col-md-3"><label class="field-label">Nama Pemilik Rekening</label><input name="bank_account_name" class="form-control" value="<?= old('bank_account_name', $settings['bank_account_name'] ?? '') ?>"></div>
+                        <div class="col-md-3"><label class="field-label">Nomor Rekening</label><input name="bank_account_number" class="form-control" value="<?= old('bank_account_number', $settings['bank_account_number'] ?? '') ?>"></div>
+                        <div class="col-md-3"><label class="field-label">Cabang</label><input name="bank_branch" class="form-control" value="<?= old('bank_branch', $settings['bank_branch'] ?? '') ?>"></div>
                     </div>
                 </div>
             </div>
