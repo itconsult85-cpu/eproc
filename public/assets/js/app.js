@@ -312,15 +312,20 @@
       (p) => p.id == select.value,
     );
     const row = select.closest("tr");
-    if (!product || !row) return;
+    if (!row) return;
+    const image = row.querySelector(".product-thumb");
+    const placeholder = row.querySelector(".product-image-placeholder");
+    const imagePath = product && (product.image_path || product.image_url);
+    if (image) {
+      image.src = imagePath || "";
+      image.alt = product ? `Gambar ${product.name || "produk"}` : "Gambar produk";
+      image.hidden = !imagePath;
+    }
+    if (placeholder) placeholder.hidden = Boolean(imagePath);
+    if (!product) return;
     row.querySelector('[name$="[description]"]').value = "";
     row.querySelector('[name$="[unit_price]"]').value =
       product.selling_price || 0;
-    const image = row.querySelector(".product-thumb");
-    if (image) {
-      image.src = product.image_path || "";
-      image.style.display = product.image_path ? "block" : "none";
-    }
   };
   window.renumberItems = function () {
     document
@@ -342,13 +347,21 @@
             "items[" + next + "]",
           )),
       );
-    row
-      .querySelectorAll("input")
-      .forEach(
-        (input) => (input.value = input.name.includes("quantity") ? 1 : 0),
-      );
+    const select = row.querySelector('[name$="[product_id]"]');
+    if (select) select.value = "";
+    row.querySelectorAll("input").forEach((input) => {
+      if (input.name.includes("quantity")) input.value = 1;
+      else if (input.name.includes("unit]")) input.value = "pcs";
+      else input.value = "";
+    });
     const image = row.querySelector(".product-thumb");
-    if (image) image.style.display = "none";
+    if (image) {
+      image.src = "";
+      image.hidden = true;
+      image.alt = "Gambar produk";
+    }
+    const placeholder = row.querySelector(".product-image-placeholder");
+    if (placeholder) placeholder.hidden = false;
     target.appendChild(row);
     window.quotationItemCount = next + 1;
     window.renumberItems();
@@ -362,7 +375,12 @@
       row.querySelectorAll("input").forEach((input) => (input.value = ""));
       row.querySelector("select").value = "";
       const image = row.querySelector(".product-thumb");
-      if (image) image.style.display = "none";
+      if (image) {
+        image.src = "";
+        image.hidden = true;
+      }
+      const placeholder = row.querySelector(".product-image-placeholder");
+      if (placeholder) placeholder.hidden = false;
     }
     window.renumberItems();
   };

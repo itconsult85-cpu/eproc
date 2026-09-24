@@ -139,6 +139,59 @@ textarea.form-control {
 .table td {
   vertical-align: middle;
 }
+.quotation-items-table {
+  min-width: 980px;
+}
+.quotation-items-table th,
+.quotation-items-table td {
+  padding: 0.65rem 0.5rem;
+}
+.quotation-item-image {
+  width: 105px;
+}
+.product-image-preview {
+  width: 78px;
+  min-height: 72px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-thumb {
+  width: 72px;
+  height: 72px;
+  padding: 0.2rem;
+  object-fit: contain;
+  background: #fff;
+  border-color: rgba(148, 163, 184, 0.55);
+}
+.product-image-placeholder {
+  width: 72px;
+  height: 72px;
+  padding: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  border: 1px dashed rgba(148, 163, 184, 0.65);
+  border-radius: 0.375rem;
+  color: var(--bs-secondary-color);
+  background: rgba(148, 163, 184, 0.08);
+  text-align: center;
+}
+.product-image-placeholder i {
+  font-size: 1.35rem;
+}
+.product-image-placeholder small {
+  font-size: 0.62rem;
+  line-height: 1.1;
+}
+@media (max-width: 767.98px) {
+  .quotation-items-table {
+    min-width: 900px;
+  }
+}
 .dataTables_wrapper .dt-layout-row {
   align-items: center;
   gap: 0.75rem;
