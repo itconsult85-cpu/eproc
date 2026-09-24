@@ -1,5 +1,15 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
+<?php
+$workflowLabels = [
+    'draft' => 'Draft / Belum diajukan',
+    'sent' => 'Terkirim / Menunggu keputusan',
+    'negotiation' => 'Sedang negosiasi',
+    'approved' => 'Final disetujui',
+    'rejected' => 'Ditolak',
+    'expired' => 'Kedaluwarsa',
+];
+?>
 <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
     <div>
         <h1>
@@ -10,7 +20,7 @@
         </div>
         <span
             class="badge text-bg-<?= esc(['draft' => 'secondary', 'sent' => 'primary', 'negotiation' => 'warning', 'approved' => 'success', 'rejected' => 'danger', 'expired' => 'warning'][$quotation['status']] ?? 'secondary') ?> mt-2">
-            <?= esc(ucfirst($quotation['status'])) ?>
+            <?= esc($workflowLabels[$quotation['status']] ?? ucfirst($quotation['status'])) ?>
         </span>
     </div>
     <div class="d-flex flex-wrap gap-2">
@@ -90,7 +100,13 @@
     </div>
 </div>
 <?php if (in_array($quotation['status'], ['draft', 'sent', 'negotiation'], true)): ?>
-<div class="card mt-3"><div class="card-header"><strong>Ajukan / Simpan Negosiasi</strong></div><div class="card-body">
+<div class="card mt-3"><div class="card-header"><strong><i class="bi bi-chat-square-text me-1"></i>Proses Negosiasi Quotation</strong></div><div class="card-body">
+    <p class="text-body-secondary small mb-3">
+        Halaman ini digunakan untuk mencatat permintaan client sebagai satu putaran negosiasi. Setelah disimpan,
+        status quotation menjadi <strong>Sedang negosiasi</strong>. Jika hasilnya sudah disepakati, pilih
+        <strong>Terima &amp; Final</strong> pada riwayat di bawah; jika belum disepakati, pilih <strong>Tolak</strong>
+        untuk mengembalikannya ke tahap terkirim.
+    </p>
     <form method="post" action="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/negotiations')) ?>" class="row g-2" data-confirm data-confirm-title="Simpan putaran negosiasi?" data-confirm-message="Putaran negosiasi ini akan dicatat dan quotation akan masuk ke status negosiasi." data-confirm-label="Ya, simpan" data-confirm-variant="primary">
         <?= csrf_field() ?>
         <div class="col-md-6"><label class="form-label">Pesan dari client</label><textarea name="customer_message" class="form-control" rows="2" placeholder="Contoh: minta harga khusus atau perubahan termin"></textarea></div>

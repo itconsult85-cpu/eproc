@@ -139,6 +139,29 @@ textarea.form-control {
 .table td {
   vertical-align: middle;
 }
+.quotation-workflow-guide {
+  border-left: 4px solid var(--bs-primary);
+}
+.workflow-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.workflow-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  display: inline-block;
+  border-radius: 50%;
+}
+.quotation-status-hint {
+  max-width: 220px;
+  margin-top: 0.2rem;
+  color: var(--bs-secondary-color);
+  line-height: 1.25;
+}
 .quotation-items-table {
   min-width: 980px;
 }
