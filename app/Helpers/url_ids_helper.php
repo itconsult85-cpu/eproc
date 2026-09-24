@@ -15,18 +15,12 @@ if (! function_exists('public_id')) {
 if (! function_exists('resolve_public_id')) {
     /**
      * Resolve a public SHA-1 ID to its database primary key.
-     * Numeric IDs remain accepted for backward-compatible existing URLs.
      */
     function resolve_public_id(string $value, Model $model): ?int
     {
         $value = trim($value);
         if ($value === '') {
             return null;
-        }
-
-        if (ctype_digit($value)) {
-            $id = (int) $value;
-            return $id > 0 && $model->find($id) !== null ? $id : null;
         }
 
         if (! preg_match('/^[a-f0-9]{40}$/i', $value)) {
