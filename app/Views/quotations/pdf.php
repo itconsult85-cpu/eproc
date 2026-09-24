@@ -172,6 +172,13 @@
                             <?= $formatTanggal ?>
                         </td>
                     </tr>
+                    <?php if (($quotation['status'] ?? '') === 'approved'): ?>
+                    <tr>
+                        <td style="text-align: center; padding: 5px; color: #198754; font-weight: bold; font-size: 10px; border: none;">
+                            FINAL DISETUJUI
+                        </td>
+                    </tr>
+                    <?php endif; ?>
                 </table>
             </td>
         </tr>

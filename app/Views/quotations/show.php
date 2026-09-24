@@ -33,7 +33,7 @@ $workflowLabels = [
             <i class="bi bi-journal-richtext me-1"></i>Preview Katalog Produk
         </a>
         <a href="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/pdf')) ?>" class="btn btn-primary text-nowrap">
-            <i class="bi bi-file-earmark-pdf me-1"></i>Unduh PDF Quotation
+            <i class="bi bi-file-earmark-pdf me-1"></i><?= $quotation['status'] === 'approved' ? 'Unduh PDF Final' : 'Unduh PDF Quotation' ?>
         </a>
         <?php endif; ?>
         <?php if (can('quotations.status') && $quotation['status'] === 'draft' && (empty($quotation['valid_until']) || $quotation['valid_until'] >= date('Y-m-d'))): ?><form method="post" action="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/status')) ?>" class="d-inline" data-confirm data-confirm-title="Kirim quotation?" data-confirm-message="Quotation akan ditandai sebagai terkirim dan siap diproses lebih lanjut." data-confirm-label="Ya, kirim" data-confirm-variant="primary"><?= csrf_field() ?><input type="hidden" name="status" value="sent"><button class="btn btn-primary text-nowrap"><i class="bi bi-send me-1"></i>Kirim / Tandai Terkirim</button></form><?php endif; ?>
@@ -145,9 +145,26 @@ $workflowLabels = [
     </form>
 </div></div>
 <?php endif; ?>
-<?php if (!empty($quotation['negotiations'])): ?>
-<div class="card mt-3"><div class="card-header"><strong>Riwayat Negosiasi</strong></div><div class="table-responsive"><table class="table table-sm mb-0"><thead><tr><th>Putaran</th><th>Status</th><th>Diajukan oleh</th><th>Pesan</th><th>Total</th><th>Aksi</th></tr></thead><tbody>
-<?php foreach ($quotation['negotiations'] as $negotiation): ?><tr><td><?= esc($negotiation['round_no']) ?></td><td><span class="badge text-bg-<?= $negotiation['status'] === 'accepted' ? 'success' : ($negotiation['status'] === 'rejected' ? 'danger' : 'warning') ?>"><?= esc(ucfirst($negotiation['status'])) ?></span></td><td><?= esc($negotiation['proposed_by']) ?></td><td><?= esc($negotiation['customer_message'] ?: '-') ?></td><td>Rp <?= number_format((float)$negotiation['grand_total'], 0, ',', '.') ?></td><td><?php if ($negotiation['status'] === 'pending' && can('quotations.status')): ?><form method="post" action="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/negotiations/' . public_id($negotiation['id']) . '/accepted')) ?>" class="d-inline" data-confirm data-confirm-title="Terima sebagai kondisi final?" data-confirm-message="Kondisi negosiasi ini akan diterapkan sebagai nilai final quotation dan statusnya menjadi disetujui." data-confirm-label="Ya, terima & final" data-confirm-variant="success"><?= csrf_field() ?><button class="btn btn-sm btn-success">Terima & Final</button></form> <form method="post" action="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/negotiations/' . public_id($negotiation['id']) . '/rejected')) ?>" class="d-inline" data-confirm data-confirm-title="Tolak putaran negosiasi?" data-confirm-message="Putaran negosiasi ini akan ditandai sebagai ditolak dan quotation dikembalikan ke status terkirim." data-confirm-label="Ya, tolak" data-confirm-variant="danger"><?= csrf_field() ?><button class="btn btn-sm btn-outline-danger">Tolak</button></form><?php else: ?><?= esc($negotiation['responded_at'] ?? '-') ?><?php endif; ?></td></tr><?php endforeach; ?>
+<?php if (!empty($negotiationHistory)): ?>
+<div class="card mt-3"><div class="card-header"><strong><i class="bi bi-clock-history me-1"></i>Riwayat Negosiasi &amp; Perubahan</strong></div><div class="table-responsive"><table class="table table-sm mb-0"><thead><tr><th>Putaran</th><th>Status</th><th>Diajukan oleh</th><th>Pesan</th><th>Total Usulan</th><th>Aksi</th></tr></thead><tbody>
+<?php foreach ($negotiationHistory as $negotiation): ?>
+<tr>
+    <td><strong>Putaran <?= esc($negotiation['round_no']) ?></strong><br><small class="text-body-secondary"><?= esc($negotiation['created_at'] ?? '-') ?></small></td>
+    <td><span class="badge text-bg-<?= $negotiation['status'] === 'accepted' ? 'success' : ($negotiation['status'] === 'rejected' ? 'danger' : 'warning') ?>"><?= esc(ucfirst($negotiation['status'])) ?></span></td>
+    <td><?= esc($negotiation['proposed_by']) ?></td>
+    <td><?= esc($negotiation['customer_message'] ?: '-') ?></td>
+    <td class="text-nowrap">Rp <?= number_format((float) $negotiation['grand_total'], 0, ',', '.') ?></td>
+    <td><?php if ($negotiation['status'] === 'pending' && can('quotations.status')): ?><form method="post" action="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/negotiations/' . public_id($negotiation['id']) . '/accepted')) ?>" class="d-inline" data-confirm data-confirm-title="Terima sebagai kondisi final?" data-confirm-message="Kondisi negosiasi ini akan diterapkan sebagai nilai final quotation dan statusnya menjadi disetujui." data-confirm-label="Ya, terima & final" data-confirm-variant="success"><?= csrf_field() ?><button class="btn btn-sm btn-success">Terima &amp; Final</button></form> <form method="post" action="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/negotiations/' . public_id($negotiation['id']) . '/rejected')) ?>" class="d-inline" data-confirm data-confirm-title="Tolak putaran negosiasi?" data-confirm-message="Putaran negosiasi ini akan ditandai sebagai ditolak dan quotation dikembalikan ke status terkirim." data-confirm-label="Ya, tolak" data-confirm-variant="danger"><?= csrf_field() ?><button class="btn btn-sm btn-outline-danger">Tolak</button></form><?php else: ?><?= esc($negotiation['responded_at'] ?? '-') ?><?php endif; ?></td>
+</tr>
+<tr><td colspan="6" class="negotiation-history-detail"><details><summary><i class="bi bi-list-check me-1"></i>Lihat rincian perubahan putaran <?= esc($negotiation['round_no']) ?></summary><div class="mt-3">
+    <ul class="mb-3"><?php foreach ($negotiation['changes'] as $change): ?><li><?= esc($change) ?></li><?php endforeach; ?></ul>
+    <?php $snapshot = $negotiation['snapshot']; ?>
+    <div class="table-responsive"><table class="table table-sm table-bordered mb-3"><thead><tr><th>Produk</th><th>Deskripsi</th><th>Qty</th><th>Harga</th><th>Disc.</th><th>Total</th></tr></thead><tbody>
+    <?php foreach (($snapshot['items'] ?? []) as $item): ?><tr><td><?= esc($item['product_name'] ?? '-') ?></td><td><?= esc($item['description'] ?? '-') ?></td><td><?= esc($item['quantity'] ?? 0) ?> <?= esc($item['unit'] ?? '') ?></td><td>Rp <?= number_format((float) ($item['unit_price'] ?? 0), 0, ',', '.') ?></td><td><?= esc($item['discount_percent'] ?? 0) ?>%</td><td>Rp <?= number_format((float) ($item['line_total'] ?? 0), 0, ',', '.') ?></td></tr><?php endforeach; ?>
+    </tbody></table></div>
+    <div class="small text-body-secondary"><strong>Termin pembayaran:</strong> <?= esc($snapshot['payment_terms'] ?? '-') ?> &middot; <strong>Termin pengiriman:</strong> <?= esc($snapshot['delivery_terms'] ?? '-') ?> &middot; <strong>Pajak:</strong> <?= esc($snapshot['tax_percent'] ?? 0) ?>%</div>
+</div></details></td></tr>
+<?php endforeach; ?>
 </tbody></table></div></div>
 <?php endif; ?>
 <?= $this->endSection() ?>

@@ -214,6 +214,17 @@ textarea.form-control {
   border-radius: 0.5rem;
   background: rgba(13, 110, 253, 0.06);
 }
+.negotiation-history-detail {
+  background: rgba(148, 163, 184, 0.06);
+}
+.negotiation-history-detail details summary {
+  cursor: pointer;
+  color: var(--bs-primary);
+  font-weight: 600;
+}
+.negotiation-history-detail details[open] summary {
+  margin-bottom: 0.75rem;
+}
 .quotation-item-image {
   width: 105px;
 }
