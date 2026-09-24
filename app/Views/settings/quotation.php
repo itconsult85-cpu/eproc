@@ -1,5 +1,11 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
+<?php
+$settingsLogo = $settings['logo_path'] ?? null;
+$settingsLogoUrl = $settingsLogo
+    ? (preg_match('#^https?://#i', $settingsLogo) ? $settingsLogo : base_url(ltrim($settingsLogo, '/')))
+    : null;
+?>
 <form method="post" action="/settings/quotation" enctype="multipart/form-data" class="form-card">
     <?= csrf_field() ?>
     <div class="row g-3">
@@ -124,8 +130,8 @@
                         Logo perusahaan
                     </label>
                     <input type="file" name="logo" accept="image/png,image/jpeg,image/webp" class="form-control mb-2">
-                    <?php if (!empty($settings['logo_path'])): ?>
-                    <img src="<?= esc($settings['logo_path']) ?>" class="img-thumbnail mb-3" style="max-height:100px"
+                    <?php if ($settingsLogoUrl): ?>
+                    <img src="<?= esc($settingsLogoUrl) ?>" class="img-thumbnail mb-3" style="max-height:100px"
                         alt="Logo saat ini">
                     <?php endif; ?>
                     <label class="field-label">

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Libraries\AccessControl;
 use App\Models\AuthAuditLogModel;
+use App\Models\QuotationSettingModel;
 use App\Models\UserModel;
 
 class Auth extends BaseController
@@ -17,7 +18,7 @@ class Auth extends BaseController
     public function login()
     {
         if (AccessControl::isLoggedIn()) return redirect()->to('/');
-        return view('auth/login', ['title' => 'Login']);
+        return view('auth/login', ['title' => 'Login', 'settings' => (new QuotationSettingModel())->current()]);
     }
 
     public function authenticate()

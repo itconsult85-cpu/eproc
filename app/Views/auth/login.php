@@ -15,11 +15,18 @@
     <main class="container">
         <div class="login-card card p-4">
             <div class="text-center mb-4">
-                <div class="brand-mark mx-auto mb-3"><i class="bi bi-shield-lock"></i>
-                </div>
-                <h1 class="h3 mb-1">
-                    EPROC
-                </h1>
+                <?php
+                $loginLogo = $settings['logo_path'] ?? null;
+                $loginLogoUrl = $loginLogo
+                    ? (preg_match('#^https?://#i', $loginLogo) ? $loginLogo : base_url(ltrim($loginLogo, '/')))
+                    : null;
+                ?>
+                <?php if ($loginLogoUrl): ?>
+                <img src="<?= esc($loginLogoUrl) ?>" class="img-fluid mb-3" style="max-height:90px;max-width:220px;object-fit:contain" alt="Logo perusahaan">
+                <?php else: ?>
+                <div class="brand-mark mx-auto mb-3"><i class="bi bi-shield-lock"></i></div>
+                <?php endif; ?>
+                <h1 class="h3 mb-1"><?= esc($settings['company_name'] ?? 'EPROC') ?></h1>
                 <p class="text-body-secondary mb-0">
                     Secure procurement workspace
                 </p>
