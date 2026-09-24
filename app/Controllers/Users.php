@@ -20,14 +20,16 @@ class Users extends BaseController
     {
         return view('users/form', ['title' => 'Tambah Pengguna', 'user' => null, 'permissions' => (new PermissionModel())->orderBy('group_name')->findAll(), 'assigned' => []]);
     }
-    public function edit(int $id)
+    public function edit(string $id)
     {
+        $id = $this->resolveId($id, $this->users);
         $user = $this->users->find($id);
         if (! $user) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         return view('users/form', ['title' => 'Edit Pengguna', 'user' => $user, 'permissions' => (new PermissionModel())->orderBy('group_name')->findAll(), 'assigned' => array_column($this->users->permissions($id), 'permission_key')]);
     }
-    public function save(?int $id = null)
+    public function save(?string $id = null)
     {
+        $id = $id !== null ? $this->resolveId($id, $this->users) : null;
         $data = $this->request->getPost(['username', 'email', 'full_name', 'role', 'is_active']);
         $password = (string) $this->request->getPost('password');
         $isSuperadmin = auth_user('role') === 'superadmin';
@@ -62,8 +64,9 @@ class Users extends BaseController
         }
         return redirect()->to('/users')->with('message', 'Pengguna berhasil disimpan.');
     }
-    public function delete(int $id)
+    public function delete(string $id)
     {
+        $id = $this->resolveId($id, $this->users);
         $user = $this->users->find($id);
         if (! $user || $user['role'] === 'superadmin' || $id === (int) auth_user('id')) return redirect()->back()->with('error', 'Pengguna tidak dapat dihapus.');
         $this->users->delete($id);
