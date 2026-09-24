@@ -217,6 +217,10 @@
       },
     ),
   );
+  initTable("#proforma-table", dataTableBase("proforma-invoices/datatable", [{data:"invoice_no",responsivePriority:3},{data:"customer",responsivePriority:4},{data:"amount",responsivePriority:10},{data:"due",responsivePriority:10},{data:"status",responsivePriority:4},{data:"actions",responsivePriority:1,orderable:false,searchable:false}], [[1,"desc"]], "Belum ada proforma invoice."));
+  initTable("#vendors-table", dataTableBase("vendors/datatable", [{data:"name",responsivePriority:3},{data:"pic",responsivePriority:10},{data:"contact",responsivePriority:10},{data:"status",responsivePriority:4},{data:"actions",responsivePriority:1,orderable:false,searchable:false}], [[2,"asc"]], "Belum ada vendor."));
+  initTable("#purchase-orders-table", dataTableBase("purchase-orders/datatable", [{data:"po_no",responsivePriority:3},{data:"vendor",responsivePriority:4},{data:"date",responsivePriority:10},{data:"amount",responsivePriority:10},{data:"status",responsivePriority:4},{data:"actions",responsivePriority:1,orderable:false,searchable:false}], [[2,"desc"]], "Belum ada purchase order."));
+  initTable("#vendor-bills-table", dataTableBase("vendor-bills/datatable", [{data:"bill_no",responsivePriority:3},{data:"vendor",responsivePriority:4},{data:"amount",responsivePriority:10},{data:"due",responsivePriority:10},{data:"status",responsivePriority:4},{data:"actions",responsivePriority:1,orderable:false,searchable:false}], [[2,"desc"]], "Belum ada tagihan vendor."));
 
   window.togglePassword = function (button) {
     const input = button.previousElementSibling;

@@ -194,6 +194,18 @@ textarea.form-control {
 .datatable-actions form {
   margin: 0;
 }
+.notification-menu {
+  width: 20rem;
+  max-width: min(92vw, 20rem);
+  padding: 0.35rem;
+}
+.notification-item {
+  white-space: normal;
+  border-radius: 0.35rem;
+}
+.notification-item.unread {
+  background: rgba(13, 110, 253, 0.08);
+}
 .quotation-items-table {
   min-width: 980px;
 }
