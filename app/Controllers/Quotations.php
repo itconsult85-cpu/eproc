@@ -325,9 +325,54 @@ class Quotations extends BaseController
         if ($negotiations->latestPending($id)) return redirect()->back()->with('errors', ['negotiation' => 'Masih ada negosiasi yang menunggu keputusan.']);
         $latest = $negotiations->selectMax('round_no')->where('quotation_id', $id)->first();
         $round = (int) ($latest['round_no'] ?? 0) + 1;
-        $snapshot = ['payment_terms' => $quotation['payment_terms'], 'delivery_terms' => $quotation['delivery_terms'], 'notes' => $quotation['notes'], 'tax_percent' => (float) $quotation['tax_percent'], 'items' => $quotation['items']];
+        $postedItems = $this->request->getPost('items');
+        $postedItems = is_array($postedItems) ? $postedItems : [];
+        $products = [];
+        foreach ((new ProductModel())->findAll() as $product) {
+            $products[(string) $product['id']] = $product;
+        }
+        $items = [];
+        $subtotal = 0.0;
+        foreach ($postedItems as $index => $item) {
+            if (! is_array($item)) continue;
+            $productId = (string) ($item['product_id'] ?? '');
+            if ($productId === '' || ! isset($products[$productId])) {
+                return redirect()->back()->withInput()->with('errors', ['items' => 'Produk pada baris ' . ((int) $index + 1) . ' tidak valid.']);
+            }
+            $quantity = (float) ($item['quantity'] ?? 0);
+            $unitPrice = (float) ($item['unit_price'] ?? 0);
+            $discount = (float) ($item['discount_percent'] ?? 0);
+            if ($quantity <= 0 || $unitPrice < 0 || $discount < 0 || $discount > 100) {
+                return redirect()->back()->withInput()->with('errors', ['items' => 'Qty, harga, dan diskon pada baris ' . ((int) $index + 1) . ' tidak valid.']);
+            }
+            $lineTotal = round($quantity * $unitPrice * (1 - ($discount / 100)), 2);
+            $items[] = [
+                'quotation_id' => $id,
+                'product_id' => (int) $productId,
+                'product_name' => $products[$productId]['name'],
+                'description' => trim((string) ($item['description'] ?? '')),
+                'quantity' => $quantity,
+                'unit' => trim((string) ($item['unit'] ?? 'pcs')) ?: 'pcs',
+                'unit_price' => $unitPrice,
+                'discount_percent' => $discount,
+                'line_total' => $lineTotal,
+            ];
+            $subtotal += $lineTotal;
+        }
+        if ($items === []) return redirect()->back()->withInput()->with('errors', ['items' => 'Minimal satu item harus diisi untuk membuat putaran negosiasi.']);
+        $taxPercent = (float) ($this->request->getPost('tax_percent') ?? $quotation['tax_percent']);
+        if ($taxPercent < 0 || $taxPercent > 100) return redirect()->back()->withInput()->with('errors', ['tax_percent' => 'Pajak harus berada antara 0 sampai 100 persen.']);
+        $taxAmount = round($subtotal * $taxPercent / 100, 2);
+        $grandTotal = $subtotal + $taxAmount;
+        $snapshot = [
+            'payment_terms' => trim((string) ($this->request->getPost('payment_terms') ?? $quotation['payment_terms'])),
+            'delivery_terms' => trim((string) ($this->request->getPost('delivery_terms') ?? $quotation['delivery_terms'])),
+            'notes' => trim((string) ($this->request->getPost('notes') ?? $quotation['notes'])),
+            'tax_percent' => $taxPercent,
+            'items' => $items,
+        ];
         $user = (string) (session()->get('username') ?: 'system');
-        $negotiations->insert(['quotation_id' => $id, 'round_no' => $round, 'status' => 'pending', 'proposed_by' => $user, 'customer_message' => trim((string) $this->request->getPost('customer_message')) ?: null, 'internal_notes' => trim((string) $this->request->getPost('internal_notes')) ?: null, 'snapshot_json' => json_encode($snapshot, JSON_UNESCAPED_UNICODE), 'subtotal' => $quotation['subtotal'], 'tax_amount' => $quotation['tax_amount'], 'grand_total' => $quotation['grand_total'], 'created_at' => date('Y-m-d H:i:s')]);
+        $negotiations->insert(['quotation_id' => $id, 'round_no' => $round, 'status' => 'pending', 'proposed_by' => $user, 'customer_message' => trim((string) $this->request->getPost('customer_message')) ?: null, 'internal_notes' => trim((string) $this->request->getPost('internal_notes')) ?: null, 'snapshot_json' => json_encode($snapshot, JSON_UNESCAPED_UNICODE), 'subtotal' => $subtotal, 'tax_amount' => $taxAmount, 'grand_total' => $grandTotal, 'created_at' => date('Y-m-d H:i:s')]);
         if ($quotation['status'] !== 'negotiation') $this->model->changeStatus($id, 'negotiation', $user, 'Negosiasi putaran ' . $round . ' diajukan.');
         return redirect()->to('/quotations/' . public_id($id))->with('message', 'Negosiasi putaran ' . $round . ' berhasil disimpan.');
     }
@@ -373,7 +418,11 @@ class Quotations extends BaseController
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        return view('quotations/show', ['title' => 'Detail Penawaran', 'quotation' => $quotation]);
+        return view('quotations/show', [
+            'title' => 'Detail Penawaran',
+            'quotation' => $quotation,
+            'products' => (new ProductModel())->orderBy('name')->findAll(),
+        ]);
     }
 
     public function pdf(string $id)
