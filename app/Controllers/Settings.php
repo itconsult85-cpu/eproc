@@ -24,7 +24,8 @@ class Settings extends BaseController
         if (! $this->validateData($data, ['company_name' => 'required|max_length[180]', 'email' => 'permit_empty|valid_email', 'default_validity_days' => 'required|is_natural', 'default_tax_percent' => 'required|decimal'])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-        $existing = $this->model->current();
+        $existingRow = $this->model->find(1);
+        $existing = $existingRow ?? $this->model->current();
         foreach (['logo' => ['logo_path', ['jpg', 'jpeg', 'png', 'webp'], 5242880], 'signature' => ['signature_path', ['jpg', 'jpeg', 'png', 'webp'], 5242880], 'stamp' => ['stamp_path', ['jpg', 'jpeg', 'png', 'webp'], 5242880]] as $field => [$column, $extensions, $maxSize]) {
             $file = $this->request->getFile($field);
             if ($file && $file->isValid() && ! $file->hasMoved()) {
@@ -42,7 +43,14 @@ class Settings extends BaseController
                 $data[$column] = $existing[$column];
             }
         }
-        $this->model->save(array_merge(['id' => 1], $data));
+        $payload = array_merge(['id' => 1], $data);
+        $saved = $existingRow
+            ? $this->model->update(1, $data)
+            : $this->model->insert($payload);
+        if ($saved === false) {
+            $dbError = db_connect()->error()['message'] ?? 'Kesalahan database tidak diketahui.';
+            return redirect()->back()->withInput()->with('errors', ['settings' => 'Setting quotation gagal disimpan: ' . $dbError]);
+        }
         return redirect()->to('/settings/quotation')->with('message', 'Setting quotation berhasil disimpan.');
     }
 }
