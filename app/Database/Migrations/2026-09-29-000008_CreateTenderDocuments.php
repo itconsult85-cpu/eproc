@@ -9,7 +9,6 @@ class CreateTenderDocuments extends Migration
     {
         $this->forge->addField([
             'id' => ['type' => 'INT', 'unsigned' => true, 'auto_increment' => true],
-            'company_id' => ['type' => 'INT', 'unsigned' => true, 'null' => true],
             'tender_no' => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
             'title' => ['type' => 'VARCHAR', 'constraint' => 220],
             'procurement_method' => ['type' => 'VARCHAR', 'constraint' => 80, 'null' => true],
@@ -32,10 +31,8 @@ class CreateTenderDocuments extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addKey('company_id');
         $this->forge->addKey('status');
         $this->forge->addKey('valid_until');
-        $this->forge->addForeignKey('company_id', 'companies', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('tender_documents');
 
         if ($this->db->tableExists('permissions')) {
