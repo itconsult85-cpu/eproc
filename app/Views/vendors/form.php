@@ -1,7 +1,7 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<div class="d-flex justify-content-between mb-3"><h2 class="h5"><?= esc($title) ?></h2><a href="/vendors" class="btn btn-light">Kembali</a></div>
-<form method="post" action="<?= esc($action) ?>" class="card"><div class="card-body row g-3"><?= csrf_field() ?>
+<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-2"><div><h1 class="h4 mb-1"><i class="bi bi-truck me-2"></i><?= esc($title) ?></h1><p class="text-body-secondary mb-0">Kelola data vendor, kontak, rekening bank, dan status kerja sama.</p></div><a href="/vendors" class="btn btn-light"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
+<form method="post" action="<?= esc($action) ?>" class="card form-card"><div class="card-body row g-3"><?= csrf_field() ?>
 <div class="col-md-6"><label class="form-label">Nama Vendor *</label><input name="name" required class="form-control" value="<?= esc($vendor['name']??'') ?>"></div>
 <div class="col-md-3"><label class="form-label">Kode Vendor</label><input name="code" class="form-control" value="<?= esc($vendor['code']??'') ?>"></div>
 <div class="col-md-3"><label class="form-label">PIC</label><input name="pic_name" class="form-control" value="<?= esc($vendor['pic_name']??'') ?>"></div>
@@ -17,5 +17,5 @@
 <div class="col-md-6"><label class="form-label">Termin Pembayaran</label><input name="payment_terms" class="form-control" value="<?= esc($vendor['payment_terms']??'') ?>"></div>
 <div class="col-md-6"><label class="form-label">Status</label><select name="is_active" class="form-select"><option value="1" <?= ($vendor['is_active']??1)?'selected':'' ?>>Aktif</option><option value="0" <?= !($vendor['is_active']??1)?'selected':'' ?>>Nonaktif</option></select></div>
 <div class="col-12"><label class="form-label">Catatan</label><textarea name="notes" class="form-control"><?= esc($vendor['notes']??'') ?></textarea></div>
-</div><div class="card-footer"><button class="btn btn-primary">Simpan Vendor</button></div></form>
+</div><div class="card-footer d-flex justify-content-end gap-2"><a href="/vendors" class="btn btn-light">Batal</a><button class="btn btn-primary">Simpan Vendor</button></div></form>
 <?= $this->endSection() ?>

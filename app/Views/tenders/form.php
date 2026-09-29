@@ -1,10 +1,10 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-2">
     <div><h2 class="h5 mb-1"><i class="bi bi-file-earmark-arrow-up me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Simpan satu dokumen beserta identitas dan masa aktifnya. Masa berlaku berlaku untuk dokumen ini, bukan untuk seluruh tender.</p></div>
     <a href="/tenders" class="btn btn-light">Kembali</a>
 </div>
-<form method="post" action="<?= esc($action) ?>" enctype="multipart/form-data">
+<form method="post" action="<?= esc($action) ?>" enctype="multipart/form-data" class="form-page">
     <?= csrf_field() ?>
     <div class="card mb-3"><div class="card-header"><strong>Identitas Dokumen</strong></div><div class="card-body"><div class="row g-3">
         <div class="col-md-8"><label class="form-label">Nama Dokumen <span class="text-danger">*</span></label><input name="title" class="form-control" required maxlength="220" value="<?= old('title', $tender['title'] ?? '') ?>" placeholder="Contoh: NPWP Perusahaan, Surat Keagenan, Akta Pendirian"></div>

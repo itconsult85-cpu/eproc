@@ -1,5 +1,5 @@
-<?= $this->extend('layout') ?><?= $this->section('content') ?><h1 class="mb-3"><?= esc($title) ?></h1>
-<form method="post" action="<?= esc($action) ?>" class="card"><?= csrf_field() ?>
+<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-2"><div><h1 class="h4 mb-1"><i class="bi bi-buildings me-2"></i><?= esc($title) ?></h1><p class="text-body-secondary mb-0">Kelola identitas perusahaan dan konfigurasi nomor quotation.</p></div><a href="/companies" class="btn btn-light"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
+<form method="post" action="<?= esc($action) ?>" class="card form-card"><?= csrf_field() ?>
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-8">

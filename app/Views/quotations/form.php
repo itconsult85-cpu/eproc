@@ -9,7 +9,8 @@ foreach ($products as $product) {
     $productsById[(string) $product['id']] = $product;
 }
 ?>
-<form method="post" action="<?= $action ?>" class="card card-primary card-outline"
+<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><div><h1 class="h4 mb-1"><i class="bi bi-file-earmark-plus me-2"></i><?= esc($title) ?></h1><p class="text-body-secondary mb-0">Buat atau edit penawaran dengan data perusahaan, item produk, dan ketentuan komersial.</p></div><a href="/quotations" class="btn btn-light"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
+<form method="post" action="<?= $action ?>" class="card form-card card-primary card-outline"
     data-companies="<?= esc(json_encode($companies), 'attr') ?>"
     data-products="<?= esc(json_encode($products), 'attr') ?>" data-item-count="<?= count($items) ?>">
     <?= csrf_field() ?>
@@ -91,12 +92,14 @@ foreach ($products as $product) {
                     value="<?= old('title', $quotation['title'] ?? '') ?>">
             </div>
 
-            <div class="col-md-3">
-                <label class="field-label">
-                    PPN (%)
-                </label>
-                <input type="number" step="0.01" name="tax_percent" class="form-control"
+            <div class="col-12 tax-section">
+                <div class="tax-section-title"><i class="bi bi-percent"></i><span>Pajak dan ketentuan penawaran</span></div>
+            </div>
+            <div class="col-md-3 tax-field">
+                <label class="field-label">PPN (%)</label>
+                <input type="number" step="0.01" min="0" name="tax_percent" class="form-control"
                     value="<?= old('tax_percent', $quotation['tax_percent'] ?? $settings['default_tax_percent'] ?? 11) ?>">
+                <div class="form-text">Persentase PPN yang ditambahkan ke DPP.</div>
             </div>
             <div class="col-md-3"><label class="field-label">
                     Masa berlaku (hari)
@@ -225,7 +228,7 @@ foreach ($products as $product) {
             </div>
         </div>
     </div>
-    <div class="card-footer">
+    <div class="card-footer d-flex justify-content-end gap-2">
         <a href="/quotations" class="btn btn-light">
             Batal
         </a>

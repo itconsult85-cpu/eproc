@@ -22,7 +22,7 @@
     </ul>
 </div>
 <?php endif; ?>
-<form method="post" enctype="multipart/form-data"
+<form class="form-page" method="post" enctype="multipart/form-data"
     action="<?= $user ? site_url('users/' . public_id($user['id'])) : site_url('users') ?>">
     <?= csrf_field() ?>
     <div class="row g-3">

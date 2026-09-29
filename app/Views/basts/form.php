@@ -6,7 +6,7 @@ $selectedSource = ! empty($bast['source_type']) && ! empty($bast['source_id']) ?
 $sourceData = ['quotation' => $quotationSources, 'client_purchase_order' => $clientPurchaseOrderSources, 'purchase_order' => $purchaseOrderSources];
 ?>
 <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><div><h1 class="h4 mb-1"><?= esc($title) ?></h1><p class="text-body-secondary mb-0">Data barang akan disalin sebagai snapshot dari dokumen sumber saat disimpan.</p></div><a href="/basts" class="btn btn-light"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
-<form method="post" action="<?= esc($action) ?>" class="card" id="bast-form">
+<form method="post" action="<?= esc($action) ?>" class="card form-card" id="bast-form">
     <div class="card-body row g-3"><?= csrf_field() ?>
         <div class="col-md-4"><label class="form-label">Nomor BAST *</label><input name="bast_no" required maxlength="100" class="form-control" value="<?= esc($bast['bast_no'] ?? '') ?>" placeholder="BAST/001/2026"></div>
         <div class="col-md-4"><label class="form-label">Tanggal Serah Terima *</label><input type="date" name="handover_date" required class="form-control" value="<?= esc($bast['handover_date'] ?? date('Y-m-d')) ?>"></div>

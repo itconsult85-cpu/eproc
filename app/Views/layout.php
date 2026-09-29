@@ -95,6 +95,7 @@
                             </a>
                         </li>
                         <?php endif; ?>
+                        <?php if (can('companies.view') || can('products.view')): ?><li class="nav-header">MASTER DATA</li><?php endif; ?>
                         <?php if (can('companies.view')): ?>
                         <li class="nav-item">
                             <a href="/companies" class="nav-link <?= $isSidebarActive('companies') ? 'active' : '' ?>">
@@ -115,6 +116,7 @@
                             </a>
                         </li>
                         <?php endif; ?>
+                        <?php if (can('quotations.view') || can('proforma.view') || can('client_po.view') || can('client_delivery_note.view')): ?><li class="nav-header">PENJUALAN &amp; KLIEN</li><?php endif; ?>
                         <?php if (can('quotations.view')): ?>
                         <li class="nav-item">
                             <a href="/quotations" class="nav-link <?= $isSidebarActive('quotations') ? 'active' : '' ?>">
@@ -126,12 +128,14 @@
                         </li>
                         <?php endif; ?>
                         <?php if (can('proforma.view')): ?><li class="nav-item"><a href="/proforma-invoices" class="nav-link <?= $isSidebarActive('proforma-invoices') ? 'active' : '' ?>"><i class="nav-icon bi bi-receipt"></i><p>Proforma Invoice</p></a></li><?php endif; ?>
-                        <?php if (can('vendors.view')): ?><li class="nav-item"><a href="/vendors" class="nav-link <?= $isSidebarActive('vendors') ? 'active' : '' ?>"><i class="nav-icon bi bi-truck"></i><p>Vendor</p></a></li><?php endif; ?>
                         <?php if (can('client_po.view')): ?><li class="nav-item"><a href="/client-purchase-orders" class="nav-link <?= $isSidebarActive('client-purchase-orders') ? 'active' : '' ?>"><i class="nav-icon bi bi-file-earmark-arrow-down"></i><p>PO IN Klien</p></a></li><?php endif; ?>
                         <?php if (can('client_delivery_note.view')): ?><li class="nav-item"><a href="/client-delivery-notes" class="nav-link <?= $isSidebarActive('client-delivery-notes') ? 'active' : '' ?>"><i class="nav-icon bi bi-truck"></i><p>Surat Jalan Client</p></a></li><?php endif; ?>
+                        <?php if (can('vendors.view') || can('purchase_orders.view') || can('vendor_bills.view')): ?><li class="nav-header">PENGADAAN VENDOR</li><?php endif; ?>
+                        <?php if (can('vendors.view')): ?><li class="nav-item"><a href="/vendors" class="nav-link <?= $isSidebarActive('vendors') ? 'active' : '' ?>"><i class="nav-icon bi bi-truck"></i><p>Vendor</p></a></li><?php endif; ?>
                         <?php if (can('purchase_orders.view')): ?><li class="nav-item"><a href="/purchase-orders" class="nav-link <?= $isSidebarActive('purchase-orders') ? 'active' : '' ?>"><i class="nav-icon bi bi-cart-check"></i><p>PO OUT Vendor</p></a></li><?php endif; ?>
-                        <?php if (can('bast.view')): ?><li class="nav-item"><a href="/basts" class="nav-link <?= $isSidebarActive('basts') ? 'active' : '' ?>"><i class="nav-icon bi bi-clipboard-check"></i><p>BAST</p></a></li><?php endif; ?>
                         <?php if (can('vendor_bills.view')): ?><li class="nav-item"><a href="/vendor-bills" class="nav-link <?= $isSidebarActive('vendor-bills') ? 'active' : '' ?>"><i class="nav-icon bi bi-journal-text"></i><p>Tagihan Vendor</p></a></li><?php endif; ?>
+                        <?php if (can('tenders.view') || can('bast.view')): ?><li class="nav-header">DOKUMEN &amp; SERAH TERIMA</li><?php endif; ?>
+                        <?php if (can('bast.view')): ?><li class="nav-item"><a href="/basts" class="nav-link <?= $isSidebarActive('basts') ? 'active' : '' ?>"><i class="nav-icon bi bi-clipboard-check"></i><p>BAST</p></a></li><?php endif; ?>
                         <?php if (can('tenders.view')): ?>
                         <li class="nav-item">
                             <a href="/tenders" class="nav-link <?= $isSidebarActive('tenders') ? 'active' : '' ?>">
