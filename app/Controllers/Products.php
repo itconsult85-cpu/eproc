@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\QuotationSettingModel;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\ProductModel;
 
 class Products extends BaseController
@@ -48,6 +51,8 @@ class Products extends BaseController
             if ($row['datasheet_file_path']) $details .= '<a href="' . esc($row['datasheet_file_path']) . '" target="_blank" rel="noopener" class="small text-danger"><i class="bi bi-file-pdf"></i> Datasheet PDF</a>';
             $publicId = public_id((int) $row['id']);
             $actions = '';
+            $actions .= '<li><a class="dropdown-item" href="/products/' . $publicId . '/catalog/preview"><i class="bi bi-eye me-2 text-success"></i>Lihat katalog</a></li>';
+            $actions .= '<li><a class="dropdown-item" href="/products/' . $publicId . '/catalog"><i class="bi bi-file-earmark-pdf me-2 text-danger"></i>Unduh katalog PDF</a></li>';
             if (can('products.edit')) {
                 $actions .= '<li><a class="dropdown-item" href="/products/' . $publicId . '/edit"><i class="bi bi-pencil me-2 text-warning"></i>Edit produk</a></li>';
             }
@@ -86,6 +91,60 @@ class Products extends BaseController
     public function update(string $id)
     {
         return $this->save($this->resolveId($id, $this->model));
+    }
+
+    public function catalogPreview(string $id)
+    {
+        $product = $this->catalogProduct($id);
+        return view('products/catalog_preview', [
+            'title' => 'Preview Katalog Produk',
+            'product' => $product,
+            'settings' => (new QuotationSettingModel())->current(),
+            'imageData' => $this->assetData($product['image_path'] ?? null),
+        ]);
+    }
+
+    public function catalog(string $id)
+    {
+        $product = $this->catalogProduct($id);
+        $settings = (new QuotationSettingModel())->current();
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml(view('products/catalog', [
+            'product' => $product,
+            'settings' => $settings,
+            'imageData' => $this->assetData($product['image_path'] ?? null),
+            'logoData' => $this->assetData($settings['logo_path'] ?? null),
+        ]));
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return $this->response
+            ->setHeader('Content-Type', 'application/pdf')
+            ->setHeader('Content-Disposition', 'attachment; filename="katalog-produk-' . preg_replace('/[^A-Za-z0-9_-]/', '-', (string) ($product['sku'] ?: $product['id'])) . '.pdf"')
+            ->setBody($dompdf->output());
+    }
+
+    private function catalogProduct(string $value): array
+    {
+        $id = $this->resolveId($value, $this->model);
+        $product = $this->model->find($id);
+        if (! $product) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        return $product;
+    }
+
+    private function assetData(?string $path): ?string
+    {
+        if (! $path || ! is_file(FCPATH . ltrim($path, '/'))) {
+            return null;
+        }
+        $file = FCPATH . ltrim($path, '/');
+        $mime = mime_content_type($file) ?: 'image/png';
+        return 'data:' . $mime . ';base64,' . base64_encode((string) file_get_contents($file));
     }
 
     private function save(?int $id = null)
