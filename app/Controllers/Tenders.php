@@ -15,7 +15,12 @@ class Tenders extends BaseController
 
     public function index()
     {
-        return view('tenders/index', ['title' => 'Dokumen Tender']);
+        $today = date('Y-m-d');
+        $warningDate = date('Y-m-d', strtotime('+30 days'));
+        $base = $this->model->whereNotIn('status', ['cancelled'])->where('valid_until IS NOT NULL', null, false);
+        $expired = (clone $base)->where('valid_until <', $today)->countAllResults();
+        $expiring = (clone $base)->where('valid_until >=', $today)->where('valid_until <=', $warningDate)->countAllResults();
+        return view('tenders/index', ['title' => 'Dokumen Tender', 'expiredCount' => $expired, 'expiringCount' => $expiring]);
     }
 
     public function datatable()
@@ -36,8 +41,12 @@ class Tenders extends BaseController
         $rows = $builder->get($length, $start)->getResultArray();
         $data = array_map(static function (array $row, int $index) use ($start): array {
             $class = ['draft' => 'secondary', 'open' => 'success', 'closed' => 'warning', 'awarded' => 'primary', 'cancelled' => 'danger'][$row['status']] ?? 'secondary';
-            $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && ! in_array($row['status'], ['awarded', 'cancelled'], true);
-            $status = '<span class="badge text-bg-' . $class . '">' . esc(ucfirst($row['status'])) . '</span>' . ($pastDue ? '<br><small class="text-danger">Masa berlaku lewat</small>' : '');
+            $label = ucfirst($row['status']);
+            $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && $row['status'] !== 'cancelled';
+            $soonDue = ! empty($row['valid_until']) && $row['valid_until'] >= date('Y-m-d') && $row['valid_until'] <= date('Y-m-d', strtotime('+30 days')) && $row['status'] !== 'cancelled';
+            if ($pastDue) { $class = 'danger'; $label = 'Kedaluwarsa'; }
+            $statusNote = $soonDue ? '<br><small class="text-warning">Segera berakhir</small>' : '';
+            $status = '<span class="badge text-bg-' . $class . '">' . esc($label) . $statusNote . '</span>';
             $actions = '<div class="d-flex flex-wrap gap-1"><a class="btn btn-sm btn-outline-primary" href="/tenders/' . (int) $row['id'] . '" title="Detail">Detail</a><a class="btn btn-sm btn-outline-warning" href="/tenders/' . (int) $row['id'] . '/edit" title="Edit">Edit</a>';
             if (! empty($row['file_path'])) $actions .= '<a class="btn btn-sm btn-outline-success" href="' . esc(base_url(ltrim($row['file_path'], '/'))) . '" target="_blank" rel="noopener">File</a>';
             $actions .= '<form method="post" action="/tenders/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus dokumen tender ini?\')"><button class="btn btn-sm btn-outline-danger">Hapus</button></form></div>';
@@ -70,11 +79,17 @@ class Tenders extends BaseController
 
     private function save(?int $id = null)
     {
-        $data = $this->request->getPost(['company_id', 'tender_no', 'title', 'procurement_method', 'issuer_name', 'description', 'issue_date', 'valid_until', 'submission_deadline', 'status', 'contact_name', 'contact_email', 'contact_phone', 'notes']);
-        if (! empty($data['submission_deadline'])) $data['submission_deadline'] = str_replace('T', ' ', (string) $data['submission_deadline']) . (strlen((string) $data['submission_deadline']) === 16 ? ':00' : '');
-        $rules = ['title' => 'required|max_length[220]', 'issue_date' => 'permit_empty|valid_date[Y-m-d]', 'valid_until' => 'permit_empty|valid_date[Y-m-d]', 'submission_deadline' => 'permit_empty|valid_date[Y-m-d H:i]', 'contact_email' => 'permit_empty|valid_email|max_length[160]'];
+        $data = $this->request->getPost(['company_id', 'tender_no', 'title', 'procurement_method', 'issuer_name', 'description', 'issue_date', 'valid_until', 'no_expiry', 'status', 'contact_name', 'contact_email', 'contact_phone', 'notes']);
+        $rules = ['title' => 'required|max_length[220]', 'issue_date' => 'required|valid_date[Y-m-d]', 'valid_until' => 'permit_empty|valid_date[Y-m-d]', 'contact_email' => 'permit_empty|valid_email|max_length[160]'];
         if (! $this->validateData($data, $rules)) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        if (! empty($data['issue_date']) && ! empty($data['valid_until']) && $data['valid_until'] < $data['issue_date']) return redirect()->back()->withInput()->with('errors', ['valid_until' => 'Masa berlaku tidak boleh sebelum tanggal diterbitkan.']);
+        if (! empty($data['no_expiry'])) {
+            $data['valid_until'] = null;
+        } elseif (empty($data['valid_until'])) {
+            return redirect()->back()->withInput()->with('errors', ['valid_until' => 'Isi tanggal berlaku sampai atau pilih dokumen tidak memiliki tanggal kedaluwarsa.']);
+        } elseif ($data['valid_until'] < $data['issue_date']) {
+            return redirect()->back()->withInput()->with('errors', ['valid_until' => 'Masa berlaku tidak boleh sebelum tanggal diterbitkan.']);
+        }
+        unset($data['no_expiry']);
         if (! in_array($data['status'] ?? 'draft', ['draft', 'open', 'closed', 'awarded', 'cancelled'], true)) $data['status'] = 'draft';
         $existing = $id ? $this->model->find($id) : [];
         $file = $this->request->getFile('tender_file');
