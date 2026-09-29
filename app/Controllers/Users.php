@@ -45,7 +45,9 @@ class Users extends BaseController
         if (! $id) $data['created_at'] = date('Y-m-d H:i:s');
         $avatar = $this->request->getFile('avatar');
         if ($avatar && $avatar->isValid() && ! $avatar->hasMoved()) {
-            if ($avatar->getSize() > 2097152 || ! in_array(strtolower($avatar->getExtension()), ['jpg', 'jpeg', 'png', 'webp'], true)) return redirect()->back()->withInput()->with('error', 'Avatar harus JPG, PNG, atau WEBP maksimal 2 MB.');
+            $avatarMime = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'];
+            $avatarExtension = strtolower($avatar->getExtension());
+            if ($avatar->getSize() > 2097152 || ! isset($avatarMime[$avatarExtension]) || strtolower((string) $avatar->getMimeType()) !== $avatarMime[$avatarExtension]) return redirect()->back()->withInput()->with('error', 'Avatar harus JPG, PNG, atau WEBP maksimal 2 MB.');
             $dir = FCPATH . 'uploads/avatars';
             if (! is_dir($dir)) mkdir($dir, 0755, true);
             $name = $avatar->getRandomName();

@@ -1,7 +1,7 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 <?php
-$fileUrl = ! empty($tender['file_path']) ? base_url(ltrim($tender['file_path'], '/')) : null;
+$fileUrl = ! empty($tender['file_path']) ? site_url('files/tenders/' . public_id((int) $tender['id'])) : null;
 $fileMime = strtolower((string) ($tender['file_mime'] ?? ''));
 $isImage = str_starts_with($fileMime, 'image/');
 $isPdf = $fileMime === 'application/pdf' || strtolower(pathinfo((string) ($tender['original_file_name'] ?? ''), PATHINFO_EXTENSION)) === 'pdf';

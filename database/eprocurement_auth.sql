@@ -50,6 +50,14 @@ CREATE TABLE IF NOT EXISTS `auth_audit_logs` (
   CONSTRAINT `fk_auth_audit_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE IF NOT EXISTS `auth_login_rate_limits` (
+  `ip_address` varchar(45) NOT NULL,
+  `failed_attempts` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `locked_until` datetime DEFAULT NULL,
+  `last_attempt_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`ip_address`), KEY `locked_until` (`locked_until`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 INSERT IGNORE INTO `permissions` (`permission_key`,`label`,`group_name`,`created_at`) VALUES
 ('dashboard.view','Lihat dashboard','Dashboard',NOW()),
 ('companies.view','Lihat perusahaan','Perusahaan',NOW()),('companies.create','Tambah perusahaan','Perusahaan',NOW()),('companies.edit','Edit perusahaan','Perusahaan',NOW()),('companies.delete','Hapus perusahaan','Perusahaan',NOW()),

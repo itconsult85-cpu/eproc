@@ -47,10 +47,11 @@ class Settings extends BaseController
         }
         $existingRow = $this->model->find(1);
         $existing = $existingRow ?? $this->model->current();
-        foreach (['logo' => ['logo_path', ['jpg', 'jpeg', 'png', 'webp'], 5242880], 'signature' => ['signature_path', ['jpg', 'jpeg', 'png', 'webp'], 5242880], 'stamp' => ['stamp_path', ['jpg', 'jpeg', 'png', 'webp'], 5242880]] as $field => [$column, $extensions, $maxSize]) {
+        foreach (['logo' => ['logo_path', ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'], 5242880], 'signature' => ['signature_path', ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'], 5242880], 'stamp' => ['stamp_path', ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'], 5242880]] as $field => [$column, $extensions, $maxSize]) {
             $file = $this->request->getFile($field);
             if ($file && $file->isValid() && ! $file->hasMoved()) {
-                if ($file->getSize() > $maxSize || ! in_array(strtolower($file->getExtension()), $extensions, true)) {
+                $extension = strtolower($file->getExtension());
+                if ($file->getSize() > $maxSize || ! isset($extensions[$extension]) || strtolower((string) $file->getMimeType()) !== $extensions[$extension]) {
                     return redirect()->back()->withInput()->with('errors', [$field => 'File ' . $field . ' harus JPG, PNG, atau WEBP maksimal 5 MB.']);
                 }
                 $directory = FCPATH . 'uploads/settings';

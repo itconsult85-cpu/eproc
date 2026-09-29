@@ -26,6 +26,11 @@ class Auth extends BaseController
         $login = trim((string) $this->request->getPost('login'));
         $password = (string) $this->request->getPost('password');
         if ($login === '' || $password === '') return redirect()->back()->withInput()->with('error', 'Username/email dan password wajib diisi.');
+        $ipAddress = $this->request->getIPAddress();
+        if ($this->isIpRateLimited($ipAddress)) {
+            (new AuthAuditLogModel())->insert(['user_id' => null, 'username' => $login, 'event' => 'login_rate_limited', 'ip_address' => $ipAddress, 'user_agent' => substr((string) $this->request->getUserAgent(), 0, 500), 'details' => 'IP rate limit reached', 'created_at' => date('Y-m-d H:i:s')]);
+            return redirect()->back()->withInput()->with('error', 'Terlalu banyak percobaan login. Silakan coba lagi beberapa menit lagi.');
+        }
         $user = $this->users->findByLogin($login);
         $audit = new AuthAuditLogModel();
         $now = date('Y-m-d H:i:s');
@@ -39,10 +44,12 @@ class Auth extends BaseController
                 }
                 $this->users->update($user['id'], $data);
             }
+            $this->recordIpFailure($ipAddress);
             $audit->insert(['user_id' => $user['id'] ?? null, 'username' => $login, 'event' => 'login_failed', 'ip_address' => $this->request->getIPAddress(), 'user_agent' => substr((string) $this->request->getUserAgent(), 0, 500), 'details' => 'Invalid credentials or locked account', 'created_at' => $now]);
             return redirect()->back()->withInput()->with('error', 'Kredensial tidak valid atau akun sedang terkunci.');
         }
         $this->users->update($user['id'], ['failed_login_attempts' => 0, 'locked_until' => null, 'last_login_at' => $now, 'last_login_ip' => $this->request->getIPAddress()]);
+        db_connect()->table('auth_login_rate_limits')->where('ip_address', $ipAddress)->delete();
         session()->regenerate(true);
         AccessControl::refreshSession($user);
         $audit->insert(['user_id' => $user['id'], 'username' => $user['username'], 'event' => 'login_success', 'ip_address' => $this->request->getIPAddress(), 'user_agent' => substr((string) $this->request->getUserAgent(), 0, 500), 'created_at' => $now]);
@@ -64,13 +71,20 @@ class Auth extends BaseController
 
     public function createFirstAdmin()
     {
-        if ($this->users->countAllResults() > 0) return redirect()->to('/login');
+        $db = db_connect();
+        $lock = $db->query("SELECT GET_LOCK('eproc_first_admin_setup', 10) AS acquired")->getRowArray();
+        if ((int) ($lock['acquired'] ?? 0) !== 1) return redirect()->to('/login')->with('error', 'Setup sedang digunakan. Silakan coba lagi.');
+        try {
+            if ($this->users->countAllResults() > 0) return redirect()->to('/login');
         $data = $this->request->getPost(['username', 'email', 'full_name']);
         $password = (string) $this->request->getPost('password');
         $rules = ['username' => 'required|alpha_numeric_punct|min_length[4]|max_length[80]', 'email' => 'required|valid_email|max_length[160]', 'full_name' => 'required|max_length[160]', 'password' => 'required|min_length[12]|max_length[72]'];
-        if (! $this->validateData(array_merge($data, ['password' => $password]), $rules)) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        $this->users->insert(array_merge($data, ['password_hash' => password_hash($password, PASSWORD_DEFAULT), 'role' => 'superadmin', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]));
-        return redirect()->to('/login')->with('message', 'Superadmin berhasil dibuat. Silakan login.');
+            if (! $this->validateData(array_merge($data, ['password' => $password]), $rules)) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            $this->users->insert(array_merge($data, ['password_hash' => password_hash($password, PASSWORD_DEFAULT), 'role' => 'superadmin', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]));
+            return redirect()->to('/login')->with('message', 'Superadmin berhasil dibuat. Silakan login.');
+        } finally {
+            $db->query("SELECT RELEASE_LOCK('eproc_first_admin_setup')");
+        }
     }
 
     public function password()
@@ -89,5 +103,22 @@ class Auth extends BaseController
         $this->users->update($user['id'], ['password_hash' => password_hash($password, PASSWORD_DEFAULT)]);
         AccessControl::logout();
         return redirect()->to('/login')->with('message', 'Password berhasil diubah. Silakan login kembali.');
+    }
+
+    private function isIpRateLimited(string $ipAddress): bool
+    {
+        $row = db_connect()->table('auth_login_rate_limits')->where('ip_address', $ipAddress)->get()->getRowArray();
+        return $row && ! empty($row['locked_until']) && strtotime($row['locked_until']) > time();
+    }
+
+    private function recordIpFailure(string $ipAddress): void
+    {
+        $table = db_connect()->table('auth_login_rate_limits');
+        $row = $table->where('ip_address', $ipAddress)->get()->getRowArray();
+        $attempts = ((int) ($row['failed_attempts'] ?? 0)) + 1;
+        $data = ['failed_attempts' => $attempts, 'last_attempt_at' => date('Y-m-d H:i:s')];
+        if ($attempts >= 20) $data['locked_until'] = date('Y-m-d H:i:s', time() + 900);
+        if ($row) $table->where('ip_address', $ipAddress)->update($data);
+        else $table->insert(['ip_address' => $ipAddress] + $data);
     }
 }

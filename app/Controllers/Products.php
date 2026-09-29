@@ -168,14 +168,15 @@ class Products extends BaseController
 
         $existing = $id ? $this->model->find($id) : [];
         $uploads = [
-            'image' => ['image_path', ['jpg', 'jpeg', 'png', 'webp'], 5242880, 'Format atau ukuran file gambar tidak valid.'],
-            'video' => ['video_path', ['mp4', 'webm', 'mov'], 52428800, 'Format atau ukuran file video tidak valid.'],
-            'datasheet_file' => ['datasheet_file_path', ['pdf'], 20971520, 'Datasheet harus berupa PDF maksimal 20 MB.'],
+            'image' => ['image_path', ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'], 5242880, 'Format atau ukuran file gambar tidak valid.'],
+            'video' => ['video_path', ['mp4' => 'video/mp4', 'webm' => 'video/webm', 'mov' => 'video/quicktime'], 52428800, 'Format atau ukuran file video tidak valid.'],
+            'datasheet_file' => ['datasheet_file_path', ['pdf' => 'application/pdf'], 20971520, 'Datasheet harus berupa PDF maksimal 20 MB.'],
         ];
         foreach ($uploads as $field => [$column, $extensions, $maxSize, $message]) {
             $file = $this->request->getFile($field);
             if ($file && $file->isValid() && ! $file->hasMoved()) {
-                if ($file->getSize() > $maxSize || ! in_array(strtolower($file->getExtension()), $extensions, true)) {
+                $extension = strtolower($file->getExtension());
+                if ($file->getSize() > $maxSize || ! isset($extensions[$extension]) || strtolower((string) $file->getMimeType()) !== $extensions[$extension]) {
                     return redirect()->back()->withInput()->with('errors', [$field => $message]);
                 }
                 $directory = FCPATH . 'uploads/products';

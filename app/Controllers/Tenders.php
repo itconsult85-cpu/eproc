@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Libraries\SecureFileStorage;
 use App\Models\TenderDocumentModel;
 
 class Tenders extends BaseController
@@ -97,13 +98,23 @@ class Tenders extends BaseController
         $existing = $id ? $this->model->find($id) : [];
         $file = $this->request->getFile('tender_file');
         if ($file && $file->isValid() && ! $file->hasMoved()) {
-            $extensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'zip', 'jpg', 'jpeg', 'png'];
-            if ($file->getSize() > 52428800 || ! in_array(strtolower($file->getExtension()), $extensions, true)) return redirect()->back()->withInput()->with('errors', ['tender_file' => 'File harus PDF, Word, Excel, ZIP, JPG, atau PNG maksimal 50 MB.']);
-            $directory = FCPATH . 'uploads/tenders';
-            if (! is_dir($directory)) mkdir($directory, 0755, true);
-            $newName = $file->getRandomName(); $file->move($directory, $newName);
-            $data['file_path'] = '/uploads/tenders/' . $newName; $data['original_file_name'] = $file->getClientName(); $data['file_mime'] = $file->getClientMimeType(); $data['file_size'] = $file->getSize();
-            if ($existing && ! empty($existing['file_path'])) $this->removeFile($existing['file_path']);
+            try {
+                $stored = SecureFileStorage::store($file, [
+                    'pdf' => 'application/pdf',
+                    'doc' => 'application/msword',
+                    'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'xls' => 'application/vnd.ms-excel',
+                    'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'zip' => 'application/zip',
+                    'jpg' => 'image/jpeg',
+                    'jpeg' => 'image/jpeg',
+                    'png' => 'image/png',
+                ], 52428800, 'tenders');
+            } catch (\RuntimeException $exception) {
+                return redirect()->back()->withInput()->with('errors', ['tender_file' => 'File harus PDF, Word, Excel, ZIP, JPG, atau PNG maksimal 50 MB dan tidak boleh dipalsukan.']);
+            }
+            $data['file_path'] = $stored['path']; $data['original_file_name'] = $stored['original_name']; $data['file_mime'] = $stored['mime']; $data['file_size'] = $stored['size'];
+            if ($existing && ! empty($existing['file_path'])) SecureFileStorage::remove($existing['file_path']);
         } elseif ($existing) {
             foreach (['file_path', 'original_file_name', 'file_mime', 'file_size'] as $field) $data[$field] = $existing[$field] ?? null;
         }
@@ -130,6 +141,6 @@ class Tenders extends BaseController
 
     private function removeFile(?string $path): void
     {
-        if ($path && is_file(FCPATH . ltrim($path, '/'))) @unlink(FCPATH . ltrim($path, '/'));
+        SecureFileStorage::remove($path);
     }
 }
