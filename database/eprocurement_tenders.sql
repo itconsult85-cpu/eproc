@@ -2,7 +2,6 @@
 -- Aman dijalankan berulang kali pada database yang sudah berjalan.
 CREATE TABLE IF NOT EXISTS tender_documents (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  company_id INT UNSIGNED NULL,
   tender_no VARCHAR(100) NULL,
   title VARCHAR(220) NOT NULL,
   procurement_method VARCHAR(80) NULL,
@@ -23,10 +22,8 @@ CREATE TABLE IF NOT EXISTS tender_documents (
   created_by VARCHAR(120) NULL,
   created_at DATETIME NULL,
   updated_at DATETIME NULL,
-  INDEX idx_tender_company (company_id),
   INDEX idx_tender_status (status),
-  INDEX idx_tender_valid_until (valid_until),
-  CONSTRAINT fk_tender_company FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE SET NULL ON UPDATE CASCADE
+  INDEX idx_tender_valid_until (valid_until)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT IGNORE INTO permissions (permission_key, label, group_name, created_at) VALUES

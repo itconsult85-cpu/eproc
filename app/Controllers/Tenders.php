@@ -30,8 +30,8 @@ class Tenders extends BaseController
         $length = min(100, max(1, (int) ($request['length'] ?? 10)));
         $search = trim((string) ($request['search']['value'] ?? ''));
         $total = $this->model->countAll();
-        $builder = $this->model->builder()->select('tender_documents.*, companies.name AS company_name')->join('companies', 'companies.id = tender_documents.company_id', 'left');
-        if ($search !== '') $builder->groupStart()->like('tender_documents.tender_no', $search)->orLike('tender_documents.title', $search)->orLike('companies.name', $search)->orLike('tender_documents.status', $search)->groupEnd();
+        $builder = $this->model->builder()->select('tender_documents.*');
+        if ($search !== '') $builder->groupStart()->like('tender_documents.tender_no', $search)->orLike('tender_documents.title', $search)->orLike('tender_documents.issuer_name', $search)->orLike('tender_documents.status', $search)->groupEnd();
         $filtered = $builder->countAllResults(false);
         $columns = ['created_at', 'title', 'issue_date', 'valid_until', 'status', 'original_file_name', 'created_at'];
         $orderColumn = (int) ($request['order'][0]['column'] ?? 3);
