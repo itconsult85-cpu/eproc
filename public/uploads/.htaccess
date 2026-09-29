@@ -1,0 +1,18 @@
+# Uploads may contain user-controlled content. Never execute server-side scripts here.
+Options -Indexes -ExecCGI
+
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(?i:php[0-9]*|phtml|phar|cgi|pl|py|sh|asp|aspx|jsp)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    <FilesMatch "\.(?i:php[0-9]*|phtml|phar|cgi|pl|py|sh|asp|aspx|jsp)$">
+        Deny from all
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Content-Security-Policy "default-src 'none'; frame-ancestors 'none'"
+</IfModule>
