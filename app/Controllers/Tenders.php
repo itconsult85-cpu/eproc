@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\CompanyModel;
 use App\Models\TenderDocumentModel;
 
 class Tenders extends BaseController
@@ -57,7 +56,7 @@ class Tenders extends BaseController
 
     public function new()
     {
-        return view('tenders/form', ['title' => 'Tambah Dokumen Tender', 'tender' => [], 'companies' => (new CompanyModel())->orderBy('name')->findAll(), 'action' => '/tenders']);
+        return view('tenders/form', ['title' => 'Tambah Dokumen Tender', 'tender' => [], 'action' => '/tenders']);
     }
 
     public function create()
@@ -69,7 +68,7 @@ class Tenders extends BaseController
     {
         $tender = $this->model->find($id);
         if (! $tender) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        return view('tenders/form', ['title' => 'Edit Dokumen Tender', 'tender' => $tender, 'companies' => (new CompanyModel())->orderBy('name')->findAll(), 'action' => '/tenders/' . $id]);
+        return view('tenders/form', ['title' => 'Edit Dokumen Tender', 'tender' => $tender, 'action' => '/tenders/' . $id]);
     }
 
     public function update(int $id)
@@ -79,7 +78,7 @@ class Tenders extends BaseController
 
     private function save(?int $id = null)
     {
-        $data = $this->request->getPost(['company_id', 'tender_no', 'title', 'procurement_method', 'issuer_name', 'description', 'issue_date', 'valid_until', 'no_expiry', 'status', 'contact_name', 'contact_email', 'contact_phone', 'notes']);
+        $data = $this->request->getPost(['tender_no', 'title', 'procurement_method', 'issuer_name', 'description', 'issue_date', 'valid_until', 'no_expiry', 'status', 'contact_name', 'contact_email', 'contact_phone', 'notes']);
         $rules = ['title' => 'required|max_length[220]', 'issue_date' => 'required|valid_date[Y-m-d]', 'valid_until' => 'permit_empty|valid_date[Y-m-d]', 'contact_email' => 'permit_empty|valid_email|max_length[160]'];
         if (! $this->validateData($data, $rules)) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         if (! empty($data['no_expiry'])) {
