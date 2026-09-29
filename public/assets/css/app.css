@@ -8,6 +8,14 @@
 .app-sidebar .nav-link p {
   margin-bottom: 0;
 }
+.app-sidebar .sidebar-wrapper {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+.app-sidebar .sidebar-wrapper .nav-link.active {
+  scroll-margin-block: 0.75rem;
+}
 .brand-image {
   width: 28px;
   height: 28px;

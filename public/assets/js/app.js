@@ -12,6 +12,24 @@
     });
   }
 
+  function keepActiveSidebarItemVisible() {
+    const activeLink = document.querySelector(
+      ".app-sidebar .sidebar-wrapper .nav-link.active",
+    );
+    const sidebarWrapper = activeLink?.closest(".sidebar-wrapper");
+    if (!activeLink || !sidebarWrapper) return;
+
+    const linkRect = activeLink.getBoundingClientRect();
+    const wrapperRect = sidebarWrapper.getBoundingClientRect();
+    const padding = 12;
+
+    if (linkRect.top < wrapperRect.top + padding) {
+      sidebarWrapper.scrollTop -= wrapperRect.top + padding - linkRect.top;
+    } else if (linkRect.bottom > wrapperRect.bottom - padding) {
+      sidebarWrapper.scrollTop += linkRect.bottom - (wrapperRect.bottom - padding);
+    }
+  }
+
   function initTable(selector, options) {
     if (typeof DataTable !== "undefined" && document.querySelector(selector))
       new DataTable(selector, options);
@@ -483,6 +501,8 @@
   };
 
   document.addEventListener("DOMContentLoaded", function () {
+    keepActiveSidebarItemVisible();
+    window.setTimeout(keepActiveSidebarItemVisible, 150);
     initSearchableSelects();
     initConfirmationModal();
     const quotationForm = document.querySelector("form[data-companies]");
