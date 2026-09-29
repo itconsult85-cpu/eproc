@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ClientPurchaseOrderModel;
 use App\Models\BastModel;
 use App\Models\CompanyModel;
 use App\Models\PurchaseOrderModel;
@@ -80,10 +81,10 @@ class Basts extends BaseController
         $existing = $id ? $this->model->find($id) : null;
         $sourceType = (string) $this->request->getPost('source_type');
         $sourcePublicId = (string) $this->request->getPost('source_id');
-        $sourceModel = $sourceType === 'quotation' ? new QuotationModel() : ($sourceType === 'purchase_order' ? new PurchaseOrderModel() : null);
-        if (! $sourceModel || $sourcePublicId === '') return redirect()->back()->withInput()->with('error', 'Sumber dokumen harus berupa quotation atau purchase order.');
+        $sourceModel = $sourceType === 'quotation' ? new QuotationModel() : ($sourceType === 'client_purchase_order' ? new ClientPurchaseOrderModel() : ($sourceType === 'purchase_order' ? new PurchaseOrderModel() : null));
+        if (! $sourceModel || $sourcePublicId === '') return redirect()->back()->withInput()->with('error', 'Sumber dokumen harus berupa quotation, PO IN klien, atau PO OUT vendor.');
         $sourceId = $this->resolveId($sourcePublicId, $sourceModel);
-        $source = $sourceType === 'quotation' ? (new QuotationModel())->detail($sourceId) : (new PurchaseOrderModel())->detail($sourceId);
+        $source = $sourceType === 'quotation' ? (new QuotationModel())->detail($sourceId) : ($sourceType === 'client_purchase_order' ? (new ClientPurchaseOrderModel())->detail($sourceId) : (new PurchaseOrderModel())->detail($sourceId));
         if (! $source) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $items = array_values(array_map(static fn (array $item): array => [
             'product_name' => (string) ($item['product_name'] ?? ''),
@@ -94,7 +95,7 @@ class Basts extends BaseController
             'line_total' => (float) ($item['line_total'] ?? 0),
         ], (array) ($source['items'] ?? [])));
         if (! $items) return redirect()->back()->withInput()->with('error', 'Dokumen sumber belum memiliki item barang.');
-        $companyId = $sourceType === 'quotation' ? (int) ($source['company_id'] ?? 0) : (int) $this->request->getPost('company_id');
+        $companyId = in_array($sourceType, ['quotation', 'client_purchase_order'], true) ? (int) ($source['company_id'] ?? 0) : (int) $this->request->getPost('company_id');
         $company = (new CompanyModel())->find($companyId);
         $data = $this->request->getPost(['bast_no', 'handover_date', 'location', 'recipient_name', 'recipient_position', 'handed_over_by', 'handed_over_position', 'status', 'notes']);
         if (! $company || trim((string) ($data['bast_no'] ?? '')) === '' || empty($data['handover_date']) || trim((string) ($data['recipient_name'] ?? '')) === '') {
@@ -104,8 +105,8 @@ class Basts extends BaseController
         if ($duplicate && (int) $duplicate['id'] !== (int) ($id ?? 0)) return redirect()->back()->withInput()->with('error', 'Nomor BAST sudah digunakan.');
         $data += [
             'source_type' => $sourceType, 'source_id' => $sourceId,
-            'source_no' => $sourceType === 'quotation' ? $source['quotation_no'] : $source['po_no'],
-            'source_title' => $sourceType === 'quotation' ? $source['title'] : 'Purchase Order ' . $source['po_no'],
+            'source_no' => $sourceType === 'quotation' ? $source['quotation_no'] : ($sourceType === 'client_purchase_order' ? $source['po_no'] : $source['po_no']),
+            'source_title' => $sourceType === 'quotation' ? $source['title'] : ($sourceType === 'client_purchase_order' ? 'PO IN Klien ' . $source['po_no'] : 'PO OUT Vendor ' . $source['po_no']),
             'source_date' => $sourceType === 'quotation' ? ($source['issue_date'] ?? null) : ($source['po_date'] ?? null),
             'company_id' => $companyId, 'items_json' => json_encode($items, JSON_UNESCAPED_UNICODE),
             'created_by' => (string) (auth_user('username') ?? auth_user('full_name') ?? 'system'),
@@ -156,11 +157,17 @@ class Basts extends BaseController
             $detail = (new PurchaseOrderModel())->detail((int) $po['id']);
             if ($detail) $purchaseOrderDetails[public_id((int) $po['id'])] = $this->sourcePayload('purchase_order', $detail);
         }
-        return ['title' => $bast ? 'Edit Berita Acara Serah Terima' : 'Buat Berita Acara Serah Terima', 'bast' => $bast ?? [], 'companies' => (new CompanyModel())->orderBy('name')->findAll(), 'quotationSources' => $quotationDetails, 'purchaseOrderSources' => $purchaseOrderDetails, 'action' => $bast ? '/basts/' . public_id((int) $bast['id']) : '/basts'];
+        $clientPurchaseOrders = (new ClientPurchaseOrderModel())->withQuotation();
+        $clientPurchaseOrderDetails = [];
+        foreach ($clientPurchaseOrders as $po) {
+            $detail = (new ClientPurchaseOrderModel())->detail((int) $po['id']);
+            if ($detail) $clientPurchaseOrderDetails[public_id((int) $po['id'])] = $this->sourcePayload('client_purchase_order', $detail);
+        }
+        return ['title' => $bast ? 'Edit Berita Acara Serah Terima' : 'Buat Berita Acara Serah Terima', 'bast' => $bast ?? [], 'companies' => (new CompanyModel())->orderBy('name')->findAll(), 'quotationSources' => $quotationDetails, 'clientPurchaseOrderSources' => $clientPurchaseOrderDetails, 'purchaseOrderSources' => $purchaseOrderDetails, 'action' => $bast ? '/basts/' . public_id((int) $bast['id']) : '/basts'];
     }
 
     private function sourcePayload(string $type, array $source): array
     {
-        return ['type' => $type, 'source_no' => $type === 'quotation' ? $source['quotation_no'] : $source['po_no'], 'title' => $type === 'quotation' ? $source['title'] : 'Purchase Order ' . $source['po_no'], 'date' => $type === 'quotation' ? ($source['issue_date'] ?? '') : ($source['po_date'] ?? ''), 'company_id' => (int) ($source['company_id'] ?? 0), 'company_name' => $type === 'quotation' ? ($source['company_name'] ?? '') : '', 'vendor_name' => $type === 'purchase_order' ? ($source['vendor_name'] ?? '') : '', 'items' => $source['items'] ?? []];
+        return ['type' => $type, 'source_no' => $type === 'quotation' ? $source['quotation_no'] : $source['po_no'], 'title' => $type === 'quotation' ? $source['title'] : ($type === 'client_purchase_order' ? 'PO IN Klien ' . $source['po_no'] : 'PO OUT Vendor ' . $source['po_no']), 'date' => $type === 'quotation' ? ($source['issue_date'] ?? '') : ($source['po_date'] ?? ''), 'company_id' => (int) ($source['company_id'] ?? 0), 'company_name' => in_array($type, ['quotation', 'client_purchase_order'], true) ? ($source['company_name'] ?? '') : '', 'vendor_name' => $type === 'purchase_order' ? ($source['vendor_name'] ?? '') : '', 'items' => $source['items'] ?? []];
     }
 }

@@ -127,7 +127,8 @@
                         <?php endif; ?>
                         <?php if (can('proforma.view')): ?><li class="nav-item"><a href="/proforma-invoices" class="nav-link <?= $isSidebarActive('proforma-invoices') ? 'active' : '' ?>"><i class="nav-icon bi bi-receipt"></i><p>Proforma Invoice</p></a></li><?php endif; ?>
                         <?php if (can('vendors.view')): ?><li class="nav-item"><a href="/vendors" class="nav-link <?= $isSidebarActive('vendors') ? 'active' : '' ?>"><i class="nav-icon bi bi-truck"></i><p>Vendor</p></a></li><?php endif; ?>
-                        <?php if (can('purchase_orders.view')): ?><li class="nav-item"><a href="/purchase-orders" class="nav-link <?= $isSidebarActive('purchase-orders') ? 'active' : '' ?>"><i class="nav-icon bi bi-cart-check"></i><p>Purchase Order</p></a></li><?php endif; ?>
+                        <?php if (can('client_po.view')): ?><li class="nav-item"><a href="/client-purchase-orders" class="nav-link <?= $isSidebarActive('client-purchase-orders') ? 'active' : '' ?>"><i class="nav-icon bi bi-file-earmark-arrow-down"></i><p>PO IN Klien</p></a></li><?php endif; ?>
+                        <?php if (can('purchase_orders.view')): ?><li class="nav-item"><a href="/purchase-orders" class="nav-link <?= $isSidebarActive('purchase-orders') ? 'active' : '' ?>"><i class="nav-icon bi bi-cart-check"></i><p>PO OUT Vendor</p></a></li><?php endif; ?>
                         <?php if (can('bast.view')): ?><li class="nav-item"><a href="/basts" class="nav-link <?= $isSidebarActive('basts') ? 'active' : '' ?>"><i class="nav-icon bi bi-clipboard-check"></i><p>BAST</p></a></li><?php endif; ?>
                         <?php if (can('vendor_bills.view')): ?><li class="nav-item"><a href="/vendor-bills" class="nav-link <?= $isSidebarActive('vendor-bills') ? 'active' : '' ?>"><i class="nav-icon bi bi-journal-text"></i><p>Tagihan Vendor</p></a></li><?php endif; ?>
                         <?php if (can('tenders.view')): ?>
