@@ -55,6 +55,7 @@ INSERT IGNORE INTO `permissions` (`permission_key`,`label`,`group_name`,`created
 ('companies.view','Lihat perusahaan','Perusahaan',NOW()),('companies.create','Tambah perusahaan','Perusahaan',NOW()),('companies.edit','Edit perusahaan','Perusahaan',NOW()),('companies.delete','Hapus perusahaan','Perusahaan',NOW()),
 ('products.view','Lihat produk','Produk',NOW()),('products.create','Tambah produk','Produk',NOW()),('products.edit','Edit produk','Produk',NOW()),('products.delete','Hapus produk','Produk',NOW()),
 ('quotations.view','Lihat penawaran','Penawaran',NOW()),('quotations.create','Tambah penawaran','Penawaran',NOW()),('quotations.edit','Edit penawaran','Penawaran',NOW()),('quotations.status','Ubah status penawaran','Penawaran',NOW()),('quotations.delete','Hapus penawaran','Penawaran',NOW()),('quotations.export','Ekspor penawaran','Penawaran',NOW()),
+('tenders.view','Lihat dokumen tender','Tender',NOW()),('tenders.create','Tambah dokumen tender','Tender',NOW()),('tenders.edit','Edit dokumen tender','Tender',NOW()),('tenders.delete','Hapus dokumen tender','Tender',NOW()),
 ('settings.quotation','Kelola setting quotation','Konfigurasi',NOW()),('users.manage','Kelola pengguna dan akses','Konfigurasi',NOW());
 
 -- Tidak ada password default yang disimpan. Setelah migrasi, buka /setup untuk membuat superadmin pertama.

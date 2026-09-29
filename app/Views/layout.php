@@ -129,6 +129,14 @@
                         <?php if (can('vendors.view')): ?><li class="nav-item"><a href="/vendors" class="nav-link <?= $isSidebarActive('vendors') ? 'active' : '' ?>"><i class="nav-icon bi bi-truck"></i><p>Vendor</p></a></li><?php endif; ?>
                         <?php if (can('purchase_orders.view')): ?><li class="nav-item"><a href="/purchase-orders" class="nav-link <?= $isSidebarActive('purchase-orders') ? 'active' : '' ?>"><i class="nav-icon bi bi-cart-check"></i><p>Purchase Order</p></a></li><?php endif; ?>
                         <?php if (can('vendor_bills.view')): ?><li class="nav-item"><a href="/vendor-bills" class="nav-link <?= $isSidebarActive('vendor-bills') ? 'active' : '' ?>"><i class="nav-icon bi bi-journal-text"></i><p>Tagihan Vendor</p></a></li><?php endif; ?>
+                        <?php if (can('tenders.view')): ?>
+                        <li class="nav-item">
+                            <a href="/tenders" class="nav-link <?= $isSidebarActive('tenders') ? 'active' : '' ?>">
+                                <i class="nav-icon bi bi-folder2-open"></i>
+                                <p>Dokumen Tender</p>
+                            </a>
+                        </li>
+                        <?php endif; ?>
                         <li class="nav-header">
                             KONFIGURASI
                         </li>

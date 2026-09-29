@@ -232,6 +232,24 @@
   initTable("#purchase-orders-table", dataTableBase("purchase-orders/datatable", [{data:"po_no",responsivePriority:3},{data:"vendor",responsivePriority:4},{data:"date",responsivePriority:10},{data:"amount",responsivePriority:10},{data:"status",responsivePriority:4},{data:"actions",responsivePriority:1,orderable:false,searchable:false}], [[2,"desc"]], "Belum ada purchase order."));
   initTable("#vendor-bills-table", dataTableBase("vendor-bills/datatable", [{data:"bill_no",responsivePriority:3},{data:"vendor",responsivePriority:4},{data:"amount",responsivePriority:10},{data:"due",responsivePriority:10},{data:"status",responsivePriority:4},{data:"actions",responsivePriority:1,orderable:false,searchable:false}], [[2,"desc"]], "Belum ada tagihan vendor."));
 
+  initTable(
+    "#tenders-table",
+    dataTableBase(
+      window.eprocUrls?.tenders || "tenders/datatable",
+      [
+        { data: "tender_no", responsivePriority: 3 },
+        { data: "title", responsivePriority: 4 },
+        { data: "company_name", responsivePriority: 8 },
+        { data: "issue_date", responsivePriority: 10 },
+        { data: "valid_until", responsivePriority: 10 },
+        { data: "status", responsivePriority: 8 },
+        { data: "actions", responsivePriority: 1, orderable: false, searchable: false },
+      ],
+      [[4, "desc"]],
+      "Belum ada dokumen tender.",
+    ),
+  );
+
   window.togglePassword = function (button) {
     const input = button.previousElementSibling;
     if (!input) return;
