@@ -29,20 +29,20 @@ class Tenders extends BaseController
         $builder = $this->model->builder()->select('tender_documents.*, companies.name AS company_name')->join('companies', 'companies.id = tender_documents.company_id', 'left');
         if ($search !== '') $builder->groupStart()->like('tender_documents.tender_no', $search)->orLike('tender_documents.title', $search)->orLike('companies.name', $search)->orLike('tender_documents.status', $search)->groupEnd();
         $filtered = $builder->countAllResults(false);
-        $columns = ['created_at', 'created_at', 'tender_no', 'title', 'company_name', 'issue_date', 'valid_until', 'status', 'created_at'];
-        $orderColumn = (int) ($request['order'][0]['column'] ?? 7);
+        $columns = ['created_at', 'title', 'issue_date', 'valid_until', 'status', 'original_file_name', 'created_at'];
+        $orderColumn = (int) ($request['order'][0]['column'] ?? 3);
         $direction = strtolower((string) ($request['order'][0]['dir'] ?? 'desc')) === 'asc' ? 'asc' : 'desc';
         $builder->orderBy($columns[$orderColumn] ?? 'created_at', $direction);
         $rows = $builder->get($length, $start)->getResultArray();
-        $data = array_map(static function (array $row): array {
+        $data = array_map(static function (array $row, int $index) use ($start): array {
             $class = ['draft' => 'secondary', 'open' => 'success', 'closed' => 'warning', 'awarded' => 'primary', 'cancelled' => 'danger'][$row['status']] ?? 'secondary';
             $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && ! in_array($row['status'], ['awarded', 'cancelled'], true);
             $status = '<span class="badge text-bg-' . $class . '">' . esc(ucfirst($row['status'])) . '</span>' . ($pastDue ? '<br><small class="text-danger">Masa berlaku lewat</small>' : '');
             $actions = '<div class="d-flex flex-wrap gap-1"><a class="btn btn-sm btn-outline-primary" href="/tenders/' . (int) $row['id'] . '" title="Detail">Detail</a><a class="btn btn-sm btn-outline-warning" href="/tenders/' . (int) $row['id'] . '/edit" title="Edit">Edit</a>';
             if (! empty($row['file_path'])) $actions .= '<a class="btn btn-sm btn-outline-success" href="' . esc(base_url(ltrim($row['file_path'], '/'))) . '" target="_blank" rel="noopener">File</a>';
             $actions .= '<form method="post" action="/tenders/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus dokumen tender ini?\')"><button class="btn btn-sm btn-outline-danger">Hapus</button></form></div>';
-            return ['tender_no' => esc($row['tender_no'] ?: '-'), 'title' => esc($row['title']), 'company_name' => esc($row['company_name'] ?: ($row['issuer_name'] ?: '-')), 'issue_date' => esc($row['issue_date'] ?: '-'), 'valid_until' => esc($row['valid_until'] ?: '-'), 'status' => $status, 'actions' => $actions];
-        }, $rows);
+            return ['no' => $start + $index + 1, 'title' => esc($row['title']), 'issue_date' => esc($row['issue_date'] ?: '-'), 'valid_until' => esc($row['valid_until'] ?: '-'), 'status' => $status, 'file' => esc($row['original_file_name'] ?: '-'), 'actions' => $actions];
+        }, $rows, array_keys($rows));
         return $this->response->setJSON(['draw' => $draw, 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'data' => $data]);
     }
 
