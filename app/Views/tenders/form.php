@@ -5,6 +5,7 @@
     <a href="/tenders" class="btn btn-light">Kembali</a>
 </div>
 <form method="post" action="<?= esc($action) ?>" enctype="multipart/form-data">
+    <?= csrf_field() ?>
     <div class="card mb-3"><div class="card-header"><strong>Identitas Dokumen</strong></div><div class="card-body"><div class="row g-3">
         <div class="col-md-8"><label class="form-label">Nama Dokumen <span class="text-danger">*</span></label><input name="title" class="form-control" required maxlength="220" value="<?= old('title', $tender['title'] ?? '') ?>" placeholder="Contoh: NPWP Perusahaan, Surat Keagenan, Akta Pendirian"></div>
         <div class="col-md-4"><label class="form-label">Nomor Dokumen</label><input name="tender_no" class="form-control" value="<?= old('tender_no', $tender['tender_no'] ?? '') ?>" placeholder="Nomor surat/sertifikat"></div>
