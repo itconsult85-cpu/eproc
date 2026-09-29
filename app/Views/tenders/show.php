@@ -7,10 +7,10 @@ $isImage = str_starts_with($fileMime, 'image/');
 $isPdf = $fileMime === 'application/pdf' || strtolower(pathinfo((string) ($tender['original_file_name'] ?? ''), PATHINFO_EXTENSION)) === 'pdf';
 $publicId = public_id((int) $tender['id']);
 ?>
-<div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
+<div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div><h2 class="h5 mb-1"><?= esc($tender['title']) ?></h2><div class="text-body-secondary"><?= esc($tender['tender_no'] ?: 'Tanpa nomor tender') ?></div></div>
     <div class="d-flex gap-2"><a href="<?= site_url('tenders') ?>" class="btn btn-light">Kembali</a><a href="<?= site_url('tenders/' . $publicId . '/edit') ?>" class="btn btn-warning">Edit</a></div>
-</div>
+</div></div></div>
 <div class="row g-3">
     <div class="col-lg-7">
         <div class="card h-100"><div class="card-header"><strong>Informasi Dokumen</strong></div><div class="card-body"><div class="row g-3">

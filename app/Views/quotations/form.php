@@ -9,7 +9,7 @@ foreach ($products as $product) {
     $productsById[(string) $product['id']] = $product;
 }
 ?>
-<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-file-earmark-plus me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Buat atau edit penawaran dengan data perusahaan, item produk, dan ketentuan komersial.</p></div><a href="/quotations" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
+<div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-file-earmark-plus me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Buat atau edit penawaran dengan data perusahaan, item produk, dan ketentuan komersial.</p></div><a href="/quotations" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div></div>
 <form method="post" action="<?= $action ?>" class="card form-card card-primary card-outline"
     data-companies="<?= esc(json_encode($companies), 'attr') ?>"
     data-products="<?= esc(json_encode($products), 'attr') ?>" data-item-count="<?= count($items) ?>">

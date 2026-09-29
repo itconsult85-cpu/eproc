@@ -1,4 +1,4 @@
-<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-buildings me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Kelola identitas perusahaan dan konfigurasi nomor quotation.</p></div><a href="/companies" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
+<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-buildings me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Kelola identitas perusahaan dan konfigurasi nomor quotation.</p></div><a href="/companies" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div></div>
 <form method="post" action="<?= esc($action) ?>" class="card form-card"><?= csrf_field() ?>
     <div class="card-body">
         <div class="row g-3">

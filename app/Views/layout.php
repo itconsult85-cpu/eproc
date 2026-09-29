@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>html, body { background-color: #1f2937; color: #dee2e6; } .app-main { background-color: #1f2937; }</style>
     <title><?= esc($title ?? 'Eprocurement') ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -18,7 +19,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/app.css') ?>">
 </head>
 
-<body class="layout-fixed fixed-header fixed-footer sidebar-expand-lg bg-body-tertiary">
+<body class="layout-fixed fixed-header fixed-footer sidebar-expand-lg bg-body" data-bs-theme="dark">
     <div class="app-wrapper">
         <nav class="app-header navbar navbar-expand bg-body">
             <div class="container-fluid">

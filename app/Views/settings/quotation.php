@@ -14,7 +14,7 @@ $settingsStampUrl = $settingsStamp
     ? (preg_match('#^https?://#i', $settingsStamp) ? $settingsStamp : base_url(ltrim($settingsStamp, '/')))
     : null;
 ?>
-<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><div><h1 class="h4 mb-1"><i class="bi bi-sliders me-2"></i>Setting Quotation</h1><p class="text-body-secondary mb-0">Atur identitas perusahaan, default quotation, rekening, dan branding dokumen.</p></div></div>
+<div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-sliders me-2"></i>Setting Quotation</h2><p class="text-body-secondary mb-0">Atur identitas perusahaan, default quotation, rekening, dan branding dokumen.</p></div></div></div>
 <form method="post" action="/settings/quotation" enctype="multipart/form-data" class="form-card">
     <?= csrf_field() ?>
     <div class="row g-3">
@@ -84,8 +84,8 @@ $settingsStampUrl = $settingsStamp
                     </h3>
                 </div>
                 <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-4">
+                    <div class="row g-3 tax-panel">
+                        <div class="col-md-4 tax-field">
                             <label class="field-label">
                                 PPN (%)
                             </label>

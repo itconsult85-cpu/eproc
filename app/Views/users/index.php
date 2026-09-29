@@ -1,16 +1,4 @@
-<?= $this->extend('layout') ?><?= $this->section('content') ?><div
-    class="d-flex justify-content-between align-items-center mb-3">
-    <div>
-        <h1 class="h3 mb-1">
-            Manajemen Pengguna
-        </h1>
-        <p class="text-body-secondary mb-0">
-            Kelola akun dan hak akses aplikasi.
-        </p>
-    </div><a href="<?= site_url('users/new') ?>" class="btn btn-primary">
-        <i class="bi bi-person-plus me-1"></i>Tambah pengguna
-    </a>
-</div>
+<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-people me-2"></i>Manajemen Pengguna</h2><p class="text-body-secondary mb-0">Kelola akun pengguna dan permission aplikasi.</p></div><?php if (can('users.create')): ?><a href="<?= site_url('users/new') ?>" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Tambah Pengguna</a><?php endif; ?></div></div>
 <div class="card card-outline card-primary">
     <div class="card-body p-0">
         <div class="table-responsive">

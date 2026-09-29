@@ -11,11 +11,11 @@ $workflowLabels = [
 ];
 $masterQuotation = $masterQuotation ?? $quotation;
 ?>
-<div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
+<div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
-        <h1>
+        <h2 class="h5 mb-1">
             <?= esc($quotation['title']) ?>
-        </h1>
+        </h2>
         <div class="text-secondary"><?= esc($quotation['quotation_no']) ?> &middot;
             <?= esc($quotation['company_name']) ?>
         </div>
@@ -53,7 +53,7 @@ $masterQuotation = $masterQuotation ?? $quotation;
                 class="btn btn-success text-nowrap"><i class="bi bi-receipt me-1"></i>Cetak Proforma
                 Invoice</a><?php endif; ?>
     </div>
-</div>
+</div></div></div>
 <?php if ($quotation['status'] === 'approved' && can('quotations.status')): ?><div class="card border-success mb-3">
         <div class="card-body">
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
@@ -238,8 +238,8 @@ $masterQuotation = $masterQuotation ?? $quotation;
                     </div>
                     <button type="button" class="btn btn-sm btn-outline-primary mb-3" data-action="add-negotiation-item"><i
                             class="bi bi-plus-lg me-1"></i>Tambah item</button>
-                    <div class="row g-2 mb-3">
-                        <div class="col-md-4"><label class="form-label">Pajak (%)</label><input name="tax_percent"
+                    <div class="row g-3 tax-panel mb-3">
+                        <div class="col-md-4"><label class="form-label">PPN (%)</label><input name="tax_percent"
                                 type="number" step="0.01" min="0" max="100" class="form-control"
                                 value="<?= esc($negotiationBase['tax_percent'] ?? 0) ?>" required></div>
                         <div class="col-md-4"><label class="form-label">Termin pembayaran</label><input name="payment_terms"

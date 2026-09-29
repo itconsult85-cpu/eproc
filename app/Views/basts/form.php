@@ -5,7 +5,7 @@ $bast = $bast ?? [];
 $selectedSource = ! empty($bast['source_type']) && ! empty($bast['source_id']) ? public_id((int) $bast['source_id']) : '';
 $sourceData = ['quotation' => $quotationSources, 'client_purchase_order' => $clientPurchaseOrderSources, 'purchase_order' => $purchaseOrderSources];
 ?>
-<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-clipboard-check me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Data barang akan disalin sebagai snapshot dari dokumen sumber saat disimpan.</p></div><a href="/basts" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
+<div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-clipboard-check me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Data barang akan disalin sebagai snapshot dari dokumen sumber saat disimpan.</p></div><a href="/basts" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div></div>
 <form method="post" action="<?= esc($action) ?>" class="card form-card" id="bast-form">
     <div class="card-body row g-3"><?= csrf_field() ?>
         <div class="col-md-4"><label class="form-label">Nomor BAST *</label><input name="bast_no" required maxlength="100" class="form-control" value="<?= esc($bast['bast_no'] ?? '') ?>" placeholder="BAST/001/2026"></div>

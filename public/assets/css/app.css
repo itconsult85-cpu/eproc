@@ -374,6 +374,9 @@ textarea.form-control {
 .tax-field .form-label { min-height: 1.05rem; }
 .tax-section { margin-top: 1.5rem; padding-top: 1rem; }
 .tax-section-title { display: flex; align-items: center; gap: .5rem; margin-bottom: .85rem; font-size: .95rem; font-weight: 600; }
+.tax-panel { align-items: flex-start; }
+.tax-panel > [class*="col-"] { display: flex; flex-direction: column; justify-content: flex-start; }
+.tax-panel .form-label { min-height: 1.1rem; }
 .form-actions { display: flex; justify-content: flex-end; align-items: center; gap: .5rem; padding-top: 1rem; margin-top: 1rem; }
 .sidebar-menu .nav-header { margin-top: .85rem; padding: .65rem 1rem .35rem; font-size: .68rem; font-weight: 700; letter-spacing: .1em; }
 .sidebar-menu .nav-header:first-child { margin-top: 0; }
