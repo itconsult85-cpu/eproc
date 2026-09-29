@@ -1,16 +1,6 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <div>
-        <h1 class="h3 mb-1"><?= esc($title) ?></h1>
-        <p class="text-body-secondary mb-0">
-            Permission ditetapkan langsung per akun.
-        </p>
-    </div>
-    <a href="<?= site_url('users') ?>" class="btn btn-light">
-        Kembali
-    </a>
-</div>
+<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-person-gear me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Permission ditetapkan langsung per akun.</p></div><a href="<?= site_url('users') ?>" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
 <?php if ($errors = session()->getFlashdata('errors')): ?>
 <div class="alert alert-danger">
     <ul class="mb-0">

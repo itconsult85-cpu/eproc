@@ -1,6 +1,6 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-2"><div><h1 class="h4 mb-1"><i class="bi bi-truck me-2"></i><?= esc($title) ?></h1><p class="text-body-secondary mb-0">Kelola data vendor, kontak, rekening bank, dan status kerja sama.</p></div><a href="/vendors" class="btn btn-light"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
+<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-truck me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Kelola data vendor, kontak, rekening bank, dan status kerja sama.</p></div><a href="/vendors" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
 <form method="post" action="<?= esc($action) ?>" class="card form-card"><div class="card-body row g-3"><?= csrf_field() ?>
 <div class="col-md-6"><label class="form-label">Nama Vendor *</label><input name="name" required class="form-control" value="<?= esc($vendor['name']??'') ?>"></div>
 <div class="col-md-3"><label class="form-label">Kode Vendor</label><input name="code" class="form-control" value="<?= esc($vendor['code']??'') ?>"></div>

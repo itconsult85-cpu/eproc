@@ -1,7 +1,7 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 <?php $specs = json_decode($product['technical_specs'] ?? '', true) ?: [['label' => '', 'value' => '']]; ?>
-<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-2"><div><h1 class="h4 mb-1"><i class="bi bi-box-seam me-2"></i><?= esc($title ?? 'Data Produk') ?></h1><p class="text-body-secondary mb-0">Kelola data katalog, spesifikasi, harga, dan berkas pendukung produk.</p></div><a href="/products" class="btn btn-light"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
+<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-box-seam me-2"></i><?= esc($title ?? 'Data Produk') ?></h2><p class="text-body-secondary mb-0">Kelola data katalog, spesifikasi, harga, dan berkas pendukung produk.</p></div><a href="/products" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
 <form method="post" action="<?= esc($action) ?>" enctype="multipart/form-data" class="card form-card card-primary card-outline">
     <?= csrf_field() ?>
     <div class="card-header">

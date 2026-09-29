@@ -1,9 +1,6 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-2">
-    <div><h2 class="h5 mb-1"><i class="bi bi-file-earmark-arrow-up me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Simpan satu dokumen beserta identitas dan masa aktifnya. Masa berlaku berlaku untuk dokumen ini, bukan untuk seluruh tender.</p></div>
-    <a href="/tenders" class="btn btn-light">Kembali</a>
-</div>
+<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-file-earmark-arrow-up me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Simpan satu dokumen beserta identitas dan masa aktifnya.</p></div><a href="/tenders" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
 <form method="post" action="<?= esc($action) ?>" enctype="multipart/form-data" class="form-page">
     <?= csrf_field() ?>
     <div class="card mb-3"><div class="card-header"><strong>Identitas Dokumen</strong></div><div class="card-body"><div class="row g-3">

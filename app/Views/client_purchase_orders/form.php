@@ -1,7 +1,7 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 <?php $po = $po ?? []; ?>
-<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><div><h1 class="h4 mb-1"><?= esc($title) ?></h1><p class="text-body-secondary mb-0">PO IN diterima dari klien setelah quotation selesai dan disetujui.</p></div><a href="/client-purchase-orders" class="btn btn-light"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
+<div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-file-earmark-arrow-down me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">PO IN diterima dari klien setelah quotation selesai dan disetujui.</p></div><a href="/client-purchase-orders" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div>
 <form method="post" action="<?= esc($action) ?>" class="card form-card" id="client-po-form"><?= csrf_field() ?><div class="card-body row g-3">
 <div class="col-md-4"><label class="form-label">Nomor PO Klien *</label><input name="po_no" required maxlength="100" class="form-control" value="<?= esc($po['po_no'] ?? 'PO-IN-' . date('YmdHis')) ?>" placeholder="Nomor dari klien"></div>
 <div class="col-md-4"><label class="form-label">Tanggal PO *</label><input type="date" name="po_date" required class="form-control" value="<?= esc($po['po_date'] ?? date('Y-m-d')) ?>"></div>
