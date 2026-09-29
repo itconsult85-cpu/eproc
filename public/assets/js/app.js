@@ -31,7 +31,8 @@
       previous: "Sebelumnya",
     },
   };
-  const responsiveColumns = function (columns) {
+  const responsiveColumns = function (columns, includeControl = true) {
+    if (!includeControl) return columns;
     return [
       {
         data: null,
@@ -52,11 +53,11 @@
       },
     ].concat(columns);
   };
-  const dataTableBase = function (url, columns, order, emptyTable) {
+  const dataTableBase = function (url, columns, order, emptyTable, includeControl = true) {
     return {
       serverSide: true,
       processing: true,
-      responsive: { details: { type: "column", target: 0 } },
+      responsive: includeControl ? { details: { type: "column", target: 0 } } : false,
       ajax: {
         url: url,
         type: "GET",
@@ -69,7 +70,7 @@
             xhr.responseText,
           ),
       },
-      columns: responsiveColumns(columns),
+      columns: responsiveColumns(columns, includeControl),
       order: order,
       pageLength: 10,
       language: Object.assign({}, commonLanguage, { emptyTable: emptyTable }),
@@ -231,6 +232,25 @@
   initTable("#vendors-table", dataTableBase("vendors/datatable", [{data:"name",responsivePriority:3},{data:"pic",responsivePriority:10},{data:"contact",responsivePriority:10},{data:"status",responsivePriority:4},{data:"actions",responsivePriority:1,orderable:false,searchable:false}], [[2,"asc"]], "Belum ada vendor."));
   initTable("#purchase-orders-table", dataTableBase("purchase-orders/datatable", [{data:"po_no",responsivePriority:3},{data:"vendor",responsivePriority:4},{data:"date",responsivePriority:10},{data:"amount",responsivePriority:10},{data:"status",responsivePriority:4},{data:"actions",responsivePriority:1,orderable:false,searchable:false}], [[2,"desc"]], "Belum ada purchase order."));
   initTable("#vendor-bills-table", dataTableBase("vendor-bills/datatable", [{data:"bill_no",responsivePriority:3},{data:"vendor",responsivePriority:4},{data:"amount",responsivePriority:10},{data:"due",responsivePriority:10},{data:"status",responsivePriority:4},{data:"actions",responsivePriority:1,orderable:false,searchable:false}], [[2,"desc"]], "Belum ada tagihan vendor."));
+
+  initTable(
+    "#tenders-table",
+    dataTableBase(
+      window.eprocUrls?.tenders || "tenders/datatable",
+      [
+        { data: "no", responsivePriority: 2, orderable: false, searchable: false },
+        { data: "title", responsivePriority: 3 },
+        { data: "issue_date", responsivePriority: 8 },
+        { data: "valid_until", responsivePriority: 8 },
+        { data: "status", responsivePriority: 8 },
+        { data: "file", responsivePriority: 8 },
+        { data: "actions", responsivePriority: 1, orderable: false, searchable: false },
+      ],
+      [[3, "desc"]],
+      "Belum ada dokumen tender.",
+      false,
+    ),
+  );
 
   window.togglePassword = function (button) {
     const input = button.previousElementSibling;
