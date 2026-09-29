@@ -39,6 +39,7 @@ class Tenders extends BaseController
         $builder->orderBy($columns[$orderColumn] ?? 'created_at', $direction);
         $rows = $builder->get($length, $start)->getResultArray();
         $data = array_map(static function (array $row, int $index) use ($start): array {
+            $publicId = public_id((int) $row['id']);
             $class = ['draft' => 'secondary', 'open' => 'success', 'closed' => 'warning', 'awarded' => 'primary', 'cancelled' => 'danger'][$row['status']] ?? 'secondary';
             $label = ucfirst($row['status']);
             $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && $row['status'] !== 'cancelled';
@@ -46,9 +47,10 @@ class Tenders extends BaseController
             if ($pastDue) { $class = 'danger'; $label = 'Kedaluwarsa'; }
             $statusNote = $soonDue ? '<br><small class="text-warning">Segera berakhir</small>' : '';
             $status = '<span class="badge text-bg-' . $class . '">' . esc($label) . $statusNote . '</span>';
-            $actions = '<div class="d-flex flex-wrap gap-1"><a class="btn btn-sm btn-outline-primary" href="/tenders/' . (int) $row['id'] . '" title="Detail">Detail</a><a class="btn btn-sm btn-outline-warning" href="/tenders/' . (int) $row['id'] . '/edit" title="Edit">Edit</a>';
-            if (! empty($row['file_path'])) $actions .= '<a class="btn btn-sm btn-outline-success" href="' . esc(base_url(ltrim($row['file_path'], '/'))) . '" target="_blank" rel="noopener">File</a>';
-            $actions .= '<form method="post" action="/tenders/' . (int) $row['id'] . '/delete" onsubmit="return confirm(\'Hapus dokumen tender ini?\')"><button class="btn btn-sm btn-outline-danger">Hapus</button></form></div>';
+            $actions = '<div class="d-flex flex-wrap gap-1"><a class="btn btn-sm btn-outline-primary" href="/tenders/' . $publicId . '" title="Detail">Detail</a>';
+            if (can('tenders.edit')) $actions .= '<a class="btn btn-sm btn-outline-warning" href="/tenders/' . $publicId . '/edit" title="Edit">Edit</a>';
+            if (can('tenders.delete')) $actions .= '<form method="post" action="/tenders/' . $publicId . '/delete" data-confirm data-confirm-title="Hapus dokumen tender?" data-confirm-message="Dokumen dan file yang tersimpan akan dihapus." data-confirm-label="Ya, hapus" data-confirm-variant="danger">' . csrf_field() . '<button class="btn btn-sm btn-outline-danger">Hapus</button></form>';
+            $actions .= '</div>';
             return ['no' => $start + $index + 1, 'title' => esc($row['title']), 'issue_date' => esc($row['issue_date'] ?: '-'), 'valid_until' => esc($row['valid_until'] ?: '-'), 'status' => $status, 'file' => esc($row['original_file_name'] ?: '-'), 'actions' => $actions];
         }, $rows, array_keys($rows));
         return $this->response->setJSON(['draw' => $draw, 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'data' => $data]);
@@ -64,15 +66,17 @@ class Tenders extends BaseController
         return $this->save();
     }
 
-    public function edit(int $id)
+    public function edit(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $tender = $this->model->find($id);
         if (! $tender) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        return view('tenders/form', ['title' => 'Edit Dokumen Tender', 'tender' => $tender, 'action' => '/tenders/' . $id]);
+        return view('tenders/form', ['title' => 'Edit Dokumen Tender', 'tender' => $tender, 'action' => '/tenders/' . public_id($id)]);
     }
 
-    public function update(int $id)
+    public function update(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         return $this->save($id);
     }
 
@@ -108,15 +112,17 @@ class Tenders extends BaseController
         return redirect()->to('/tenders')->with('message', $id ? 'Dokumen tender berhasil diperbarui.' : 'Dokumen tender berhasil disimpan.');
     }
 
-    public function show(int $id)
+    public function show(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $tender = $this->model->detail($id);
         if (! $tender) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         return view('tenders/show', ['title' => 'Detail Tender', 'tender' => $tender]);
     }
 
-    public function delete(int $id)
+    public function delete(string $id)
     {
+        $id = $this->resolveId($id, $this->model);
         $tender = $this->model->find($id);
         if ($tender) { $this->removeFile($tender['file_path'] ?? null); $this->model->delete($id); }
         return redirect()->to('/tenders')->with('message', 'Dokumen tender berhasil dihapus.');
