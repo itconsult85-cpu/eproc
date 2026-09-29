@@ -382,6 +382,13 @@ textarea.form-control {
 .tax-field .form-label { min-height: 1.05rem; }
 .tax-section { margin-top: 1.5rem; padding-top: 1rem; }
 .tax-section-title { display: flex; align-items: center; gap: .5rem; margin-bottom: .85rem; font-size: .95rem; font-weight: 600; }
+.tax-section-title small { margin-left: auto; }
+.tax-stack { max-width: 680px; }
+.tax-row { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(180px, 260px); align-items: end; gap: 1rem; padding: .75rem 0; border-bottom: 1px solid rgba(148, 163, 184, 0.18); }
+.tax-row:first-child { padding-top: .15rem; }
+.tax-row:last-child { border-bottom: 0; padding-bottom: .15rem; }
+.tax-row .tax-option { min-height: 2.55rem; }
+.tax-row .tax-rate .form-control { width: 100%; }
 .tax-panel { align-items: flex-start; }
 .tax-panel > [class*="col-"] { display: flex; flex-direction: column; justify-content: flex-start; }
 .tax-panel .form-label { min-height: 1.1rem; }
@@ -391,3 +398,4 @@ textarea.form-control {
 .sidebar-menu .nav-link { margin: .1rem .5rem; border-radius: .45rem; }
 .sidebar-menu .nav-link.active { box-shadow: inset 3px 0 0 var(--bs-primary); }
 @media (max-width: 767.98px) { .page-intro { padding: 1rem; } .form-card .card-body, form.card > .card-body { padding: 1rem; } }
+@media (max-width: 575.98px) { .tax-row { grid-template-columns: 1fr; gap: .35rem; } .tax-section-title { align-items: flex-start; flex-wrap: wrap; } .tax-section-title small { width: 100%; margin-left: 1.55rem; } }
