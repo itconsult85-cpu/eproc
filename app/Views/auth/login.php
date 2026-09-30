@@ -64,7 +64,7 @@
                                 autocomplete="current-password" required placeholder="Masukkan password">
                             <button class="btn btn-outline-secondary login-password-toggle" type="button"
                                 data-action="toggle-password" aria-label="Tampilkan password" title="Tampilkan password">
-                                <i class="bi bi-eye" aria-hidden="true"></i>
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>

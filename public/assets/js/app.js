@@ -276,15 +276,15 @@
   window.togglePassword = function (button) {
     const input = button.previousElementSibling;
     if (!input) return;
-    const isVisible = input.type === "password";
-    input.type = isVisible ? "text" : "password";
+    const isHidden = input.type === "password";
+    input.type = isHidden ? "text" : "password";
     const icon = button.querySelector("i");
     if (icon) {
-      icon.classList.toggle("bi-eye", !isVisible);
-      icon.classList.toggle("bi-eye-slash", isVisible);
+      icon.classList.toggle("bi-eye", isHidden);
+      icon.classList.toggle("bi-eye-slash", !isHidden);
     }
-    button.setAttribute("aria-label", isVisible ? "Sembunyikan password" : "Tampilkan password");
-    button.setAttribute("title", isVisible ? "Sembunyikan password" : "Tampilkan password");
+    button.setAttribute("aria-label", isHidden ? "Sembunyikan password" : "Tampilkan password");
+    button.setAttribute("title", isHidden ? "Sembunyikan password" : "Tampilkan password");
   };
 
   window.addSpec = function () {
