@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>html, body { background: #111827; color: #e5e7eb; } .auth-page { min-height: 100vh; }</style>
     <title><?= esc($title) ?> · EPROC</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -11,59 +12,70 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/app.css') ?>">
 </head>
 
-<body class="auth-page d-flex align-items-center py-5">
-    <main class="container">
-        <div class="login-card card p-4">
-            <div class="text-center mb-4">
-                <?php
-                $loginLogo = $settings['logo_path'] ?? null;
-                $loginLogoUrl = $loginLogo
-                    ? (preg_match('#^https?://#i', $loginLogo) ? $loginLogo : base_url(ltrim($loginLogo, '/')))
-                    : null;
-                ?>
-                <?php if ($loginLogoUrl): ?>
-                <img src="<?= esc($loginLogoUrl) ?>" class="img-fluid mb-3" style="max-height:90px;max-width:220px;object-fit:contain" alt="Logo perusahaan">
-                <?php else: ?>
-                <div class="brand-mark mx-auto mb-3"><i class="bi bi-shield-lock"></i></div>
-                <?php endif; ?>
-                <h1 class="h3 mb-1"><?= esc($settings['company_name'] ?? 'EPROC') ?></h1>
-                <p class="text-body-secondary mb-0">
-                    Secure procurement workspace
-                </p>
-            </div>
-            <?php if ($message = session()->getFlashdata('message')): ?>
-            <div class="alert alert-success">
-                <?= esc($message) ?>
-            </div>
-            <?php endif; ?>
-            <?php if ($error = session()->getFlashdata('error')): ?>
-            <div class="alert alert-danger"><?= esc($error) ?></div>
-            <?php endif; ?>
-            <form method="post" action="<?= site_url('login') ?>">
-                <?= csrf_field() ?>
-                <div class="mb-3">
-                    <label class="field-label">
-                        Username atau email
-                    </label>
-                    <input class="form-control form-control-lg" name="login" autocomplete="username" required autofocus
-                        value="<?= old('login') ?>">
-                </div>
-                <div class="mb-4">
-                    <label class="field-label">
-                        Password
-                    </label>
-                    <div class="input-group input-group-lg">
-                        <input type="password" class="form-control" name="password" autocomplete="current-password"
-                            required>
-                        <button class="btn btn-outline-secondary" type="button" data-action="toggle-password">
-                            <i class="bi bi-eye"></i>
-                        </button>
+<body class="auth-page d-flex align-items-center py-4" data-bs-theme="dark">
+    <main class="container auth-container">
+        <div class="login-card card shadow-lg">
+            <div class="login-card-body">
+                <header class="login-header text-center">
+                    <?php
+                    $loginLogo = $settings['logo_path'] ?? null;
+                    $loginLogoUrl = $loginLogo
+                        ? (preg_match('#^https?://#i', $loginLogo) ? $loginLogo : base_url(ltrim($loginLogo, '/')))
+                        : null;
+                    ?>
+                    <?php if ($loginLogoUrl): ?>
+                    <div class="login-logo-wrap mb-3">
+                        <img src="<?= esc($loginLogoUrl) ?>" class="login-logo" alt="Logo perusahaan">
                     </div>
+                    <?php else: ?>
+                    <div class="brand-mark mx-auto mb-3" aria-hidden="true"><i class="bi bi-shield-lock"></i></div>
+                    <?php endif; ?>
+                    <div class="login-eyebrow">Eprocurement Workspace</div>
+                    <h1 class="login-title mb-2"><?= esc($settings['company_name'] ?? 'EPROC') ?></h1>
+                    <p class="login-subtitle mb-0">Masuk untuk mengelola proses pengadaan perusahaan.</p>
+                </header>
+
+                <?php if ($message = session()->getFlashdata('message')): ?>
+                <div class="alert alert-success login-alert" role="status">
+                    <i class="bi bi-check-circle me-2" aria-hidden="true"></i><?= esc($message) ?>
                 </div>
-                <button class="btn btn-primary btn-lg w-100" type="submit">
-                    Masuk <i class="bi bi-arrow-right-short"></i>
-                </button>
-            </form>
+                <?php endif; ?>
+                <?php if ($error = session()->getFlashdata('error')): ?>
+                <div class="alert alert-danger login-alert" role="alert">
+                    <i class="bi bi-exclamation-triangle me-2" aria-hidden="true"></i><?= esc($error) ?>
+                </div>
+                <?php endif; ?>
+
+                <form method="post" action="<?= site_url('login') ?>" class="login-form">
+                    <?= csrf_field() ?>
+                    <div class="login-field">
+                        <label class="field-label" for="login">Username atau email</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text" aria-hidden="true"><i class="bi bi-person"></i></span>
+                            <input id="login" class="form-control" name="login" autocomplete="username" required autofocus
+                                value="<?= esc(old('login')) ?>" placeholder="Masukkan username atau email">
+                        </div>
+                    </div>
+                    <div class="login-field">
+                        <label class="field-label" for="password">Password</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text" aria-hidden="true"><i class="bi bi-lock"></i></span>
+                            <input id="password" type="password" class="form-control" name="password"
+                                autocomplete="current-password" required placeholder="Masukkan password">
+                            <button class="btn btn-outline-secondary login-password-toggle" type="button"
+                                data-action="toggle-password" aria-label="Tampilkan password" title="Tampilkan password">
+                                <i class="bi bi-eye" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg w-100 login-submit" type="submit">
+                        <i class="bi bi-box-arrow-in-right me-2" aria-hidden="true"></i>Masuk ke Workspace
+                    </button>
+                </form>
+            </div>
+            <footer class="login-card-footer text-center">
+                <span><i class="bi bi-shield-check me-1" aria-hidden="true"></i>Akses aman untuk pengguna terdaftar</span>
+            </footer>
         </div>
     </main>
     <script src="<?= base_url('assets/js/app.js') ?>"></script>
