@@ -39,7 +39,7 @@ foreach ($products as $product) {
                 <label class="field-label">
                     Nomor quotation
                 </label>
-                <input disabled data-quotation-preview="<?= $isEdit ? 'static' : 'dynamic' ?>" class="form-control"
+                <input id="quotation_number_preview" disabled data-quotation-preview="<?= $isEdit ? 'static' : 'dynamic' ?>" class="form-control"
                     value="<?= esc($quotation['quotation_no'] ?? '') ?>">
                 <?php if (!$isEdit): ?>
                 <div class="form-text">Preview nomor quotation berdasarkan perusahaan dan tanggal terpilih.</div>
@@ -56,7 +56,7 @@ foreach ($products as $product) {
                 <label class="field-label">
                     Kepada / To
                 </label>
-                <input disabled data-auto-field="customer_name" class="form-control"
+                <input id="customer_name_preview" disabled data-auto-field="customer_name" class="form-control"
                     value="<?= old('customer_name', $quotation['customer_name'] ?? '') ?>">
                 <input type="hidden" name="customer_name"
                     value="<?= esc(old('customer_name', $quotation['customer_name'] ?? '')) ?>">
@@ -72,7 +72,7 @@ foreach ($products as $product) {
                 <label class="field-label">
                     Alamat customer
                 </label>
-                <textarea disabled data-auto-field="customer_address" class="form-control" rows="2"><?= old('customer_address', $quotation['customer_address'] ?? '') ?>
+                <textarea id="customer_address_preview" disabled data-auto-field="customer_address" class="form-control" rows="2"><?= old('customer_address', $quotation['customer_address'] ?? '') ?>
                 </textarea>
                 <input type="hidden" name="customer_address"
                     value="<?= esc(old('customer_address', $quotation['customer_address'] ?? '')) ?>">
@@ -111,13 +111,13 @@ foreach ($products as $product) {
                 <label class="field-label">
                     Telepon penandatangan
                 </label>
-                <input disabled class="form-control" value="<?= esc($settings['signer_phone'] ?? '') ?>">
+                <input id="signer_phone_preview" disabled class="form-control" value="<?= esc($settings['signer_phone'] ?? '') ?>">
             </div>
             <div class="col-md-3">
                 <label class="field-label">
                     Penandatangan
                 </label>
-                <input disabled class="form-control" value="<?= esc($settings['signer_name'] ?? '') ?>">
+                <input id="signer_name_preview" disabled class="form-control" value="<?= esc($settings['signer_name'] ?? '') ?>">
             </div>
 
             <div class="col-md-6"><label class="field-label">
