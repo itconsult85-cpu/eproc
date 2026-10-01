@@ -2,6 +2,14 @@
 <html lang="id" data-bs-theme="dark">
 
 <head>
+    <?php
+    $layoutSettings = model(\App\Models\QuotationSettingModel::class)->current();
+    $faviconPath = trim((string) ($layoutSettings['logo_path'] ?? ''), '/');
+    $faviconUrl = $faviconPath !== '' ? base_url($faviconPath) : base_url('favicon.ico');
+    $faviconExtension = strtolower(pathinfo($faviconPath ?: 'favicon.ico', PATHINFO_EXTENSION));
+    $faviconType = ['png' => 'image/png', 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'webp' => 'image/webp', 'ico' => 'image/x-icon'][$faviconExtension] ?? 'image/png';
+    $faviconVersion = ! empty($layoutSettings['updated_at']) ? strtotime((string) $layoutSettings['updated_at']) : null;
+    ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,6 +24,8 @@
         }
     </style>
     <title><?= esc($title ?? 'Eprocurement') ?></title>
+    <link rel="icon" type="<?= esc($faviconType, 'attr') ?>" href="<?= esc($faviconUrl . ($faviconVersion ? '?v=' . $faviconVersion : ''), 'attr') ?>">
+    <link rel="apple-touch-icon" href="<?= esc($faviconUrl . ($faviconVersion ? '?v=' . $faviconVersion : ''), 'attr') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -103,7 +113,7 @@
             </div>
         </nav>
         <?php
-        $sidebarLogo = model(\App\Models\QuotationSettingModel::class)->current()['logo_path'] ?? null;
+        $sidebarLogo = $layoutSettings['logo_path'] ?? null;
         $sidebarLogoUrl = $sidebarLogo
             ? (preg_match('#^https?://#i', $sidebarLogo) ? $sidebarLogo : base_url(ltrim($sidebarLogo, '/')))
             : null;

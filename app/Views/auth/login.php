@@ -2,6 +2,10 @@
 <html lang="id" data-bs-theme="dark">
 
 <head>
+    <?php
+    $loginFaviconPath = trim((string) ($settings['logo_path'] ?? ''), '/');
+    $loginFaviconUrl = $loginFaviconPath !== '' ? base_url($loginFaviconPath) : base_url('favicon.ico');
+    ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
@@ -18,6 +22,8 @@
         }
     </style>
     <title><?= esc($title) ?> · EPROC</title>
+    <link rel="icon" href="<?= esc($loginFaviconUrl, 'attr') ?>">
+    <link rel="apple-touch-icon" href="<?= esc($loginFaviconUrl, 'attr') ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@4.9.1/dist/css/adminlte.min.css">
