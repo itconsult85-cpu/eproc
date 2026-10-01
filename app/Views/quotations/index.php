@@ -4,15 +4,19 @@
     <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
         <div>
             <h2 class="h5 mb-1">
-                <i class="bi bi-file-earmark-text me-2"></i>Daftar Penawaran
+                <i class="bi bi-file-earmark-text me-2"></i>
+                Daftar Penawaran
             </h2>
             <p class="text-body-secondary mb-0">
                 Pantau pengajuan, negosiasi, persetujuan, dan quotation final dari satu tabel.
             </p>
         </div>
-        <?php if (can('quotations.create')): ?><a href="/quotations/new" class="btn btn-primary text-nowrap">
-            <i class="bi bi-plus-lg me-1"></i>Buat Penawaran
-        </a><?php endif; ?>
+        <?php if (can('quotations.create')): ?>
+            <a href="/quotations/new" class="btn btn-primary text-nowrap">
+                <i class="bi bi-plus-lg me-1"></i>
+                Buat Penawaran
+            </a>
+        <?php endif; ?>
     </div>
 </div>
 <div class="card quotation-workflow-guide mb-3">
@@ -28,7 +32,8 @@
             <span class="workflow-step"><span class="workflow-dot bg-success"></span>Final disetujui</span>
         </div>
         <div class="small text-body-secondary mt-2">
-            Gunakan tombol <strong>Proses Nego</strong> pada baris quotation untuk membuka detail, mencatat permintaan client,
+            Gunakan tombol <strong>Proses Nego</strong> pada baris quotation untuk membuka detail, mencatat permintaan
+            client,
             melihat riwayat putaran, lalu memilih <strong>Terima &amp; Final</strong> atau <strong>Tolak</strong>.
         </div>
     </div>

@@ -1,1 +1,36 @@
-<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-cart-check me-2"></i>PO OUT Vendor</h2><p class="text-body-secondary mb-0">Kelola pesanan pembelian ke vendor berdasarkan kebutuhan PO IN klien.</p></div><?php if(can('purchase_orders.create')): ?><a href="/purchase-orders/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Buat PO OUT</a><?php endif; ?></div></div><div class="card"><div class="card-body"><table id="purchase-orders-table" class="table table-hover align-middle w-100"><thead><tr><th></th><th>No.</th><th>PO OUT</th><th>Referensi PO IN</th><th>Vendor</th><th>Tanggal</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead></table></div></div><?= $this->endSection() ?>
+<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-cart-check me-2"></i>
+                PO OUT Vendor
+            </h2>
+            <p class="text-body-secondary mb-0">
+                Kelola pesanan pembelian ke vendor berdasarkan kebutuhan PO IN klien.
+            </p>
+        </div><?php if (can('purchase_orders.create')): ?>
+        <a href="/purchase-orders/new" class="btn btn-primary text-nowrap">
+            <i class="bi bi-plus-lg me-1"></i>Buat PO OUT
+        </a>
+        <?php endif; ?>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <table id="purchase-orders-table" class="table table-hover align-middle w-100">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No.</th>
+                    <th>PO OUT</th>
+                    <th>Referensi PO IN</th>
+                    <th>Vendor</th>
+                    <th>Tanggal</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div><?= $this->endSection() ?>

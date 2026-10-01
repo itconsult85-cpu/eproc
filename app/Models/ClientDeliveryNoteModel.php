@@ -8,7 +8,23 @@ class ClientDeliveryNoteModel extends BaseModel
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     protected $useTimestamps = true;
-    protected $allowedFields = ['client_purchase_order_id', 'company_id', 'delivery_no', 'delivery_date', 'destination', 'recipient_name', 'recipient_position', 'delivered_by', 'delivered_position', 'status', 'items_json', 'notes', 'created_by', 'created_at', 'updated_at'];
+    protected $allowedFields = [
+        'client_purchase_order_id',
+        'company_id',
+        'delivery_no',
+        'delivery_date',
+        'destination',
+        'recipient_name',
+        'recipient_position',
+        'delivered_by',
+        'delivered_position',
+        'status',
+        'items_json',
+        'notes',
+        'created_by',
+        'created_at',
+        'updated_at'
+    ];
 
     public function withPurchaseOrder(): array
     {

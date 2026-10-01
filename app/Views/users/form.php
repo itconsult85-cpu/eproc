@@ -1,16 +1,32 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-person-gear me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Permission ditetapkan langsung per akun.</p></div><a href="<?= site_url('users') ?>" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div></div>
-<?php if ($errors = session()->getFlashdata('errors')): ?>
-<div class="alert alert-danger">
-    <ul class="mb-0">
-        <?php foreach ($errors as $e): ?>
-        <li>
-            <?= esc($e) ?>
-        </li>
-        <?php endforeach; ?>
-    </ul>
+<div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-person-gear me-2"></i>
+                <?= esc($title) ?>
+            </h2>
+            <p class="text-body-secondary mb-0">
+                Permission ditetapkan langsung per akun.
+            </p>
+        </div>
+        <a href="<?= site_url('users') ?>" class="btn btn-light text-nowrap">
+            <i class="bi bi-arrow-left me-1"></i>
+            Kembali
+        </a>
+    </div>
 </div>
+<?php if ($errors = session()->getFlashdata('errors')): ?>
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            <?php foreach ($errors as $e): ?>
+                <li>
+                    <?= esc($e) ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
 <?php endif; ?>
 <form class="form-page" method="post" enctype="multipart/form-data"
     action="<?= $user ? site_url('users/' . public_id($user['id'])) : site_url('users') ?>">
@@ -95,24 +111,26 @@
                 <div class="card-body">
                     <?php $group = '';
                     foreach ($permissions as $p): ?>
-                    <?php if ($group !== $p['group_name']): ?>
-                    <?php if ($group !== ''): ?>
+                        <?php if ($group !== $p['group_name']): ?>
+                            <?php if ($group !== ''): ?>
                 </div>
-                <?php endif; ?>
-                <?php $group = $p['group_name']; ?>
-                <h6 class="text-uppercase text-body-secondary mt-2"><?= esc($group) ?></h6>
-                <div class="vstack gap-2">
-                    <?php endif; ?>
-                    <label class="form-check">
-                        <input class="form-check-input" type="checkbox" name="permissions[]"
-                            value="<?= esc($p['permission_key']) ?>"
-                            <?= in_array($p['permission_key'], $assigned, true) ? 'checked' : '' ?>>
-                        <span class="form-check-label">
-                            <?= esc($p['label']) ?>
-                        </span>
-                    </label>
-                    <?php endforeach; ?>
-                </div>
+            <?php endif; ?>
+            <?php $group = $p['group_name']; ?>
+            <h6 class="text-uppercase text-body-secondary mt-2">
+                <?= esc($group) ?>
+            </h6>
+            <div class="vstack gap-2">
+            <?php endif; ?>
+            <label class="form-check">
+                <input class="form-check-input" type="checkbox" name="permissions[]"
+                    value="<?= esc($p['permission_key']) ?>"
+                    <?= in_array($p['permission_key'], $assigned, true) ? 'checked' : '' ?>>
+                <span class="form-check-label">
+                    <?= esc($p['label']) ?>
+                </span>
+            </label>
+        <?php endforeach; ?>
+            </div>
             </div>
             <button class="btn btn-primary w-100">
                 Simpan pengguna

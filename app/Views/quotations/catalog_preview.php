@@ -13,7 +13,8 @@
         <a href="<?= esc(site_url('quotations/' . public_id($quotation['id']))) ?>" class="btn btn-outline-secondary">
             Kembali
         </a>
-        <a href="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/catalog')) ?>" class="btn btn-success">
+        <a href="<?= esc(site_url('quotations/' . public_id($quotation['id']) . '/catalog')) ?>"
+            class="btn btn-success">
             <i class="bi bi-download me-1"></i>Unduh PDF Katalog
         </a>
     </div>
@@ -115,9 +116,8 @@
                             </p>
                             <?php endif; ?>
                             <?php if (!empty($product['datasheet_file_path'])): ?>
-                            <a href="<?= esc(str_starts_with((string) $product['datasheet_file_path'], 'private/') ? site_url('files/product-datasheets/' . public_id((int) $product['id'])) : base_url(ltrim($product['datasheet_file_path'], '/'))) ?>" target="_blank"
-                                rel="noopener"><i class="bi bi-file-earmark-pdf me-1">
-
+                            <a href="<?= esc(str_starts_with((string) $product['datasheet_file_path'], 'private/') ? site_url('files/product-datasheets/' . public_id((int) $product['id'])) : base_url(ltrim($product['datasheet_file_path'], '/'))) ?>"
+                                target="_blank" rel="noopener"><i class="bi bi-file-earmark-pdf me-1">
                                 </i>Lihat file datasheet
                             </a>
                             <?php endif; ?>

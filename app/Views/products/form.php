@@ -1,11 +1,29 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 <?php $specs = json_decode($product['technical_specs'] ?? '', true) ?: [['label' => '', 'value' => '']]; ?>
-<div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-box-seam me-2"></i><?= esc($title ?? 'Data Produk') ?></h2><p class="text-body-secondary mb-0">Kelola data katalog, spesifikasi, harga, dan berkas pendukung produk.</p></div><a href="/products" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div></div>
-<form method="post" action="<?= esc($action) ?>" enctype="multipart/form-data" class="card form-card card-primary card-outline">
+<div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-box-seam me-2"></i>
+                <?= esc($title ?? 'Data Produk') ?>
+            </h2>
+            <p class="text-body-secondary mb-0">
+                Kelola data katalog, spesifikasi, harga, dan berkas pendukung produk.
+            </p>
+        </div>
+        <a href="/products" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali
+        </a>
+    </div>
+</div>
+<form method="post" action="<?= esc($action) ?>" enctype="multipart/form-data"
+    class="card form-card card-primary card-outline">
     <?= csrf_field() ?>
     <div class="card-header">
-        <h3 class="card-title"><i class="bi bi-box-seam me-2"></i>Data Produk & Datasheet</h3>
+        <h3 class="card-title">
+            <i class="bi bi-box-seam me-2"></i>
+            Data Produk & Datasheet
+        </h3>
     </div>
     <div class="card-body">
         <div class="row g-3">
@@ -76,21 +94,21 @@
                 </div>
                 <div id="specifications">
                     <?php foreach ($specs as $spec): ?>
-                    <div class="row g-2 mb-2 spec-row">
-                        <div class="col-md-4">
-                            <input name="spec_label[]" class="form-control"
-                                placeholder="Parameter (mis. Material Utama)" value="<?= esc($spec['label'] ?? '') ?>">
+                        <div class="row g-2 mb-2 spec-row">
+                            <div class="col-md-4">
+                                <input name="spec_label[]" class="form-control"
+                                    placeholder="Parameter (mis. Material Utama)" value="<?= esc($spec['label'] ?? '') ?>">
+                            </div>
+                            <div class="col-md-7">
+                                <input name="spec_value[]" class="form-control" placeholder="Spesifikasi"
+                                    value="<?= esc($spec['value'] ?? '') ?>">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-outline-danger w-100" data-action="remove-spec"><i
+                                        class="bi bi-trash"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-md-7">
-                            <input name="spec_value[]" class="form-control" placeholder="Spesifikasi"
-                                value="<?= esc($spec['value'] ?? '') ?>">
-                        </div>
-                        <div class="col-md-1">
-                            <button type="button" class="btn btn-outline-danger w-100" data-action="remove-spec"><i
-                                    class="bi bi-trash"></i>
-                            </button>
-                        </div>
-                    </div>
                     <?php endforeach; ?>
                 </div>
                 <button type="button" class="btn btn-sm btn-outline-primary" data-action="add-spec">
@@ -115,8 +133,8 @@
                     JPG, PNG, WEBP maksimal 5 MB.
                 </div>
                 <?php if (!empty($product['image_path'])): ?>
-                <img src="<?= esc($product['image_path']) ?>" class="img-thumbnail mt-2" style="max-height:120px"
-                    alt="Gambar produk">
+                    <img src="<?= esc($product['image_path']) ?>" class="img-thumbnail mt-2" style="max-height:120px"
+                        alt="Gambar produk">
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
@@ -128,10 +146,10 @@
                     MP4, WEBM, MOV maksimal 50 MB.
                 </div>
                 <?php if (!empty($product['video_path'])): ?>
-                <a href="<?= esc($product['video_path']) ?>" target="_blank"
-                    class="btn btn-sm btn-outline-secondary mt-2">
-                    Lihat video tersimpan
-                </a>
+                    <a href="<?= esc($product['video_path']) ?>" target="_blank"
+                        class="btn btn-sm btn-outline-secondary mt-2">
+                        Lihat video tersimpan
+                    </a>
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
@@ -143,10 +161,10 @@
                     PDF maksimal 20 MB.
                 </div>
                 <?php if (!empty($product['datasheet_file_path'])): ?>
-                <a href="<?= esc(str_starts_with((string) ($product['datasheet_file_path'] ?? ''), 'private/') ? site_url('files/product-datasheets/' . public_id((int) ($product['id'] ?? 0))) : $product['datasheet_file_path']) ?>" target="_blank"
-                    class="btn btn-sm btn-outline-secondary mt-2">
-                    <i class="bi bi-file-pdf"></i> Buka datasheet PDF
-                </a>
+                    <a href="<?= esc(str_starts_with((string) ($product['datasheet_file_path'] ?? ''), 'private/') ? site_url('files/product-datasheets/' . public_id((int) ($product['id'] ?? 0))) : $product['datasheet_file_path']) ?>"
+                        target="_blank" class="btn btn-sm btn-outline-secondary mt-2">
+                        <i class="bi bi-file-pdf"></i> Buka datasheet PDF
+                    </a>
                 <?php endif; ?>
             </div>
             <div class="col-md-4">

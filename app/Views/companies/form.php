@@ -1,5 +1,21 @@
-<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-buildings me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Kelola identitas perusahaan dan konfigurasi nomor quotation.</p></div><a href="/companies" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div></div>
-<form method="post" action="<?= esc($action) ?>" class="card form-card"><?= csrf_field() ?>
+<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-buildings me-2"></i>
+                <?= esc($title) ?>
+            </h2>
+            <p class="text-body-secondary mb-0">
+                Kelola identitas perusahaan dan konfigurasi nomor quotation.
+            </p>
+        </div>
+        <a href="/companies" class="btn btn-light text-nowrap">
+            <i class="bi bi-arrow-left me-1"></i>Kembali
+        </a>
+    </div>
+</div>
+<form method="post" action="<?= esc($action) ?>" class="card form-card">
+    <?= csrf_field() ?>
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-8">
@@ -16,17 +32,22 @@
                 <input name="phone" class="form-control" value="<?= old('phone', $company['phone'] ?? '') ?>">
             </div>
             <div class="col-md-4">
-                <label class="field-label">Prefix quotation</label>
+                <label class="field-label">
+                    Prefix quotation
+                </label>
                 <input name="quotation_prefix" maxlength="12" class="form-control" placeholder="CCIP"
                     value="<?= old('quotation_prefix', $company['quotation_prefix'] ?? 'CCIP') ?>">
             </div>
             <div class="col-md-4">
-                <label class="field-label">Kode quotation</label>
+                <label class="field-label">
+                    Kode quotation
+                </label>
                 <input name="quotation_code" maxlength="30" class="form-control" placeholder="TRE-ICA"
                     value="<?= old('quotation_code', $company['quotation_code'] ?? '') ?>">
             </div>
             <div class="col-12">
-                <div class="form-text">Nomor dibuat otomatis: prefix + nomor urut 3 digit + tanggal + kode + bulan Romawi + tahun. Kosongkan kode untuk memakai kode otomatis dari nama perusahaan.</div>
+                <div class="form-text">Nomor dibuat otomatis: prefix + nomor urut 3 digit + tanggal + kode + bulan
+                    Romawi + tahun. Kosongkan kode untuk memakai kode otomatis dari nama perusahaan.</div>
             </div>
             <div class="col-12">
                 <label class="field-label">

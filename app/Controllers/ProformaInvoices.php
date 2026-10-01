@@ -27,7 +27,7 @@ class ProformaInvoices extends BaseController
         $query = trim((string) ($request['search']['value'] ?? ''));
         $rows = $this->model->withQuotation();
         if ($query !== '') {
-            $rows = array_values(array_filter($rows, static fn (array $row): bool => stripos($row['invoice_no'] . ' ' . $row['quotation_no'] . ' ' . $row['company_name'], $query) !== false));
+            $rows = array_values(array_filter($rows, static fn(array $row): bool => stripos($row['invoice_no'] . ' ' . $row['quotation_no'] . ' ' . $row['company_name'], $query) !== false));
         }
         $data = array_map(static function (array $row): array {
             $id = public_id((int) $row['id']);
@@ -68,8 +68,11 @@ class ProformaInvoices extends BaseController
         if ($file && $file->isValid() && ! $file->hasMoved()) {
             try {
                 $stored = SecureFileStorage::store($file, [
-                    'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png',
-                    'webp' => 'image/webp', 'pdf' => 'application/pdf',
+                    'jpg' => 'image/jpeg',
+                    'jpeg' => 'image/jpeg',
+                    'png' => 'image/png',
+                    'webp' => 'image/webp',
+                    'pdf' => 'application/pdf',
                 ], 5242880, 'payment-proofs');
             } catch (RuntimeException $exception) {
                 return redirect()->back()->withInput()->with('error', 'Bukti bayar harus JPG, PNG, WEBP, atau PDF maksimal 5 MB dan tidak boleh dipalsukan.');

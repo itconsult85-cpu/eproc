@@ -16,7 +16,10 @@ class VendorBills extends BaseController
         $this->model = new VendorBillModel();
     }
 
-    public function index() { return view('vendor_bills/index', ['title' => 'Tagihan Vendor']); }
+    public function index()
+    {
+        return view('vendor_bills/index', ['title' => 'Tagihan Vendor']);
+    }
 
     public function datatable()
     {
@@ -31,7 +34,10 @@ class VendorBills extends BaseController
         return $this->response->setJSON(['draw' => (int) ($request['draw'] ?? 0), 'recordsTotal' => count($data), 'recordsFiltered' => count($data), 'data' => $data]);
     }
 
-    public function new() { return view('vendor_bills/form', ['title' => 'Tambah Tagihan Vendor', 'bill' => [], 'vendors' => (new VendorModel())->where('is_active', 1)->findAll(), 'action' => '/vendor-bills']); }
+    public function new()
+    {
+        return view('vendor_bills/form', ['title' => 'Tambah Tagihan Vendor', 'bill' => [], 'vendors' => (new VendorModel())->where('is_active', 1)->findAll(), 'action' => '/vendor-bills']);
+    }
 
     public function edit(string $id)
     {
@@ -75,7 +81,10 @@ class VendorBills extends BaseController
     {
         $id = $this->resolveId($id, $this->model);
         $bill = $this->model->find($id);
-        if ($bill) { SecureFileStorage::remove($bill['proof_path'] ?? null); $this->model->delete($id); }
+        if ($bill) {
+            SecureFileStorage::remove($bill['proof_path'] ?? null);
+            $this->model->delete($id);
+        }
         return redirect()->to('/vendor-bills')->with('message', 'Tagihan vendor dihapus.');
     }
 }

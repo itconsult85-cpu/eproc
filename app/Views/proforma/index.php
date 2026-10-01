@@ -1,1 +1,38 @@
-<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-receipt me-2"></i>Proforma Invoice</h2><p class="text-body-secondary mb-0">Pantau pembayaran dari quotation yang sudah disetujui.</p></div><form method="post" action="<?= esc(site_url('proforma-invoices/sync')) ?>" class="m-0"><?= csrf_field() ?><button type="submit" class="btn btn-outline-primary text-nowrap"><i class="bi bi-arrow-repeat me-1"></i>Sinkronkan Quotation Final</button></form></div></div><div class="card"><div class="card-body"><table id="proforma-table" class="table table-hover align-middle w-100"><thead><tr><th></th><th>No.</th><th>Proforma</th><th>Customer</th><th>Nilai</th><th>Jatuh Tempo</th><th>Status</th><th>Aksi</th></tr></thead></table></div></div><?= $this->endSection() ?>
+<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-receipt me-2"></i>
+                Proforma Invoice
+            </h2>
+            <p class="text-body-secondary mb-0">
+                Pantau pembayaran dari quotation yang sudah disetujui.
+
+            </p>
+        </div>
+        <form method="post" action="<?= esc(site_url('proforma-invoices/sync')) ?>" class="m-0">
+            <?= csrf_field() ?>
+            <button type="submit" class="btn btn-outline-primary text-nowrap">
+                <i class="bi bi-arrow-repeat me-1"></i>Sinkronkan Quotation Final
+            </button>
+        </form>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <table id="proforma-table" class="table table-hover align-middle w-100">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No.</th>
+                    <th>Proforma</th>
+                    <th>Customer</th>
+                    <th>Nilai</th>
+                    <th>Jatuh Tempo</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div><?= $this->endSection() ?>

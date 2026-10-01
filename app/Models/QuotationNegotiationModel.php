@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 
@@ -9,9 +10,19 @@ class QuotationNegotiationModel extends BaseModel
     protected $returnType = 'array';
     protected $useTimestamps = false;
     protected $allowedFields = [
-        'quotation_id', 'round_no', 'status', 'proposed_by', 'customer_message',
-        'internal_notes', 'snapshot_json', 'subtotal', 'tax_amount', 'grand_total',
-        'created_at', 'responded_at', 'responded_by',
+        'quotation_id',
+        'round_no',
+        'status',
+        'proposed_by',
+        'customer_message',
+        'internal_notes',
+        'snapshot_json',
+        'subtotal',
+        'tax_amount',
+        'grand_total',
+        'created_at',
+        'responded_at',
+        'responded_by',
     ];
 
     public function forQuotation(int $quotationId): array
@@ -25,5 +36,3 @@ class QuotationNegotiationModel extends BaseModel
             ->orderBy('round_no', 'DESC')->first();
     }
 }
-
-// EOF

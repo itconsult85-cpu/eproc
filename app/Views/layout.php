@@ -4,7 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>html, body { background-color: #1f2937; color: #dee2e6; } .app-main { background-color: #1f2937; }</style>
+    <style>
+        html,
+        body {
+            background-color: #1f2937;
+            color: #dee2e6;
+        }
+
+        .app-main {
+            background-color: #1f2937;
+        }
+    </style>
     <title><?= esc($title ?? 'Eprocurement') ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -15,7 +25,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.7/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
     <link rel="stylesheet" href="<?= base_url('assets/css/app.css') ?>">
 </head>
 
@@ -36,19 +47,54 @@
                         </a>
                     </li>
                 </ul>
-                <?php \App\Libraries\NotificationService::sync(); $notificationModel = model(\App\Models\NotificationModel::class); $notifications = $notificationModel->forUser((int) auth_user('id')); $unreadNotifications = $notificationModel->unreadCount((int) auth_user('id')); ?>
+                <?php \App\Libraries\NotificationService::sync();
+                $notificationModel = model(\App\Models\NotificationModel::class);
+                $notifications = $notificationModel->forUser((int) auth_user('id'));
+                $unreadNotifications = $notificationModel->unreadCount((int) auth_user('id')); ?>
                 <div class="ms-auto d-flex align-items-center gap-3">
-                    <?php if (can('notifications.view')): ?><div class="dropdown">
-                        <button class="btn btn-sm btn-light position-relative" data-bs-toggle="dropdown" aria-label="Notifikasi"><i class="bi bi-bell"></i><?php if ($unreadNotifications): ?><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?= $unreadNotifications > 99 ? '99+' : $unreadNotifications ?></span><?php endif; ?></button>
-                        <div class="dropdown-menu dropdown-menu-end notification-menu shadow-sm"><div class="d-flex justify-content-between px-3 py-2"><strong>Notifikasi</strong><form method="post" action="<?= site_url('notifications/read-all') ?>"><?= csrf_field() ?><button class="btn btn-link btn-sm p-0">Tandai dibaca</button></form></div><div class="dropdown-divider"></div><?php if (!$notifications): ?><span class="dropdown-item-text text-body-secondary">Tidak ada notifikasi.</span><?php else: foreach ($notifications as $notification): ?><form method="post" action="<?= esc(site_url('notifications/' . public_id((int) $notification['id']) . '/read')) ?>" class="m-0"><?= csrf_field() ?><input type="hidden" name="return" value="<?= esc(current_url(), 'attr') ?>"><button class="dropdown-item notification-item <?= $notification['is_read'] ? '' : 'unread' ?>" type="submit"><strong><?= esc($notification['title']) ?></strong><small class="d-block text-body-secondary"><?= esc($notification['message']) ?></small></button></form><?php endforeach; endif; ?></div>
-                    </div><?php endif; ?>
+                    <?php if (can('notifications.view')): ?>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light position-relative" data-bs-toggle="dropdown"
+                                aria-label="Notifikasi"><i class="bi bi-bell"></i><?php if ($unreadNotifications): ?><span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?= $unreadNotifications > 99 ? '99+' : $unreadNotifications ?></span><?php endif; ?></button>
+                            <div class="dropdown-menu dropdown-menu-end notification-menu shadow-sm">
+                                <div class="d-flex justify-content-between px-3 py-2"><strong>Notifikasi</strong>
+                                    <form method="post" action="<?= site_url('notifications/read-all') ?>">
+                                        <?= csrf_field() ?>
+                                        <button class="btn btn-link btn-sm p-0">Tandai dibaca</button>
+                                    </form>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <?php if (!$notifications): ?><span class="dropdown-item-text text-body-secondary">Tidak ada
+                                        notifikasi.</span><?php else: foreach ($notifications as $notification): ?>
+                                        <form method="post"
+                                            action="<?= esc(site_url('notifications/' . public_id((int) $notification['id']) . '/read')) ?>"
+                                            class="m-0">
+                                            <?= csrf_field() ?>
+                                            <input type="hidden" name="return" value="<?= esc(current_url(), 'attr') ?>">
+                                            <button
+                                                class="dropdown-item notification-item <?= $notification['is_read'] ? '' : 'unread' ?>"
+                                                type="submit"><strong>
+                                                    <?= esc($notification['title']) ?>
+                                                </strong>
+                                                <small class="d-block text-body-secondary">
+                                                    <?= esc($notification['message']) ?>
+                                                </small>
+                                            </button>
+                                        </form>
+                                <?php endforeach;
+                                                        endif; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                     <span class="text-secondary small d-none d-md-inline"><?= esc(auth_user('full_name')) ?> ·
                         <?= esc(auth_user('role')) ?>
                     </span>
                     <a href="<?= site_url('password') ?>" class="btn btn-sm btn-light" title="Ganti password">
                         <i class="bi bi-key"></i>
                     </a>
-                    <form method="post" action="<?= site_url('logout') ?>" class="d-inline"><?= csrf_field() ?>
+                    <form method="post" action="<?= site_url('logout') ?>" class="d-inline">
+                        <?= csrf_field() ?>
                         <button class="btn btn-sm btn-outline-danger" type="submit">
                             Logout
                         </button>
@@ -71,9 +117,9 @@
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
             <div class="sidebar-brand"><a href="<?= esc(site_url('/')) ?>" class="brand-link text-decoration-none">
                     <?php if ($sidebarLogoUrl): ?>
-                    <img src="<?= esc($sidebarLogoUrl) ?>" class="brand-image rounded opacity-75" alt="Logo EPROC">
+                        <img src="<?= esc($sidebarLogoUrl) ?>" class="brand-image rounded opacity-75" alt="Logo EPROC">
                     <?php else: ?>
-                    <i class="bi bi-file-earmark-richtext brand-image opacity-75"></i>
+                        <i class="bi bi-file-earmark-richtext brand-image opacity-75"></i>
                     <?php endif; ?>
                     <span class="brand-text fw-light">
                         EPROC
@@ -87,86 +133,171 @@
                             WORKSPACE
                         </li>
                         <?php if (can('dashboard.view')): ?>
-                        <li class="nav-item">
-                            <a href="/" class="nav-link <?= $isSidebarActive('') ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-speedometer2"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="/" class="nav-link <?= $isSidebarActive('') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-speedometer2"></i>
+                                    <p>
+                                        Dashboard
+                                    </p>
+                                </a>
+                            </li>
                         <?php endif; ?>
-                        <?php if (can('companies.view') || can('products.view')): ?><li class="nav-header">MASTER DATA</li><?php endif; ?>
+                        <?php if (can('companies.view') || can('products.view')): ?>
+                            <li class="nav-header">
+                                MASTER DATA
+                            </li>
+                        <?php endif; ?>
                         <?php if (can('companies.view')): ?>
-                        <li class="nav-item">
-                            <a href="/companies" class="nav-link <?= $isSidebarActive('companies') ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-buildings"></i>
-                                <p>
-                                    Perusahaan
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="/companies" class="nav-link <?= $isSidebarActive('companies') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-buildings"></i>
+                                    <p>
+                                        Perusahaan
+                                    </p>
+                                </a>
+                            </li>
                         <?php endif; ?>
                         <?php if (can('products.view')): ?>
-                        <li class="nav-item">
-                            <a href="/products" class="nav-link <?= $isSidebarActive('products') ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-box-seam"></i>
-                                <p>
-                                    Katalog Produk
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="/products" class="nav-link <?= $isSidebarActive('products') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-box-seam"></i>
+                                    <p>
+                                        Katalog Produk
+                                    </p>
+                                </a>
+                            </li>
                         <?php endif; ?>
-                        <?php if (can('quotations.view') || can('proforma.view') || can('client_po.view') || can('client_delivery_note.view')): ?><li class="nav-header">PENJUALAN &amp; KLIEN</li><?php endif; ?>
+                        <?php if (can('quotations.view') || can('proforma.view') || can('client_po.view') || can('client_delivery_note.view')): ?>
+                            <li class="nav-header">
+                                PENJUALAN &amp; KLIEN
+                            </li>
+                        <?php endif; ?>
                         <?php if (can('quotations.view')): ?>
-                        <li class="nav-item">
-                            <a href="/quotations" class="nav-link <?= $isSidebarActive('quotations') ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-file-earmark-text"></i>
-                                <p>
-                                    Penawaran
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="/quotations"
+                                    class="nav-link <?= $isSidebarActive('quotations') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-file-earmark-text"></i>
+                                    <p>
+                                        Penawaran
+                                    </p>
+                                </a>
+                            </li>
                         <?php endif; ?>
-                        <?php if (can('proforma.view')): ?><li class="nav-item"><a href="/proforma-invoices" class="nav-link <?= $isSidebarActive('proforma-invoices') ? 'active' : '' ?>"><i class="nav-icon bi bi-receipt"></i><p>Proforma Invoice</p></a></li><?php endif; ?>
-                        <?php if (can('client_po.view')): ?><li class="nav-item"><a href="/client-purchase-orders" class="nav-link <?= $isSidebarActive('client-purchase-orders') ? 'active' : '' ?>"><i class="nav-icon bi bi-file-earmark-arrow-down"></i><p>PO IN Klien</p></a></li><?php endif; ?>
-                        <?php if (can('client_delivery_note.view')): ?><li class="nav-item"><a href="/client-delivery-notes" class="nav-link <?= $isSidebarActive('client-delivery-notes') ? 'active' : '' ?>"><i class="nav-icon bi bi-truck"></i><p>Surat Jalan Client</p></a></li><?php endif; ?>
-                        <?php if (can('vendors.view') || can('purchase_orders.view') || can('vendor_bills.view')): ?><li class="nav-header">PENGADAAN VENDOR</li><?php endif; ?>
-                        <?php if (can('vendors.view')): ?><li class="nav-item"><a href="/vendors" class="nav-link <?= $isSidebarActive('vendors') ? 'active' : '' ?>"><i class="nav-icon bi bi-truck"></i><p>Vendor</p></a></li><?php endif; ?>
-                        <?php if (can('purchase_orders.view')): ?><li class="nav-item"><a href="/purchase-orders" class="nav-link <?= $isSidebarActive('purchase-orders') ? 'active' : '' ?>"><i class="nav-icon bi bi-cart-check"></i><p>PO OUT Vendor</p></a></li><?php endif; ?>
-                        <?php if (can('vendor_bills.view')): ?><li class="nav-item"><a href="/vendor-bills" class="nav-link <?= $isSidebarActive('vendor-bills') ? 'active' : '' ?>"><i class="nav-icon bi bi-journal-text"></i><p>Tagihan Vendor</p></a></li><?php endif; ?>
-                        <?php if (can('tenders.view') || can('bast.view')): ?><li class="nav-header">DOKUMEN &amp; SERAH TERIMA</li><?php endif; ?>
-                        <?php if (can('bast.view')): ?><li class="nav-item"><a href="/basts" class="nav-link <?= $isSidebarActive('basts') ? 'active' : '' ?>"><i class="nav-icon bi bi-clipboard-check"></i><p>BAST</p></a></li><?php endif; ?>
+                        <?php if (can('proforma.view')): ?><li class="nav-item"><a href="/proforma-invoices"
+                                    class="nav-link <?= $isSidebarActive('proforma-invoices') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-receipt"></i>
+                                    <p>
+                                        Proforma Invoice
+                                    </p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (can('client_po.view')): ?>
+                            <li class="nav-item">
+                                <a href="/client-purchase-orders"
+                                    class="nav-link <?= $isSidebarActive('client-purchase-orders') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-file-earmark-arrow-down"></i>
+                                    <p>
+                                        PO IN Klien
+                                    </p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (can('client_delivery_note.view')): ?>
+                            <li class="nav-item">
+                                <a href="/client-delivery-notes"
+                                    class="nav-link <?= $isSidebarActive('client-delivery-notes') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-truck"></i>
+                                    <p>
+                                        Surat Jalan Client
+                                    </p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (can('vendors.view') || can('purchase_orders.view') || can('vendor_bills.view')): ?>
+                            <li class="nav-header">
+                                PENGADAAN VENDOR
+                            </li>
+                        <?php endif; ?>
+                        <?php if (can('vendors.view')): ?>
+                            <li class="nav-item">
+                                <a href="/vendors" class="nav-link <?= $isSidebarActive('vendors') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-truck"></i>
+                                    <p>
+                                        Vendor
+                                    </p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (can('purchase_orders.view')): ?>
+                            <li class="nav-item">
+                                <a href="/purchase-orders"
+                                    class="nav-link <?= $isSidebarActive('purchase-orders') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-cart-check"></i>
+                                    <p>
+                                        PO OUT Vendor
+                                    </p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (can('vendor_bills.view')): ?>
+                            <li class="nav-item"><a href="/vendor-bills"
+                                    class="nav-link <?= $isSidebarActive('vendor-bills') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-journal-text"></i>
+                                    <p>
+                                        Tagihan Vendor
+                                    </p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (can('tenders.view') || can('bast.view')): ?>
+                            <li class="nav-header">
+                                DOKUMEN &amp; SERAH TERIMA
+                            </li>
+                        <?php endif; ?>
+                        <?php if (can('bast.view')): ?>
+                            <li class="nav-item">
+                                <a href="/basts" class="nav-link <?= $isSidebarActive('basts') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-clipboard-check"></i>
+                                    <p>
+                                        BAST
+                                    </p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                         <?php if (can('tenders.view')): ?>
-                        <li class="nav-item">
-                            <a href="/tenders" class="nav-link <?= $isSidebarActive('tenders') ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-folder2-open"></i>
-                                <p>Dokumen Tender</p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="/tenders" class="nav-link <?= $isSidebarActive('tenders') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-folder2-open"></i>
+                                    <p>
+                                        Dokumen Tender
+                                    </p>
+                                </a>
+                            </li>
                         <?php endif; ?>
                         <li class="nav-header">
                             KONFIGURASI
                         </li>
                         <?php if (can('settings.quotation')): ?>
-                        <li class="nav-item">
-                            <a href="/settings/quotation" class="nav-link <?= $isSidebarActive('settings/quotation') ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-sliders"></i>
-                                <p>
-                                    Setting Quotation
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="/settings/quotation"
+                                    class="nav-link <?= $isSidebarActive('settings/quotation') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-sliders"></i>
+                                    <p>
+                                        Setting Quotation
+                                    </p>
+                                </a>
+                            </li>
                         <?php endif; ?>
                         <?php if (can('users.manage')): ?>
-                        <li class="nav-item">
-                            <a href="/users" class="nav-link <?= $isSidebarActive('users') ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-people"></i>
-                                <p>
-                                    Manajemen Pengguna
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="/users" class="nav-link <?= $isSidebarActive('users') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-people"></i>
+                                    <p>
+                                        Manajemen Pengguna
+                                    </p>
+                                </a>
+                            </li>
                         <?php endif; ?>
                     </ul>
                 </nav>
@@ -177,30 +308,30 @@
             <div class="app-content">
                 <div class="container-fluid">
                     <?php if ($message = session()->getFlashdata('message')): ?>
-                    <div class="alert alert-success alert-dismissible fade show">
-                        <i class="bi bi-check-circle me-1"></i><?= esc($message) ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert">
-                        </button>
-                    </div>
+                        <div class="alert alert-success alert-dismissible fade show">
+                            <i class="bi bi-check-circle me-1"></i><?= esc($message) ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
                     <?php endif; ?>
                     <?php if ($error = session()->getFlashdata('error')): ?>
-                    <div class="alert alert-danger alert-dismissible fade show">
-                        <i class="bi bi-exclamation-triangle me-1"></i><?= esc($error) ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
-                    </div>
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            <i class="bi bi-exclamation-triangle me-1"></i><?= esc($error) ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                        </div>
                     <?php endif; ?>
                     <?php if ($errors = session()->getFlashdata('errors')): ?>
-                    <div class="alert alert-danger alert-dismissible fade show">
-                        <i class="bi bi-exclamation-triangle me-1"></i>
-                        <ul class="mb-0 d-inline-block align-middle">
-                            <?php foreach ($errors as $error): ?>
-                            <li>
-                                <?= esc($error) ?>
-                            </li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"> </button>
-                    </div><?php endif; ?>
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            <i class="bi bi-exclamation-triangle me-1"></i>
+                            <ul class="mb-0 d-inline-block align-middle">
+                                <?php foreach ($errors as $error): ?>
+                                    <li>
+                                        <?= esc($error) ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"> </button>
+                        </div>
+                    <?php endif; ?>
                     <?= $this->renderSection('content') ?>
                 </div>
             </div>
@@ -209,25 +340,37 @@
             <strong>Eprocurement</strong> &mdash; internal workspace
         </footer>
     </div>
-    <div class="modal fade" id="appConfirmModal" tabindex="-1" aria-labelledby="appConfirmModalLabel" aria-hidden="true">
+    <div class="modal fade" id="appConfirmModal" tabindex="-1" aria-labelledby="appConfirmModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg">
                 <div class="modal-header border-0 pb-0">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="confirm-modal-icon" data-confirm-icon aria-hidden="true"><i class="bi bi-question-lg"></i></div>
+                        <div class="confirm-modal-icon" data-confirm-icon aria-hidden="true"><i
+                                class="bi bi-question-lg"></i></div>
                         <div>
-                            <div class="small text-uppercase text-body-secondary fw-semibold letter-spacing-1">Konfirmasi tindakan</div>
-                            <h5 class="modal-title mb-0" id="appConfirmModalLabel" data-confirm-title>Konfirmasi</h5>
+                            <div class="small text-uppercase text-body-secondary fw-semibold letter-spacing-1">
+                                Konfirmasi tindakan
+                            </div>
+                            <h5 class="modal-title mb-0" id="appConfirmModalLabel" data-confirm-title>
+                                Konfirmasi
+                            </h5>
                         </div>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body pt-3">
-                    <p class="mb-0 text-body-secondary" data-confirm-message>Apakah Anda yakin ingin melanjutkan tindakan ini?</p>
+                    <p class="mb-0 text-body-secondary" data-confirm-message>
+                        Apakah Anda yakin ingin melanjutkan tindakan ini?
+                    </p>
                 </div>
                 <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" data-confirm-submit>Konfirmasi</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                        Batal
+                    </button>
+                    <button type="button" class="btn btn-primary" data-confirm-submit>
+                        Konfirmasi
+                    </button>
                 </div>
             </div>
         </div>

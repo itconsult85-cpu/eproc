@@ -83,9 +83,9 @@ class Auth extends BaseController
         if ((int) ($lock['acquired'] ?? 0) !== 1) return redirect()->to('/login')->with('error', 'Setup sedang digunakan. Silakan coba lagi.');
         try {
             if ($this->users->countAllResults() > 0) return redirect()->to('/login');
-        $data = $this->request->getPost(['username', 'email', 'full_name']);
-        $password = (string) $this->request->getPost('password');
-        $rules = ['username' => 'required|alpha_numeric_punct|min_length[4]|max_length[80]', 'email' => 'required|valid_email|max_length[160]', 'full_name' => 'required|max_length[160]', 'password' => 'required|min_length[12]|max_length[72]'];
+            $data = $this->request->getPost(['username', 'email', 'full_name']);
+            $password = (string) $this->request->getPost('password');
+            $rules = ['username' => 'required|alpha_numeric_punct|min_length[4]|max_length[80]', 'email' => 'required|valid_email|max_length[160]', 'full_name' => 'required|max_length[160]', 'password' => 'required|min_length[12]|max_length[72]'];
             if (! $this->validateData(array_merge($data, ['password' => $password]), $rules)) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
             $this->users->insert(array_merge($data, ['password_hash' => password_hash($password, PASSWORD_DEFAULT), 'role' => 'superadmin', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]));
             return redirect()->to('/login')->with('message', 'Superadmin berhasil dibuat. Silakan login.');

@@ -1,13 +1,183 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><title>BAST <?= esc($bast['bast_no']) ?></title><style>
-@page{margin:28px 35px}body{font-family:DejaVu Sans,Arial,sans-serif;color:#202124;font-size:11px;line-height:1.45}h1{font-size:18px;text-align:center;margin:0 0 4px;text-transform:uppercase}.company{text-align:center;font-size:12px;margin-bottom:18px}.meta{width:100%;border-collapse:collapse;margin:12px 0}.meta td{padding:3px 0;vertical-align:top}.meta td:first-child{width:145px;font-weight:bold}.intro{text-align:justify;margin:18px 0}.items{width:100%;border-collapse:collapse;margin:10px 0 18px}.items th,.items td{border:1px solid #555;padding:6px}.items th{background:#e9ecef;text-align:center}.items .num{text-align:center;width:28px}.items .qty,.items .money{text-align:right;white-space:nowrap}.signatures{width:100%;border-collapse:collapse;margin-top:32px}.signatures td{text-align:center;width:50%;vertical-align:top}.signature-space{height:65px}.small{font-size:9px;color:#555}.line{border-bottom:1px solid #222;display:inline-block;min-width:170px}
-</style></head><body>
-<h1>Berita Acara Serah Terima Barang</h1>
-<div class="company"><strong><?= esc($bast['company_name'] ?? '-') ?></strong><br><?= esc($bast['company_address'] ?? '') ?><?= ! empty($bast['company_phone']) ? ' · ' . esc($bast['company_phone']) : '' ?></div>
-<?php $sourceLabel = ['quotation' => 'QUOTATION', 'client_purchase_order' => 'PO IN KLIEN', 'purchase_order' => 'PO OUT VENDOR'][$bast['source_type'] ?? ''] ?? strtoupper((string) ($bast['source_type'] ?? '-')); ?><table class="meta"><tr><td>Nomor BAST</td><td>: <?= esc($bast['bast_no']) ?></td></tr><tr><td>Sumber Dokumen</td><td>: <?= esc($sourceLabel) ?> — <?= esc($bast['source_no']) ?></td></tr><tr><td>Judul / Keterangan</td><td>: <?= esc($bast['source_title'] ?? '-') ?></td></tr><tr><td>Tanggal Serah Terima</td><td>: <?= esc($bast['handover_date']) ?></td></tr><tr><td>Lokasi</td><td>: <?= esc($bast['location'] ?? '-') ?></td></tr></table>
-<p class="intro">Pada hari ini, berdasarkan dokumen sumber tersebut di atas, telah dilakukan serah terima barang dari <strong><?= esc($bast['handed_over_by'] ?: ($bast['company_name'] ?? '-')) ?></strong> kepada <strong><?= esc($bast['recipient_name']) ?></strong><?= ! empty($bast['recipient_position']) ? ' selaku ' . esc($bast['recipient_position']) : '' ?>. Barang yang diserahterimakan adalah sebagai berikut:</p>
-<table class="items"><thead><tr><th class="num">No.</th><th>Nama Barang</th><th>Deskripsi</th><th>Qty</th><th>Satuan</th><th>Nilai</th></tr></thead><tbody><?php foreach (($bast['items'] ?? []) as $index => $item): ?><tr><td class="num"><?= $index + 1 ?></td><td><?= esc($item['product_name'] ?? '-') ?></td><td><?= nl2br(esc($item['description'] ?? '-')) ?></td><td class="qty"><?= esc($item['quantity'] ?? 0) ?></td><td><?= esc($item['unit'] ?? 'pcs') ?></td><td class="money">Rp <?= number_format((float) ($item['line_total'] ?? 0), 0, ',', '.') ?></td></tr><?php endforeach; ?></tbody></table>
-<?php if (! empty($bast['notes'])): ?><p><strong>Catatan:</strong><br><?= nl2br(esc($bast['notes'])) ?></p><?php endif; ?><p>Demikian berita acara ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana mestinya.</p>
-<table class="signatures"><tr><td>Yang Menyerahkan,<div class="signature-space"></div><strong class="line"><?= esc($bast['handed_over_by'] ?: '-') ?></strong><?php if (! empty($bast['handed_over_position'])): ?><br><?= esc($bast['handed_over_position']) ?><?php endif; ?></td><td>Yang Menerima,<div class="signature-space"></div><strong class="line"><?= esc($bast['recipient_name']) ?></strong><?php if (! empty($bast['recipient_position'])): ?><br><?= esc($bast['recipient_position']) ?><?php endif; ?></td></tr></table>
-<p class="small">Dokumen dibuat dari sistem EPROC · Dicetak <?= date('d-m-Y H:i') ?></p>
-</body></html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <title>BAST <?= esc($bast['bast_no']) ?></title>
+    <style>
+        @page {
+            margin: 28px 35px
+        }
+
+        body {
+            font-family: DejaVu Sans, Arial, sans-serif;
+            color: #202124;
+            font-size: 11px;
+            line-height: 1.45
+        }
+
+        h1 {
+            font-size: 18px;
+            text-align: center;
+            margin: 0 0 4px;
+            text-transform: uppercase
+        }
+
+        .company {
+            text-align: center;
+            font-size: 12px;
+            margin-bottom: 18px
+        }
+
+        .meta {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0
+        }
+
+        .meta td {
+            padding: 3px 0;
+            vertical-align: top
+        }
+
+        .meta td:first-child {
+            width: 145px;
+            font-weight: bold
+        }
+
+        .intro {
+            text-align: justify;
+            margin: 18px 0
+        }
+
+        .items {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0 18px
+        }
+
+        .items th,
+        .items td {
+            border: 1px solid #555;
+            padding: 6px
+        }
+
+        .items th {
+            background: #e9ecef;
+            text-align: center
+        }
+
+        .items .num {
+            text-align: center;
+            width: 28px
+        }
+
+        .items .qty,
+        .items .money {
+            text-align: right;
+            white-space: nowrap
+        }
+
+        .signatures {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 32px
+        }
+
+        .signatures td {
+            text-align: center;
+            width: 50%;
+            vertical-align: top
+        }
+
+        .signature-space {
+            height: 65px
+        }
+
+        .small {
+            font-size: 9px;
+            color: #555
+        }
+
+        .line {
+            border-bottom: 1px solid #222;
+            display: inline-block;
+            min-width: 170px
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Berita Acara Serah Terima Barang</h1>
+    <div class="company">
+        <strong><?= esc($bast['company_name'] ?? '-') ?></strong><br><?= esc($bast['company_address'] ?? '') ?><?= ! empty($bast['company_phone']) ? ' · ' . esc($bast['company_phone']) : '' ?>
+    </div>
+    <?php $sourceLabel = ['quotation' => 'QUOTATION', 'client_purchase_order' => 'PO IN KLIEN', 'purchase_order' => 'PO OUT VENDOR'][$bast['source_type'] ?? ''] ?? strtoupper((string) ($bast['source_type'] ?? '-')); ?>
+    <table class="meta">
+        <tr>
+            <td>Nomor BAST</td>
+            <td>: <?= esc($bast['bast_no']) ?></td>
+        </tr>
+        <tr>
+            <td>Sumber Dokumen</td>
+            <td>: <?= esc($sourceLabel) ?> — <?= esc($bast['source_no']) ?></td>
+        </tr>
+        <tr>
+            <td>Judul / Keterangan</td>
+            <td>: <?= esc($bast['source_title'] ?? '-') ?></td>
+        </tr>
+        <tr>
+            <td>Tanggal Serah Terima</td>
+            <td>: <?= esc($bast['handover_date']) ?></td>
+        </tr>
+        <tr>
+            <td>Lokasi</td>
+            <td>: <?= esc($bast['location'] ?? '-') ?></td>
+        </tr>
+    </table>
+    <p class="intro">Pada hari ini, berdasarkan dokumen sumber tersebut di atas, telah dilakukan serah terima barang
+        dari <strong><?= esc($bast['handed_over_by'] ?: ($bast['company_name'] ?? '-')) ?></strong> kepada
+        <strong><?= esc($bast['recipient_name']) ?></strong><?= ! empty($bast['recipient_position']) ? ' selaku ' . esc($bast['recipient_position']) : '' ?>.
+        Barang yang diserahterimakan adalah sebagai berikut:
+    </p>
+    <table class="items">
+        <thead>
+            <tr>
+                <th class="num">No.</th>
+                <th>Nama Barang</th>
+                <th>Deskripsi</th>
+                <th>Qty</th>
+                <th>Satuan</th>
+                <th>Nilai</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach (($bast['items'] ?? []) as $index => $item): ?>
+                <tr>
+                    <td class="num"><?= $index + 1 ?></td>
+                    <td><?= esc($item['product_name'] ?? '-') ?></td>
+                    <td><?= nl2br(esc($item['description'] ?? '-')) ?></td>
+                    <td class="qty"><?= esc($item['quantity'] ?? 0) ?></td>
+                    <td><?= esc($item['unit'] ?? 'pcs') ?></td>
+                    <td class="money">Rp <?= number_format((float) ($item['line_total'] ?? 0), 0, ',', '.') ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php if (! empty($bast['notes'])): ?><p><strong>Catatan:</strong><br><?= nl2br(esc($bast['notes'])) ?></p>
+    <?php endif; ?><p>Demikian berita acara ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana
+        mestinya.</p>
+    <table class="signatures">
+        <tr>
+            <td>Yang Menyerahkan,<div class="signature-space"></div><strong
+                    class="line"><?= esc($bast['handed_over_by'] ?: '-') ?></strong><?php if (! empty($bast['handed_over_position'])): ?><br><?= esc($bast['handed_over_position']) ?><?php endif; ?>
+            </td>
+            <td>Yang Menerima,<div class="signature-space"></div><strong
+                    class="line"><?= esc($bast['recipient_name']) ?></strong><?php if (! empty($bast['recipient_position'])): ?><br><?= esc($bast['recipient_position']) ?><?php endif; ?>
+            </td>
+        </tr>
+    </table>
+    <p class="small">Dokumen dibuat dari sistem EPROC · Dicetak <?= date('d-m-Y H:i') ?></p>
+</body>
+
+</html>

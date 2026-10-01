@@ -3,10 +3,10 @@
 namespace App\Controllers;
 
 use App\Libraries\SecureFileStorage;
+use App\Models\ProductModel;
 use App\Models\QuotationSettingModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use App\Models\ProductModel;
 
 class Products extends BaseController
 {
@@ -36,7 +36,6 @@ class Products extends BaseController
             $builder->groupStart()->like('name', $search)->orLike('sku', $search)->orLike('brand', $search)->orLike('store_name', $search)->groupEnd();
         }
         $filtered = $builder->countAllResults(false);
-        // Indeks mengikuti kolom tabel: kontrol, nomor, media, produk, harga modal, harga jual, toko, aksi.
         $columns = ['name', 'name', 'name', 'name', 'cost_price', 'selling_price', 'store_name', 'created_at'];
         $orderColumn = (int) ($request['order'][0]['column'] ?? 3);
         $orderDirection = strtolower((string) ($request['order'][0]['dir'] ?? 'asc')) === 'desc' ? 'desc' : 'asc';

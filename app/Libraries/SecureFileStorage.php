@@ -52,7 +52,6 @@ class SecureFileStorage
             }
             $path = self::ROOT . '/' . $relative;
         } elseif (str_starts_with($storedPath, 'uploads/')) {
-            // Compatibility for existing records; all new sensitive uploads are private.
             $relative = substr($storedPath, strlen('uploads/'));
             if ($relative === '' || str_contains($relative, '..') || str_contains($relative, '\\')) {
                 return null;

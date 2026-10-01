@@ -13,7 +13,8 @@
         </div>
         <?php if (can('products.create')): ?><a href="/products/new" class="btn btn-primary text-nowrap">
             <i class="bi bi-plus-lg me-1"></i>Tambah Produk
-        </a><?php endif; ?>
+        </a>
+        <?php endif; ?>
     </div>
 </div>
 <div class="card">

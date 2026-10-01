@@ -43,7 +43,6 @@ class Quotations extends BaseController
             $builder->groupStart()->like('quotations.quotation_no', $search)->orLike('companies.name', $search)->orLike('quotations.title', $search)->orLike('quotations.status', $search)->groupEnd();
         }
         $filtered = $builder->countAllResults(false);
-        // Indeks mengikuti kolom tabel: kontrol, nomor, no quotation, perusahaan, judul, total, status, dibuat, aksi.
         $columns = ['created_at', 'created_at', 'quotation_no', 'company_name', 'title', 'grand_total', 'status', 'created_at', 'created_at'];
         $orderColumn = (int) ($request['order'][0]['column'] ?? 7);
         $orderDirection = strtolower((string) ($request['order'][0]['dir'] ?? 'desc')) === 'asc' ? 'asc' : 'desc';
@@ -321,7 +320,8 @@ class Quotations extends BaseController
         $issueDate = $quotation['issue_date'] ?: $today;
         $totalDays = max(1, (int) ((strtotime($newValidUntil) - strtotime($issueDate)) / 86400));
         $user = (string) (session()->get('username') ?: 'system');
-        $db = db_connect(); $db->transStart();
+        $db = db_connect();
+        $db->transStart();
         $this->model->update($id, ['valid_until' => $newValidUntil, 'validity_days' => $totalDays]);
         (new QuotationStatusLogModel())->insert(['quotation_id' => $id, 'from_status' => $quotation['status'], 'to_status' => $quotation['status'], 'changed_by' => $user, 'reason' => 'Masa berlaku diperpanjang ' . $days . ' hari sampai ' . $newValidUntil . '.', 'created_at' => date('Y-m-d H:i:s')]);
         if ($quotation['status'] === 'expired') {
@@ -408,12 +408,16 @@ class Quotations extends BaseController
     {
         $id = $this->resolveId($id, $this->model);
         $negotiationId = $this->resolveId($negotiationId, new QuotationNegotiationModel());
-        $quotation = $this->model->find($id); $negotiations = new QuotationNegotiationModel();
+        $quotation = $this->model->find($id);
+        $negotiations = new QuotationNegotiationModel();
         $negotiation = $negotiations->where(['id' => $negotiationId, 'quotation_id' => $id])->first();
         if (! $quotation || ! $negotiation || $negotiation['status'] !== 'pending') return redirect()->back()->with('errors', ['negotiation' => 'Negosiasi tidak ditemukan atau sudah diproses.']);
         $decision = strtolower($decision);
         if (! in_array($decision, ['accepted', 'rejected'], true)) return redirect()->back()->with('errors', ['negotiation' => 'Keputusan negosiasi tidak valid.']);
-        $user = (string) (session()->get('username') ?: 'system'); $now = date('Y-m-d H:i:s'); $db = db_connect(); $db->transStart();
+        $user = (string) (session()->get('username') ?: 'system');
+        $now = date('Y-m-d H:i:s');
+        $db = db_connect();
+        $db->transStart();
         $negotiations->update($negotiationId, ['status' => $decision, 'responded_at' => $now, 'responded_by' => $user]);
         if ($decision === 'accepted') {
             $snapshot = json_decode((string) $negotiation['snapshot_json'], true) ?: [];
@@ -422,10 +426,12 @@ class Quotations extends BaseController
             $proforma = new ProformaInvoiceModel();
             if (! $proforma->where('quotation_id', $id)->first()) $proforma->insert(['quotation_id' => $id, 'invoice_no' => 'PI-' . $quotation['quotation_no'], 'invoice_date' => date('Y-m-d'), 'due_date' => date('Y-m-d', strtotime('+30 days')), 'amount' => $negotiation['grand_total'], 'payment_status' => 'unpaid', 'created_at' => $now]);
             (new QuotationStatusLogModel())->insert(['quotation_id' => $id, 'from_status' => $quotation['status'], 'to_status' => 'approved', 'changed_by' => $user, 'reason' => 'Negosiasi putaran ' . $negotiation['round_no'] . ' diterima; menjadi kondisi final.', 'created_at' => $now]);
-        } else { $this->model->changeStatus($id, 'sent', $user, 'Negosiasi putaran ' . $negotiation['round_no'] . ' ditolak.'); }
+        } else {
+            $this->model->changeStatus($id, 'sent', $user, 'Negosiasi putaran ' . $negotiation['round_no'] . ' ditolak.');
+        }
         $db->transComplete();
         if ($db->transStatus() === false) return redirect()->back()->with('errors', ['negotiation' => 'Keputusan negosiasi gagal disimpan.']);
-        return redirect()->to('/quotations/' . public_id($id))->with('message', 'Negosiasi berhasil ' . ($decision === 'accepted' ? 'diterima sebagai final.' : 'ditolak.') );
+        return redirect()->to('/quotations/' . public_id($id))->with('message', 'Negosiasi berhasil ' . ($decision === 'accepted' ? 'diterima sebagai final.' : 'ditolak.'));
     }
 
     public function proformaInvoice(string $id)
@@ -436,8 +442,13 @@ class Quotations extends BaseController
         if ($quotation['status'] !== 'approved') return redirect()->to('/quotations/' . public_id($id))->with('errors', ['status' => 'Proforma Invoice hanya dapat dicetak setelah quotation final disetujui.']);
         $finalSnapshot = json_decode((string) ($quotation['final_snapshot_json'] ?? ''), true);
         if (is_array($finalSnapshot)) $quotation = array_merge($quotation, $finalSnapshot);
-        $settings = (new QuotationSettingModel())->current(); $options = new Options(); $options->set('isRemoteEnabled', false); $dompdf = new Dompdf($options);
-        $dompdf->loadHtml(view('quotations/proforma_invoice', ['quotation' => $quotation, 'settings' => $settings])); $dompdf->setPaper('A4', 'portrait'); $dompdf->render();
+        $settings = (new QuotationSettingModel())->current();
+        $options = new Options();
+        $options->set('isRemoteEnabled', false);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml(view('quotations/proforma_invoice', ['quotation' => $quotation, 'settings' => $settings]));
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
         return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="proforma-invoice-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }
 
@@ -486,11 +497,13 @@ class Quotations extends BaseController
             if ($previous === null) {
                 $changes[] = 'Putaran pertama: seluruh nilai di bawah merupakan usulan negosiasi.';
             } else {
-                foreach ([
-                    'payment_terms' => 'Termin pembayaran',
-                    'delivery_terms' => 'Termin pengiriman',
-                    'notes' => 'Catatan atau syarat',
-                ] as $field => $label) {
+                foreach (
+                    [
+                        'payment_terms' => 'Termin pembayaran',
+                        'delivery_terms' => 'Termin pengiriman',
+                        'notes' => 'Catatan atau syarat',
+                    ] as $field => $label
+                ) {
                     $before = trim((string) ($previous[$field] ?? ''));
                     $after = trim((string) ($snapshot[$field] ?? ''));
                     if ($before !== $after) $changes[] = $label . ' diubah.';
@@ -510,13 +523,15 @@ class Quotations extends BaseController
                     }
                     $beforeItem = $beforeItems[$key];
                     $itemChanges = [];
-                    foreach ([
-                        'quantity' => 'qty',
-                        'unit_price' => 'harga',
-                        'discount_percent' => 'diskon',
-                        'description' => 'deskripsi',
-                        'unit' => 'satuan',
-                    ] as $field => $label) {
+                    foreach (
+                        [
+                            'quantity' => 'qty',
+                            'unit_price' => 'harga',
+                            'discount_percent' => 'diskon',
+                            'description' => 'deskripsi',
+                            'unit' => 'satuan',
+                        ] as $field => $label
+                    ) {
                         if ((string) ($beforeItem[$field] ?? '') !== (string) ($item[$field] ?? '')) $itemChanges[] = $label;
                     }
                     if ($itemChanges) $changes[] = 'Item ' . $name . ' diubah: ' . implode(', ', $itemChanges) . '.';

@@ -3,11 +3,19 @@
 <div class="app-content-header">
     <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
         <div>
-            <h2 class="h5 mb-1"><i class="bi bi-buildings text-primary me-2"></i>Daftar Perusahaan</h2>
-            <p class="text-body-secondary mb-0">Kelola data customer dan PIC untuk kebutuhan quotation.</p>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-buildings text-primary me-2"></i>
+                Daftar Perusahaan
+            </h2>
+            <p class="text-body-secondary mb-0">
+                Kelola data customer dan PIC untuk kebutuhan quotation.
+            </p>
         </div>
-        <?php if (can('companies.create')): ?><a href="/companies/new" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg me-1"></i>Tambah
-            Perusahaan</a><?php endif; ?>
+        <?php if (can('companies.create')): ?>
+            <a href="/companies/new" class="btn btn-primary text-nowrap">
+                <i class="bi bi-plus-lg me-1"></i>Tambah Perusahaan
+            </a>
+        <?php endif; ?>
     </div>
 </div>
 <div class="card">

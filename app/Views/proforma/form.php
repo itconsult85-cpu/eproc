@@ -1,1 +1,81 @@
-<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-receipt me-2"></i>Kelola Pembayaran Proforma</h2><p class="text-body-secondary mb-0"><?= esc($invoice['invoice_no']) ?> · Rp <?= number_format((float)$invoice['amount'],0,',','.') ?></p></div><a href="/proforma-invoices" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div></div><form method="post" enctype="multipart/form-data" action="<?= esc($action) ?>" class="card form-card"><div class="card-body row g-3"><?= csrf_field() ?><div class="col-md-4"><label class="form-label">Status Pembayaran</label><select name="payment_status" class="form-select"><option value="unpaid" <?= $invoice['payment_status']==='unpaid'?'selected':'' ?>>Belum dibayar</option><option value="partial" <?= $invoice['payment_status']==='partial'?'selected':'' ?>>Dibayar sebagian</option><option value="paid" <?= $invoice['payment_status']==='paid'?'selected':'' ?>>Sudah dibayar</option></select></div><div class="col-md-4"><label class="form-label">Tanggal Bayar</label><input type="date" name="payment_date" value="<?= esc($invoice['payment_date']??'') ?>" class="form-control"></div><div class="col-md-4"><label class="form-label">Metode Pembayaran</label><input name="payment_method" value="<?= esc($invoice['payment_method']??'') ?>" class="form-control" placeholder="Transfer / cash / lainnya"></div><div class="col-md-6"><label class="form-label">No. Referensi</label><input name="payment_reference" value="<?= esc($invoice['payment_reference']??'') ?>" class="form-control"></div><div class="col-md-6"><label class="form-label">Bukti Pembayaran</label><input type="file" name="proof" class="form-control" accept=".jpg,.jpeg,.png,.webp,.pdf"><?php if(!empty($invoice['proof_path'])): ?><div class="form-text"><a href="<?= esc(site_url('files/proforma-proofs/' . public_id((int) $invoice['id']))) ?>" target="_blank" rel="noopener">Lihat bukti tersimpan</a></div><?php endif; ?></div><div class="col-12"><label class="form-label">Catatan</label><textarea name="notes" rows="3" class="form-control"><?= esc($invoice['notes']??'') ?></textarea></div></div><div class="card-footer d-flex justify-content-end gap-2"><a href="/proforma-invoices" class="btn btn-light">Batal</a><button class="btn btn-primary"><i class="bi bi-save me-1"></i>Simpan Pembayaran</button></div></form><?= $this->endSection() ?>
+<?= $this->extend('layout') ?><?= $this->section('content') ?><div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-receipt me-2"></i>
+                Kelola Pembayaran Proforma
+            </h2>
+            <p class="text-body-secondary mb-0"><?= esc($invoice['invoice_no']) ?> · Rp
+                <?= number_format((float)$invoice['amount'], 0, ',', '.') ?></p>
+        </div>
+        <a href="/proforma-invoices" class="btn btn-light text-nowrap">
+            <i class="bi bi-arrow-left me-1"></i>Kembali
+        </a>
+    </div>
+</div>
+<form method="post" enctype="multipart/form-data" action="<?= esc($action) ?>" class="card form-card">
+    <div class="card-body row g-3">
+        <?= csrf_field() ?>
+        <div class="col-md-4">
+            <label class="form-label">
+                Status Pembayaran
+            </label>
+            <select name="payment_status" class="form-select">
+                <option value="unpaid" <?= $invoice['payment_status'] === 'unpaid' ? 'selected' : '' ?>>Belum dibayar
+                </option>
+                <option value="partial" <?= $invoice['payment_status'] === 'partial' ? 'selected' : '' ?>>Dibayar
+                    sebagian</option>
+                <option value="paid" <?= $invoice['payment_status'] === 'paid' ? 'selected' : '' ?>>Sudah dibayar
+                </option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">
+                Tanggal Bayar
+            </label>
+            <input type="date" name="payment_date" value="<?= esc($invoice['payment_date'] ?? '') ?>"
+                class="form-control">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">
+                Metode Pembayaran
+            </label>
+            <input name="payment_method" value="<?= esc($invoice['payment_method'] ?? '') ?>" class="form-control"
+                placeholder="Transfer / cash / lainnya">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">
+                No. Referensi
+            </label>
+            <input name="payment_reference" value="<?= esc($invoice['payment_reference'] ?? '') ?>"
+                class="form-control">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">
+                Bukti Pembayaran
+            </label>
+            <input type="file" name="proof" class="form-control"
+                accept=".jpg,.jpeg,.png,.webp,.pdf"><?php if (!empty($invoice['proof_path'])): ?>
+            <div class="form-text">
+                <a href="<?= esc(site_url('files/proforma-proofs/' . public_id((int) $invoice['id']))) ?>"
+                    target="_blank" rel="noopener">
+                    Lihat bukti tersimpan
+                </a>
+            </div><?php endif; ?>
+        </div>
+        <div class="col-12">
+            <label class="form-label">
+                Catatan
+            </label>
+            <textarea name="notes" rows="3" class="form-control"><?= esc($invoice['notes'] ?? '') ?></textarea>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end gap-2">
+        <a href="/proforma-invoices" class="btn btn-light">
+            Batal
+        </a>
+        <button class="btn btn-primary">
+            <i class="bi bi-save me-1"></i>Simpan Pembayaran
+        </button>
+    </div>
+</form><?= $this->endSection() ?>

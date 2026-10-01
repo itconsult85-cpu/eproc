@@ -38,7 +38,6 @@ class Companies extends BaseController
         }
 
         $filtered = $builder->countAllResults(false);
-        // Indeks mengikuti kolom tabel: kontrol, nomor, nama, PIC, telepon, aksi.
         $columns = ['name', 'name', 'name', 'pic_name', 'phone', 'created_at'];
         $orderColumn = (int) ($request['order'][0]['column'] ?? 2);
         $orderDirection = strtolower((string) ($request['order'][0]['dir'] ?? 'asc')) === 'desc' ? 'desc' : 'asc';

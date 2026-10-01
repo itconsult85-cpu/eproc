@@ -9,10 +9,25 @@ class BastModel extends BaseModel
     protected $returnType = 'array';
     protected $useTimestamps = true;
     protected $allowedFields = [
-        'bast_no', 'source_type', 'source_id', 'source_no', 'source_title', 'source_date',
-        'company_id', 'handover_date', 'location', 'recipient_name', 'recipient_position',
-        'handed_over_by', 'handed_over_position', 'status', 'items_json', 'notes', 'created_by',
-        'created_at', 'updated_at'
+        'bast_no',
+        'source_type',
+        'source_id',
+        'source_no',
+        'source_title',
+        'source_date',
+        'company_id',
+        'handover_date',
+        'location',
+        'recipient_name',
+        'recipient_position',
+        'handed_over_by',
+        'handed_over_position',
+        'status',
+        'items_json',
+        'notes',
+        'created_by',
+        'created_at',
+        'updated_at'
     ];
 
     public function listPage(string $search, int $start, int $length, string $orderColumn = 'created_at', string $direction = 'DESC'): array

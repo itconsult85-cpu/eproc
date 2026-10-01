@@ -21,27 +21,23 @@ class Home extends BaseController
 
         return view('dashboard', [
             'title' => 'Dashboard',
-            'companyCount' => $this->safeMetric(fn () => (new CompanyModel())->countAllResults()),
-            'productCount' => $this->safeMetric(fn () => (new ProductModel())->countAllResults()),
-            'quotationCount' => $this->safeMetric(fn () => (new QuotationModel())->countAllResults()),
-            'draftQuotationCount' => $this->safeMetric(fn () => (new QuotationModel())->where('status', 'draft')->countAllResults()),
-            'negotiationQuotationCount' => $this->safeMetric(fn () => (new QuotationModel())->where('status', 'negotiation')->countAllResults()),
-            'approvedQuotationCount' => $this->safeMetric(fn () => (new QuotationModel())->where('status', 'approved')->countAllResults()),
-            'vendorCount' => $this->safeMetric(fn () => (new VendorModel())->countAllResults()),
-            'clientPurchaseOrderCount' => $this->safeMetric(fn () => (new ClientPurchaseOrderModel())->countAllResults()),
-            'purchaseOrderCount' => $this->safeMetric(fn () => (new PurchaseOrderModel())->countAllResults()),
-            'proformaCount' => $this->safeMetric(fn () => (new ProformaInvoiceModel())->countAllResults()),
-            'unpaidBillCount' => $this->safeMetric(fn () => (new VendorBillModel())->whereIn('status', ['unpaid', 'partial'])->countAllResults()),
-            'bastCount' => $this->safeMetric(fn () => (new BastModel())->countAllResults()),
-            'deliveryNoteCount' => $this->safeMetric(fn () => (new ClientDeliveryNoteModel())->countAllResults()),
-            'recentQuotations' => $this->safeList(fn () => $quotations->orderBy('created_at', 'DESC')->findAll(5)),
+            'companyCount' => $this->safeMetric(fn() => (new CompanyModel())->countAllResults()),
+            'productCount' => $this->safeMetric(fn() => (new ProductModel())->countAllResults()),
+            'quotationCount' => $this->safeMetric(fn() => (new QuotationModel())->countAllResults()),
+            'draftQuotationCount' => $this->safeMetric(fn() => (new QuotationModel())->where('status', 'draft')->countAllResults()),
+            'negotiationQuotationCount' => $this->safeMetric(fn() => (new QuotationModel())->where('status', 'negotiation')->countAllResults()),
+            'approvedQuotationCount' => $this->safeMetric(fn() => (new QuotationModel())->where('status', 'approved')->countAllResults()),
+            'vendorCount' => $this->safeMetric(fn() => (new VendorModel())->countAllResults()),
+            'clientPurchaseOrderCount' => $this->safeMetric(fn() => (new ClientPurchaseOrderModel())->countAllResults()),
+            'purchaseOrderCount' => $this->safeMetric(fn() => (new PurchaseOrderModel())->countAllResults()),
+            'proformaCount' => $this->safeMetric(fn() => (new ProformaInvoiceModel())->countAllResults()),
+            'unpaidBillCount' => $this->safeMetric(fn() => (new VendorBillModel())->whereIn('status', ['unpaid', 'partial'])->countAllResults()),
+            'bastCount' => $this->safeMetric(fn() => (new BastModel())->countAllResults()),
+            'deliveryNoteCount' => $this->safeMetric(fn() => (new ClientDeliveryNoteModel())->countAllResults()),
+            'recentQuotations' => $this->safeList(fn() => $quotations->orderBy('created_at', 'DESC')->findAll(5)),
         ]);
     }
 
-    /**
-     * Optional document modules may not exist until their migration is run.
-     * Keep the dashboard available while reporting their count as zero.
-     */
     private function safeMetric(callable $query): int
     {
         try {

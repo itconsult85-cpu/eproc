@@ -8,7 +8,26 @@ class PurchaseOrderModel extends BaseModel
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     protected $useTimestamps = true;
-    protected $allowedFields = ['vendor_id', 'client_purchase_order_id', 'po_no', 'po_date', 'expected_date', 'status', 'subtotal', 'tax_percent', 'use_ppn', 'ppn_percent', 'use_pph', 'pph_percent', 'tax_amount', 'pph_amount', 'grand_total', 'notes', 'created_at', 'updated_at'];
+    protected $allowedFields = [
+        'vendor_id',
+        'client_purchase_order_id',
+        'po_no',
+        'po_date',
+        'expected_date',
+        'status',
+        'subtotal',
+        'tax_percent',
+        'use_ppn',
+        'ppn_percent',
+        'use_pph',
+        'pph_percent',
+        'tax_amount',
+        'pph_amount',
+        'grand_total',
+        'notes',
+        'created_at',
+        'updated_at'
+    ];
 
     public function withVendor(): array
     {

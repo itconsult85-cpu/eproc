@@ -1,17 +1,140 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 <?php $po = $po ?? []; ?>
-<div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-file-earmark-arrow-down me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">PO IN diterima dari klien setelah quotation selesai dan disetujui.</p></div><a href="/client-purchase-orders" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div></div>
-<form method="post" action="<?= esc($action) ?>" class="card form-card" id="client-po-form"><?= csrf_field() ?><div class="card-body row g-3">
-<div class="col-md-4"><label class="form-label">Nomor PO Klien *</label><input name="po_no" required maxlength="100" class="form-control" value="<?= esc($po['po_no'] ?? 'PO-IN-' . date('YmdHis')) ?>" placeholder="Nomor dari klien"></div>
-<div class="col-md-4"><label class="form-label">Tanggal PO *</label><input type="date" name="po_date" required class="form-control" value="<?= esc($po['po_date'] ?? date('Y-m-d')) ?>"></div>
-<div class="col-md-4"><label class="form-label">Status</label><select name="status" class="form-select"><option value="received" <?= ($po['status'] ?? 'received') === 'received' ? 'selected' : '' ?>>Diterima</option><option value="draft" <?= ($po['status'] ?? '') === 'draft' ? 'selected' : '' ?>>Draft</option><option value="confirmed" <?= ($po['status'] ?? '') === 'confirmed' ? 'selected' : '' ?>>Dikonfirmasi</option><option value="cancelled" <?= ($po['status'] ?? '') === 'cancelled' ? 'selected' : '' ?>>Dibatalkan</option></select></div>
-<div class="col-12"><label class="form-label">Quotation Final *</label><select name="quotation_id" id="quotation_id" required class="form-select" data-searchable-select data-placeholder="Pilih quotation approved"><option value="">Pilih quotation approved</option><?php foreach ($quotations as $quotation): ?><option value="<?= public_id((int) $quotation['id']) ?>" <?= (int) ($po['quotation_id'] ?? 0) === (int) $quotation['id'] ? 'selected' : '' ?>><?= esc($quotation['quotation_no']) ?> — <?= esc($quotation['company_name'] ?? '-') ?> — <?= esc($quotation['title']) ?></option><?php endforeach; ?></select><div class="form-text">Perusahaan dan item akan diambil otomatis dari quotation approved.</div></div>
-<div class="col-12"><div class="border rounded p-3 bg-body-tertiary"><strong>Informasi perusahaan</strong><div id="company-preview" class="small text-body-secondary mt-2"><?= esc($po['company_name'] ?? 'Pilih quotation untuk menampilkan perusahaan.') ?></div></div></div>
-<div class="col-12"><div class="table-responsive"><table class="table table-sm align-middle"><thead><tr><th>Barang</th><th>Deskripsi</th><th class="text-end">Qty</th><th>Satuan</th><th class="text-end">Nilai</th></tr></thead><tbody id="quotation-items"><tr><td colspan="5" class="text-body-secondary">Item akan ditampilkan dari quotation yang dipilih.</td></tr></tbody></table></div></div>
-<div class="col-12"><label class="form-label">Catatan</label><textarea name="notes" rows="3" class="form-control"><?= esc($po['notes'] ?? '') ?></textarea></div>
-</div><div class="card-footer d-flex justify-content-end gap-2"><a href="/client-purchase-orders" class="btn btn-light">Batal</a><button class="btn btn-primary"><i class="bi bi-save me-1"></i>Simpan PO IN</button></div></form>
+<div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-file-earmark-arrow-down me-2"></i>
+                <?= esc($title) ?>
+            </h2>
+            <p class="text-body-secondary mb-0">
+                PO IN diterima dari klien setelah quotation selesai dan disetujui.
+            </p>
+        </div>
+        <a href="/client-purchase-orders" class="btn btn-light text-nowrap">
+            <i class="bi bi-arrow-left me-1"></i>Kembali
+        </a>
+    </div>
+</div>
+<form method="post" action="<?= esc($action) ?>" class="card form-card" id="client-po-form">
+    <?= csrf_field() ?><div class="card-body row g-3">
+        <div class="col-md-4">
+            <label class="form-label">
+                Nomor PO Klien *
+            </label>
+            <input name="po_no" required maxlength="100" class="form-control"
+                value="<?= esc($po['po_no'] ?? 'PO-IN-' . date('YmdHis')) ?>" placeholder="Nomor dari klien">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">
+                Tanggal PO *
+
+            </label>
+            <input type="date" name="po_date" required class="form-control"
+                value="<?= esc($po['po_date'] ?? date('Y-m-d')) ?>">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">
+                Status
+            </label>
+            <select name="status" class="form-select">
+                <option value="received" <?= ($po['status'] ?? 'received') === 'received' ? 'selected' : '' ?>>Diterima
+                </option>
+                <option value="draft" <?= ($po['status'] ?? '') === 'draft' ? 'selected' : '' ?>>Draft</option>
+                <option value="confirmed" <?= ($po['status'] ?? '') === 'confirmed' ? 'selected' : '' ?>>Dikonfirmasi
+                </option>
+                <option value="cancelled" <?= ($po['status'] ?? '') === 'cancelled' ? 'selected' : '' ?>>Dibatalkan
+                </option>
+            </select>
+        </div>
+        <div class="col-12">
+            <label class="form-label">
+                Quotation Final *
+            </label>
+            <select name="quotation_id" id="quotation_id" required class="form-select" data-searchable-select
+                data-placeholder="Pilih quotation approved">
+                <option value="">Pilih quotation approved</option>
+                <?php foreach ($quotations as $quotation): ?>
+                <option value="<?= public_id((int) $quotation['id']) ?>"
+                    <?= (int) ($po['quotation_id'] ?? 0) === (int) $quotation['id'] ? 'selected' : '' ?>>
+                    <?= esc($quotation['quotation_no']) ?> — <?= esc($quotation['company_name'] ?? '-') ?> —
+                    <?= esc($quotation['title']) ?>
+                </option>
+                <?php endforeach; ?>
+            </select>
+            <div class="form-text">Perusahaan dan item akan diambil otomatis dari quotation approved.</div>
+        </div>
+        <div class="col-12">
+            <div class="border rounded p-3 bg-body-tertiary"><strong>Informasi perusahaan</strong>
+                <div id="company-preview" class="small text-body-secondary mt-2">
+                    <?= esc($po['company_name'] ?? 'Pilih quotation untuk menampilkan perusahaan.') ?></div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-sm align-middle">
+                    <thead>
+                        <tr>
+                            <th>Barang</th>
+                            <th>Deskripsi</th>
+                            <th class="text-end">Qty</th>
+                            <th>Satuan</th>
+                            <th class="text-end">Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody id="quotation-items">
+                        <tr>
+                            <td colspan="5" class="text-body-secondary">Item akan ditampilkan dari quotation yang
+                                dipilih.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12">
+            <label class="form-label">
+                Catatan
+            </label>
+            <textarea name="notes" rows="3" class="form-control"><?= esc($po['notes'] ?? '') ?></textarea>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end gap-2">
+        <a href="/client-purchase-orders" class="btn btn-light">
+            Batal
+        </a>
+        <button class="btn btn-primary">
+            <i class="bi bi-save me-1"></i>Simpan PO IN
+        </button>
+    </div>
+</form>
 <?= $this->endSection() ?>
 <?= $this->section('scripts') ?><script>
-(() => { const quotationItems = <?= json_encode(array_map(static fn(array $q): array => ['id' => public_id((int) $q['id']), 'company' => $q['company_name'] ?? '', 'title' => $q['title'], 'items' => $q['items'] ?? []], $quotations), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>; const select = document.querySelector('#quotation_id'); const preview = document.querySelector('#company-preview'); const body = document.querySelector('#quotation-items'); const esc = value => String(value ?? '').replace(/[&<>\'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c])); function render(){ const row = quotationItems.find(item => item.id === select.value); preview.textContent = row ? row.company + ' — ' + row.title : 'Pilih quotation untuk menampilkan perusahaan.'; body.innerHTML = row && row.items.length ? row.items.map(item => '<tr><td>'+esc(item.product_name)+'</td><td>'+esc(item.description)+'</td><td class="text-end">'+esc(item.quantity)+'</td><td>'+esc(item.unit || 'pcs')+'</td><td class="text-end">Rp '+Number(item.line_total || 0).toLocaleString('id-ID')+'</td></tr>').join('') : '<tr><td colspan="5" class="text-body-secondary">Quotation belum memiliki item.</td></tr>'; } select.addEventListener('change', render); render(); })();
+(() => {
+    const quotationItems =
+        <?= json_encode(array_map(static fn(array $q): array => ['id' => public_id((int) $q['id']), 'company' => $q['company_name'] ?? '', 'title' => $q['title'], 'items' => $q['items'] ?? []], $quotations), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>;
+    const select = document.querySelector('#quotation_id');
+    const preview = document.querySelector('#company-preview');
+    const body = document.querySelector('#quotation-items');
+    const esc = value => String(value ?? '').replace(/[&<>\'"]/g, c => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#039;',
+        '"': '&quot;'
+    } [c]));
+
+    function render() {
+        const row = quotationItems.find(item => item.id === select.value);
+        preview.textContent = row ? row.company + ' — ' + row.title :
+            'Pilih quotation untuk menampilkan perusahaan.';
+        body.innerHTML = row && row.items.length ? row.items.map(item => '<tr><td>' + esc(item.product_name) +
+                '</td><td>' + esc(item.description) + '</td><td class="text-end">' + esc(item.quantity) +
+                '</td><td>' + esc(item.unit || 'pcs') + '</td><td class="text-end">Rp ' + Number(item.line_total ||
+                    0).toLocaleString('id-ID') + '</td></tr>').join('') :
+            '<tr><td colspan="5" class="text-body-secondary">Quotation belum memiliki item.</td></tr>';
+    }
+    select.addEventListener('change', render);
+    render();
+})();
 </script><?= $this->endSection() ?>

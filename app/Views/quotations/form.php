@@ -9,7 +9,22 @@ foreach ($products as $product) {
     $productsById[(string) $product['id']] = $product;
 }
 ?>
-<div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-file-earmark-plus me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Buat atau edit penawaran dengan data perusahaan, item produk, dan ketentuan komersial.</p></div><a href="/quotations" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div></div>
+<div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-file-earmark-plus me-2"></i>
+                <?= esc($title) ?>
+            </h2>
+            <p class="text-body-secondary mb-0">
+                Buat atau edit penawaran dengan data perusahaan, item produk, dan ketentuan komersial.
+            </p>
+        </div>
+        <a href="/quotations" class="btn btn-light text-nowrap">
+            <i class="bi bi-arrow-left me-1"></i>Kembali
+        </a>
+    </div>
+</div>
 <form method="post" action="<?= $action ?>" class="card form-card card-primary card-outline"
     data-companies="<?= esc(json_encode($companies), 'attr') ?>"
     data-products="<?= esc(json_encode($products), 'attr') ?>" data-item-count="<?= count($items) ?>">
@@ -28,10 +43,10 @@ foreach ($products as $product) {
                 <select name="company_id" required class="form-select" data-action="company-change">
                     <option value="">Pilih perusahaan</option>
                     <?php foreach ($companies as $company): ?>
-                    <option value="<?= $company['id'] ?>"
-                        <?= old('company_id', $quotation['company_id'] ?? '') == $company['id'] ? 'selected' : '' ?>>
-                        <?= esc($company['name']) ?>
-                    </option>
+                        <option value="<?= $company['id'] ?>"
+                            <?= old('company_id', $quotation['company_id'] ?? '') == $company['id'] ? 'selected' : '' ?>>
+                            <?= esc($company['name']) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -39,13 +54,15 @@ foreach ($products as $product) {
                 <label class="field-label">
                     Nomor quotation
                 </label>
-                <input id="quotation_number_preview" disabled data-quotation-preview="<?= $isEdit ? 'static' : 'dynamic' ?>" class="form-control"
+                <input id="quotation_number_preview" disabled
+                    data-quotation-preview="<?= $isEdit ? 'static' : 'dynamic' ?>" class="form-control"
                     value="<?= esc($quotation['quotation_no'] ?? '') ?>">
                 <?php if (!$isEdit): ?>
-                <div class="form-text">Preview nomor quotation berdasarkan perusahaan dan tanggal terpilih.</div>
+                    <div class="form-text">Preview nomor quotation berdasarkan perusahaan dan tanggal terpilih.</div>
                 <?php endif; ?>
             </div>
-            <div class="col-md-4"><label class="field-label">
+            <div class="col-md-4">
+                <label class="field-label">
                     Tanggal
                 </label>
                 <input type="date" name="issue_date" class="form-control"
@@ -72,7 +89,8 @@ foreach ($products as $product) {
                 <label class="field-label">
                     Alamat customer
                 </label>
-                <textarea id="customer_address_preview" disabled data-auto-field="customer_address" class="form-control" rows="2"><?= old('customer_address', $quotation['customer_address'] ?? '') ?>
+                <textarea id="customer_address_preview" disabled data-auto-field="customer_address" class="form-control"
+                    rows="2"><?= old('customer_address', $quotation['customer_address'] ?? '') ?>
                 </textarea>
                 <input type="hidden" name="customer_address"
                     value="<?= esc(old('customer_address', $quotation['customer_address'] ?? '')) ?>">
@@ -93,15 +111,19 @@ foreach ($products as $product) {
             </div>
 
             <div class="col-12 tax-section">
-                <div class="tax-section-title"><i class="bi bi-percent"></i><span>Pajak dan ketentuan penawaran</span></div>
+                <div class="tax-section-title"><i class="bi bi-percent"></i><span>Pajak dan ketentuan penawaran</span>
+                </div>
             </div>
             <div class="col-md-3 tax-field">
-                <label class="field-label">PPN (%)</label>
+                <label class="field-label">
+                    PPN (%)
+                </label>
                 <input type="number" step="0.01" min="0" name="tax_percent" class="form-control"
                     value="<?= old('tax_percent', $quotation['tax_percent'] ?? $settings['default_tax_percent'] ?? 11) ?>">
                 <div class="form-text">Persentase PPN yang ditambahkan ke DPP.</div>
             </div>
-            <div class="col-md-3"><label class="field-label">
+            <div class="col-md-3">
+                <label class="field-label">
                     Masa berlaku (hari)
                 </label>
                 <input type="number" min="0" name="validity_days" class="form-control"
@@ -111,16 +133,19 @@ foreach ($products as $product) {
                 <label class="field-label">
                     Telepon penandatangan
                 </label>
-                <input id="signer_phone_preview" disabled class="form-control" value="<?= esc($settings['signer_phone'] ?? '') ?>">
+                <input id="signer_phone_preview" disabled class="form-control"
+                    value="<?= esc($settings['signer_phone'] ?? '') ?>">
             </div>
             <div class="col-md-3">
                 <label class="field-label">
                     Penandatangan
                 </label>
-                <input id="signer_name_preview" disabled class="form-control" value="<?= esc($settings['signer_name'] ?? '') ?>">
+                <input id="signer_name_preview" disabled class="form-control"
+                    value="<?= esc($settings['signer_name'] ?? '') ?>">
             </div>
 
-            <div class="col-md-6"><label class="field-label">
+            <div class="col-md-6">
+                <label class="field-label">
                     Terms of payment
                 </label>
                 <input name="payment_terms" class="form-control"
@@ -155,62 +180,62 @@ foreach ($products as $product) {
                         </thead>
                         <tbody>
                             <?php foreach ($items as $i => $it): ?>
-                            <tr>
-                                <td class="item-row-number text-center"><?= $i + 1 ?></td>
-                                <td>
-                                    <select name="items[<?= $i ?>][product_id]" class="form-select mb-1"
-                                        data-action="product-change">
-                                        <option value="">Pilih produk</option>
-                                        <?php foreach ($products as $product): ?>
-                                        <option value="<?= $product['id'] ?>"
-                                            <?= ($it['product_id'] ?? '') == $product['id'] ? 'selected' : '' ?>>
-                                            <?= esc(($product['brand'] ? $product['brand'] . ' / ' : '') . $product['name']) ?>
-                                        </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </td>
-                                <td class="quotation-item-image text-center">
-                                    <?php
+                                <tr>
+                                    <td class="item-row-number text-center"><?= $i + 1 ?></td>
+                                    <td>
+                                        <select name="items[<?= $i ?>][product_id]" class="form-select mb-1"
+                                            data-action="product-change">
+                                            <option value="">Pilih produk</option>
+                                            <?php foreach ($products as $product): ?>
+                                                <option value="<?= $product['id'] ?>"
+                                                    <?= ($it['product_id'] ?? '') == $product['id'] ? 'selected' : '' ?>>
+                                                    <?= esc(($product['brand'] ? $product['brand'] . ' / ' : '') . $product['name']) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </td>
+                                    <td class="quotation-item-image text-center">
+                                        <?php
                                         $selectedProduct = $productsById[(string) ($it['product_id'] ?? '')] ?? [];
                                         $productImagePath = $selectedProduct['image_path'] ?? ($selectedProduct['image_url'] ?? '');
-                                    ?>
-                                    <div class="product-image-preview" title="Preview gambar produk">
-                                    <img class="product-thumb img-thumbnail"
-                                        src="<?= esc($productImagePath) ?>"
-                                        alt="<?= esc($selectedProduct['name'] ?? 'Gambar produk') ?>"
-                                        <?= $productImagePath ? '' : 'hidden' ?>>
-                                    <span class="product-image-placeholder" <?= $productImagePath ? 'hidden' : '' ?>>
-                                        <i class="bi bi-image"></i>
-                                        <small>Tanpa gambar</small>
-                                    </span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <input name="items[<?= $i ?>][description]" class="form-control"
-                                        placeholder="Deskripsi" value="<?= esc($it['description'] ?? '') ?>">
-                                </td>
-                                <td>
-                                    <input name="items[<?= $i ?>][quantity]" type="number" step="0.01" min="0"
-                                        class="form-control" value="<?= $it['quantity'] ?? 1 ?>">
-                                </td>
-                                <td>
-                                    <input name="items[<?= $i ?>][unit]" class="form-control"
-                                        value="<?= $it['unit'] ?? 'pcs' ?>">
-                                </td>
-                                <td>
-                                    <input name="items[<?= $i ?>][unit_price]" type="number" step="0.01" min="0"
-                                        class="form-control" value="<?= $it['unit_price'] ?? 0 ?>">
-                                </td>
-                                <td>
-                                    <input name="items[<?= $i ?>][discount_percent]" type="number" step="0.01" min="0"
-                                        max="100" class="form-control" value="<?= $it['discount_percent'] ?? 0 ?>">
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-secondary" data-action="remove-item">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                        ?>
+                                        <div class="product-image-preview" title="Preview gambar produk">
+                                            <img class="product-thumb img-thumbnail" src="<?= esc($productImagePath) ?>"
+                                                alt="<?= esc($selectedProduct['name'] ?? 'Gambar produk') ?>"
+                                                <?= $productImagePath ? '' : 'hidden' ?>>
+                                            <span class="product-image-placeholder"
+                                                <?= $productImagePath ? 'hidden' : '' ?>>
+                                                <i class="bi bi-image"></i>
+                                                <small>Tanpa gambar</small>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input name="items[<?= $i ?>][description]" class="form-control"
+                                            placeholder="Deskripsi" value="<?= esc($it['description'] ?? '') ?>">
+                                    </td>
+                                    <td>
+                                        <input name="items[<?= $i ?>][quantity]" type="number" step="0.01" min="0"
+                                            class="form-control" value="<?= $it['quantity'] ?? 1 ?>">
+                                    </td>
+                                    <td>
+                                        <input name="items[<?= $i ?>][unit]" class="form-control"
+                                            value="<?= $it['unit'] ?? 'pcs' ?>">
+                                    </td>
+                                    <td>
+                                        <input name="items[<?= $i ?>][unit_price]" type="number" step="0.01" min="0"
+                                            class="form-control" value="<?= $it['unit_price'] ?? 0 ?>">
+                                    </td>
+                                    <td>
+                                        <input name="items[<?= $i ?>][discount_percent]" type="number" step="0.01" min="0"
+                                            max="100" class="form-control" value="<?= $it['discount_percent'] ?? 0 ?>">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-secondary" data-action="remove-item">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>

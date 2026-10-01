@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 class TenderDocumentModel extends BaseModel
@@ -8,10 +9,24 @@ class TenderDocumentModel extends BaseModel
     protected $returnType = 'array';
     protected $useTimestamps = true;
     protected $allowedFields = [
-        'tender_no', 'title', 'procurement_method', 'issuer_name',
-        'description', 'issue_date', 'valid_until', 'submission_deadline', 'status',
-        'contact_name', 'contact_email', 'contact_phone', 'notes', 'file_path',
-        'original_file_name', 'file_mime', 'file_size', 'created_by',
+        'tender_no',
+        'title',
+        'procurement_method',
+        'issuer_name',
+        'description',
+        'issue_date',
+        'valid_until',
+        'submission_deadline',
+        'status',
+        'contact_name',
+        'contact_email',
+        'contact_phone',
+        'notes',
+        'file_path',
+        'original_file_name',
+        'file_mime',
+        'file_size',
+        'created_by',
     ];
 
     public function withCompany(): array

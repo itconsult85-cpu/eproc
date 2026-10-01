@@ -8,7 +8,16 @@ class NotificationModel extends BaseModel
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     protected $useTimestamps = false;
-    protected $allowedFields = ['user_id', 'type', 'title', 'message', 'url', 'due_at', 'is_read', 'created_at'];
+    protected $allowedFields = [
+        'user_id',
+        'type',
+        'title',
+        'message',
+        'url',
+        'due_at',
+        'is_read',
+        'created_at'
+    ];
 
     public function forUser(?int $userId): array
     {

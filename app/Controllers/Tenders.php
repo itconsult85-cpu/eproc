@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Libraries\SecureFileStorage;
@@ -45,7 +46,10 @@ class Tenders extends BaseController
             $label = ucfirst($row['status']);
             $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && $row['status'] !== 'cancelled';
             $soonDue = ! empty($row['valid_until']) && $row['valid_until'] >= date('Y-m-d') && $row['valid_until'] <= date('Y-m-d', strtotime('+30 days')) && $row['status'] !== 'cancelled';
-            if ($pastDue) { $class = 'danger'; $label = 'Kedaluwarsa'; }
+            if ($pastDue) {
+                $class = 'danger';
+                $label = 'Kedaluwarsa';
+            }
             $statusNote = $soonDue ? '<br><small class="text-warning">Segera berakhir</small>' : '';
             $status = '<span class="badge text-bg-' . $class . '">' . esc($label) . $statusNote . '</span>';
             $actions = '<div class="d-flex flex-wrap gap-1"><a class="btn btn-sm btn-outline-primary" href="/tenders/' . $publicId . '" title="Detail">Detail</a>';
@@ -113,7 +117,10 @@ class Tenders extends BaseController
             } catch (\RuntimeException $exception) {
                 return redirect()->back()->withInput()->with('errors', ['tender_file' => 'File harus PDF, Word, Excel, ZIP, JPG, atau PNG maksimal 50 MB dan tidak boleh dipalsukan.']);
             }
-            $data['file_path'] = $stored['path']; $data['original_file_name'] = $stored['original_name']; $data['file_mime'] = $stored['mime']; $data['file_size'] = $stored['size'];
+            $data['file_path'] = $stored['path'];
+            $data['original_file_name'] = $stored['original_name'];
+            $data['file_mime'] = $stored['mime'];
+            $data['file_size'] = $stored['size'];
             if ($existing && ! empty($existing['file_path'])) SecureFileStorage::remove($existing['file_path']);
         } elseif ($existing) {
             foreach (['file_path', 'original_file_name', 'file_mime', 'file_size'] as $field) $data[$field] = $existing[$field] ?? null;
@@ -135,7 +142,10 @@ class Tenders extends BaseController
     {
         $id = $this->resolveId($id, $this->model);
         $tender = $this->model->find($id);
-        if ($tender) { $this->removeFile($tender['file_path'] ?? null); $this->model->delete($id); }
+        if ($tender) {
+            $this->removeFile($tender['file_path'] ?? null);
+            $this->model->delete($id);
+        }
         return redirect()->to('/tenders')->with('message', 'Dokumen tender berhasil dihapus.');
     }
 

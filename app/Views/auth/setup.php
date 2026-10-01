@@ -18,15 +18,15 @@
                 <p class="text-body-secondary">Buat akun superadmin. Halaman ini otomatis tertutup setelah user pertama
                     dibuat.</p>
                 <?php if ($errors = session()->getFlashdata('errors')): ?>
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        <?php foreach ($errors as $e): ?>
-                        <li>
-                            <?= esc($e) ?>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            <?php foreach ($errors as $e): ?>
+                                <li>
+                                    <?= esc($e) ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
                 <?php endif; ?>
                 <form method="post" action="<?= site_url('setup') ?>">
                     <?= csrf_field() ?>

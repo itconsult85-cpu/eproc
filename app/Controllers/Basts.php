@@ -86,7 +86,7 @@ class Basts extends BaseController
         $sourceId = $this->resolveId($sourcePublicId, $sourceModel);
         $source = $sourceType === 'quotation' ? (new QuotationModel())->detail($sourceId) : ($sourceType === 'client_purchase_order' ? (new ClientPurchaseOrderModel())->detail($sourceId) : (new PurchaseOrderModel())->detail($sourceId));
         if (! $source) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        $items = array_values(array_map(static fn (array $item): array => [
+        $items = array_values(array_map(static fn(array $item): array => [
             'product_name' => (string) ($item['product_name'] ?? ''),
             'description' => (string) ($item['description'] ?? ''),
             'quantity' => (float) ($item['quantity'] ?? 0),
@@ -104,11 +104,13 @@ class Basts extends BaseController
         $duplicate = $this->model->where('bast_no', trim((string) $data['bast_no']))->first();
         if ($duplicate && (int) $duplicate['id'] !== (int) ($id ?? 0)) return redirect()->back()->withInput()->with('error', 'Nomor BAST sudah digunakan.');
         $data += [
-            'source_type' => $sourceType, 'source_id' => $sourceId,
+            'source_type' => $sourceType,
+            'source_id' => $sourceId,
             'source_no' => $sourceType === 'quotation' ? $source['quotation_no'] : ($sourceType === 'client_purchase_order' ? $source['po_no'] : $source['po_no']),
             'source_title' => $sourceType === 'quotation' ? $source['title'] : ($sourceType === 'client_purchase_order' ? 'PO IN Klien ' . $source['po_no'] : 'PO OUT Vendor ' . $source['po_no']),
             'source_date' => $sourceType === 'quotation' ? ($source['issue_date'] ?? null) : ($source['po_date'] ?? null),
-            'company_id' => $companyId, 'items_json' => json_encode($items, JSON_UNESCAPED_UNICODE),
+            'company_id' => $companyId,
+            'items_json' => json_encode($items, JSON_UNESCAPED_UNICODE),
             'created_by' => (string) (auth_user('username') ?? auth_user('full_name') ?? 'system'),
         ];
         if ($id) {

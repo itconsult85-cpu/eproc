@@ -8,7 +8,20 @@ class ClientPurchaseOrderModel extends BaseModel
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     protected $useTimestamps = true;
-    protected $allowedFields = ['quotation_id', 'company_id', 'po_no', 'po_date', 'status', 'subtotal', 'tax_percent', 'tax_amount', 'grand_total', 'notes', 'created_at', 'updated_at'];
+    protected $allowedFields = [
+        'quotation_id',
+        'company_id',
+        'po_no',
+        'po_date',
+        'status',
+        'subtotal',
+        'tax_percent',
+        'tax_amount',
+        'grand_total',
+        'notes',
+        'created_at',
+        'updated_at'
+    ];
 
     public function withQuotation(): array
     {

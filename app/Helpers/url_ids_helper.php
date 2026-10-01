@@ -33,7 +33,7 @@ if (! function_exists('resolve_public_id')) {
             $lookupModel = new $modelKey();
             $primaryKey = $lookupModel->getPrimaryKey();
             $idCache[$modelKey] = array_map(
-                static fn (array $row): int => (int) $row[$primaryKey],
+                static fn(array $row): int => (int) $row[$primaryKey],
                 $lookupModel->select($primaryKey)->findAll(),
             );
         }

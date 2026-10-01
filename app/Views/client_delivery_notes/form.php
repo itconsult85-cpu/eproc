@@ -1,22 +1,170 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
-<?php $delivery = $delivery ?? []; $sourceData = []; foreach ($purchaseOrders as $key => $po) $sourceData[$key] = ['po_no' => $po['po_no'], 'company' => $po['company_name'] ?? '', 'po_date' => $po['po_date'] ?? '', 'items' => $po['items'] ?? []]; ?>
-<div class="app-content-header"><div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h5 mb-1"><i class="bi bi-truck me-2"></i><?= esc($title) ?></h2><p class="text-body-secondary mb-0">Surat jalan client dibuat dari PO IN yang sudah diterima atau dikonfirmasi.</p></div><a href="/client-delivery-notes" class="btn btn-light text-nowrap"><i class="bi bi-arrow-left me-1"></i>Kembali</a></div></div>
-<form method="post" action="<?= esc($action) ?>" class="card form-card" id="delivery-form"><?= csrf_field() ?><div class="card-body row g-3">
-<div class="col-md-4"><label class="form-label">Nomor Surat Jalan *</label><input name="delivery_no" required maxlength="100" class="form-control" value="<?= esc($delivery['delivery_no'] ?? 'SJ-CLIENT-' . date('YmdHis')) ?>" placeholder="SJ-CLIENT-001"></div>
-<div class="col-md-4"><label class="form-label">Tanggal Pengiriman *</label><input type="date" name="delivery_date" required class="form-control" value="<?= esc($delivery['delivery_date'] ?? date('Y-m-d')) ?>"></div>
-<div class="col-md-4"><label class="form-label">Status</label><select name="status" class="form-select"><option value="draft" <?= ($delivery['status'] ?? 'draft') === 'draft' ? 'selected' : '' ?>>Draft</option><option value="sent" <?= ($delivery['status'] ?? '') === 'sent' ? 'selected' : '' ?>>Dikirim</option><option value="delivered" <?= ($delivery['status'] ?? '') === 'delivered' ? 'selected' : '' ?>>Diterima Client</option><option value="cancelled" <?= ($delivery['status'] ?? '') === 'cancelled' ? 'selected' : '' ?>>Dibatalkan</option></select></div>
-<div class="col-12"><label class="form-label">PO IN Klien *</label><select name="client_purchase_order_id" id="client_purchase_order_id" required class="form-select" data-searchable-select data-placeholder="Pilih PO IN"><option value="">Pilih PO IN klien</option><?php foreach ($purchaseOrders as $key => $po): ?><option value="<?= esc($key) ?>" <?= (int) ($delivery['client_purchase_order_id'] ?? 0) === (int) $po['id'] ? 'selected' : '' ?>><?= esc($po['po_no']) ?> — <?= esc($po['company_name'] ?? '-') ?> — <?= esc($po['status']) ?></option><?php endforeach; ?></select><div class="form-text">PO IN berstatus draft atau dibatalkan tidak dapat dipilih.</div></div>
-<div class="col-12"><div class="border rounded p-3 bg-body-tertiary"><strong>Informasi PO IN</strong><div id="po-preview" class="small text-body-secondary mt-2">Pilih PO IN untuk menampilkan perusahaan.</div></div></div>
-<div class="col-md-6"><label class="form-label">Tujuan Pengiriman</label><input name="destination" maxlength="220" class="form-control" value="<?= esc($delivery['destination'] ?? '') ?>" placeholder="Alamat / lokasi pengiriman"></div>
-<div class="col-md-6"><label class="form-label">Nama Penerima *</label><input name="recipient_name" required maxlength="160" class="form-control" value="<?= esc($delivery['recipient_name'] ?? '') ?>"></div>
-<div class="col-md-6"><label class="form-label">Jabatan Penerima</label><input name="recipient_position" maxlength="120" class="form-control" value="<?= esc($delivery['recipient_position'] ?? '') ?>"></div>
-<div class="col-md-6"><label class="form-label">Diserahkan Oleh</label><input name="delivered_by" maxlength="160" class="form-control" value="<?= esc($delivery['delivered_by'] ?? '') ?>"></div>
-<div class="col-md-6"><label class="form-label">Jabatan Penyerah</label><input name="delivered_position" maxlength="120" class="form-control" value="<?= esc($delivery['delivered_position'] ?? '') ?>"></div>
-<div class="col-12"><div class="table-responsive"><table class="table table-sm align-middle"><thead><tr><th>Barang</th><th>Deskripsi</th><th class="text-end">Qty</th><th>Satuan</th></tr></thead><tbody id="po-items"><tr><td colspan="4" class="text-body-secondary">Item akan ditampilkan dari PO IN.</td></tr></tbody></table></div></div>
-<div class="col-12"><label class="form-label">Catatan</label><textarea name="notes" rows="3" class="form-control"><?= esc($delivery['notes'] ?? '') ?></textarea></div>
-</div><div class="card-footer d-flex justify-content-end gap-2"><a href="/client-delivery-notes" class="btn btn-light">Batal</a><button class="btn btn-primary"><i class="bi bi-save me-1"></i>Simpan Surat Jalan</button></div></form>
+<?php $delivery = $delivery ?? [];
+$sourceData = [];
+foreach ($purchaseOrders as $key => $po) $sourceData[$key] = ['po_no' => $po['po_no'], 'company' => $po['company_name'] ?? '', 'po_date' => $po['po_date'] ?? '', 'items' => $po['items'] ?? []]; ?>
+<div class="app-content-header">
+    <div class="page-intro d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+            <h2 class="h5 mb-1">
+                <i class="bi bi-truck me-2"></i> <?= esc($title) ?>
+            </h2>
+            <p class="text-body-secondary mb-0">
+                Surat jalan client dibuat dari PO IN yang sudah diterima atau dikonfirmasi.
+            </p>
+        </div>
+        <a href="/client-delivery-notes" class="btn btn-light text-nowrap">
+            <i class="bi bi-arrow-left me-1"></i>Kembali
+        </a>
+    </div>
+</div>
+<form method="post" action="<?= esc($action) ?>" class="card form-card" id="delivery-form">
+    <?= csrf_field() ?>
+    <div class="card-body row g-3">
+        <div class="col-md-4">
+            <label class="form-label">
+                Nomor Surat Jalan *
+            </label>
+            <input name="delivery_no" required maxlength="100" class="form-control"
+                value="<?= esc($delivery['delivery_no'] ?? 'SJ-CLIENT-' . date('YmdHis')) ?>"
+                placeholder="SJ-CLIENT-001">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">
+                Tanggal Pengiriman *
+            </label>
+            <input type="date" name="delivery_date" required class="form-control"
+                value="<?= esc($delivery['delivery_date'] ?? date('Y-m-d')) ?>">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">
+                Status
+            </label>
+            <select name="status" class="form-select">
+                <option value="draft" <?= ($delivery['status'] ?? 'draft') === 'draft' ? 'selected' : '' ?>>Draft
+                </option>
+                <option value="sent" <?= ($delivery['status'] ?? '') === 'sent' ? 'selected' : '' ?>>Dikirim</option>
+                <option value="delivered" <?= ($delivery['status'] ?? '') === 'delivered' ? 'selected' : '' ?>>Diterima
+                    Client</option>
+                <option value="cancelled" <?= ($delivery['status'] ?? '') === 'cancelled' ? 'selected' : '' ?>>
+                    Dibatalkan</option>
+            </select>
+        </div>
+        <div class="col-12">
+            <label class="form-label">
+                PO IN Klien *
+            </label>
+            <select name="client_purchase_order_id" id="client_purchase_order_id" required class="form-select"
+                data-searchable-select data-placeholder="Pilih PO IN">
+                <option value="">Pilih PO IN klien</option><?php foreach ($purchaseOrders as $key => $po): ?><option
+                        value="<?= esc($key) ?>"
+                        <?= (int) ($delivery['client_purchase_order_id'] ?? 0) === (int) $po['id'] ? 'selected' : '' ?>>
+                        <?= esc($po['po_no']) ?> — <?= esc($po['company_name'] ?? '-') ?> — <?= esc($po['status']) ?>
+                    </option><?php endforeach; ?>
+            </select>
+            <div class="form-text">PO IN berstatus draft atau dibatalkan tidak dapat dipilih.</div>
+        </div>
+        <div class="col-12">
+            <div class="border rounded p-3 bg-body-tertiary"><strong>Informasi PO IN</strong>
+                <div id="po-preview" class="small text-body-secondary mt-2">Pilih PO IN untuk menampilkan perusahaan.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">
+                Tujuan Pengiriman
+            </label>
+            <input name="destination" maxlength="220" class="form-control"
+                value="<?= esc($delivery['destination'] ?? '') ?>" placeholder="Alamat / lokasi pengiriman">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">
+                Nama Penerima *
+            </label>
+            <input name="recipient_name" required maxlength="160" class="form-control"
+                value="<?= esc($delivery['recipient_name'] ?? '') ?>">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">
+                Jabatan Penerima
+            </label>
+            <input name="recipient_position" maxlength="120" class="form-control"
+                value="<?= esc($delivery['recipient_position'] ?? '') ?>">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">
+                Diserahkan Oleh
+            </label>
+            <input name="delivered_by" maxlength="160" class="form-control"
+                value="<?= esc($delivery['delivered_by'] ?? '') ?>">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">
+                Jabatan Penyerah
+            </label>
+            <input name="delivered_position" maxlength="120" class="form-control"
+                value="<?= esc($delivery['delivered_position'] ?? '') ?>">
+        </div>
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-sm align-middle">
+                    <thead>
+                        <tr>
+                            <th>Barang</th>
+                            <th>Deskripsi</th>
+                            <th class="text-end">Qty</th>
+                            <th>Satuan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="po-items">
+                        <tr>
+                            <td colspan="4" class="text-body-secondary">Item akan ditampilkan dari PO IN.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12">
+            <label class="form-label">
+                Catatan
+            </label>
+            <textarea name="notes" rows="3" class="form-control"><?= esc($delivery['notes'] ?? '') ?></textarea>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end gap-2">
+        <a href="/client-delivery-notes" class="btn btn-light">Batal
+        </a>
+        <button class="btn btn-primary"><i class="bi bi-save me-1"></i>Simpan Surat
+            Jalan
+        </button>
+    </div>
+</form>
 <?= $this->endSection() ?>
 <?= $this->section('scripts') ?><script>
-(() => { const sources = <?= json_encode($sourceData, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>; const select = document.querySelector('#client_purchase_order_id'); const preview = document.querySelector('#po-preview'); const body = document.querySelector('#po-items'); const esc = value => String(value ?? '').replace(/[&<>\'\"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c])); function render(){ const row = sources[select.value]; preview.textContent = row ? row.po_no + ' · ' + row.company + ' · Tanggal PO: ' + row.po_date : 'Pilih PO IN untuk menampilkan perusahaan.'; body.innerHTML = row && row.items.length ? row.items.map(item => '<tr><td>'+esc(item.product_name)+'</td><td>'+esc(item.description)+'</td><td class="text-end">'+esc(item.quantity)+'</td><td>'+esc(item.unit || 'pcs')+'</td></tr>').join('') : '<tr><td colspan="4" class="text-body-secondary">PO IN belum memiliki item.</td></tr>'; } select.addEventListener('change', render); render(); })();
+    (() => {
+        const sources =
+            <?= json_encode($sourceData, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>;
+        const select = document.querySelector('#client_purchase_order_id');
+        const preview = document.querySelector('#po-preview');
+        const body = document.querySelector('#po-items');
+        const esc = value => String(value ?? '').replace(/[&<>\'\"]/g, c => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#039;',
+            '"': '&quot;'
+        } [c]));
+
+        function render() {
+            const row = sources[select.value];
+            preview.textContent = row ? row.po_no + ' · ' + row.company + ' · Tanggal PO: ' + row.po_date :
+                'Pilih PO IN untuk menampilkan perusahaan.';
+            body.innerHTML = row && row.items.length ? row.items.map(item => '<tr><td>' + esc(item.product_name) +
+                    '</td><td>' + esc(item.description) + '</td><td class="text-end">' + esc(item.quantity) +
+                    '</td><td>' + esc(item.unit || 'pcs') + '</td></tr>').join('') :
+                '<tr><td colspan="4" class="text-body-secondary">PO IN belum memiliki item.</td></tr>';
+        }
+        select.addEventListener('change', render);
+        render();
+    })();
 </script><?= $this->endSection() ?>
