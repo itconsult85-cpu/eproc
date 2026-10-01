@@ -57,7 +57,7 @@ class ClientDeliveryNotes extends BaseController
         $id = $this->resolveId($id, $this->model); $delivery = $this->model->detail($id);
         if (! $delivery) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $delivery['items'] = json_decode((string) $delivery['items_json'], true) ?: [];
-        $options = new Options(); $options->set('isRemoteEnabled', true); $dompdf = new Dompdf($options); $dompdf->loadHtml(view('client_delivery_notes/pdf', ['delivery' => $delivery])); $dompdf->setPaper('A4', 'portrait'); $dompdf->render();
+        $options = new Options(); $options->set('isRemoteEnabled', false); $dompdf = new Dompdf($options); $dompdf->loadHtml(view('client_delivery_notes/pdf', ['delivery' => $delivery])); $dompdf->setPaper('A4', 'portrait'); $dompdf->render();
         $fileName = preg_replace('/[^A-Za-z0-9._-]/', '-', (string) $delivery['delivery_no']) ?: 'surat-jalan';
         return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="surat-jalan-' . $fileName . '.pdf"')->setBody($dompdf->output());
     }

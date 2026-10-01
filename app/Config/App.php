@@ -7,6 +7,13 @@ use CodeIgniter\Config\BaseConfig;
 class App extends BaseConfig
 {
     /**
+     * Initial administrator setup is disabled in production by default.
+     * Enable only temporarily through app.allowInitialSetup in .env while
+     * provisioning an empty database, then remove it immediately.
+     */
+    public bool $allowInitialSetup = ENVIRONMENT !== 'production';
+
+    /**
      * --------------------------------------------------------------------------
      * Base Site URL
      * --------------------------------------------------------------------------

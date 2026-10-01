@@ -115,7 +115,7 @@
                             </p>
                             <?php endif; ?>
                             <?php if (!empty($product['datasheet_file_path'])): ?>
-                            <a href="<?= esc(base_url(ltrim($product['datasheet_file_path'], '/'))) ?>" target="_blank"
+                            <a href="<?= esc(str_starts_with((string) $product['datasheet_file_path'], 'private/') ? site_url('files/product-datasheets/' . public_id((int) $product['id'])) : base_url(ltrim($product['datasheet_file_path'], '/'))) ?>" target="_blank"
                                 rel="noopener"><i class="bi bi-file-earmark-pdf me-1">
 
                                 </i>Lihat file datasheet

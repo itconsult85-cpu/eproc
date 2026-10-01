@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Libraries\SecureFileStorage;
 use App\Models\ProformaInvoiceModel;
+use App\Models\ProductModel;
 use App\Models\TenderDocumentModel;
 use App\Models\VendorBillModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
@@ -32,6 +33,14 @@ class Files extends BaseController
         $id = $this->resolveId($publicId, $model);
         $row = $model->find($id);
         return $this->download($row['proof_path'] ?? null, 'vendor-bill-proof');
+    }
+
+    public function productDatasheet(string $publicId)
+    {
+        $model = new ProductModel();
+        $id = $this->resolveId($publicId, $model);
+        $row = $model->find($id);
+        return $this->download($row['datasheet_file_path'] ?? null, 'product-datasheet-' . $publicId . '.pdf');
     }
 
     private function download(?string $storedPath, string $downloadName)

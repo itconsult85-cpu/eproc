@@ -436,7 +436,7 @@ class Quotations extends BaseController
         if ($quotation['status'] !== 'approved') return redirect()->to('/quotations/' . public_id($id))->with('errors', ['status' => 'Proforma Invoice hanya dapat dicetak setelah quotation final disetujui.']);
         $finalSnapshot = json_decode((string) ($quotation['final_snapshot_json'] ?? ''), true);
         if (is_array($finalSnapshot)) $quotation = array_merge($quotation, $finalSnapshot);
-        $settings = (new QuotationSettingModel())->current(); $options = new Options(); $options->set('isRemoteEnabled', true); $dompdf = new Dompdf($options);
+        $settings = (new QuotationSettingModel())->current(); $options = new Options(); $options->set('isRemoteEnabled', false); $dompdf = new Dompdf($options);
         $dompdf->loadHtml(view('quotations/proforma_invoice', ['quotation' => $quotation, 'settings' => $settings])); $dompdf->setPaper('A4', 'portrait'); $dompdf->render();
         return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="proforma-invoice-' . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }
@@ -546,7 +546,7 @@ class Quotations extends BaseController
         if ($quotation['status'] === 'approved' && is_array($finalSnapshot)) $quotation = array_merge($quotation, $finalSnapshot);
         $settings = (new QuotationSettingModel())->current();
         $options = new Options();
-        $options->set('isRemoteEnabled', true);
+        $options->set('isRemoteEnabled', false);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml(view('quotations/pdf', ['quotation' => $quotation, 'settings' => $settings, 'logoData' => $this->assetData($settings['logo_path'] ?? null), 'signatureData' => $this->assetData($settings['signature_path'] ?? null), 'stampData' => $this->assetData($settings['stamp_path'] ?? null)]));
         $dompdf->setPaper('A4', 'portrait');
@@ -569,7 +569,7 @@ class Quotations extends BaseController
         $this->model->expireOverdue();
         $context = $this->catalogContext($id);
         $options = new Options();
-        $options->set('isRemoteEnabled', true);
+        $options->set('isRemoteEnabled', false);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml(view('quotations/catalog', $context));
         $dompdf->setPaper('A4', 'portrait');
@@ -593,9 +593,6 @@ class Quotations extends BaseController
         foreach ($quotation['items'] as $item) {
             $product = ! empty($item['product_id']) ? $products->find((int) $item['product_id']) : null;
             $imageData = $product ? $this->assetData($product['image_path'] ?? null) : null;
-            if (! $imageData && $product && ! empty($product['image_url'])) {
-                $imageData = $product['image_url'];
-            }
             $items[] = ['item' => $item, 'product' => $product, 'imageData' => $imageData];
         }
 

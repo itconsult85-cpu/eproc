@@ -286,7 +286,7 @@
         <?php endif; ?>
         <?php if (!empty($product['datasheet_file_path'])): ?>
         <p><span class="label">File datasheet:</span> <a
-                href="<?= esc(base_url(ltrim($product['datasheet_file_path'], '/'))) ?>">Unduh datasheet PDF</a>
+                href="<?= esc(str_starts_with((string) $product['datasheet_file_path'], 'private/') ? site_url('files/product-datasheets/' . public_id((int) $product['id'])) : base_url(ltrim($product['datasheet_file_path'], '/'))) ?>">Unduh datasheet PDF</a>
         </p>
         <?php endif; ?>
     </div>

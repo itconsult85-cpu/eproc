@@ -127,7 +127,7 @@ class Basts extends BaseController
         if (! $bast) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $bast['items'] = json_decode((string) $bast['items_json'], true) ?: [];
         $options = new Options();
-        $options->set('isRemoteEnabled', true);
+        $options->set('isRemoteEnabled', false);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml(view('basts/pdf', ['bast' => $bast]));
         $dompdf->setPaper('A4', 'portrait');

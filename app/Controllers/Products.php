@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\SecureFileStorage;
 use App\Models\QuotationSettingModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -48,8 +49,13 @@ class Products extends BaseController
                 : '<span class="d-inline-flex bg-body-secondary rounded align-items-center justify-content-center" style="width:52px;height:52px"><i class="bi bi-image text-secondary"></i></span>';
             if ($row['video_path']) $media .= '<div class="small text-primary mt-1"><i class="bi bi-camera-video"></i> Video</div>';
             $details = '<strong>' . esc($row['name']) . '</strong><div class="small text-body-secondary">' . esc(trim(($row['sku'] ?? '') . ' ' . ($row['brand'] ?? '')) ?: 'SKU belum diisi') . '</div>';
-            if ($row['datasheet_file_path']) $details .= '<a href="' . esc($row['datasheet_file_path']) . '" target="_blank" rel="noopener" class="small text-danger"><i class="bi bi-file-pdf"></i> Datasheet PDF</a>';
             $publicId = public_id((int) $row['id']);
+            if ($row['datasheet_file_path']) {
+                $datasheetUrl = str_starts_with((string) $row['datasheet_file_path'], 'private/')
+                    ? site_url('files/product-datasheets/' . $publicId)
+                    : $row['datasheet_file_path'];
+                $details .= '<a href="' . esc($datasheetUrl) . '" target="_blank" rel="noopener" class="small text-danger"><i class="bi bi-file-pdf"></i> Datasheet PDF</a>';
+            }
             $actions = '';
             $actions .= '<li><a class="dropdown-item" href="/products/' . $publicId . '/catalog/preview"><i class="bi bi-eye me-2 text-success"></i>Lihat katalog</a></li>';
             $actions .= '<li><a class="dropdown-item" href="/products/' . $publicId . '/catalog"><i class="bi bi-file-earmark-pdf me-2 text-danger"></i>Unduh katalog PDF</a></li>';
@@ -109,7 +115,7 @@ class Products extends BaseController
         $product = $this->catalogProduct($id);
         $settings = (new QuotationSettingModel())->current();
         $options = new Options();
-        $options->set('isRemoteEnabled', true);
+        $options->set('isRemoteEnabled', false);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml(view('products/catalog', [
             'product' => $product,
@@ -178,6 +184,16 @@ class Products extends BaseController
                 $extension = strtolower($file->getExtension());
                 if ($file->getSize() > $maxSize || ! isset($extensions[$extension]) || strtolower((string) $file->getMimeType()) !== $extensions[$extension]) {
                     return redirect()->back()->withInput()->with('errors', [$field => $message]);
+                }
+                if ($field === 'datasheet_file') {
+                    try {
+                        $stored = SecureFileStorage::store($file, $extensions, $maxSize, 'product-datasheets');
+                    } catch (\RuntimeException $exception) {
+                        return redirect()->back()->withInput()->with('errors', [$field => $message]);
+                    }
+                    if ($existing && ! empty($existing[$column])) SecureFileStorage::remove($existing[$column]);
+                    $data[$column] = $stored['path'];
+                    continue;
                 }
                 $directory = FCPATH . 'uploads/products';
                 if (! is_dir($directory)) {

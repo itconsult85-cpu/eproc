@@ -20,6 +20,8 @@ chmod 640 .env
 
 Edit `.env` di server dan isi hanya secret yang sebenarnya. Jangan commit `.env` atau menaruh password di issue, log, atau chat.
 
+Endpoint setup administrator pertama **dinonaktifkan secara default** ketika `CI_ENVIRONMENT=production`. Untuk database yang benar-benar kosong, aktifkan `app.allowInitialSetup = true` hanya sementara di `.env` server, buat administrator pertama, lalu hapus setting tersebut dan restart aplikasi.
+
 Wajib dipastikan:
 
 ```ini

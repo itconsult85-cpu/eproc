@@ -6,6 +6,7 @@ use App\Libraries\AccessControl;
 use App\Models\AuthAuditLogModel;
 use App\Models\QuotationSettingModel;
 use App\Models\UserModel;
+use Config\App as AppConfig;
 
 class Auth extends BaseController
 {
@@ -65,12 +66,18 @@ class Auth extends BaseController
 
     public function setup()
     {
+        if (! config(AppConfig::class)->allowInitialSetup) {
+            return redirect()->to('/login');
+        }
         if ($this->users->countAllResults() > 0) return redirect()->to('/login');
         return view('auth/setup', ['title' => 'Setup Administrator']);
     }
 
     public function createFirstAdmin()
     {
+        if (! config(AppConfig::class)->allowInitialSetup) {
+            return redirect()->to('/login')->with('error', 'Setup administrator dinonaktifkan pada production.');
+        }
         $db = db_connect();
         $lock = $db->query("SELECT GET_LOCK('eproc_first_admin_setup', 10) AS acquired")->getRowArray();
         if ((int) ($lock['acquired'] ?? 0) !== 1) return redirect()->to('/login')->with('error', 'Setup sedang digunakan. Silakan coba lagi.');

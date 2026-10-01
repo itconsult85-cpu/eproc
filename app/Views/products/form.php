@@ -143,7 +143,7 @@
                     PDF maksimal 20 MB.
                 </div>
                 <?php if (!empty($product['datasheet_file_path'])): ?>
-                <a href="<?= esc($product['datasheet_file_path']) ?>" target="_blank"
+                <a href="<?= esc(str_starts_with((string) ($product['datasheet_file_path'] ?? ''), 'private/') ? site_url('files/product-datasheets/' . public_id((int) ($product['id'] ?? 0))) : $product['datasheet_file_path']) ?>" target="_blank"
                     class="btn btn-sm btn-outline-secondary mt-2">
                     <i class="bi bi-file-pdf"></i> Buka datasheet PDF
                 </a>
