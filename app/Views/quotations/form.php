@@ -115,29 +115,27 @@ foreach ($products as $product) {
                 </div>
             </div>
             <div class="col-md-3 tax-field">
-                <label class="field-label">
-                    PPN (%)
-                </label>
-                <input type="number" step="0.01" min="0" name="tax_percent" class="form-control"
+                <label class="field-label" for="quotation_tax_percent">PPN (%)</label>
+                <input id="quotation_tax_percent" type="number" step="0.01" min="0" name="tax_percent" class="form-control"
                     value="<?= old('tax_percent', $quotation['tax_percent'] ?? $settings['default_tax_percent'] ?? 11) ?>">
                 <div class="form-text">Persentase PPN yang ditambahkan ke DPP.</div>
             </div>
-            <div class="col-md-3">
-                <label class="field-label">
+            <div class="col-md-3 tax-field">
+                <label class="field-label" for="quotation_validity_days">
                     Masa berlaku (hari)
                 </label>
-                <input type="number" min="0" name="validity_days" class="form-control"
+                <input id="quotation_validity_days" type="number" min="0" name="validity_days" class="form-control"
                     value="<?= old('validity_days', $quotation['validity_days'] ?? $settings['default_validity_days'] ?? 10) ?>">
             </div>
-            <div class="col-md-3">
-                <label class="field-label">
+            <div class="col-md-3 tax-field">
+                <label class="field-label" for="signer_phone_preview">
                     Telepon penandatangan
                 </label>
                 <input id="signer_phone_preview" disabled class="form-control"
                     value="<?= esc($settings['signer_phone'] ?? '') ?>">
             </div>
-            <div class="col-md-3">
-                <label class="field-label">
+            <div class="col-md-3 tax-field">
+                <label class="field-label" for="signer_name_preview">
                     Penandatangan
                 </label>
                 <input id="signer_name_preview" disabled class="form-control"
