@@ -20,10 +20,12 @@
 <form method="post" action="<?= esc($action) ?>" class="card form-card" id="client-po-form">
     <?= csrf_field() ?><div class="card-body row g-3">
         <div class="col-md-4">
-            <label class="form-label">
-                Nomor PO Klien *
-            </label>
-            <input name="po_no" required maxlength="100" class="form-control"
+            <label class="form-label">Nomor PO Klien *</label>
+            <select class="form-select mb-2" data-number-mode-select>
+                <option value="auto">Otomatis</option>
+                <option value="manual">Manual</option>
+            </select>
+            <input name="po_no" required maxlength="100" class="form-control" data-number-input
                 value="<?= esc($po['po_no'] ?? 'PO-IN-' . date('YmdHis')) ?>" placeholder="Nomor dari klien">
         </div>
         <div class="col-md-4">

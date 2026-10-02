@@ -24,11 +24,13 @@ $sourceData = ['quotation' => $quotationSources, 'client_purchase_order' => $cli
     <div class="card-body row g-3">
         <?= csrf_field() ?>
         <div class="col-md-4">
-            <label class="form-label">
-                Nomor BAST *
-            </label>
-            <input name="bast_no" required maxlength="100" class="form-control"
-                value="<?= esc($bast['bast_no'] ?? '') ?>" placeholder="BAST/001/2026">
+            <label class="form-label">Nomor BAST *</label>
+            <select class="form-select mb-2" data-number-mode-select>
+                <option value="auto">Otomatis</option>
+                <option value="manual">Manual</option>
+            </select>
+            <input name="bast_no" required maxlength="100" class="form-control" data-number-input
+                value="<?= esc($bast['bast_no'] ?? 'BAST-' . date('YmdHis')) ?>" placeholder="BAST/001/2026">
         </div>
         <div class="col-md-4">
             <label class="form-label">

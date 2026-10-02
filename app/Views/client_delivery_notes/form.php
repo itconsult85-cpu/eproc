@@ -22,10 +22,12 @@ foreach ($purchaseOrders as $key => $po) $sourceData[$key] = ['po_no' => $po['po
     <?= csrf_field() ?>
     <div class="card-body row g-3">
         <div class="col-md-4">
-            <label class="form-label">
-                Nomor Surat Jalan *
-            </label>
-            <input name="delivery_no" required maxlength="100" class="form-control"
+            <label class="form-label">Nomor Surat Jalan *</label>
+            <select class="form-select mb-2" data-number-mode-select>
+                <option value="auto">Otomatis</option>
+                <option value="manual">Manual</option>
+            </select>
+            <input name="delivery_no" required maxlength="100" class="form-control" data-number-input
                 value="<?= esc($delivery['delivery_no'] ?? 'SJ-CLIENT-' . date('YmdHis')) ?>"
                 placeholder="SJ-CLIENT-001">
         </div>

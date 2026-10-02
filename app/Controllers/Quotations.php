@@ -137,9 +137,14 @@ class Quotations extends BaseController
             $items[] = ['product_id' => $product['id'], 'product_name' => $product['name'], 'description' => trim((string) ($item['description'] ?? '')) ?: $product['description'], 'quantity' => $qty, 'unit' => $item['unit'] ?? 'pcs', 'unit_price' => $price, 'discount_percent' => $discount, 'line_total' => $line];
         }
         $issueDate = $this->request->getPost('issue_date') ?: date('Y-m-d');
+        $numberMode = $this->request->getPost('quotation_number_mode') === 'manual' ? 'manual' : 'auto';
+        $quotationNo = $numberMode === 'manual'
+            ? trim((string) $this->request->getPost('quotation_no'))
+            : $this->model->nextQuotationNumber((int) $this->request->getPost('company_id'), $issueDate);
+        if ($quotationNo === '') return redirect()->back()->withInput()->with('errors', ['quotation_no' => 'Nomor quotation manual wajib diisi.']);
+        if ($this->model->where('quotation_no', $quotationNo)->first()) return redirect()->back()->withInput()->with('errors', ['quotation_no' => 'Nomor quotation sudah digunakan.']);
         $db = db_connect();
         $db->transStart();
-        $quotationNo = $this->model->nextQuotationNumber((int) $this->request->getPost('company_id'), $issueDate);
         $validityDays = max(0, (int) ($this->request->getPost('validity_days') ?: $settings['default_validity_days'] ?? 10));
         $validUntil = date('Y-m-d', strtotime($issueDate . ' +' . $validityDays . ' days'));
         $taxPercent = max(0, (float) ($this->request->getPost('tax_percent') ?: $settings['default_tax_percent'] ?? 0));
@@ -247,10 +252,15 @@ class Quotations extends BaseController
         $taxPercent = max(0, (float) ($this->request->getPost('tax_percent') ?: $settings['default_tax_percent'] ?? 0));
         $tax = $subtotal * $taxPercent / 100;
         $masterSnapshot = ['payment_terms' => $this->request->getPost('payment_terms'), 'delivery_terms' => $this->request->getPost('delivery_terms'), 'notes' => $this->request->getPost('notes'), 'tax_percent' => $taxPercent, 'subtotal' => $subtotal, 'tax_amount' => $tax, 'grand_total' => $subtotal + $tax, 'items' => $items];
+        try {
+            $quotationNumber = $this->resolveQuotationNumberForUpdate($id);
+        } catch (\RuntimeException $exception) {
+            return redirect()->back()->withInput()->with('errors', ['quotation_no' => $exception->getMessage()]);
+        }
 
         $this->model->update($id, [
             'company_id' => $this->request->getPost('company_id'),
-            'quotation_no' => $this->model->find($id)['quotation_no'],
+            'quotation_no' => $quotationNumber,
             'customer_name' => $customerName,
             'customer_address' => $customerAddress,
             'customer_phone' => $this->request->getPost('customer_phone'),
@@ -275,6 +285,17 @@ class Quotations extends BaseController
             (new QuotationItemModel())->insertBatch($items);
         }
         return redirect()->to('/quotations/' . public_id($id))->with('message', 'Penawaran berhasil diperbarui.');
+    }
+
+    private function resolveQuotationNumberForUpdate(int $id): string
+    {
+        $current = $this->model->find($id);
+        $mode = $this->request->getPost('quotation_number_mode') === 'manual' ? 'manual' : 'auto';
+        $number = $mode === 'manual' ? trim((string) $this->request->getPost('quotation_no')) : (string) ($current['quotation_no'] ?? '');
+        if ($number === '') throw new \RuntimeException('Nomor quotation manual wajib diisi.');
+        $duplicate = $this->model->where('quotation_no', $number)->where('id !=', $id)->first();
+        if ($duplicate) throw new \RuntimeException('Nomor quotation sudah digunakan.');
+        return $number;
     }
 
     public function changeStatus(string $id)

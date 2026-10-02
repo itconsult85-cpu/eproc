@@ -398,6 +398,25 @@
     <script src="https://cdn.datatables.net/responsive/3.0.7/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/3.0.7/js/responsive.bootstrap5.min.js"></script>
     <script src="<?= base_url('assets/js/app.js') ?>"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('[data-number-mode-select]').forEach(function (mode) {
+                const container = mode.closest('.col-md-2, .col-md-4, .col-lg-2, .col-lg-4, .col-12') || mode.parentElement;
+                const input = container ? container.querySelector('[data-number-input]') : null;
+                if (!input) return;
+
+                function sync() {
+                    const manual = mode.value === 'manual';
+                    input.readOnly = !manual;
+                    input.classList.toggle('bg-body-secondary', !manual);
+                    input.setAttribute('aria-readonly', manual ? 'false' : 'true');
+                }
+
+                mode.addEventListener('change', sync);
+                sync();
+            });
+        });
+    </script>
     <?= $this->renderSection('scripts') ?>
 </body>
 

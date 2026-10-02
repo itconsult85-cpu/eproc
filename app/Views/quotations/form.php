@@ -54,9 +54,12 @@ foreach ($products as $product) {
                 <label class="field-label">
                     Nomor quotation
                 </label>
-                <input id="quotation_number_preview" disabled
-                    data-quotation-preview="<?= $isEdit ? 'static' : 'dynamic' ?>" class="form-control"
-                    value="<?= esc($quotation['quotation_no'] ?? '') ?>">
+                <select name="quotation_number_mode" id="quotation_number_mode" class="form-select mb-2" data-number-mode-select>
+                    <option value="auto" <?= old('quotation_number_mode', 'auto') === 'auto' ? 'selected' : '' ?>>Otomatis</option>
+                    <option value="manual" <?= old('quotation_number_mode') === 'manual' ? 'selected' : '' ?>>Manual</option>
+                </select>
+                <input id="quotation_number_preview" name="quotation_no" data-quotation-preview="<?= $isEdit ? 'static' : 'dynamic' ?>" data-number-input class="form-control"
+                    value="<?= esc(old('quotation_no', $quotation['quotation_no'] ?? '')) ?>" placeholder="Masukkan nomor quotation">
                 <?php if (!$isEdit): ?>
                     <div class="form-text">Preview nomor quotation berdasarkan perusahaan dan tanggal terpilih.</div>
                 <?php endif; ?>

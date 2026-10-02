@@ -49,10 +49,12 @@
                 </select>
             </div>
             <div class="col-lg-2">
-                <label class="field-label required">
-                    Nomor PO OUT
-                </label>
-                <input name="po_no" required class="form-control"
+                <label class="field-label required">Nomor PO OUT</label>
+                <select class="form-select mb-2" data-number-mode-select>
+                    <option value="auto">Otomatis</option>
+                    <option value="manual">Manual</option>
+                </select>
+                <input name="po_no" required class="form-control" data-number-input
                     value="<?= esc($po['po_no'] ?? 'PO-OUT-' . date('YmdHis')) ?>">
             </div>
             <div class="col-lg-2">

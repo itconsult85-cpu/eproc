@@ -32,10 +32,13 @@
             </select>
         </div>
         <div class="col-md-4">
-            <label class="form-label">
-                Nomor Tagihan *
-            </label>
-            <input name="bill_no" required class="form-control" value="<?= esc($bill['bill_no'] ?? '') ?>">
+            <label class="form-label">Nomor Tagihan *</label>
+            <select class="form-select mb-2" data-number-mode-select>
+                <option value="auto">Otomatis</option>
+                <option value="manual">Manual</option>
+            </select>
+            <input name="bill_no" required class="form-control" data-number-input
+                value="<?= esc($bill['bill_no'] ?? 'BILL-' . date('YmdHis')) ?>">
         </div>
         <div class="col-md-2">
             <label class="form-label">

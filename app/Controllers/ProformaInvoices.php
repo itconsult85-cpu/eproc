@@ -59,7 +59,11 @@ class ProformaInvoices extends BaseController
         $invoice = $this->model->find($id);
         if (! $invoice) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 
-        $data = $this->request->getPost(['payment_status', 'payment_date', 'payment_method', 'payment_reference', 'notes']);
+        $data = $this->request->getPost(['invoice_no', 'payment_status', 'payment_date', 'payment_method', 'payment_reference', 'notes']);
+        $data['invoice_no'] = trim((string) ($data['invoice_no'] ?? ''));
+        if ($data['invoice_no'] === '') return redirect()->back()->withInput()->with('error', 'Nomor invoice wajib diisi.');
+        $duplicate = $this->model->where('invoice_no', $data['invoice_no'])->where('id !=', $id)->first();
+        if ($duplicate) return redirect()->back()->withInput()->with('error', 'Nomor invoice sudah digunakan.');
         if (! in_array($data['payment_status'] ?? '', ['unpaid', 'partial', 'paid'], true)) {
             return redirect()->back()->withInput()->with('error', 'Status pembayaran tidak valid.');
         }
