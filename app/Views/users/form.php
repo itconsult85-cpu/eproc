@@ -109,6 +109,12 @@
                     </h3>
                 </div>
                 <div class="card-body">
+                    <div class="form-check form-check-primary border rounded p-2 mb-3">
+                        <input class="form-check-input" type="checkbox" id="permission-select-all">
+                        <label class="form-check-label fw-semibold" for="permission-select-all">
+                            Pilih Semua Permission
+                        </label>
+                    </div>
                     <?php $group = '';
                     foreach ($permissions as $p): ?>
                         <?php if ($group !== $p['group_name']): ?>
@@ -122,7 +128,7 @@
             <div class="vstack gap-2">
             <?php endif; ?>
             <label class="form-check">
-                <input class="form-check-input" type="checkbox" name="permissions[]"
+                <input class="form-check-input permission-checkbox" type="checkbox" name="permissions[]"
                     value="<?= esc($p['permission_key']) ?>"
                     <?= in_array($p['permission_key'], $assigned, true) ? 'checked' : '' ?>>
                 <span class="form-check-label">
@@ -138,3 +144,34 @@
         </div>
     </div>
 </form><?= $this->endSection() ?>
+<?= $this->section('scripts') ?>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const selectAll = document.getElementById('permission-select-all');
+    const permissions = Array.from(document.querySelectorAll('.permission-checkbox'));
+
+    if (!selectAll || permissions.length === 0) {
+        return;
+    }
+
+    function syncSelectAll() {
+        const checkedCount = permissions.filter((permission) => permission.checked).length;
+        selectAll.checked = checkedCount === permissions.length;
+        selectAll.indeterminate = checkedCount > 0 && checkedCount < permissions.length;
+    }
+
+    selectAll.addEventListener('change', function () {
+        permissions.forEach((permission) => {
+            permission.checked = selectAll.checked;
+        });
+        selectAll.indeterminate = false;
+    });
+
+    permissions.forEach((permission) => {
+        permission.addEventListener('change', syncSelectAll);
+    });
+
+    syncSelectAll();
+});
+</script>
+<?= $this->endSection() ?>
