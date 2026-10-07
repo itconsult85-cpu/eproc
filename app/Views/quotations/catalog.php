@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <style>
         @page {
-            margin: 28px 32px;
+            margin: 28px 32px 72px;
         }
 
         body {
@@ -146,11 +146,34 @@
         }
 
         .footer {
-            margin-top: 14px;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: -48px;
+            height: 39px;
             padding-top: 6px;
-            border-top: 1px solid #cbd5e1;
+            border-top: 1px solid #94a3b8;
             color: #64748b;
             font-size: 8px;
+        }
+
+        .footer-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .footer-table td {
+            vertical-align: top;
+            line-height: 1.25;
+        }
+
+        .footer-right {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .page-number::after {
+            content: counter(page);
         }
     </style>
 </head>
@@ -294,7 +317,19 @@
     <?php endforeach; ?>
 
     <div class="footer">
-        Dokumen ini dibuat sebagai lampiran pendukung quotation <?= esc($quotation['quotation_no']) ?>.
+        <table class="footer-table">
+            <tr>
+                <td>
+                    <strong><?= esc($settings['company_name'] ?? '') ?></strong><br>
+                    <?= esc($settings['office_1'] ?? '') ?><?= !empty($settings['office_1']) && !empty($settings['office_2']) ? ' · ' : '' ?><?= esc($settings['office_2'] ?? '') ?><br>
+                    <?= !empty($settings['phone']) ? 'Telp. ' . esc($settings['phone']) : '' ?><?= !empty($settings['phone']) && !empty($settings['email']) ? ' · ' : '' ?><?= esc($settings['email'] ?? '') ?>
+                </td>
+                <td class="footer-right">
+                    Katalog Produk Pendukung Quotation<br>
+                    <?= esc($quotation['quotation_no']) ?> · Halaman <span class="page-number"></span>
+                </td>
+            </tr>
+        </table>
     </div>
 </body>
 
