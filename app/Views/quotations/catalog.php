@@ -53,6 +53,28 @@
             vertical-align: top;
         }
 
+        .header-brand-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .header-brand-table td {
+            vertical-align: middle;
+        }
+
+        .header-brand-logo {
+            padding-right: 16px;
+            white-space: nowrap;
+        }
+
+        .header-brand-title h1 {
+            margin: 0;
+        }
+
+        .header-brand-title {
+            text-align: right;
+        }
+
         .logo {
             max-width: 135px;
             max-height: 50px;
@@ -74,7 +96,7 @@
         }
 
         .product {
-            page-break-inside: avoid;
+            page-break-inside: auto;
             border: 1px solid #cbd5e1;
             margin-bottom: 13px;
             padding: 0 10px 10px;
@@ -172,6 +194,10 @@
             white-space: nowrap;
         }
 
+        .footer-company {
+            text-align: center;
+        }
+
         .page-number::after {
             content: counter(page);
         }
@@ -186,27 +212,18 @@
         <table class="header-table">
             <tr>
                 <td>
-                    <?php if ($logoData): ?>
-                        <img src="<?= $logoData ?>" class="logo" alt="Logo">
-                        <br>
-                    <?php endif; ?>
-                    <h1>
-                        Katalog Produk Pendukung Quotation
-                    </h1>
-                    <p class="muted"><?= esc($settings['company_name'] ?? '') ?></p>
-                </td>
-                <td class="meta">
-                    <strong>No. Quotation</strong>
-                    <br>
-                    <?= esc($quotation['quotation_no']) ?>
-                    <br>
-                    <strong>Tanggal</strong>
-                    <br>
-                    <?= esc($quotation['issue_date'] ?? '-') ?>
-                    <br>
-                    <strong>Customer</strong>
-                    <br>
-                    <?= esc($quotation['customer_name'] ?: $quotation['company_name']) ?>
+                    <table class="header-brand-table">
+                        <tr>
+                            <?php if ($logoData): ?>
+                                <td class="header-brand-logo">
+                                    <img src="<?= $logoData ?>" class="logo" alt="Logo">
+                                </td>
+                            <?php endif; ?>
+                            <td class="header-brand-title">
+                                <h1>Katalog Produk</h1>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
@@ -319,14 +336,10 @@
     <div class="footer">
         <table class="footer-table">
             <tr>
-                <td>
-                    <strong><?= esc($settings['company_name'] ?? '') ?></strong><br>
-                    <?= esc($settings['office_1'] ?? '') ?><?= !empty($settings['office_1']) && !empty($settings['office_2']) ? ' · ' : '' ?><?= esc($settings['office_2'] ?? '') ?><br>
-                    <?= !empty($settings['phone']) ? 'Telp. ' . esc($settings['phone']) : '' ?><?= !empty($settings['phone']) && !empty($settings['email']) ? ' · ' : '' ?><?= esc($settings['email'] ?? '') ?>
-                </td>
-                <td class="footer-right">
-                    Katalog Produk Pendukung Quotation<br>
-                    <?= esc($quotation['quotation_no']) ?> · Halaman <span class="page-number"></span>
+                <td class="footer-company" colspan="2">
+                    <strong>PT TRISENTOSA RAYA ESOLUSI</strong><br>
+                    Menyediakan Solusi Keamanan Terbaik untuk Industri Anda<br>
+                    www.trisentosaraya.co.id | info@trisentosaraya.co.id
                 </td>
             </tr>
         </table>

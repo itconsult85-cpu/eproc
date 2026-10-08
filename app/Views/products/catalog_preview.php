@@ -36,14 +36,11 @@ foreach ((array) $rawSpecs as $key => $spec) {
 <div class="card">
     <div class="card-body">
         <div class="border-bottom pb-3 mb-3 d-flex justify-content-between align-items-start gap-3">
-            <div>
+            <div class="d-flex flex-grow-1 align-items-center justify-content-between gap-3">
                 <?php if (!empty($settings['logo_path'])): ?>
                 <img src="<?= esc(base_url(ltrim($settings['logo_path'], '/'))) ?>" alt="Logo"
-                    style="max-width:180px;max-height:60px;object-fit:contain" class="mb-2"><br><?php endif; ?>
-                <h2 class="h4 text-primary mb-1">
-                    Katalog Produk Pendukung Quotation
-                </h2>
-                <div class="text-body-secondary"><?= esc($settings['company_name'] ?? '') ?></div>
+                    style="max-width:180px;max-height:60px;object-fit:contain"><?php endif; ?>
+                <h2 class="h4 text-primary mb-1">Katalog Produk</h2>
             </div>
             <div class="text-end text-body-secondary small">
                 <strong>Produk</strong><br><?= esc($product['name']) ?><br><strong>SKU</strong><br><?= esc($product['sku'] ?: '-') ?>

@@ -1,0 +1,1 @@
+﻿<?php $s=file_get_contents(__DIR__.'/long-catalog.pdf');preg_match_all('/stream\r?\n(.*?)\r?\nendstream/s',$s,$m);$n=0;foreach($m[1] as $r){$n++;$r=trim($r,"\r\n");$d=@gzuncompress($r);if($d===false)$d=@gzinflate($r);if($d!==false&&strpos($d,'BT')!==false){preg_match_all('/\((?:\\.|[^)])*\)/',$d,$t);$text=implode(' ',array_slice($t[0],0,8));echo "stream $n: $text\n";}}

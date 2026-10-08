@@ -25,17 +25,25 @@ class ClientPurchaseOrderModel extends BaseModel
 
     public function withQuotation(): array
     {
-        return $this->select('client_purchase_orders.*, quotations.quotation_no, quotations.title, companies.name AS company_name')
+        $builder = $this->select('client_purchase_orders.*, quotations.quotation_no, quotations.title, companies.name AS company_name')
             ->join('quotations', 'quotations.id = client_purchase_orders.quotation_id')
-            ->join('companies', 'companies.id = client_purchase_orders.company_id', 'left')
-            ->orderBy('client_purchase_orders.created_at', 'DESC')->findAll();
+            ->join('companies', 'companies.id = client_purchase_orders.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) $companyIds ? $builder->whereIn('client_purchase_orders.company_id', $companyIds) : $builder->where('client_purchase_orders.company_id', 0);
+        return $builder->orderBy('client_purchase_orders.created_at', 'DESC')->findAll();
     }
 
     public function detail(int $id): ?array
     {
-        $row = $this->select('client_purchase_orders.*, quotations.quotation_no, quotations.title, quotations.customer_name, quotations.customer_address, companies.name AS company_name, companies.address AS company_address, companies.phone AS company_phone')
+        $builder = $this->select('client_purchase_orders.*, quotations.quotation_no, quotations.title, quotations.customer_name, quotations.customer_address, companies.name AS company_name, companies.address AS company_address, companies.phone AS company_phone')
             ->join('quotations', 'quotations.id = client_purchase_orders.quotation_id')
-            ->join('companies', 'companies.id = client_purchase_orders.company_id', 'left')->find($id);
+            ->join('companies', 'companies.id = client_purchase_orders.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) {
+            if (! $companyIds) return null;
+            $builder->whereIn('client_purchase_orders.company_id', $companyIds);
+        }
+        $row = $builder->find($id);
         if (! $row) return null;
         $row['items'] = (new ClientPurchaseOrderItemModel())->where('client_purchase_order_id', $id)->findAll();
         return $row;
@@ -47,6 +55,8 @@ class ClientPurchaseOrderModel extends BaseModel
         $builder = $this->select('client_purchase_orders.*, quotations.quotation_no, quotations.title, companies.name AS company_name')
             ->join('quotations', 'quotations.id = client_purchase_orders.quotation_id')
             ->join('companies', 'companies.id = client_purchase_orders.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) $companyIds ? $builder->whereIn('client_purchase_orders.company_id', $companyIds) : $builder->where('client_purchase_orders.company_id', 0);
         if ($search !== '') $builder->groupStart()->like('client_purchase_orders.po_no', $search)->orLike('quotations.quotation_no', $search)->orLike('quotations.title', $search)->orLike('companies.name', $search)->groupEnd();
         return $builder->orderBy($allowed[$orderColumn] ?? $allowed['created_at'], $direction === 'ASC' ? 'ASC' : 'DESC')->findAll(max(1, min($length, 100)), max(0, $start));
     }
@@ -54,6 +64,8 @@ class ClientPurchaseOrderModel extends BaseModel
     public function countFiltered(string $search): int
     {
         $builder = $this->join('quotations', 'quotations.id = client_purchase_orders.quotation_id')->join('companies', 'companies.id = client_purchase_orders.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) $companyIds ? $builder->whereIn('client_purchase_orders.company_id', $companyIds) : $builder->where('client_purchase_orders.company_id', 0);
         if ($search !== '') $builder->groupStart()->like('client_purchase_orders.po_no', $search)->orLike('quotations.quotation_no', $search)->orLike('quotations.title', $search)->orLike('companies.name', $search)->groupEnd();
         return $builder->countAllResults();
     }

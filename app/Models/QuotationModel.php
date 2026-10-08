@@ -43,17 +43,27 @@ class QuotationModel extends BaseModel
         'expired' => ['sent'],
     ];
 
-    public function withCompany(): array
+    public function withCompany(?array $companyIds = null): array
     {
-        return $this->select('quotations.*, companies.name AS company_name')
-            ->join('companies', 'companies.id = quotations.company_id', 'left')
+        $builder = $this->select('quotations.*, companies.name AS company_name')
+            ->join('companies', 'companies.id = quotations.company_id', 'left');
+        if ($companyIds !== null) {
+            if (! $companyIds) return [];
+            $builder->whereIn('quotations.company_id', $companyIds);
+        }
+        return $builder
             ->orderBy('quotations.created_at', 'DESC')->findAll();
     }
 
-    public function detail(int $id): ?array
+    public function detail(int $id, ?array $companyIds = null): ?array
     {
-        $quotation = $this->select('quotations.*, companies.name AS company_name, companies.address AS company_address, companies.phone AS company_phone, companies.email AS company_email, companies.pic_name, company_bank_accounts.bank_name, company_bank_accounts.account_name AS bank_account_name, company_bank_accounts.account_number AS bank_account_number, company_bank_accounts.branch AS bank_branch, company_bank_accounts.currency AS bank_currency')
-            ->join('companies', 'companies.id = quotations.company_id', 'left')->join('company_bank_accounts', 'company_bank_accounts.id = quotations.bank_account_id', 'left')->find($id);
+        $builder = $this->select('quotations.*, companies.name AS company_name, companies.address AS company_address, companies.phone AS company_phone, companies.email AS company_email, companies.pic_name, company_bank_accounts.bank_name, company_bank_accounts.account_name AS bank_account_name, company_bank_accounts.account_number AS bank_account_number, company_bank_accounts.branch AS bank_branch, company_bank_accounts.currency AS bank_currency')
+            ->join('companies', 'companies.id = quotations.company_id', 'left')->join('company_bank_accounts', 'company_bank_accounts.id = quotations.bank_account_id', 'left');
+        if ($companyIds !== null) {
+            if (! $companyIds) return null;
+            $builder->whereIn('quotations.company_id', $companyIds);
+        }
+        $quotation = $builder->find($id);
         if ($quotation === null) return null;
         $quotation['items'] = (new QuotationItemModel())->where('quotation_id', $id)->findAll();
         $quotation['negotiations'] = (new QuotationNegotiationModel())->forQuotation($id);

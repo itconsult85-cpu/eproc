@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PermissionModel;
+use App\Models\CompanyModel;
 use App\Models\UserModel;
 
 class Users extends BaseController
@@ -18,14 +19,14 @@ class Users extends BaseController
     }
     public function new()
     {
-        return view('users/form', ['title' => 'Tambah Pengguna', 'user' => null, 'permissions' => (new PermissionModel())->orderBy('group_name')->findAll(), 'assigned' => []]);
+        return view('users/form', ['title' => 'Tambah Pengguna', 'user' => null, 'permissions' => (new PermissionModel())->orderBy('group_name')->findAll(), 'assigned' => [], 'companies' => $this->availableCompanies()]);
     }
     public function edit(string $id)
     {
         $id = $this->resolveId($id, $this->users);
         $user = $this->users->find($id);
         if (! $user) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        return view('users/form', ['title' => 'Edit Pengguna', 'user' => $user, 'permissions' => (new PermissionModel())->orderBy('group_name')->findAll(), 'assigned' => array_column($this->users->permissions($id), 'permission_key')]);
+        return view('users/form', ['title' => 'Edit Pengguna', 'user' => $user, 'permissions' => (new PermissionModel())->orderBy('group_name')->findAll(), 'assigned' => array_column($this->users->permissions($id), 'permission_key'), 'assignedCompanies' => $this->users->companyIds($id), 'companies' => $this->availableCompanies()]);
     }
     public function save(?string $id = null)
     {
@@ -64,6 +65,10 @@ class Users extends BaseController
             $rows = $db->table('permissions')->select('id')->whereIn('permission_key', $keys)->get()->getResultArray();
             foreach ($rows as $row) $db->table('user_permissions')->insert(['user_id' => $userId, 'permission_id' => $row['id']]);
         }
+        $companyIds = array_map('intval', (array) $this->request->getPost('company_ids'));
+        $availableCompanyIds = allowed_company_ids();
+        if ($availableCompanyIds !== null) $companyIds = array_values(array_intersect($companyIds, $availableCompanyIds));
+        $this->users->replaceCompanyAccess((int) $userId, $companyIds);
         return redirect()->to('/users')->with('message', 'Pengguna berhasil disimpan.');
     }
     public function delete(string $id)
@@ -73,5 +78,16 @@ class Users extends BaseController
         if (! $user || $user['role'] === 'superadmin' || $id === (int) auth_user('id')) return redirect()->back()->with('error', 'Pengguna tidak dapat dihapus.');
         $this->users->delete($id);
         return redirect()->to('/users')->with('message', 'Pengguna berhasil dihapus.');
+    }
+
+    private function availableCompanies(): array
+    {
+        $builder = (new CompanyModel())->orderBy('name', 'ASC');
+        $allowed = allowed_company_ids();
+        if ($allowed !== null) {
+            if (! $allowed) return [];
+            $builder->whereIn('id', $allowed);
+        }
+        return $builder->findAll();
     }
 }

@@ -57,7 +57,7 @@ class ClientPurchaseOrders extends BaseController
         $quotationPublicId = (string) $this->request->getPost('quotation_id');
         if ($quotationPublicId === '') return redirect()->back()->withInput()->with('error', 'Quotation final wajib dipilih.');
         $quotationId = $this->resolveId($quotationPublicId, new \App\Models\QuotationModel());
-        $quotation = (new QuotationModel())->detail($quotationId);
+        $quotation = (new QuotationModel())->detail($quotationId, allowed_company_ids());
         if (! $quotation || $quotation['status'] !== 'approved') return redirect()->back()->withInput()->with('error', 'PO IN hanya boleh dibuat dari quotation yang sudah approved/final.');
         $finalSnapshot = json_decode((string) ($quotation['final_snapshot_json'] ?? ''), true);
         if (is_array($finalSnapshot)) $quotation = array_merge($quotation, $finalSnapshot);
@@ -89,13 +89,20 @@ class ClientPurchaseOrders extends BaseController
     public function delete(string $id)
     {
         $id = $this->resolveId($id, $this->model);
+        if (! $this->model->detail($id)) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $this->model->delete($id);
         return redirect()->to('/client-purchase-orders')->with('message', 'PO IN klien berhasil dihapus.');
     }
 
     private function approvedQuotations(): array
     {
-        $quotations = (new QuotationModel())->select('quotations.*, companies.name AS company_name')->join('companies', 'companies.id = quotations.company_id', 'left')->where('quotations.status', 'approved')->orderBy('quotations.created_at', 'DESC')->findAll();
+        $quotationModel = (new QuotationModel())->select('quotations.*, companies.name AS company_name')->join('companies', 'companies.id = quotations.company_id', 'left')->where('quotations.status', 'approved');
+        $allowed = allowed_company_ids();
+        if ($allowed !== null) {
+            if (! $allowed) return [];
+            $quotationModel->whereIn('quotations.company_id', $allowed);
+        }
+        $quotations = $quotationModel->orderBy('quotations.created_at', 'DESC')->findAll();
         foreach ($quotations as &$quotation) {
             $detail = (new QuotationModel())->detail((int) $quotation['id']);
             $snapshot = json_decode((string) ($quotation['final_snapshot_json'] ?? ''), true);

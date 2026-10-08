@@ -102,6 +102,29 @@
             </div>
         </div>
         <div class="col-lg-5">
+            <div class="card card-info card-outline mb-3">
+                <div class="card-header">
+                    <h3 class="card-title">Akses Perusahaan</h3>
+                </div>
+                <div class="card-body">
+                    <p class="small text-body-secondary">User hanya dapat melihat dan mengelola data yang berhubungan dengan perusahaan yang dipilih.</p>
+                    <?php $assignedCompanies = $assignedCompanies ?? []; ?>
+                    <?php if ($companies): ?>
+                        <div class="vstack gap-2">
+                            <?php foreach ($companies as $company): ?>
+                                <label class="form-check border rounded p-2">
+                                    <input class="form-check-input" type="checkbox" name="company_ids[]"
+                                        value="<?= (int) $company['id'] ?>"
+                                        <?= in_array((int) $company['id'], array_map('intval', (array) old('company_ids', $assignedCompanies)), true) ? 'checked' : '' ?>>
+                                    <span class="form-check-label"><?= esc($company['name']) ?></span>
+                                </label>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="alert alert-warning mb-0">Belum ada perusahaan yang dapat ditetapkan.</div>
+                    <?php endif; ?>
+                </div>
+            </div>
             <div class="card card-secondary card-outline">
                 <div class="card-header">
                     <h3 class="card-title">

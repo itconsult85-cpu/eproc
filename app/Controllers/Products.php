@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Libraries\SecureFileStorage;
+use App\Models\CompanyModel;
 use App\Models\ProductModel;
 use App\Models\QuotationSettingModel;
 use Dompdf\Dompdf;
@@ -29,8 +30,10 @@ class Products extends BaseController
         $start = max(0, (int) ($request['start'] ?? 0));
         $length = min(100, max(1, (int) ($request['length'] ?? 10)));
         $search = trim((string) ($request['search']['value'] ?? ''));
-        $total = $this->model->countAll();
-        $builder = $this->model->builder();
+        $allowedCompanies = allowed_company_ids();
+        $totalQuery = (new ProductModel())->applyCompanyScope($allowedCompanies);
+        $total = $totalQuery->countAllResults();
+        $builder = $this->model->applyCompanyScope($allowedCompanies)->builder();
 
         if ($search !== '') {
             $builder->groupStart()->like('name', $search)->orLike('sku', $search)->orLike('brand', $search)->orLike('store_name', $search)->groupEnd();
@@ -75,7 +78,7 @@ class Products extends BaseController
 
     public function new()
     {
-        return view('products/form', ['title' => 'Tambah Produk', 'product' => [], 'action' => '/products']);
+        return view('products/form', ['title' => 'Tambah Produk', 'product' => [], 'action' => '/products', 'companies' => $this->availableCompanies()]);
     }
 
     public function create()
@@ -87,10 +90,10 @@ class Products extends BaseController
     {
         $id = $this->resolveId($id, $this->model);
         $product = $this->model->find($id);
-        if (! $product) {
+        if (! $product || ! $this->model->applyCompanyScope(allowed_company_ids())->find($id)) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        return view('products/form', ['title' => 'Edit Produk', 'product' => $product, 'action' => '/products/' . public_id($id)]);
+        return view('products/form', ['title' => 'Edit Produk', 'product' => $product, 'assignedCompanies' => $this->model->companyIds($id), 'action' => '/products/' . public_id($id), 'companies' => $this->availableCompanies()]);
     }
 
     public function update(string $id)
@@ -127,14 +130,14 @@ class Products extends BaseController
 
         return $this->response
             ->setHeader('Content-Type', 'application/pdf')
-            ->setHeader('Content-Disposition', 'attachment; filename="katalog-produk-' . preg_replace('/[^A-Za-z0-9_-]/', '-', (string) ($product['sku'] ?: $product['id'])) . '.pdf"')
+            ->setHeader('Content-Disposition', 'inline; filename="katalog-produk-' . preg_replace('/[^A-Za-z0-9_-]/', '-', (string) ($product['sku'] ?: $product['id'])) . '.pdf"')
             ->setBody($dompdf->output());
     }
 
     private function catalogProduct(string $value): array
     {
         $id = $this->resolveId($value, $this->model);
-        $product = $this->model->find($id);
+        $product = $this->model->applyCompanyScope(allowed_company_ids())->find($id);
         if (! $product) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -155,6 +158,23 @@ class Products extends BaseController
     private function save(?int $id = null)
     {
         $data = $this->request->getPost(['sku', 'name', 'brand', 'description', 'datasheet', 'applications', 'standards', 'cost_price', 'selling_price', 'store_name', 'store_url', 'store_phone', 'store_pic', 'is_active']);
+        $companyIds = array_values(array_unique(array_filter(array_map('intval', (array) $this->request->getPost('company_ids')), static fn (int $id): bool => $id > 0)));
+        $allowedCompanies = allowed_company_ids();
+        if ($allowedCompanies !== null) $companyIds = array_values(array_intersect($companyIds, $allowedCompanies));
+        if ($allowedCompanies !== null && ! $companyIds) {
+            return redirect()->back()->withInput()->with('error', 'Minimal satu perusahaan wajib dipilih.');
+        }
+        if ($companyIds) {
+            $validCompanyCount = (new CompanyModel())->whereIn('id', $companyIds)->countAllResults();
+            if ($validCompanyCount !== count($companyIds)) {
+                return redirect()->back()->withInput()->with('error', 'Ada perusahaan yang tidak valid.');
+            }
+        }
+        foreach (['description', 'applications', 'datasheet'] as $field) {
+            if (array_key_exists($field, $data)) {
+                $data[$field] = trim((string) $data[$field]);
+            }
+        }
         if (! $this->validateData($data, ['name' => 'required|max_length[180]', 'selling_price' => 'permit_empty|decimal'])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -171,7 +191,10 @@ class Products extends BaseController
         }
         $data['technical_specs'] = $specifications ? json_encode($specifications, JSON_UNESCAPED_UNICODE) : null;
 
-        $existing = $id ? $this->model->find($id) : [];
+        $existing = $id ? $this->model->applyCompanyScope($allowedCompanies)->find($id) : [];
+        if ($id && ! $existing) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
         $uploads = [
             'image' => ['image_path', ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'], 5242880, 'Format atau ukuran file gambar tidak valid.'],
             'video' => ['video_path', ['mp4' => 'video/mp4', 'webm' => 'video/webm', 'mov' => 'video/quicktime'], 52428800, 'Format atau ukuran file video tidak valid.'],
@@ -205,13 +228,38 @@ class Products extends BaseController
                 $data[$column] = $existing[$column];
             }
         }
-        $id ? $this->model->update($id, $data) : $this->model->insert($data);
+        $data['company_id'] = null;
+        $db = db_connect();
+        $db->transStart();
+        if ($id) {
+            $this->model->update($id, $data);
+            $productId = $id;
+        } else {
+            $productId = (int) $this->model->insert($data, true);
+        }
+        $this->model->replaceCompanyAccess($productId, $companyIds);
+        $db->transComplete();
+        if ($db->transStatus() === false) return redirect()->back()->withInput()->with('error', 'Produk gagal disimpan.');
         return redirect()->to('/products')->with('message', $id ? 'Produk berhasil diperbarui.' : 'Produk berhasil ditambahkan.');
+    }
+
+    private function availableCompanies(): array
+    {
+        $model = new CompanyModel();
+        $allowed = allowed_company_ids();
+        if ($allowed !== null) {
+            if (! $allowed) return [];
+            $model->whereIn('id', $allowed);
+        }
+        return $model->orderBy('name', 'ASC')->findAll();
     }
 
     public function delete(string $id)
     {
         $id = $this->resolveId($id, $this->model);
+        if (! $this->model->applyCompanyScope(allowed_company_ids())->find($id)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
         $this->model->delete($id);
         return redirect()->to('/products')->with('message', 'Produk berhasil dihapus.');
     }

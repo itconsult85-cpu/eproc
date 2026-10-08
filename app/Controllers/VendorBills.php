@@ -42,7 +42,7 @@ class VendorBills extends BaseController
     public function edit(string $id)
     {
         $id = $this->resolveId($id, $this->model);
-        $bill = $this->model->find($id);
+        $bill = $this->model->accessible($id);
         if (! $bill) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         return view('vendor_bills/form', ['title' => 'Edit Tagihan Vendor', 'bill' => $bill, 'vendors' => (new VendorModel())->findAll(), 'action' => '/vendor-bills/' . public_id($id)]);
     }
@@ -50,7 +50,8 @@ class VendorBills extends BaseController
     public function save(?string $id = null)
     {
         $id = $id ? $this->resolveId($id, $this->model) : null;
-        $existing = $id ? $this->model->find($id) : [];
+        $existing = $id ? $this->model->accessible($id) : [];
+        if ($id && ! $existing) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $data = $this->request->getPost(['vendor_id', 'purchase_order_id', 'bill_no', 'bill_date', 'due_date', 'amount', 'status', 'paid_date', 'payment_reference', 'notes']);
         $amount = (float) ($data['amount'] ?? 0);
         $usePpn = $this->request->getPost('use_ppn') ? 1 : 0;
@@ -80,7 +81,7 @@ class VendorBills extends BaseController
     public function delete(string $id)
     {
         $id = $this->resolveId($id, $this->model);
-        $bill = $this->model->find($id);
+        $bill = $this->model->accessible($id);
         if ($bill) {
             SecureFileStorage::remove($bill['proof_path'] ?? null);
             $this->model->delete($id);

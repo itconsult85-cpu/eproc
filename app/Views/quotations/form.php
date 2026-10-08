@@ -211,9 +211,10 @@ foreach ($products as $product) {
                                             </span>
                                         </div>
                                     </td>
-                                    <td>
-                                        <input name="items[<?= $i ?>][description]" class="form-control"
-                                            placeholder="Deskripsi" value="<?= esc($it['description'] ?? '') ?>">
+                                    <td class="quotation-item-description">
+                                        <label class="form-label small mb-1">Deskripsi item quotation</label>
+                                        <textarea name="items[<?= $i ?>][description]" class="form-control" rows="3"
+                                            placeholder="Tulis deskripsi yang tampil di PDF quotation (opsional)"><?= esc($it['description'] ?? '') ?></textarea>
                                     </td>
                                     <td>
                                         <input name="items[<?= $i ?>][quantity]" type="number" step="0.01" min="0"

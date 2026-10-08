@@ -24,6 +24,8 @@ class Files extends BaseController
         $model = new ProformaInvoiceModel();
         $id = $this->resolveId($publicId, $model);
         $row = $model->find($id);
+        $quotation = $row ? (new \App\Models\QuotationModel())->find((int) $row['quotation_id']) : null;
+        if (! $row || ! $quotation || ! can_access_company((int) $quotation['company_id'])) throw PageNotFoundException::forPageNotFound();
         return $this->download($row['proof_path'] ?? null, 'proforma-proof');
     }
 
@@ -31,7 +33,8 @@ class Files extends BaseController
     {
         $model = new VendorBillModel();
         $id = $this->resolveId($publicId, $model);
-        $row = $model->find($id);
+        $row = $model->accessible($id);
+        if (! $row) throw PageNotFoundException::forPageNotFound();
         return $this->download($row['proof_path'] ?? null, 'vendor-bill-proof');
     }
 
@@ -39,7 +42,8 @@ class Files extends BaseController
     {
         $model = new ProductModel();
         $id = $this->resolveId($publicId, $model);
-        $row = $model->find($id);
+        $row = $model->applyCompanyScope(allowed_company_ids())->find($id);
+        if (! $row) throw PageNotFoundException::forPageNotFound();
         return $this->download($row['datasheet_file_path'] ?? null, 'product-datasheet-' . $publicId . '.pdf');
     }
 

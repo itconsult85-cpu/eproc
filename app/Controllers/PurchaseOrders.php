@@ -57,7 +57,7 @@ class PurchaseOrders extends BaseController
     {
         $id = $id ? $this->resolveId($id, $this->model) : null;
         $productMap = [];
-        foreach ((new ProductModel())->findAll() as $product) $productMap[(int) $product['id']] = $product;
+        foreach ((new ProductModel())->applyCompanyScope(allowed_company_ids())->findAll() as $product) $productMap[(int) $product['id']] = $product;
         $valid = [];
         $subtotal = 0;
         foreach ((array) $this->request->getPost('items') as $item) {
@@ -72,7 +72,7 @@ class PurchaseOrders extends BaseController
         $vendorId = (int) $this->request->getPost('vendor_id');
         $clientPoId = (int) $this->request->getPost('client_purchase_order_id');
         if (! $vendorId || ! $valid) return redirect()->back()->withInput()->with('errors', ['items' => 'Vendor dan minimal satu produk katalog wajib dipilih.']);
-        if ($clientPoId && ! (new ClientPurchaseOrderModel())->find($clientPoId)) return redirect()->back()->withInput()->with('error', 'PO IN klien tidak valid.');
+        if ($clientPoId && ! (new ClientPurchaseOrderModel())->detail($clientPoId)) return redirect()->back()->withInput()->with('error', 'PO IN klien tidak valid.');
         $usePpn = $this->request->getPost('use_ppn') ? 1 : 0;
         $ppn = max(0, min(100, (float) $this->request->getPost('ppn_percent')));
         $usePph = $this->request->getPost('use_pph') ? 1 : 0;
@@ -103,12 +103,13 @@ class PurchaseOrders extends BaseController
     public function delete(string $id)
     {
         $id = $this->resolveId($id, $this->model);
+        if (! $this->model->detail($id)) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $this->model->delete($id);
         return redirect()->to('/purchase-orders')->with('message', 'PO OUT berhasil dihapus.');
     }
 
     private function formContext(array $po, string $action): array
     {
-        return ['title' => empty($po) ? 'Buat PO OUT ke Vendor' : 'Edit PO OUT ke Vendor', 'po' => $po, 'vendors' => (new VendorModel())->where('is_active', 1)->findAll(), 'products' => (new ProductModel())->orderBy('name')->findAll(), 'clientPurchaseOrders' => (new ClientPurchaseOrderModel())->withQuotation(), 'action' => $action];
+        return ['title' => empty($po) ? 'Buat PO OUT ke Vendor' : 'Edit PO OUT ke Vendor', 'po' => $po, 'vendors' => (new VendorModel())->where('is_active', 1)->findAll(), 'products' => (new ProductModel())->applyCompanyScope(allowed_company_ids())->orderBy('name')->findAll(), 'clientPurchaseOrders' => (new ClientPurchaseOrderModel())->withQuotation(), 'action' => $action];
     }
 }

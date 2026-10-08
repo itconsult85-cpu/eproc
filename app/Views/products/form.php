@@ -39,6 +39,24 @@
                 </label>
                 <input required name="name" class="form-control" value="<?= old('name', $product['name'] ?? '') ?>">
             </div>
+            <div class="col-md-6">
+                <label class="field-label">Perusahaan Pengguna Produk *</label>
+                <?php $assignedCompanies = array_map('intval', (array) ($assignedCompanies ?? [])); ?>
+                <?php if (($companies ?? [])): ?>
+                    <div class="border rounded p-2 vstack gap-2">
+                        <?php foreach ($companies as $company): ?>
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" name="company_ids[]" value="<?= (int) $company['id'] ?>"
+                                    <?= in_array((int) $company['id'], array_map('intval', (array) old('company_ids', $assignedCompanies)), true) ? 'checked' : '' ?>>
+                                <span class="form-check-label"><?= esc($company['name']) ?></span>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="form-text">Satu produk dapat digunakan oleh beberapa perusahaan.</div>
+                <?php else: ?>
+                    <div class="alert alert-warning mb-0">Belum ada perusahaan yang dapat dipilih.</div>
+                <?php endif; ?>
+            </div>
             <div class="col-md-4">
                 <label class="field-label">
                     Brand
@@ -64,18 +82,14 @@
                     Deskripsi Produk
                 </label>
                 <textarea name="description" class="form-control" rows="4"
-                    placeholder="Penjelasan umum produk seperti pada katalog PDF...">
-                    <?= old('description', $product['description'] ?? '') ?>
-                </textarea>
+                    placeholder="Penjelasan umum produk seperti pada katalog PDF..."><?= esc(old('description', $product['description'] ?? '')) ?></textarea>
             </div>
             <div class="col-12">
                 <label class="field-label">
                     Aplikasi / Fungsi Utama
                 </label>
                 <textarea name="applications" class="form-control" rows="3"
-                    placeholder="Contoh: dapur komersial, laboratorium, pabrik, kendaraan...">
-                    <?= old('applications', $product['applications'] ?? '') ?>
-                </textarea>
+                    placeholder="Contoh: dapur komersial, laboratorium, pabrik, kendaraan..."><?= esc(old('applications', $product['applications'] ?? '')) ?></textarea>
             </div>
             <div class="col-12">
                 <label class="field-label">
@@ -120,9 +134,7 @@
                     Catatan Datasheet
                 </label>
                 <textarea name="datasheet" class="form-control" rows="3"
-                    placeholder="Fitur tambahan, catatan teknis, atau informasi lain...">
-                    <?= old('datasheet', $product['datasheet'] ?? '') ?>
-                </textarea>
+                    placeholder="Fitur tambahan, catatan teknis, atau informasi lain..."><?= esc(old('datasheet', $product['datasheet'] ?? '')) ?></textarea>
             </div>
             <div class="col-md-4">
                 <label class="field-label">

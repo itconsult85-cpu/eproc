@@ -28,17 +28,25 @@ class ClientDeliveryNoteModel extends BaseModel
 
     public function withPurchaseOrder(): array
     {
-        return $this->select('client_delivery_notes.*, client_purchase_orders.po_no AS client_po_no, companies.name AS company_name')
+        $builder = $this->select('client_delivery_notes.*, client_purchase_orders.po_no AS client_po_no, companies.name AS company_name')
             ->join('client_purchase_orders', 'client_purchase_orders.id = client_delivery_notes.client_purchase_order_id')
-            ->join('companies', 'companies.id = client_delivery_notes.company_id', 'left')
-            ->orderBy('client_delivery_notes.created_at', 'DESC')->findAll();
+            ->join('companies', 'companies.id = client_delivery_notes.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) $companyIds ? $builder->whereIn('client_delivery_notes.company_id', $companyIds) : $builder->where('client_delivery_notes.company_id', 0);
+        return $builder->orderBy('client_delivery_notes.created_at', 'DESC')->findAll();
     }
 
     public function detail(int $id): ?array
     {
-        return $this->select('client_delivery_notes.*, client_purchase_orders.po_no AS client_po_no, client_purchase_orders.po_date, companies.name AS company_name, companies.address AS company_address, companies.phone AS company_phone')
+        $builder = $this->select('client_delivery_notes.*, client_purchase_orders.po_no AS client_po_no, client_purchase_orders.po_date, companies.name AS company_name, companies.address AS company_address, companies.phone AS company_phone')
             ->join('client_purchase_orders', 'client_purchase_orders.id = client_delivery_notes.client_purchase_order_id')
-            ->join('companies', 'companies.id = client_delivery_notes.company_id', 'left')->find($id);
+            ->join('companies', 'companies.id = client_delivery_notes.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) {
+            if (! $companyIds) return null;
+            $builder->whereIn('client_delivery_notes.company_id', $companyIds);
+        }
+        return $builder->find($id);
     }
 
     public function listPage(string $search, int $start, int $length, string $orderColumn = 'created_at', string $direction = 'DESC'): array
@@ -47,6 +55,8 @@ class ClientDeliveryNoteModel extends BaseModel
         $builder = $this->select('client_delivery_notes.*, client_purchase_orders.po_no AS client_po_no, companies.name AS company_name')
             ->join('client_purchase_orders', 'client_purchase_orders.id = client_delivery_notes.client_purchase_order_id')
             ->join('companies', 'companies.id = client_delivery_notes.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) $companyIds ? $builder->whereIn('client_delivery_notes.company_id', $companyIds) : $builder->where('client_delivery_notes.company_id', 0);
         if ($search !== '') $builder->groupStart()->like('client_delivery_notes.delivery_no', $search)->orLike('client_purchase_orders.po_no', $search)->orLike('companies.name', $search)->orLike('client_delivery_notes.recipient_name', $search)->groupEnd();
         return $builder->orderBy($allowed[$orderColumn] ?? $allowed['created_at'], $direction === 'ASC' ? 'ASC' : 'DESC')->findAll(max(1, min($length, 100)), max(0, $start));
     }
@@ -54,6 +64,8 @@ class ClientDeliveryNoteModel extends BaseModel
     public function countFiltered(string $search): int
     {
         $builder = $this->join('client_purchase_orders', 'client_purchase_orders.id = client_delivery_notes.client_purchase_order_id')->join('companies', 'companies.id = client_delivery_notes.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) $companyIds ? $builder->whereIn('client_delivery_notes.company_id', $companyIds) : $builder->where('client_delivery_notes.company_id', 0);
         if ($search !== '') $builder->groupStart()->like('client_delivery_notes.delivery_no', $search)->orLike('client_purchase_orders.po_no', $search)->orLike('companies.name', $search)->orLike('client_delivery_notes.recipient_name', $search)->groupEnd();
         return $builder->countAllResults();
     }

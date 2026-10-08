@@ -384,7 +384,6 @@
     }
     if (placeholder) placeholder.hidden = Boolean(imagePath);
     if (!product) return;
-    row.querySelector('[name$="[description]"]').value = "";
     row.querySelector('[name$="[unit_price]"]').value =
       product.selling_price || 0;
   };
@@ -410,7 +409,7 @@
       );
     const select = row.querySelector('[name$="[product_id]"]');
     if (select) select.value = "";
-    row.querySelectorAll("input").forEach((input) => {
+    row.querySelectorAll("input, textarea").forEach((input) => {
       if (input.name.includes("quantity")) input.value = 1;
       else if (input.name.includes("unit]")) input.value = "pcs";
       else input.value = "";
@@ -433,7 +432,7 @@
     if (!row) return;
     if (rows.length > 1) row.remove();
     else {
-      row.querySelectorAll("input").forEach((input) => (input.value = ""));
+      row.querySelectorAll("input, textarea").forEach((input) => (input.value = ""));
       row.querySelector("select").value = "";
       const image = row.querySelector(".product-thumb");
       if (image) {

@@ -1,0 +1,2 @@
+﻿<?php
+$p='D:\\Download\\katalog-CCIP00507_TRE-ICA_X_2026.pdf'; $s=file_get_contents($p); preg_match_all('/stream\r?\n(.*?)\r?\nendstream/s',$s,$m); $n=0; foreach($m[1] as $raw){$n++; $raw=trim($raw,"\r\n"); $d=@gzuncompress($raw); if($d===false)$d=@gzinflate($raw); if($d===false)$d=$raw; if(strpos($d,'BT')!==false){echo "---STREAM $n---\n"; preg_match_all('/\((?:\\.|[^)])*\)|<[^>]+>/',$d,$t); echo implode(' ',array_slice($t[0],0,80))."\n";}}

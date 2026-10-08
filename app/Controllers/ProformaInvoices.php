@@ -50,6 +50,8 @@ class ProformaInvoices extends BaseController
         $id = $this->resolveId($id, $this->model);
         $invoice = $this->model->find($id);
         if (! $invoice) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        $quotation = (new QuotationModel())->find((int) $invoice['quotation_id']);
+        if (! $quotation || ! can_access_company((int) $quotation['company_id'])) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         return view('proforma/form', ['title' => 'Kelola Pembayaran Proforma', 'invoice' => $invoice, 'action' => '/proforma-invoices/' . public_id($id)]);
     }
 
@@ -58,6 +60,8 @@ class ProformaInvoices extends BaseController
         $id = $this->resolveId($id, $this->model);
         $invoice = $this->model->find($id);
         if (! $invoice) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        $quotation = (new QuotationModel())->find((int) $invoice['quotation_id']);
+        if (! $quotation || ! can_access_company((int) $quotation['company_id'])) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 
         $data = $this->request->getPost(['invoice_no', 'payment_status', 'payment_date', 'payment_method', 'payment_reference', 'notes']);
         $data['invoice_no'] = trim((string) ($data['invoice_no'] ?? ''));
@@ -91,7 +95,13 @@ class ProformaInvoices extends BaseController
 
     public function syncApproved()
     {
-        foreach ((new QuotationModel())->where('status', 'approved')->findAll() as $quotation) {
+        $quotationModel = new QuotationModel();
+        $allowed = allowed_company_ids();
+        if ($allowed !== null) {
+            if (! $allowed) return redirect()->to('/proforma-invoices');
+            $quotationModel->whereIn('company_id', $allowed);
+        }
+        foreach ($quotationModel->where('status', 'approved')->findAll() as $quotation) {
             if (! $this->model->where('quotation_id', $quotation['id'])->first()) {
                 $this->model->insert(['quotation_id' => $quotation['id'], 'invoice_no' => 'PI-' . $quotation['quotation_no'], 'invoice_date' => date('Y-m-d'), 'due_date' => date('Y-m-d', strtotime('+30 days')), 'amount' => $quotation['grand_total'], 'payment_status' => 'unpaid', 'created_at' => date('Y-m-d H:i:s')]);
             }

@@ -25,6 +25,12 @@ class ProformaInvoiceModel extends BaseModel
     ];
     public function withQuotation(): array
     {
-        return $this->select('proforma_invoices.*, quotations.quotation_no, quotations.title, companies.name AS company_name')->join('quotations', 'quotations.id=proforma_invoices.quotation_id')->join('companies', 'companies.id=quotations.company_id')->orderBy('proforma_invoices.created_at', 'DESC')->findAll();
+        $builder = $this->select('proforma_invoices.*, quotations.quotation_no, quotations.title, companies.name AS company_name')->join('quotations', 'quotations.id=proforma_invoices.quotation_id')->join('companies', 'companies.id=quotations.company_id');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) {
+            if (! $companyIds) return [];
+            $builder->whereIn('quotations.company_id', $companyIds);
+        }
+        return $builder->orderBy('proforma_invoices.created_at', 'DESC')->findAll();
     }
 }

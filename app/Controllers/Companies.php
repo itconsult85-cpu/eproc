@@ -25,8 +25,17 @@ class Companies extends BaseController
         $start = max(0, (int) ($request['start'] ?? 0));
         $length = min(100, max(1, (int) ($request['length'] ?? 10)));
         $search = trim((string) ($request['search']['value'] ?? ''));
-        $total = $this->model->countAll();
         $builder = $this->model->builder();
+        $allowed = allowed_company_ids();
+        if ($allowed === null) {
+            $total = $this->model->countAll();
+        } elseif (! $allowed) {
+            $total = 0;
+            $builder->where('id', 0);
+        } else {
+            $total = $this->model->whereIn('id', $allowed)->countAllResults();
+            $builder->whereIn('id', $allowed);
+        }
 
         if ($search !== '') {
             $builder->groupStart()
@@ -80,6 +89,14 @@ class Companies extends BaseController
         $data['quotation_code'] = strtoupper(trim((string) ($data['quotation_code'] ?? '')));
         $data['quotation_sequence'] = 0;
         $this->model->insert($data);
+        $allowed = allowed_company_ids();
+        if ($allowed !== null) {
+            db_connect()->table('user_company_access')->ignore(true)->insert([
+                'user_id' => (int) auth_user('id'),
+                'company_id' => (int) $this->model->getInsertID(),
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
+        }
         return redirect()->to('/companies')->with('message', 'Perusahaan berhasil ditambahkan.');
     }
 
@@ -87,13 +104,14 @@ class Companies extends BaseController
     {
         $id = $this->resolveId($id, $this->model);
         $company = $this->model->find($id);
-        if (! $company) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (! $company || ! can_access_company($id)) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         return view('companies/form', ['title' => 'Edit Perusahaan', 'company' => $company, 'action' => '/companies/' . public_id($id)]);
     }
 
     public function update(string $id)
     {
         $id = $this->resolveId($id, $this->model);
+        if (! can_access_company($id)) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $data = $this->request->getPost(['name', 'quotation_prefix', 'quotation_code', 'address', 'phone', 'email', 'pic_name', 'pic_phone', 'notes']);
         if (! $this->validateData($data, ['name' => 'required|max_length[160]', 'quotation_prefix' => 'permit_empty|alpha_numeric|max_length[12]', 'quotation_code' => 'permit_empty|regex_match[/^[A-Za-z0-9_-]+$/]|max_length[30]'])) return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         $data['quotation_prefix'] = strtoupper(trim((string) ($data['quotation_prefix'] ?? 'CCIP'))) ?: 'CCIP';
@@ -105,6 +123,7 @@ class Companies extends BaseController
     public function delete(string $id)
     {
         $id = $this->resolveId($id, $this->model);
+        if (! can_access_company($id)) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $this->model->delete($id);
         return redirect()->to('/companies')->with('message', 'Perusahaan berhasil dihapus.');
     }

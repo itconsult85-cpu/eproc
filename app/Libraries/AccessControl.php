@@ -51,6 +51,19 @@ class AccessControl
         return in_array($permission, $user['permissions'] ?? [], true);
     }
 
+    public static function companyIds(): ?array
+    {
+        $user = self::user();
+        if (! $user || ($user['role'] ?? '') === 'superadmin') return null;
+        return array_map('intval', $user['company_ids'] ?? []);
+    }
+
+    public static function canAccessCompany(int $companyId): bool
+    {
+        $allowed = self::companyIds();
+        return $allowed === null || in_array($companyId, $allowed, true);
+    }
+
     public static function refreshSession(array $user): void
     {
         self::$validated = true;
@@ -68,6 +81,7 @@ class AccessControl
             'role' => $user['role'],
             'avatar_path' => $user['avatar_path'] ?? null,
             'permissions' => array_column($permissions, 'permission_key'),
+            'company_ids' => (new UserModel())->companyIds((int) $user['id']),
         ];
         session()->set('auth_user', self::$requestUser);
         session()->set('username', $user['username']);

@@ -35,6 +35,8 @@ class BastModel extends BaseModel
         $allowed = ['bast_no' => 'bast_no', 'source_no' => 'source_no', 'company' => 'companies.name', 'handover_date' => 'handover_date', 'status' => 'status', 'created_at' => 'bast_documents.created_at'];
         $builder = $this->select('bast_documents.*, companies.name AS company_name')
             ->join('companies', 'companies.id = bast_documents.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) $companyIds ? $builder->whereIn('bast_documents.company_id', $companyIds) : $builder->where('bast_documents.company_id', 0);
         if ($search !== '') {
             $builder->groupStart()->like('bast_no', $search)->orLike('source_no', $search)->orLike('source_title', $search)->orLike('companies.name', $search)->orLike('recipient_name', $search)->groupEnd();
         }
@@ -44,13 +46,21 @@ class BastModel extends BaseModel
     public function countFiltered(string $search): int
     {
         $builder = $this->join('companies', 'companies.id = bast_documents.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) $companyIds ? $builder->whereIn('bast_documents.company_id', $companyIds) : $builder->where('bast_documents.company_id', 0);
         if ($search !== '') $builder->groupStart()->like('bast_no', $search)->orLike('source_no', $search)->orLike('source_title', $search)->orLike('companies.name', $search)->orLike('recipient_name', $search)->groupEnd();
         return $builder->countAllResults();
     }
 
     public function withCompany(int $id): ?array
     {
-        return $this->select('bast_documents.*, companies.name AS company_name, companies.address AS company_address, companies.phone AS company_phone, companies.email AS company_email, companies.pic_name')
-            ->join('companies', 'companies.id = bast_documents.company_id', 'left')->find($id);
+        $builder = $this->select('bast_documents.*, companies.name AS company_name, companies.address AS company_address, companies.phone AS company_phone, companies.email AS company_email, companies.pic_name')
+            ->join('companies', 'companies.id = bast_documents.company_id', 'left');
+        $companyIds = allowed_company_ids();
+        if ($companyIds !== null) {
+            if (! $companyIds) return null;
+            $builder->whereIn('bast_documents.company_id', $companyIds);
+        }
+        return $builder->find($id);
     }
 }

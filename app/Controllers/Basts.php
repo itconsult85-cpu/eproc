@@ -71,7 +71,7 @@ class Basts extends BaseController
     {
         $id = $this->resolveId($id, $this->model);
         $bast = $this->model->find($id);
-        if (! $bast) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (! $bast || ! can_access_company((int) $bast['company_id'])) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         return view('basts/form', $this->formContext($bast));
     }
 
@@ -79,6 +79,7 @@ class Basts extends BaseController
     {
         $id = $id ? $this->resolveId($id, $this->model) : null;
         $existing = $id ? $this->model->find($id) : null;
+        if ($id && (! $existing || ! can_access_company((int) $existing['company_id']))) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $sourceType = (string) $this->request->getPost('source_type');
         $sourcePublicId = (string) $this->request->getPost('source_id');
         $sourceModel = $sourceType === 'quotation' ? new QuotationModel() : ($sourceType === 'client_purchase_order' ? new ClientPurchaseOrderModel() : ($sourceType === 'purchase_order' ? new PurchaseOrderModel() : null));
@@ -96,6 +97,7 @@ class Basts extends BaseController
         ], (array) ($source['items'] ?? [])));
         if (! $items) return redirect()->back()->withInput()->with('error', 'Dokumen sumber belum memiliki item barang.');
         $companyId = in_array($sourceType, ['quotation', 'client_purchase_order'], true) ? (int) ($source['company_id'] ?? 0) : (int) $this->request->getPost('company_id');
+        if (! can_access_company($companyId)) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $company = (new CompanyModel())->find($companyId);
         $data = $this->request->getPost(['bast_no', 'handover_date', 'location', 'recipient_name', 'recipient_position', 'handed_over_by', 'handed_over_position', 'status', 'notes']);
         if (! $company || trim((string) ($data['bast_no'] ?? '')) === '' || empty($data['handover_date']) || trim((string) ($data['recipient_name'] ?? '')) === '') {
@@ -141,13 +143,15 @@ class Basts extends BaseController
     public function delete(string $id)
     {
         $id = $this->resolveId($id, $this->model);
+        $bast = $this->model->find($id);
+        if (! $bast || ! can_access_company((int) $bast['company_id'])) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $this->model->delete($id);
         return redirect()->to('/basts')->with('message', 'BAST berhasil dihapus.');
     }
 
     private function formContext(?array $bast = null): array
     {
-        $quotations = (new QuotationModel())->withCompany();
+        $quotations = (new QuotationModel())->withCompany(allowed_company_ids());
         $quotationDetails = [];
         foreach ($quotations as $quotation) {
             $detail = (new QuotationModel())->detail((int) $quotation['id']);
@@ -165,7 +169,10 @@ class Basts extends BaseController
             $detail = (new ClientPurchaseOrderModel())->detail((int) $po['id']);
             if ($detail) $clientPurchaseOrderDetails[public_id((int) $po['id'])] = $this->sourcePayload('client_purchase_order', $detail);
         }
-        return ['title' => $bast ? 'Edit Berita Acara Serah Terima' : 'Buat Berita Acara Serah Terima', 'bast' => $bast ?? [], 'companies' => (new CompanyModel())->orderBy('name')->findAll(), 'quotationSources' => $quotationDetails, 'clientPurchaseOrderSources' => $clientPurchaseOrderDetails, 'purchaseOrderSources' => $purchaseOrderDetails, 'action' => $bast ? '/basts/' . public_id((int) $bast['id']) : '/basts'];
+        $companyBuilder = (new CompanyModel())->orderBy('name');
+        $allowed = allowed_company_ids();
+        if ($allowed !== null) $allowed ? $companyBuilder->whereIn('id', $allowed) : $companyBuilder->where('id', 0);
+        return ['title' => $bast ? 'Edit Berita Acara Serah Terima' : 'Buat Berita Acara Serah Terima', 'bast' => $bast ?? [], 'companies' => $companyBuilder->findAll(), 'quotationSources' => $quotationDetails, 'clientPurchaseOrderSources' => $clientPurchaseOrderDetails, 'purchaseOrderSources' => $purchaseOrderDetails, 'action' => $bast ? '/basts/' . public_id((int) $bast['id']) : '/basts'];
     }
 
     private function sourcePayload(string $type, array $source): array

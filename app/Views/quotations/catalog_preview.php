@@ -24,18 +24,12 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <div class="border-bottom pb-3 mb-3">
+        <div class="border-bottom pb-3 mb-3 d-flex align-items-center justify-content-between gap-3">
             <?php if ($logoData): ?>
             <img src="<?= $logoData ?>" alt="Logo" style="max-width:180px;max-height:60px;object-fit:contain"
-                class="mb-2">
-            <br>
+                class="mb-0">
             <?php endif; ?>
-            <h2 class="h4 text-primary mb-1">
-                Katalog Produk Pendukung Quotation
-            </h2>
-            <div class="text-body-secondary"><?= esc($settings['company_name'] ?? '') ?> · Customer:
-                <?= esc($quotation['customer_name'] ?: $quotation['company_name']) ?>
-            </div>
+            <h2 class="h4 text-primary mb-1">Katalog Produk</h2>
         </div>
         <?php if (!$items): ?>
         <p class="text-body-secondary">

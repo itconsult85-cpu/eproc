@@ -37,12 +37,36 @@ class Quotations extends BaseController
         $start = max(0, (int) ($request['start'] ?? 0));
         $length = min(100, max(1, (int) ($request['length'] ?? 10)));
         $search = trim((string) ($request['search']['value'] ?? ''));
-        $total = $this->model->countAll();
+        $allowedCompanies = allowed_company_ids();
         $builder = $this->model->builder()->select('quotations.*, companies.name AS company_name')->join('companies', 'companies.id = quotations.company_id', 'left');
+        if ($allowedCompanies === null) {
+            $total = $this->model->countAll();
+        } elseif (! $allowedCompanies) {
+            $total = 0;
+            $builder->where('quotations.company_id', 0);
+        } else {
+            $total = $this->model->whereIn('company_id', $allowedCompanies)->countAllResults();
+            $builder->whereIn('quotations.company_id', $allowedCompanies);
+        }
         if ($search !== '') {
             $builder->groupStart()->like('quotations.quotation_no', $search)->orLike('companies.name', $search)->orLike('quotations.title', $search)->orLike('quotations.status', $search)->groupEnd();
         }
-        $filtered = $builder->countAllResults(false);
+        // Gunakan builder terpisah untuk count agar CI4 tidak mereset SELECT/JOIN
+        // pada builder utama yang masih dipakai untuk mengambil baris datatable.
+        $countBuilder = db_connect()->table('quotations')
+            ->select('quotations.id')
+            ->join('companies', 'companies.id = quotations.company_id', 'left');
+        if ($allowedCompanies === null) {
+            // Tidak ada filter perusahaan.
+        } elseif (! $allowedCompanies) {
+            $countBuilder->where('quotations.company_id', 0);
+        } else {
+            $countBuilder->whereIn('quotations.company_id', $allowedCompanies);
+        }
+        if ($search !== '') {
+            $countBuilder->groupStart()->like('quotations.quotation_no', $search)->orLike('companies.name', $search)->orLike('quotations.title', $search)->orLike('quotations.status', $search)->groupEnd();
+        }
+        $filtered = $countBuilder->countAllResults();
         $columns = ['created_at', 'created_at', 'quotation_no', 'company_name', 'title', 'grand_total', 'status', 'created_at', 'created_at'];
         $orderColumn = (int) ($request['order'][0]['column'] ?? 7);
         $orderDirection = strtolower((string) ($request['order'][0]['dir'] ?? 'desc')) === 'asc' ? 'asc' : 'desc';
@@ -92,7 +116,7 @@ class Quotations extends BaseController
             $actions = '<div class="dropdown quotation-actions"><button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-expanded="false"><i class="bi bi-three-dots me-1"></i>Aksi</button><ul class="dropdown-menu dropdown-menu-end shadow-sm">' . $actions . $statusActions . $deleteAction . '</ul></div>';
             $pastDue = ! empty($row['valid_until']) && $row['valid_until'] < date('Y-m-d') && in_array($row['status'], ['draft', 'sent', 'negotiation', 'expired'], true);
             $statusLabel = '<span class="d-inline-block"><span class="badge text-bg-' . $statusClass . '">' . esc($statusMeta['label']) . '</span><small class="quotation-status-hint d-block">' . esc($statusMeta['hint']) . '</small></span>' . ($pastDue ? '<small class="text-danger d-block">Masa berlaku lewat</small>' : '');
-            return ['id' => (int) $row['id'], 'quotation_no' => '<strong>' . esc($row['quotation_no']) . '</strong>', 'company_name' => esc($row['company_name'] ?: '-'), 'title' => esc($row['title']), 'grand_total' => 'Rp ' . number_format((float) $row['grand_total'], 0, ',', '.'), 'status' => $statusLabel, 'created_at' => esc($row['created_at'] ?? '-'), 'actions' => $actions];
+            return ['id' => (int) $row['id'], 'quotation_no' => '<strong>' . esc($row['quotation_no']) . '</strong>', 'company_name' => esc($row['company_name'] ?? '-'), 'title' => esc($row['title']), 'grand_total' => 'Rp ' . number_format((float) $row['grand_total'], 0, ',', '.'), 'status' => $statusLabel, 'created_at' => esc($row['created_at'] ?? '-'), 'actions' => $actions];
         }, $rows);
         return $this->response->setJSON(['draw' => $draw, 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'data' => $data]);
     }
@@ -102,8 +126,8 @@ class Quotations extends BaseController
         return view('quotations/form', [
             'title' => 'Buat Penawaran',
             'settings' => (new QuotationSettingModel())->current(),
-            'companies' => (new CompanyModel())->orderBy('name')->findAll(),
-            'products' => (new ProductModel())->where('is_active', 1)->orderBy('name')->findAll(),
+            'companies' => $this->availableCompanies(),
+            'products' => (new ProductModel())->applyCompanyScope(allowed_company_ids())->where('is_active', 1)->orderBy('name')->findAll(),
         ]);
     }
 
@@ -113,7 +137,9 @@ class Quotations extends BaseController
         if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-        $company = (new CompanyModel())->find((int) $this->request->getPost('company_id'));
+        $companyId = (int) $this->request->getPost('company_id');
+        if (! can_access_company($companyId)) return redirect()->back()->withInput()->with('errors', ['company_id' => 'Perusahaan tidak dapat diakses oleh akun ini.']);
+        $company = (new CompanyModel())->find($companyId);
         $customerName = trim((string) $this->request->getPost('customer_name'));
         $customerAddress = trim((string) $this->request->getPost('customer_address'));
         if ($company) {
@@ -121,7 +147,7 @@ class Quotations extends BaseController
             $customerAddress = $customerAddress !== '' ? $customerAddress : (string) ($company['address'] ?? '');
         }
         $settings = (new QuotationSettingModel())->current();
-        $products = new ProductModel();
+        $products = (new ProductModel())->applyCompanyScope(allowed_company_ids());
         $items = [];
         $subtotal = 0;
         foreach ((array) $this->request->getPost('items') as $item) {
@@ -134,13 +160,13 @@ class Quotations extends BaseController
             $discount = max(0, min(100, (float) ($item['discount_percent'] ?? 0)));
             $line = $qty * $price * (1 - $discount / 100);
             $subtotal += $line;
-            $items[] = ['product_id' => $product['id'], 'product_name' => $product['name'], 'description' => trim((string) ($item['description'] ?? '')) ?: $product['description'], 'quantity' => $qty, 'unit' => $item['unit'] ?? 'pcs', 'unit_price' => $price, 'discount_percent' => $discount, 'line_total' => $line];
+            $items[] = ['product_id' => $product['id'], 'product_name' => $product['name'], 'description' => trim((string) ($item['description'] ?? '')), 'quantity' => $qty, 'unit' => $item['unit'] ?? 'pcs', 'unit_price' => $price, 'discount_percent' => $discount, 'line_total' => $line];
         }
         $issueDate = $this->request->getPost('issue_date') ?: date('Y-m-d');
         $numberMode = $this->request->getPost('quotation_number_mode') === 'manual' ? 'manual' : 'auto';
         $quotationNo = $numberMode === 'manual'
             ? trim((string) $this->request->getPost('quotation_no'))
-            : $this->model->nextQuotationNumber((int) $this->request->getPost('company_id'), $issueDate);
+            : $this->model->nextQuotationNumber($companyId, $issueDate);
         if ($quotationNo === '') return redirect()->back()->withInput()->with('errors', ['quotation_no' => 'Nomor quotation manual wajib diisi.']);
         if ($this->model->where('quotation_no', $quotationNo)->first()) return redirect()->back()->withInput()->with('errors', ['quotation_no' => 'Nomor quotation sudah digunakan.']);
         $db = db_connect();
@@ -150,7 +176,7 @@ class Quotations extends BaseController
         $taxPercent = max(0, (float) ($this->request->getPost('tax_percent') ?: $settings['default_tax_percent'] ?? 0));
         $tax = $subtotal * $taxPercent / 100;
         $quotationId = $this->model->insert([
-            'company_id' => $this->request->getPost('company_id'),
+            'company_id' => $companyId,
             'quotation_no' => $quotationNo,
             'customer_name' => $customerName,
             'customer_address' => $customerAddress,
@@ -193,7 +219,7 @@ class Quotations extends BaseController
     public function edit(string $id)
     {
         $id = $this->resolveId($id, $this->model);
-        $quotation = $this->model->detail($id);
+        $quotation = $this->model->detail($id, allowed_company_ids());
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -204,8 +230,8 @@ class Quotations extends BaseController
             'title' => 'Edit Penawaran',
             'quotation' => $quotation,
             'settings' => (new QuotationSettingModel())->current(),
-            'companies' => (new CompanyModel())->orderBy('name')->findAll(),
-            'products' => (new ProductModel())->where('is_active', 1)->orderBy('name')->findAll(),
+            'companies' => $this->availableCompanies(),
+            'products' => (new ProductModel())->applyCompanyScope(allowed_company_ids())->where('is_active', 1)->orderBy('name')->findAll(),
         ]);
     }
 
@@ -214,6 +240,7 @@ class Quotations extends BaseController
         $id = $this->resolveId($id, $this->model);
         $currentQuotation = $this->model->find($id);
         if (! $currentQuotation) return redirect()->back()->with('errors', ['quotation' => 'Quotation tidak ditemukan.']);
+        if (! can_access_company((int) $currentQuotation['company_id'])) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         if ($currentQuotation['status'] === 'approved' || (new QuotationNegotiationModel())->latestPending($id)) {
             return redirect()->to('/quotations/' . public_id($id))->with('errors', ['edit' => 'Edit master tidak tersedia saat quotation final atau masih ada negosiasi pending. Gunakan proses negosiasi untuk mengajukan perubahan.']);
         }
@@ -222,7 +249,9 @@ class Quotations extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $company = (new CompanyModel())->find((int) $this->request->getPost('company_id'));
+        $companyId = (int) $this->request->getPost('company_id');
+        if (! can_access_company($companyId)) return redirect()->back()->withInput()->with('errors', ['company_id' => 'Perusahaan tidak dapat diakses oleh akun ini.']);
+        $company = (new CompanyModel())->find($companyId);
         $customerName = trim((string) $this->request->getPost('customer_name'));
         $customerAddress = trim((string) $this->request->getPost('customer_address'));
         if ($company) {
@@ -231,7 +260,7 @@ class Quotations extends BaseController
         }
 
         $settings = (new QuotationSettingModel())->current();
-        $products = new ProductModel();
+        $products = (new ProductModel())->applyCompanyScope(allowed_company_ids());
         $items = [];
         $subtotal = 0;
 
@@ -244,7 +273,7 @@ class Quotations extends BaseController
             $discount = max(0, min(100, (float) ($item['discount_percent'] ?? 0)));
             $line = $qty * $price * (1 - $discount / 100);
             $subtotal += $line;
-            $items[] = ['quotation_id' => $id, 'product_id' => $product['id'], 'product_name' => $product['name'], 'description' => trim((string) ($item['description'] ?? '')) ?: $product['description'], 'quantity' => $qty, 'unit' => $item['unit'] ?? 'pcs', 'unit_price' => $price, 'discount_percent' => $discount, 'line_total' => $line];
+            $items[] = ['quotation_id' => $id, 'product_id' => $product['id'], 'product_name' => $product['name'], 'description' => trim((string) ($item['description'] ?? '')), 'quantity' => $qty, 'unit' => $item['unit'] ?? 'pcs', 'unit_price' => $price, 'discount_percent' => $discount, 'line_total' => $line];
         }
 
         $issueDate = $this->request->getPost('issue_date') ?: date('Y-m-d');
@@ -259,7 +288,7 @@ class Quotations extends BaseController
         }
 
         $this->model->update($id, [
-            'company_id' => $this->request->getPost('company_id'),
+            'company_id' => $companyId,
             'quotation_no' => $quotationNumber,
             'customer_name' => $customerName,
             'customer_address' => $customerAddress,
@@ -309,7 +338,7 @@ class Quotations extends BaseController
 
         try {
             $quotation = $this->model->find($id);
-            if (! $quotation) return redirect()->back()->with('errors', ['status' => 'Quotation tidak ditemukan.']);
+            if (! $quotation || ! can_access_company((int) $quotation['company_id'])) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
             if (in_array($status, ['sent', 'approved'], true) && ! empty($quotation['valid_until']) && $quotation['valid_until'] < date('Y-m-d')) {
                 return redirect()->back()->with('errors', ['validity' => 'Quotation belum dapat dikirim atau disetujui karena masa berlaku sudah lewat. Perpanjang masa berlaku terlebih dahulu.']);
             }
@@ -329,7 +358,7 @@ class Quotations extends BaseController
     {
         $id = $this->resolveId($id, $this->model);
         $quotation = $this->model->find($id);
-        if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (! $quotation || ! can_access_company((int) $quotation['company_id'])) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         if (! in_array($quotation['status'], ['draft', 'sent', 'negotiation', 'expired'], true)) {
             return redirect()->back()->with('errors', ['validity' => 'Quotation final atau ditolak tidak dapat diperpanjang.']);
         }
@@ -356,7 +385,7 @@ class Quotations extends BaseController
     public function proposeNegotiation(string $id)
     {
         $id = $this->resolveId($id, $this->model);
-        $quotation = $this->model->detail($id);
+        $quotation = $this->model->detail($id, allowed_company_ids());
         if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         if (! in_array($quotation['status'], ['draft', 'sent', 'negotiation'], true)) return redirect()->back()->with('errors', ['status' => 'Quotation sudah final dan tidak dapat dinegosiasikan lagi.']);
         $negotiations = new QuotationNegotiationModel();
@@ -372,7 +401,7 @@ class Quotations extends BaseController
         $postedItems = $this->request->getPost('items');
         $postedItems = is_array($postedItems) ? $postedItems : [];
         $products = [];
-        foreach ((new ProductModel())->findAll() as $product) {
+        foreach ((new ProductModel())->applyCompanyScope(allowed_company_ids())->findAll() as $product) {
             $products[(string) $product['id']] = $product;
         }
         $items = [];
@@ -430,6 +459,7 @@ class Quotations extends BaseController
         $id = $this->resolveId($id, $this->model);
         $negotiationId = $this->resolveId($negotiationId, new QuotationNegotiationModel());
         $quotation = $this->model->find($id);
+        if (! $quotation || ! can_access_company((int) $quotation['company_id'])) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $negotiations = new QuotationNegotiationModel();
         $negotiation = $negotiations->where(['id' => $negotiationId, 'quotation_id' => $id])->first();
         if (! $quotation || ! $negotiation || $negotiation['status'] !== 'pending') return redirect()->back()->with('errors', ['negotiation' => 'Negosiasi tidak ditemukan atau sudah diproses.']);
@@ -458,7 +488,7 @@ class Quotations extends BaseController
     public function proformaInvoice(string $id)
     {
         $id = $this->resolveId($id, $this->model);
-        $quotation = $this->model->detail($id);
+        $quotation = $this->model->detail($id, allowed_company_ids());
         if (! $quotation) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         if ($quotation['status'] !== 'approved') return redirect()->to('/quotations/' . public_id($id))->with('errors', ['status' => 'Proforma Invoice hanya dapat dicetak setelah quotation final disetujui.']);
         $finalSnapshot = json_decode((string) ($quotation['final_snapshot_json'] ?? ''), true);
@@ -476,8 +506,10 @@ class Quotations extends BaseController
     public function saveBankAccount(string $id)
     {
         $id = $this->resolveId($id, $this->model);
+        $quotation = $this->model->find($id);
+        if (! $quotation || ! can_access_company((int) $quotation['company_id'])) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $accountId = (int) $this->request->getPost('bank_account_id');
-        $account = (new CompanyBankAccountModel())->where('id', $accountId)->where('is_active', 1)->first();
+        $account = (new CompanyBankAccountModel())->where('id', $accountId)->where('company_id', (int) $quotation['company_id'])->where('is_active', 1)->first();
         if (! $account) return redirect()->back()->with('errors', ['bank_account' => 'Rekening perusahaan tidak valid atau sudah nonaktif.']);
         $this->model->update($id, ['bank_account_id' => $accountId]);
         return redirect()->to('/quotations/' . public_id($id))->with('message', 'Rekening pembayaran quotation berhasil dipilih.');
@@ -487,7 +519,7 @@ class Quotations extends BaseController
     {
         $id = $this->resolveId($id, $this->model);
         $this->model->expireOverdue();
-        $quotation = $this->model->detail($id);
+        $quotation = $this->model->detail($id, allowed_company_ids());
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -500,7 +532,7 @@ class Quotations extends BaseController
             'title' => 'Detail Penawaran',
             'quotation' => $quotation,
             'masterQuotation' => $masterQuotation,
-            'products' => (new ProductModel())->orderBy('name')->findAll(),
+            'products' => (new ProductModel())->applyCompanyScope(allowed_company_ids())->orderBy('name')->findAll(),
             'bankAccounts' => (new CompanyBankAccountModel())->active(),
             'negotiationHistory' => $this->negotiationHistory($quotation['negotiations'] ?? []),
         ]);
@@ -574,12 +606,18 @@ class Quotations extends BaseController
     {
         $id = $this->resolveId($id, $this->model);
         $this->model->expireOverdue();
-        $quotation = $this->model->detail($id);
+        $quotation = $this->model->detail($id, allowed_company_ids());
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
         $finalSnapshot = json_decode((string) ($quotation['final_snapshot_json'] ?? ''), true);
         if ($quotation['status'] === 'approved' && is_array($finalSnapshot)) $quotation = array_merge($quotation, $finalSnapshot);
+        if ($quotation['status'] === 'approved' && ! array_key_exists('notes', $finalSnapshot ?: [])) {
+            $masterSnapshot = json_decode((string) ($quotation['master_snapshot_json'] ?? ''), true);
+            if (is_array($masterSnapshot) && array_key_exists('notes', $masterSnapshot)) {
+                $quotation['notes'] = $masterSnapshot['notes'];
+            }
+        }
         $settings = (new QuotationSettingModel())->current();
         $options = new Options();
         $options->set('isRemoteEnabled', false);
@@ -588,7 +626,7 @@ class Quotations extends BaseController
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $filenamePrefix = $quotation['status'] === 'approved' ? 'final-quotation-' : 'quotation-';
-        return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'attachment; filename="' . $filenamePrefix . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
+        return $this->response->setHeader('Content-Type', 'application/pdf')->setHeader('Content-Disposition', 'inline; filename="' . $filenamePrefix . $quotation['quotation_no'] . '.pdf"')->setBody($dompdf->output());
     }
 
     public function catalogPreview(string $id)
@@ -613,18 +651,18 @@ class Quotations extends BaseController
 
         return $this->response
             ->setHeader('Content-Type', 'application/pdf')
-            ->setHeader('Content-Disposition', 'attachment; filename="katalog-' . $context['quotation']['quotation_no'] . '.pdf"')
+            ->setHeader('Content-Disposition', 'inline; filename="katalog-' . $context['quotation']['quotation_no'] . '.pdf"')
             ->setBody($dompdf->output());
     }
 
     private function catalogContext(int $id): array
     {
-        $quotation = $this->model->detail($id);
+        $quotation = $this->model->detail($id, allowed_company_ids());
         if (! $quotation) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        $products = new ProductModel();
+        $products = (new ProductModel())->applyCompanyScope(allowed_company_ids());
         $items = [];
         foreach ($quotation['items'] as $item) {
             $product = ! empty($item['product_id']) ? $products->find((int) $item['product_id']) : null;
@@ -654,7 +692,20 @@ class Quotations extends BaseController
     public function delete(string $id)
     {
         $id = $this->resolveId($id, $this->model);
+        $quotation = $this->model->find($id);
+        if (! $quotation || ! can_access_company((int) $quotation['company_id'])) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $this->model->delete($id);
         return redirect()->to('/quotations')->with('message', 'Penawaran berhasil dihapus.');
+    }
+
+    private function availableCompanies(): array
+    {
+        $builder = (new CompanyModel())->orderBy('name', 'ASC');
+        $allowed = allowed_company_ids();
+        if ($allowed !== null) {
+            if (! $allowed) return [];
+            $builder->whereIn('id', $allowed);
+        }
+        return $builder->findAll();
     }
 }

@@ -94,6 +94,7 @@ class ClientDeliveryNotes extends BaseController
     public function delete(string $id)
     {
         $id = $this->resolveId($id, $this->model);
+        if (! $this->model->detail($id)) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         $this->model->delete($id);
         return redirect()->to('/client-delivery-notes')->with('message', 'Surat jalan client berhasil dihapus.');
     }
