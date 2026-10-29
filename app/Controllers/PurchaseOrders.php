@@ -71,7 +71,8 @@ class PurchaseOrders extends BaseController
         }
         $vendorId = (int) $this->request->getPost('vendor_id');
         $clientPoId = (int) $this->request->getPost('client_purchase_order_id');
-        if (! $vendorId || ! $valid) return redirect()->back()->withInput()->with('errors', ['items' => 'Vendor dan minimal satu produk katalog wajib dipilih.']);
+        $vendor = (new VendorModel())->where('id', $vendorId)->where('is_active', 1)->first();
+        if (! $vendorId || ! $vendor || ! $valid) return redirect()->back()->withInput()->with('errors', ['items' => 'Vendor aktif dan minimal satu produk katalog wajib dipilih.']);
         if ($clientPoId && ! (new ClientPurchaseOrderModel())->detail($clientPoId)) return redirect()->back()->withInput()->with('error', 'PO IN klien tidak valid.');
         $usePpn = $this->request->getPost('use_ppn') ? 1 : 0;
         $ppn = max(0, min(100, (float) $this->request->getPost('ppn_percent')));
@@ -80,23 +81,34 @@ class PurchaseOrders extends BaseController
         $ppnAmount = $usePpn ? $subtotal * $ppn / 100 : 0;
         $pphAmount = $usePph ? $subtotal * $pph / 100 : 0;
         $data = $this->request->getPost(['vendor_id', 'client_purchase_order_id', 'po_no', 'po_date', 'expected_date', 'status', 'notes']);
+        $data['vendor_id'] = $vendorId;
+        $data['client_purchase_order_id'] = $clientPoId > 0 ? $clientPoId : null;
         $data += ['use_ppn' => $usePpn, 'ppn_percent' => $ppn, 'tax_percent' => $ppn, 'use_pph' => $usePph, 'pph_percent' => $pph, 'pph_amount' => $pphAmount, 'tax_amount' => $ppnAmount, 'subtotal' => $subtotal, 'grand_total' => $subtotal + $ppnAmount - $pphAmount, 'created_at' => date('Y-m-d H:i:s')];
         if (trim((string) ($data['po_no'] ?? '')) === '' || ! in_array($data['status'] ?? '', ['draft', 'sent', 'approved', 'cancelled'], true)) return redirect()->back()->withInput()->with('error', 'Nomor dan status PO OUT wajib valid.');
         $duplicate = $this->model->where('po_no', trim((string) $data['po_no']))->first();
         if ($duplicate && (int) $duplicate['id'] !== (int) ($id ?? 0)) return redirect()->back()->withInput()->with('error', 'Nomor PO OUT sudah digunakan.');
         $db = db_connect();
-        $db->transStart();
-        if ($id) {
-            $this->model->update($id, $data);
-            $poId = $id;
-            (new PurchaseOrderItemModel())->where('purchase_order_id', $id)->delete();
-        } else {
-            $poId = $this->model->insert($data, true);
+        try {
+            $db->transStart();
+            if ($id) {
+                $this->model->update($id, $data);
+                $poId = $id;
+                (new PurchaseOrderItemModel())->where('purchase_order_id', $id)->delete();
+            } else {
+                $poId = $this->model->insert($data, true);
+            }
+            foreach ($valid as &$item) $item['purchase_order_id'] = $poId;
+            (new PurchaseOrderItemModel())->insertBatch($valid);
+            $db->transComplete();
+        } catch (\Throwable $exception) {
+            $db->transRollback();
+            log_message('error', 'PO OUT save exception: {message}', ['message' => $exception->getMessage()]);
+            return redirect()->back()->withInput()->with('error', 'PO OUT gagal disimpan. Periksa log aplikasi untuk detail.');
         }
-        foreach ($valid as &$item) $item['purchase_order_id'] = $poId;
-        (new PurchaseOrderItemModel())->insertBatch($valid);
-        $db->transComplete();
-        if ($db->transStatus() === false) return redirect()->back()->withInput()->with('error', 'PO OUT gagal disimpan.');
+        if ($db->transStatus() === false) {
+            log_message('error', 'PO OUT transaction failed: {error}', ['error' => json_encode($db->error(), JSON_UNESCAPED_UNICODE)]);
+            return redirect()->back()->withInput()->with('error', 'PO OUT gagal disimpan. Periksa struktur database dan log aplikasi.');
+        }
         return redirect()->to('/purchase-orders')->with('message', 'PO OUT ke vendor berhasil disimpan.');
     }
 
