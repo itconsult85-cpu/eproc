@@ -64,6 +64,7 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
     $routes->get('purchase-orders/new', 'PurchaseOrders::new', ['filter' => 'permission:purchase_orders.create']);
     $routes->post('purchase-orders', 'PurchaseOrders::save', ['filter' => 'permission:purchase_orders.create']);
     $routes->get('purchase-orders/(:sha1)/edit', 'PurchaseOrders::edit/$1', ['filter' => 'permission:purchase_orders.edit']);
+    $routes->get('purchase-orders/(:sha1)/pdf', 'PurchaseOrders::pdf/$1', ['filter' => 'permission:purchase_orders.view']);
     $routes->post('purchase-orders/(:sha1)', 'PurchaseOrders::save/$1', ['filter' => 'permission:purchase_orders.edit']);
     $routes->post('purchase-orders/(:sha1)/delete', 'PurchaseOrders::delete/$1', ['filter' => 'permission:purchase_orders.delete']);
     $routes->get('client-purchase-orders', 'ClientPurchaseOrders::index', ['filter' => 'permission:client_po.view']);

@@ -6,7 +6,10 @@ use App\Models\ClientPurchaseOrderModel;
 use App\Models\ProductModel;
 use App\Models\PurchaseOrderItemModel;
 use App\Models\PurchaseOrderModel;
+use App\Models\QuotationSettingModel;
 use App\Models\VendorModel;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class PurchaseOrders extends BaseController
 {
@@ -34,7 +37,7 @@ class PurchaseOrders extends BaseController
         $data = array_map(static function (array $row): array {
             $id = public_id((int) $row['id']);
             $statusClass = $row['status'] === 'approved' ? 'success' : ($row['status'] === 'cancelled' ? 'danger' : 'secondary');
-            $actions = '<div class="dropdown datatable-actions"><button class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">Aksi</button><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" href="/purchase-orders/' . $id . '/edit"><i class="bi bi-pencil me-2"></i>Edit PO OUT</a></li><li><form method="post" action="/purchase-orders/' . $id . '/delete" data-confirm data-confirm-title="Hapus PO OUT?">' . csrf_field() . '<button class="dropdown-item text-danger"><i class="bi bi-trash3 me-2"></i>Hapus PO OUT</button></form></li></ul></div>';
+            $actions = '<div class="dropdown datatable-actions"><button class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">Aksi</button><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" href="/purchase-orders/' . $id . '/pdf" target="_blank" rel="noopener"><i class="bi bi-file-earmark-pdf me-2 text-danger"></i>Print / PDF PO OUT</a></li><li><a class="dropdown-item" href="/purchase-orders/' . $id . '/edit"><i class="bi bi-pencil me-2"></i>Edit PO OUT</a></li><li><form method="post" action="/purchase-orders/' . $id . '/delete" data-confirm data-confirm-title="Hapus PO OUT?">' . csrf_field() . '<button class="dropdown-item text-danger"><i class="bi bi-trash3 me-2"></i>Hapus PO OUT</button></form></li></ul></div>';
             return ['po_no' => '<strong>' . esc($row['po_no']) . '</strong>', 'client_po' => esc($row['client_po_no'] ?? '-'), 'vendor' => esc($row['vendor_name']), 'date' => esc($row['po_date']), 'amount' => 'Rp ' . number_format((float) $row['grand_total'], 0, ',', '.'), 'status' => '<span class="badge text-bg-' . $statusClass . '">' . esc(ucfirst($row['status'])) . '</span>', 'actions' => $actions];
         }, $rows);
         return $this->response->setJSON(['draw' => (int) ($request['draw'] ?? 0), 'recordsTotal' => $this->model->countAll(), 'recordsFiltered' => $this->model->countFiltered($search), 'data' => $data]);
@@ -51,6 +54,36 @@ class PurchaseOrders extends BaseController
         $po = $this->model->detail($id);
         if (! $po) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         return view('purchase_orders/form', $this->formContext($po, '/purchase-orders/' . public_id($id)));
+    }
+
+    public function pdf(string $id)
+    {
+        $id = $this->resolveId($id, $this->model);
+        $po = $this->model->detail($id);
+        if (! $po) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+
+        $vendor = (new VendorModel())->find((int) $po['vendor_id']) ?: [];
+        $clientPo = ! empty($po['client_purchase_order_id'])
+            ? (new ClientPurchaseOrderModel())->detail((int) $po['client_purchase_order_id'])
+            : null;
+        $settings = (new QuotationSettingModel())->current();
+        $options = new Options();
+        $options->set('isRemoteEnabled', false);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml(view('purchase_orders/pdf', [
+            'po' => $po,
+            'vendor' => $vendor,
+            'clientPo' => $clientPo,
+            'settings' => $settings,
+        ]));
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $fileName = preg_replace('/[^A-Za-z0-9._-]/', '-', (string) $po['po_no']) ?: 'po-out';
+
+        return $this->response
+            ->setHeader('Content-Type', 'application/pdf')
+            ->setHeader('Content-Disposition', 'inline; filename="po-out-' . $fileName . '.pdf"')
+            ->setBody($dompdf->output());
     }
 
     public function save(?string $id = null)
