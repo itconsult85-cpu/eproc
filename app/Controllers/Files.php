@@ -16,7 +16,7 @@ class Files extends BaseController
         $model = new TenderDocumentModel();
         $id = $this->resolveId($publicId, $model);
         $row = $model->find($id);
-        return $this->download($row['file_path'] ?? null, $row['original_file_name'] ?? 'tender-document');
+        return $this->inline($row['file_path'] ?? null, $row['original_file_name'] ?? 'tender-document', $row['file_mime'] ?? null);
     }
 
     public function proformaProof(string $publicId)
@@ -55,5 +55,21 @@ class Files extends BaseController
 
         $downloadName = preg_replace('/[^A-Za-z0-9._-]/', '-', basename($downloadName)) ?: 'download';
         return $this->response->download($path, null)->setFileName($downloadName);
+    }
+
+    private function inline(?string $storedPath, string $fileName, ?string $mimeType = null)
+    {
+        if (! $storedPath || ($path = SecureFileStorage::resolve($storedPath)) === null) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
+        $fileName = preg_replace('/[^A-Za-z0-9._-]/', '-', basename($fileName)) ?: 'document';
+        $mimeType = mime_content_type($path) ?: ($mimeType ?: 'application/octet-stream');
+
+        return $this->response
+            ->setContentType($mimeType)
+            ->setHeader('Content-Disposition', 'inline; filename="' . $fileName . '"')
+            ->setHeader('Content-Length', (string) filesize($path))
+            ->setBody((string) file_get_contents($path));
     }
 }
