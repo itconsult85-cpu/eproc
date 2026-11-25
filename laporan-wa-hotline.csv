@@ -1,0 +1,4444 @@
+﻿Waktu,Arah,Nomor Pengirim,Nama,Isi Pesan,Stage,Pilihan Menu,Data Form
+20/11/2026, 16.15.13,Masuk,7842643837119,Dedi DT,sore,main,,
+20/11/2026, 16.15.14,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 16.16.39,Masuk,7842643837119,Dedi DT,1,struktur_menu,1. Struktur Partai,
+20/11/2026, 16.16.40,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+20/11/2026, 16.16.54,Masuk,7842643837119,Dedi DT,1,form_struktur_dpd,DPD,
+20/11/2026, 16.16.54,Keluar,7842643837119,Dedi DT,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+20/11/2026, 18.18.56,Masuk,224283695546564,roynaldo,P,main,,
+20/11/2026, 18.18.57,Keluar,224283695546564,roynaldo,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 18.19.21,Masuk,224283695546564,roynaldo,6,informasi_menu,6. Informasi,
+20/11/2026, 18.19.22,Keluar,224283695546564,roynaldo,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+20/11/2026, 18.19.47,Masuk,224283695546564,roynaldo,4,dpc_menu,Alamat & Kontak DPC,
+20/11/2026, 18.19.48,Keluar,224283695546564,roynaldo,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi berikut :
+1. DPC JAKARTA PUSAT
+2. DPC JAKARTA TIMUR
+3. DPC JAKARTA SELATAN
+4. DPC JAKARTA BARAT
+5. DPC JAKARTA UTARA
+6. KEPULAUAN SERIBU
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",dpc_menu,,
+20/11/2026, 18.19.55,Masuk,224283695546564,roynaldo,2,main,Jakarta Timur,
+20/11/2026, 18.19.55,Keluar,224283695546564,roynaldo,"*DPC JAKARTA TIMUR*
+Alamat DPC Jakarta Timur: ...
+No Telp Sekretariat: ...
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 18.20.57,Masuk,224283695546564,roynaldo,3,penyampaian_menu,3. Penyampaian,
+20/11/2026, 18.20.57,Keluar,224283695546564,roynaldo,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+20/11/2026, 18.21.11,Masuk,224283695546564,roynaldo,6,penyampaian_menu,,
+20/11/2026, 18.21.12,Keluar,224283695546564,roynaldo,"Pilihan tidak dikenali. Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+20/11/2026, 18.21.22,Masuk,224283695546564,roynaldo,0,main,0 (kembali),
+20/11/2026, 18.21.23,Keluar,224283695546564,roynaldo,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 18.21.29,Masuk,224283695546564,roynaldo,6,informasi_menu,6. Informasi,
+20/11/2026, 18.21.29,Keluar,224283695546564,roynaldo,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+20/11/2026, 18.21.34,Masuk,224283695546564,roynaldo,3,main,Pembuatan KTA,
+20/11/2026, 18.21.35,Keluar,224283695546564,roynaldo,"*Informasi Pembuatan KTA*
+Untuk Pembuatan KTA Bapak/Ibu/Saudara/I dapat melengkapi dokumen sebagai berikut dan dibawa ke Kantor DPC masing-masing wilayah atau ke kantor DPD, adapun dokumen yang perlu dibawa adalah sebagai berikut :
+1. Fotocopy KTP
+2. Fotocopy KK
+3. Pas foto berwarna terbaru
+4. Surat keterangan dari PAC/Ranting (jika ada)
+
+(Daftar dokumen di atas dapat disesuaikan dengan ketentuan terbaru)
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 19.08.32,Masuk,23845658427622,Adiyoga Nusyirwan,Selamat malam pdi perjuangan dki jakarta,main,,
+20/11/2026, 19.08.33,Keluar,23845658427622,Adiyoga Nusyirwan,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 19.08.44,Masuk,23845658427622,Adiyoga Nusyirwan,1,struktur_menu,1. Struktur Partai,
+20/11/2026, 19.08.44,Keluar,23845658427622,Adiyoga Nusyirwan,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+20/11/2026, 19.08.50,Masuk,23845658427622,Adiyoga Nusyirwan,1,form_struktur_dpd,DPD,
+20/11/2026, 19.08.50,Keluar,23845658427622,Adiyoga Nusyirwan,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+20/11/2026, 20.31.44,Masuk,59056303636550,Saddamkrnwn,Malam,main,,
+20/11/2026, 20.31.44,Keluar,59056303636550,Saddamkrnwn,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 20.32.03,Masuk,59056303636550,Saddamkrnwn,4,form_perizinan,4. Perizinan Kegiatan,
+20/11/2026, 20.32.04,Keluar,59056303636550,Saddamkrnwn,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :",form_perizinan,,
+20/11/2026, 20.32.48,Masuk,59056303636550,Saddamkrnwn,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama : Tes Om chibom
+Struktur/Badan/Sayap Partai : tes
+Jabatan : tes
+Jenis Kegiatan : tes
+Hari : tes
+Tanggal : tes
+Waktu : tes
+Jumlah Peserta : tes
+Ruangan/Lokasi Kegiatan : tes",main,,"{""form"":""*(Copy Pesan Berikut)*\nSilahkan Bapak/Ibu/Saudara/I lengkapi data berikut :\nNama : Tes Om chibom\nStruktur/Badan/Sayap Partai : tes\nJabatan : tes\nJenis Kegiatan : tes\nHari : tes\nTanggal : tes\nWaktu : tes\nJumlah Peserta : tes\nRuangan/Lokasi Kegiatan : tes""}"
+20/11/2026, 20.32.49,Keluar,59056303636550,Saddamkrnwn,"Terimakasih, atas Informasi Bapak/Ibu/Saudara/I,
+kami akan segera menindaklanjuti informasi yang bapak/ibu/Saudara/I Sekalian sampaikan.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 20.33.49,Masuk,244650061344893,CHAIRUL ICHSAN-cibomisme,Malam,main,,
+20/11/2026, 20.33.50,Keluar,244650061344893,CHAIRUL ICHSAN-cibomisme,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 20.34.21,Masuk,142091057393820,Al,halo,main,,
+20/11/2026, 20.34.21,Keluar,142091057393820,Al,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 20.34.31,Masuk,171304955187437,EL,malam,main,,
+20/11/2026, 20.34.32,Keluar,171304955187437,EL,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 20.40.56,Masuk,142091057393820,Al,6,informasi_menu,6. Informasi,
+20/11/2026, 20.40.56,Keluar,142091057393820,Al,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+20/11/2026, 20.41.06,Masuk,142091057393820,Al,3,main,Pembuatan KTA,
+20/11/2026, 20.41.07,Keluar,142091057393820,Al,"*Informasi Pembuatan KTA*
+Untuk Pembuatan KTA Bapak/Ibu/Saudara/I dapat melengkapi dokumen sebagai berikut dan dibawa ke Kantor DPC masing-masing wilayah atau ke kantor DPD, adapun dokumen yang perlu dibawa adalah sebagai berikut :
+1. Fotocopy KTP
+2. Fotocopy KK
+3. Pas foto berwarna terbaru
+4. Surat keterangan dari PAC/Ranting (jika ada)
+
+(Daftar dokumen di atas dapat disesuaikan dengan ketentuan terbaru)
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+20/11/2026, 20.41.20,Masuk,171304955187437,EL,1,struktur_menu,1. Struktur Partai,
+20/11/2026, 20.41.21,Keluar,171304955187437,EL,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+20/11/2026, 20.41.26,Masuk,171304955187437,EL,1,form_struktur_dpd,DPD,
+20/11/2026, 20.41.26,Keluar,171304955187437,EL,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+20/11/2026, 20.41.44,Masuk,171304955187437,EL,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama : -
+Jabatan : -",activity_dpd,,"{""form"":""*(Copy Pesan Ini)*\nTolong masukan data Bapak/Ibu/Saudara/I :\nNama : -\nJabatan : -""}"
+20/11/2026, 20.41.45,Keluar,171304955187437,EL,"Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Piket Harian DPD
+2. Rapat Pleno/DPD
+3. Piket Harian & Pleno DPD
+4. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+5. Audiensi Eksternal
+6. Kegiatan Partai
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",activity_dpd,,
+20/11/2026, 20.41.50,Masuk,171304955187437,EL,1,konfirmasi,1,
+20/11/2026, 20.41.50,Keluar,171304955187437,EL,"Konfirmasi Bapak/Ibu/Saudara/I pada kegiatan tersebut :
+1. Hadir
+2. Izin Dinas Pekerjaan
+3. Izin Acara/Keluarga
+4. Sakit
+5. Tidak hadir dengan Keterangan
+6. Tidak Hadir
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",konfirmasi,,
+21/11/2026, 12.59.37,Masuk,280886750748780,Muhammad Agil,p,main,,
+21/11/2026, 12.59.38,Keluar,280886750748780,Muhammad Agil,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 12.59.54,Masuk,280886750748780,Muhammad Agil,2,badan_menu,2. Badan/Sayap Partai,
+21/11/2026, 12.59.54,Keluar,280886750748780,Muhammad Agil,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. TMP
+2. BMI
+3. BBHAR
+4. BAMUSI
+5. GNTI
+6. BSPN
+7. BAGUNA
+8. BPEK
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",badan_menu,,
+21/11/2026, 13.00.04,Masuk,280886750748780,Muhammad Agil,0,main,0 (kembali),
+21/11/2026, 13.00.05,Keluar,280886750748780,Muhammad Agil,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 13.00.10,Masuk,280886750748780,Muhammad Agil,6,informasi_menu,6. Informasi,
+21/11/2026, 13.00.11,Keluar,280886750748780,Muhammad Agil,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+21/11/2026, 13.00.19,Masuk,280886750748780,Muhammad Agil,4,dpc_menu,Alamat & Kontak DPC,
+21/11/2026, 13.00.19,Keluar,280886750748780,Muhammad Agil,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi berikut :
+1. DPC JAKARTA PUSAT
+2. DPC JAKARTA TIMUR
+3. DPC JAKARTA SELATAN
+4. DPC JAKARTA BARAT
+5. DPC JAKARTA UTARA
+6. KEPULAUAN SERIBU
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",dpc_menu,,
+21/11/2026, 13.00.24,Masuk,280886750748780,Muhammad Agil,5,main,Jakarta Utara,
+21/11/2026, 13.00.25,Keluar,280886750748780,Muhammad Agil,"*DPC JAKARTA UTARA*
+Alamat DPC Jakarta Utara: ...
+No Telp Sekretariat: ...
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 13.08.38,Masuk,50955995340871,Febrynti,Selamat siang,main,,
+21/11/2026, 13.08.39,Keluar,50955995340871,Febrynti,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 13.09.18,Masuk,50955995340871,Febrynti,6,informasi_menu,6. Informasi,
+21/11/2026, 13.09.19,Keluar,50955995340871,Febrynti,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+21/11/2026, 13.09.33,Masuk,50955995340871,Febrynti,4,dpc_menu,Alamat & Kontak DPC,
+21/11/2026, 13.09.34,Keluar,50955995340871,Febrynti,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi berikut :
+1. DPC JAKARTA PUSAT
+2. DPC JAKARTA TIMUR
+3. DPC JAKARTA SELATAN
+4. DPC JAKARTA BARAT
+5. DPC JAKARTA UTARA
+6. KEPULAUAN SERIBU
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",dpc_menu,,
+21/11/2026, 13.09.44,Masuk,50955995340871,Febrynti,4,main,Jakarta Barat,
+21/11/2026, 13.09.45,Keluar,50955995340871,Febrynti,"*DPC JAKARTA BARAT*
+Alamat DPC Jakarta Barat: ...
+No Telp Sekretariat: ...
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 13.13.19,Masuk,235746845814942,R27,Siang,main,,
+21/11/2026, 13.13.20,Keluar,235746845814942,R27,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 13.13.46,Masuk,235746845814942,R27,1,struktur_menu,1. Struktur Partai,
+21/11/2026, 13.13.47,Keluar,235746845814942,R27,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+21/11/2026, 13.13.51,Masuk,235746845814942,R27,1,form_struktur_dpd,DPD,
+21/11/2026, 13.13.51,Keluar,235746845814942,R27,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+21/11/2026, 13.14.26,Masuk,235746845814942,R27,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :Rizki imam fauzi
+Jabatan : suprasum",activity_dpd,,"{""form"":""*(Copy Pesan Ini)*\nTolong masukan data Bapak/Ibu/Saudara/I :\nNama :Rizki imam fauzi\nJabatan : suprasum""}"
+21/11/2026, 13.14.27,Keluar,235746845814942,R27,"Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Piket Harian DPD
+2. Rapat Pleno/DPD
+3. Piket Harian & Pleno DPD
+4. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+5. Audiensi Eksternal
+6. Kegiatan Partai
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",activity_dpd,,
+21/11/2026, 13.14.41,Masuk,235746845814942,R27,6,konfirmasi,6,
+21/11/2026, 13.14.42,Keluar,235746845814942,R27,"Konfirmasi Bapak/Ibu/Saudara/I pada kegiatan tersebut :
+1. Hadir
+2. Izin Dinas Pekerjaan
+3. Izin Acara/Keluarga
+4. Sakit
+5. Tidak hadir dengan Keterangan
+6. Tidak Hadir
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",konfirmasi,,
+21/11/2026, 13.43.42,Masuk,61121746739425,Wisnu S. Winardi,Selamat,main,,
+21/11/2026, 13.43.43,Keluar,61121746739425,Wisnu S. Winardi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 13.48.58,Masuk,61121746739425,Wisnu S. Winardi,4,form_perizinan,4. Perizinan Kegiatan,
+21/11/2026, 13.48.58,Keluar,61121746739425,Wisnu S. Winardi,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :",form_perizinan,,
+21/11/2026, 13.49.18,Masuk,61121746739425,Wisnu S. Winardi,6,main,,"{""form"":""6""}"
+21/11/2026, 13.49.18,Keluar,61121746739425,Wisnu S. Winardi,"Terimakasih, atas Informasi Bapak/Ibu/Saudara/I,
+kami akan segera menindaklanjuti informasi yang bapak/ibu/Saudara/I Sekalian sampaikan.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 13.49.49,Masuk,61121746739425,Wisnu S. Winardi,3,penyampaian_menu,3. Penyampaian,
+21/11/2026, 13.49.50,Keluar,61121746739425,Wisnu S. Winardi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+21/11/2026, 13.50.07,Masuk,61121746739425,Wisnu S. Winardi,3,form_penyampaian_warga,Aspirasi Warga Jakarta,
+21/11/2026, 13.50.07,Keluar,61121746739425,Wisnu S. Winardi,"*(Copy Pesan Ini)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi form berikut :
+Nama :
+NIK/KTP :
+No Telp/Whatsapp :
+Alamat :
+
+Yang disampaikan :
+",form_penyampaian_warga,,
+21/11/2026, 16.04.09,Masuk,248086102286579,Hana Pertiwi,selamat sore,main,,
+21/11/2026, 16.04.09,Keluar,248086102286579,Hana Pertiwi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 16.04.47,Masuk,248086102286579,Hana Pertiwi,1,struktur_menu,1. Struktur Partai,
+21/11/2026, 16.04.47,Keluar,248086102286579,Hana Pertiwi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+21/11/2026, 16.04.55,Masuk,248086102286579,Hana Pertiwi,0,main,0 (kembali),
+21/11/2026, 16.04.56,Keluar,248086102286579,Hana Pertiwi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 16.05.05,Masuk,248086102286579,Hana Pertiwi,3,penyampaian_menu,3. Penyampaian,
+21/11/2026, 16.05.05,Keluar,248086102286579,Hana Pertiwi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+21/11/2026, 16.13.26,Masuk,135283114823852,🤪😛😜,Info,informasi_menu,6. Informasi,
+21/11/2026, 16.13.27,Keluar,135283114823852,🤪😛😜,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+21/11/2026, 16.13.38,Masuk,135283114823852,🤪😛😜,Beritahu saya apa syarat untuk bergabung menjadi kader partai,informasi_menu,,
+21/11/2026, 16.13.39,Keluar,135283114823852,🤪😛😜,"Pilihan tidak dikenali. Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+21/11/2026, 16.13.54,Masuk,135283114823852,🤪😛😜,0,main,0 (kembali),
+21/11/2026, 16.13.54,Keluar,135283114823852,🤪😛😜,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 16.14.41,Masuk,135283114823852,🤪😛😜,1,struktur_menu,1. Struktur Partai,
+21/11/2026, 16.14.42,Keluar,135283114823852,🤪😛😜,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+21/11/2026, 16.14.46,Masuk,135283114823852,🤪😛😜,1,form_struktur_dpd,DPD,
+21/11/2026, 16.14.47,Keluar,135283114823852,🤪😛😜,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+21/11/2026, 17.12.14,Masuk,274156771876895,A L S,Selamat sore,main,,
+21/11/2026, 17.12.15,Keluar,274156771876895,A L S,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 17.12.24,Masuk,274156771876895,A L S,4,form_perizinan,4. Perizinan Kegiatan,
+21/11/2026, 17.12.25,Keluar,274156771876895,A L S,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :",form_perizinan,,
+21/11/2026, 17.12.30,Masuk,274156771876895,A L S,1,main,,"{""form"":""1""}"
+21/11/2026, 17.12.31,Keluar,274156771876895,A L S,"Terimakasih, atas Informasi Bapak/Ibu/Saudara/I,
+kami akan segera menindaklanjuti informasi yang bapak/ibu/Saudara/I Sekalian sampaikan.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 17.12.46,Masuk,274156771876895,A L S,0,main,0 (kembali),
+21/11/2026, 17.12.47,Keluar,274156771876895,A L S,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 17.12.50,Masuk,274156771876895,A L S,1,struktur_menu,1. Struktur Partai,
+21/11/2026, 17.12.50,Keluar,274156771876895,A L S,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+21/11/2026, 17.12.57,Masuk,274156771876895,A L S,1,form_struktur_dpd,DPD,
+21/11/2026, 17.12.57,Keluar,274156771876895,A L S,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+21/11/2026, 17.13.05,Masuk,274156771876895,A L S,0,main,0 (kembali),
+21/11/2026, 17.13.06,Keluar,274156771876895,A L S,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 17.13.10,Masuk,274156771876895,A L S,6,informasi_menu,6. Informasi,
+21/11/2026, 17.13.11,Keluar,274156771876895,A L S,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+21/11/2026, 17.13.17,Masuk,274156771876895,A L S,2,main,Media Sosial,
+21/11/2026, 17.13.17,Keluar,274156771876895,A L S,"*Media Sosial DPD PDI PERJUANGAN DKI JAKARTA*
+Instagram DPD : https://instagram.com/...
+Tiktok DPD : https://tiktok.com/@...
+Website DPD : https://...
+
+(Silahkan ganti link di atas dengan akun resmi asli)
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 17.28.25,Masuk,135283114823852,🤪😛😜,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama : Arjuna 2
+Jabatan : Wd",activity_dpd,,"{""form"":""*(Copy Pesan Ini)*\nTolong masukan data Bapak/Ibu/Saudara/I :\nNama : Arjuna 2\nJabatan : Wd""}"
+21/11/2026, 17.28.26,Keluar,135283114823852,🤪😛😜,"Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Piket Harian DPD
+2. Rapat Pleno/DPD
+3. Piket Harian & Pleno DPD
+4. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+5. Audiensi Eksternal
+6. Kegiatan Partai
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",activity_dpd,,
+21/11/2026, 17.28.35,Masuk,135283114823852,🤪😛😜,1,konfirmasi,1,
+21/11/2026, 17.28.36,Keluar,135283114823852,🤪😛😜,"Konfirmasi Bapak/Ibu/Saudara/I pada kegiatan tersebut :
+1. Hadir
+2. Izin Dinas Pekerjaan
+3. Izin Acara/Keluarga
+4. Sakit
+5. Tidak hadir dengan Keterangan
+6. Tidak Hadir
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",konfirmasi,,
+21/11/2026, 17.29.01,Masuk,135283114823852,🤪😛😜,1,main,1,
+21/11/2026, 17.29.01,Keluar,135283114823852,🤪😛😜,"Terimakasih, atas konfirmasi Bapak/Ibu/Saudara/I,
+senang dapat membantu bapak/ibu/Saudara/I Sekalian.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 17.29.17,Masuk,135283114823852,🤪😛😜,0,main,0 (kembali),
+21/11/2026, 17.29.18,Keluar,135283114823852,🤪😛😜,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 17.29.34,Masuk,135283114823852,🤪😛😜,3,penyampaian_menu,3. Penyampaian,
+21/11/2026, 17.29.35,Keluar,135283114823852,🤪😛😜,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+21/11/2026, 17.29.41,Masuk,135283114823852,🤪😛😜,3,form_penyampaian_warga,Aspirasi Warga Jakarta,
+21/11/2026, 17.29.42,Keluar,135283114823852,🤪😛😜,"*(Copy Pesan Ini)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi form berikut :
+Nama :
+NIK/KTP :
+No Telp/Whatsapp :
+Alamat :
+
+Yang disampaikan :
+",form_penyampaian_warga,,
+21/11/2026, 19.22.44,Masuk,61121746739425,Wisnu S. Winardi,6,main,,"{""form"":""6""}"
+21/11/2026, 19.22.45,Keluar,61121746739425,Wisnu S. Winardi,"Terimakasih, atas Aspirasi yang telah Bapak/Ibu/Saudara/I sampaikan kepada DPD PDI PERJUANGAN DKI JAKARTA,
+
+Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 19.23.11,Masuk,61121746739425,Wisnu S. Winardi,0,main,0 (kembali),
+21/11/2026, 19.23.11,Keluar,61121746739425,Wisnu S. Winardi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 19.23.14,Masuk,61121746739425,Wisnu S. Winardi,6,informasi_menu,6. Informasi,
+21/11/2026, 19.23.15,Keluar,61121746739425,Wisnu S. Winardi,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+21/11/2026, 19.23.27,Masuk,61121746739425,Wisnu S. Winardi,3,main,Pembuatan KTA,
+21/11/2026, 19.23.28,Keluar,61121746739425,Wisnu S. Winardi,"*Informasi Pembuatan KTA*
+Untuk Pembuatan KTA Bapak/Ibu/Saudara/I dapat melengkapi dokumen sebagai berikut dan dibawa ke Kantor DPC masing-masing wilayah atau ke kantor DPD, adapun dokumen yang perlu dibawa adalah sebagai berikut :
+1. Fotocopy KTP
+2. Fotocopy KK
+3. Pas foto berwarna terbaru
+4. Surat keterangan dari PAC/Ranting (jika ada)
+
+(Daftar dokumen di atas dapat disesuaikan dengan ketentuan terbaru)
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 19.23.49,Masuk,61121746739425,Wisnu S. Winardi,0,main,0 (kembali),
+21/11/2026, 19.23.49,Keluar,61121746739425,Wisnu S. Winardi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 19.23.52,Masuk,61121746739425,Wisnu S. Winardi,6,informasi_menu,6. Informasi,
+21/11/2026, 19.23.53,Keluar,61121746739425,Wisnu S. Winardi,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+21/11/2026, 19.23.59,Masuk,61121746739425,Wisnu S. Winardi,0,main,0 (kembali),
+21/11/2026, 19.23.59,Keluar,61121746739425,Wisnu S. Winardi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 19.24.03,Masuk,61121746739425,Wisnu S. Winardi,5,form_pengiriman,5. Pengiriman,
+21/11/2026, 19.24.04,Keluar,61121746739425,Wisnu S. Winardi,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+
+Nama Pengirim :
+Struktur/Badan/Sayap Partai/Instansi :
+Jabatan :
+No Telp/Whatsapp :
+
+Jenis Barang/Dokumen :
+Jumlah/Banyaknya :
+Tanggal Kirim :
+
+Ditujukan kepada :",form_pengiriman,,
+21/11/2026, 20.17.56,Masuk,214297544257658,Ardy,Selamat malam...?,main,,
+21/11/2026, 20.17.56,Keluar,214297544257658,Ardy,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 20.19.15,Masuk,214297544257658,Ardy,6,informasi_menu,6. Informasi,
+21/11/2026, 20.19.15,Keluar,214297544257658,Ardy,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+21/11/2026, 20.19.36,Masuk,214297544257658,Ardy,2,main,Media Sosial,
+21/11/2026, 20.19.36,Keluar,214297544257658,Ardy,"*Media Sosial DPD PDI PERJUANGAN DKI JAKARTA*
+Instagram DPD : https://instagram.com/...
+Tiktok DPD : https://tiktok.com/@...
+Website DPD : https://...
+
+(Silahkan ganti link di atas dengan akun resmi asli)
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 20.21.15,Masuk,214297544257658,Ardy,0,main,0 (kembali),
+21/11/2026, 20.21.16,Keluar,214297544257658,Ardy,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 20.25.56,Masuk,274156771876895,A L S,0,main,0 (kembali),
+21/11/2026, 20.25.56,Keluar,274156771876895,A L S,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 20.26.01,Masuk,274156771876895,A L S,3,penyampaian_menu,3. Penyampaian,
+21/11/2026, 20.26.01,Keluar,274156771876895,A L S,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+21/11/2026, 20.26.07,Masuk,274156771876895,A L S,1,form_penyampaian_partai,Laporan Partai,
+21/11/2026, 20.26.08,Keluar,274156771876895,A L S,"*(Copy Pesan Ini)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi form berikut :
+Nama :
+Struktur :
+Jabatan :
+No KTA :
+
+Yang disampaikan :",form_penyampaian_partai,,
+21/11/2026, 20.26.17,Masuk,274156771876895,A L S,0,main,0 (kembali),
+21/11/2026, 20.26.17,Keluar,274156771876895,A L S,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 20.26.26,Masuk,274156771876895,A L S,2,badan_menu,2. Badan/Sayap Partai,
+21/11/2026, 20.26.27,Keluar,274156771876895,A L S,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. TMP
+2. BMI
+3. BBHAR
+4. BAMUSI
+5. GNTI
+6. BSPN
+7. BAGUNA
+8. BPEK
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",badan_menu,,
+21/11/2026, 20.26.34,Masuk,274156771876895,A L S,1,form_badan,TMP,
+21/11/2026, 20.26.34,Keluar,274156771876895,A L S,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_badan,,
+21/11/2026, 20.26.41,Masuk,274156771876895,A L S,0,main,0 (kembali),
+21/11/2026, 20.26.42,Keluar,274156771876895,A L S,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+21/11/2026, 20.26.48,Masuk,274156771876895,A L S,4,form_perizinan,4. Perizinan Kegiatan,
+21/11/2026, 20.26.49,Keluar,274156771876895,A L S,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :",form_perizinan,,
+21/11/2026, 20.26.53,Masuk,274156771876895,A L S,0,main,0 (kembali),
+21/11/2026, 20.26.53,Keluar,274156771876895,A L S,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 19.55.25,Masuk,111866751807736,Irwan Setiadi,Assalamualaikum,main,,
+22/11/2026, 19.55.26,Keluar,111866751807736,Irwan Setiadi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 19.55.45,Masuk,111866751807736,Irwan Setiadi,1,struktur_menu,1. Struktur Partai,
+22/11/2026, 19.55.45,Keluar,111866751807736,Irwan Setiadi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+22/11/2026, 19.55.52,Masuk,111866751807736,Irwan Setiadi,1,form_struktur_dpd,DPD,
+22/11/2026, 19.55.53,Keluar,111866751807736,Irwan Setiadi,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+22/11/2026, 19.56.37,Masuk,111866751807736,Irwan Setiadi,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama : Setiadi 
+Jabatan : Kader",activity_dpd,,"{""form"":""*(Copy Pesan Ini)*\nTolong masukan data Bapak/Ibu/Saudara/I :\nNama : Setiadi \nJabatan : Kader""}"
+22/11/2026, 19.56.38,Keluar,111866751807736,Irwan Setiadi,"Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Piket Harian DPD
+2. Rapat Pleno/DPD
+3. Piket Harian & Pleno DPD
+4. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+5. Audiensi Eksternal
+6. Kegiatan Partai
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",activity_dpd,,
+22/11/2026, 19.56.48,Masuk,111866751807736,Irwan Setiadi,1,konfirmasi,1,
+22/11/2026, 19.56.49,Keluar,111866751807736,Irwan Setiadi,"Konfirmasi Bapak/Ibu/Saudara/I pada kegiatan tersebut :
+1. Hadir
+2. Izin Dinas Pekerjaan
+3. Izin Acara/Keluarga
+4. Sakit
+5. Tidak hadir dengan Keterangan
+6. Tidak Hadir
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",konfirmasi,,
+22/11/2026, 19.57.12,Masuk,111866751807736,Irwan Setiadi,1,main,1,
+22/11/2026, 19.57.13,Keluar,111866751807736,Irwan Setiadi,"Terimakasih, atas konfirmasi Bapak/Ibu/Saudara/I,
+senang dapat membantu bapak/ibu/Saudara/I Sekalian.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 19.57.23,Masuk,111866751807736,Irwan Setiadi,0,main,0 (kembali),
+22/11/2026, 19.57.23,Keluar,111866751807736,Irwan Setiadi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 19.57.29,Masuk,111866751807736,Irwan Setiadi,2,badan_menu,2. Badan/Sayap Partai,
+22/11/2026, 19.57.29,Keluar,111866751807736,Irwan Setiadi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. TMP
+2. BMI
+3. BBHAR
+4. BAMUSI
+5. GNTI
+6. BSPN
+7. BAGUNA
+8. BPEK
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",badan_menu,,
+22/11/2026, 19.57.44,Masuk,111866751807736,Irwan Setiadi,5,form_badan,GNTI,
+22/11/2026, 19.57.45,Keluar,111866751807736,Irwan Setiadi,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_badan,,
+22/11/2026, 19.57.55,Masuk,111866751807736,Irwan Setiadi,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama : Setiadi
+Jabatan : Kader",activity_badan,,"{""form"":""*(Copy Pesan Ini)*\nTolong masukan data Bapak/Ibu/Saudara/I :\nNama : Setiadi\nJabatan : Kader""}"
+22/11/2026, 19.57.56,Keluar,111866751807736,Irwan Setiadi,"Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+2. Kegiatan Badan/Sayap
+3. Piket Badan/Sayap
+4. Kegiatan Partai
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",activity_badan,,
+22/11/2026, 19.58.08,Masuk,111866751807736,Irwan Setiadi,3,konfirmasi,3,
+22/11/2026, 19.58.08,Keluar,111866751807736,Irwan Setiadi,"Konfirmasi Bapak/Ibu/Saudara/I pada kegiatan tersebut :
+1. Hadir
+2. Izin Dinas Pekerjaan
+3. Izin Acara/Keluarga
+4. Sakit
+5. Tidak hadir dengan Keterangan
+6. Tidak Hadir
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",konfirmasi,,
+22/11/2026, 19.58.24,Masuk,244650061344893,CHAIRUL ICHSAN-cibomisme,Tes,main,,
+22/11/2026, 19.58.25,Keluar,244650061344893,CHAIRUL ICHSAN-cibomisme,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 19.58.30,Masuk,111866751807736,Irwan Setiadi,1,main,1,
+22/11/2026, 19.58.31,Keluar,111866751807736,Irwan Setiadi,"Terimakasih, atas konfirmasi Bapak/Ibu/Saudara/I,
+senang dapat membantu bapak/ibu/Saudara/I Sekalian.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 19.58.42,Masuk,111866751807736,Irwan Setiadi,0,main,0 (kembali),
+22/11/2026, 19.58.42,Keluar,111866751807736,Irwan Setiadi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 19.58.49,Masuk,111866751807736,Irwan Setiadi,3,penyampaian_menu,3. Penyampaian,
+22/11/2026, 19.58.50,Keluar,111866751807736,Irwan Setiadi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+22/11/2026, 19.58.58,Masuk,111866751807736,Irwan Setiadi,2,form_penyampaian_partai,Aspirasi Kepartaian,
+22/11/2026, 19.58.59,Keluar,111866751807736,Irwan Setiadi,"*(Copy Pesan Ini)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi form berikut :
+Nama :
+Struktur :
+Jabatan :
+No KTA :
+
+Yang disampaikan :",form_penyampaian_partai,,
+22/11/2026, 19.59.05,Masuk,111866751807736,Irwan Setiadi,3,main,,"{""form"":""3""}"
+22/11/2026, 19.59.05,Keluar,111866751807736,Irwan Setiadi,"Terimakasih, atas Laporan/Aspirasi yang telah Bapak/Ibu/Saudara/I sampaikan kepada kami.
+
+Selamat Bertugas dan Sehat Selalu
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 19.59.35,Masuk,111866751807736,Irwan Setiadi,0,main,0 (kembali),
+22/11/2026, 19.59.35,Keluar,111866751807736,Irwan Setiadi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 19.59.43,Masuk,111866751807736,Irwan Setiadi,4,form_perizinan,4. Perizinan Kegiatan,
+22/11/2026, 19.59.44,Keluar,111866751807736,Irwan Setiadi,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :",form_perizinan,,
+22/11/2026, 19.59.54,Masuk,111866751807736,Irwan Setiadi,-,main,,"{""form"":""-""}"
+22/11/2026, 19.59.55,Keluar,111866751807736,Irwan Setiadi,"Terimakasih, atas Informasi Bapak/Ibu/Saudara/I,
+kami akan segera menindaklanjuti informasi yang bapak/ibu/Saudara/I Sekalian sampaikan.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 20.00.09,Masuk,111866751807736,Irwan Setiadi,1,struktur_menu,1. Struktur Partai,
+22/11/2026, 20.00.09,Keluar,111866751807736,Irwan Setiadi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+22/11/2026, 20.00.15,Masuk,111866751807736,Irwan Setiadi,0,main,0 (kembali),
+22/11/2026, 20.00.16,Keluar,111866751807736,Irwan Setiadi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 20.00.23,Masuk,111866751807736,Irwan Setiadi,5,form_pengiriman,5. Pengiriman,
+22/11/2026, 20.00.23,Keluar,111866751807736,Irwan Setiadi,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+
+Nama Pengirim :
+Struktur/Badan/Sayap Partai/Instansi :
+Jabatan :
+No Telp/Whatsapp :
+
+Jenis Barang/Dokumen :
+Jumlah/Banyaknya :
+Tanggal Kirim :
+
+Ditujukan kepada :",form_pengiriman,,
+22/11/2026, 20.00.32,Masuk,111866751807736,Irwan Setiadi,3,main,,"{""form"":""3""}"
+22/11/2026, 20.00.33,Keluar,111866751807736,Irwan Setiadi,"Terimakasih, atas Informasi Bapak/Ibu/Saudara/I,
+kami akan segera melanjutkan informasi yang bapak/ibu/Saudara/I Sekalian sampaikan.
+
+Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 20.00.40,Masuk,111866751807736,Irwan Setiadi,0,main,0 (kembali),
+22/11/2026, 20.00.41,Keluar,111866751807736,Irwan Setiadi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 20.00.46,Masuk,111866751807736,Irwan Setiadi,6,informasi_menu,6. Informasi,
+22/11/2026, 20.00.47,Keluar,111866751807736,Irwan Setiadi,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+22/11/2026, 20.00.52,Masuk,111866751807736,Irwan Setiadi,1,main,Alamat Kantor DPD,
+22/11/2026, 20.00.52,Keluar,111866751807736,Irwan Setiadi,"*Alamat Kantor DPD PDI PERJUANGAN DKI JAKARTA*
+Jl. Agung Sedayu City No.10A, Cakung Bar., Kec. Cakung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13910
+
+_(Silahkan buka Google Maps dan cari ""Gedung DPD PDI PERJUANGAN PROV DKI JAKARTA"" untuk share lokasi)_
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 20.01.04,Masuk,111866751807736,Irwan Setiadi,2,badan_menu,2. Badan/Sayap Partai,
+22/11/2026, 20.01.05,Keluar,111866751807736,Irwan Setiadi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. TMP
+2. BMI
+3. BBHAR
+4. BAMUSI
+5. GNTI
+6. BSPN
+7. BAGUNA
+8. BPEK
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",badan_menu,,
+22/11/2026, 20.25.37,Masuk,66881415327955,Niko Atmaja,Malam,main,,
+22/11/2026, 20.25.38,Keluar,66881415327955,Niko Atmaja,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 21.31.21,Masuk,66881415327955,Niko Atmaja,4,form_perizinan,4. Perizinan Kegiatan,
+22/11/2026, 21.31.22,Keluar,66881415327955,Niko Atmaja,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :",form_perizinan,,
+22/11/2026, 21.32.18,Masuk,66881415327955,Niko Atmaja,0,main,0 (kembali),
+22/11/2026, 21.32.19,Keluar,66881415327955,Niko Atmaja,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 21.33.36,Masuk,66881415327955,Niko Atmaja,1,struktur_menu,1. Struktur Partai,
+22/11/2026, 21.33.36,Keluar,66881415327955,Niko Atmaja,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+22/11/2026, 21.33.40,Masuk,66881415327955,Niko Atmaja,2,form_struktur_lain,DPC,
+22/11/2026, 21.33.40,Keluar,66881415327955,Niko Atmaja,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_lain,,
+22/11/2026, 21.34.01,Masuk,66881415327955,Niko Atmaja,0,main,0 (kembali),
+22/11/2026, 21.34.01,Keluar,66881415327955,Niko Atmaja,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 21.42.17,Masuk,44964767612992,B,Tes,main,,
+22/11/2026, 21.42.18,Keluar,44964767612992,B,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 21.43.00,Masuk,44964767612992,B,1,struktur_menu,1. Struktur Partai,
+22/11/2026, 21.43.01,Keluar,44964767612992,B,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+22/11/2026, 21.43.07,Masuk,44964767612992,B,1,form_struktur_dpd,DPD,
+22/11/2026, 21.43.07,Keluar,44964767612992,B,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+22/11/2026, 21.43.37,Masuk,44964767612992,B,"Nama: Beno Mohamad ibnu
+Jabatan : wakil ketua DPD",activity_dpd,,"{""form"":""Nama: Beno Mohamad ibnu\nJabatan : wakil ketua DPD""}"
+22/11/2026, 21.43.37,Keluar,44964767612992,B,"Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Piket Harian DPD
+2. Rapat Pleno/DPD
+3. Piket Harian & Pleno DPD
+4. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+5. Audiensi Eksternal
+6. Kegiatan Partai
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",activity_dpd,,
+22/11/2026, 21.43.57,Masuk,44964767612992,B,1,konfirmasi,1,
+22/11/2026, 21.43.57,Keluar,44964767612992,B,"Konfirmasi Bapak/Ibu/Saudara/I pada kegiatan tersebut :
+1. Hadir
+2. Izin Dinas Pekerjaan
+3. Izin Acara/Keluarga
+4. Sakit
+5. Tidak hadir dengan Keterangan
+6. Tidak Hadir
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",konfirmasi,,
+22/11/2026, 21.44.32,Masuk,44964767612992,B,Terimalah,main,Terimalah,
+22/11/2026, 21.44.33,Keluar,44964767612992,B,"Terimakasih, atas konfirmasi Bapak/Ibu/Saudara/I,
+senang dapat membantu bapak/ibu/Saudara/I Sekalian.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 21.46.58,Masuk,208550794125475,"Jamalludin ,S.IP",1,struktur_menu,1. Struktur Partai,
+22/11/2026, 21.46.59,Keluar,208550794125475,"Jamalludin ,S.IP","Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+22/11/2026, 21.47.22,Masuk,208550794125475,"Jamalludin ,S.IP",1,form_struktur_dpd,DPD,
+22/11/2026, 21.47.23,Keluar,208550794125475,"Jamalludin ,S.IP","*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+22/11/2026, 21.47.46,Masuk,208550794125475,"Jamalludin ,S.IP","Jamalludin
+Wakil Sekretaris",activity_dpd,,"{""form"":""Jamalludin\nWakil Sekretaris""}"
+22/11/2026, 21.47.47,Keluar,208550794125475,"Jamalludin ,S.IP","Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Piket Harian DPD
+2. Rapat Pleno/DPD
+3. Piket Harian & Pleno DPD
+4. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+5. Audiensi Eksternal
+6. Kegiatan Partai
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",activity_dpd,,
+22/11/2026, 21.47.58,Masuk,208550794125475,"Jamalludin ,S.IP",1,konfirmasi,1,
+22/11/2026, 21.47.58,Keluar,208550794125475,"Jamalludin ,S.IP","Konfirmasi Bapak/Ibu/Saudara/I pada kegiatan tersebut :
+1. Hadir
+2. Izin Dinas Pekerjaan
+3. Izin Acara/Keluarga
+4. Sakit
+5. Tidak hadir dengan Keterangan
+6. Tidak Hadir
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",konfirmasi,,
+22/11/2026, 21.48.06,Masuk,208550794125475,"Jamalludin ,S.IP",1,main,1,
+22/11/2026, 21.48.07,Keluar,208550794125475,"Jamalludin ,S.IP","Terimakasih, atas konfirmasi Bapak/Ibu/Saudara/I,
+senang dapat membantu bapak/ibu/Saudara/I Sekalian.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 21.48.33,Masuk,208550794125475,"Jamalludin ,S.IP",0,main,0 (kembali),
+22/11/2026, 21.48.34,Keluar,208550794125475,"Jamalludin ,S.IP","Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 21.49.27,Masuk,208550794125475,"Jamalludin ,S.IP",1,struktur_menu,1. Struktur Partai,
+22/11/2026, 21.49.28,Keluar,208550794125475,"Jamalludin ,S.IP","Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+22/11/2026, 21.49.34,Masuk,208550794125475,"Jamalludin ,S.IP",1,form_struktur_dpd,DPD,
+22/11/2026, 21.49.35,Keluar,208550794125475,"Jamalludin ,S.IP","*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+22/11/2026, 21.49.45,Masuk,208550794125475,"Jamalludin ,S.IP",0,main,0 (kembali),
+22/11/2026, 21.49.46,Keluar,208550794125475,"Jamalludin ,S.IP","Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+22/11/2026, 22.32.38,Masuk,44964767612992,B,0,main,0 (kembali),
+22/11/2026, 22.32.39,Keluar,44964767612992,B,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 05.31.41,Masuk,268027736150016,Drs.H.Bambang Mudjiono,"Pagi, hari ini saya ijin tidak piket, karena jadwal  cek n konsul rutin  kesehatan
+Terimakasih",main,,
+23/11/2026, 05.31.41,Keluar,268027736150016,Drs.H.Bambang Mudjiono,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 05.32.01,Masuk,268027736150016,Drs.H.Bambang Mudjiono,0,main,0 (kembali),
+23/11/2026, 05.32.02,Keluar,268027736150016,Drs.H.Bambang Mudjiono,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.13,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+23/11/2026, 08.25.13,Masuk,53627095879776,You Die 💝 Palestine,🤲 Ya Allah engkau yang esa ijin kan seluruh rakyat lndonesia memiliki wakil Presiden Yang Baik dan bisa menjadikan Negeri ini maju & sukses di mata dunia 🤲 amin ya Allah.,main,,
+23/11/2026, 08.25.14,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+23/11/2026, 08.25.14,Masuk,53627095879776,You Die 💝 Palestine,🇮🇩 Negara lndonesia yang Makmur 🤲 amin Ya Allah.,main,,
+23/11/2026, 08.25.14,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+23/11/2026, 08.25.15,Masuk,53627095879776,You Die 💝 Palestine,🇮🇩 Negara lndonesia yang Makmur 🤲 amin Ya Allah.,main,,
+23/11/2026, 08.25.15,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+23/11/2026, 08.25.15,Masuk,53627095879776,You Die 💝 Palestine,"🇮🇩 Pemimpin Bangsa yang Amanah & Bijaksana , jujur & Adil untuk semua Rakyat lndonesia 🇮🇩",main,,
+23/11/2026, 08.25.16,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+23/11/2026, 08.25.16,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.16,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.16,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.17,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.17,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.17,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.17,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.18,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.18,Masuk,53627095879776,You Die 💝 Palestine,🤲 lnsya allah atas ijin dari Allah menjadi wakil Presiden Republik lndonesia🇮🇩,main,,
+23/11/2026, 08.25.18,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.18,Masuk,53627095879776,You Die 💝 Palestine,🤲 lnsya allah atas ijin dari Allah menjadi wakil Presiden Republik lndonesia🇮🇩,main,,
+23/11/2026, 08.25.18,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 08.25.19,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 10.10.54,Masuk,138701724241981,Cindy Dafrina,Hallo selamat pagi,main,,
+23/11/2026, 10.10.55,Keluar,138701724241981,Cindy Dafrina,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 10.59.39,Masuk,248489695002757,Putra Nababan,🙏🏼👍🏼,main,,
+23/11/2026, 10.59.39,Keluar,248489695002757,Putra Nababan,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 10.59.58,Masuk,248489695002757,Putra Nababan,5,form_pengiriman,5. Pengiriman,
+23/11/2026, 10.59.58,Keluar,248489695002757,Putra Nababan,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+
+Nama Pengirim :
+Struktur/Badan/Sayap Partai/Instansi :
+Jabatan :
+No Telp/Whatsapp :
+
+Jenis Barang/Dokumen :
+Jumlah/Banyaknya :
+Tanggal Kirim :
+
+Ditujukan kepada :",form_pengiriman,,
+23/11/2026, 11.41.02,Masuk,248086102286579,Hana Pertiwi,selamat pagi,penyampaian_menu,,
+23/11/2026, 11.41.02,Keluar,248086102286579,Hana Pertiwi,"Pilihan tidak dikenali. Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+23/11/2026, 11.41.07,Masuk,248086102286579,Hana Pertiwi,0,main,0 (kembali),
+23/11/2026, 11.41.07,Keluar,248086102286579,Hana Pertiwi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.41.09,Masuk,280886750748780,Muhammad Agil,halo,main,,
+23/11/2026, 11.41.10,Keluar,280886750748780,Muhammad Agil,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.41.14,Masuk,280886750748780,Muhammad Agil,1,struktur_menu,1. Struktur Partai,
+23/11/2026, 11.41.14,Keluar,280886750748780,Muhammad Agil,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+23/11/2026, 11.41.20,Masuk,280886750748780,Muhammad Agil,1,form_struktur_dpd,DPD,
+23/11/2026, 11.41.20,Keluar,280886750748780,Muhammad Agil,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+23/11/2026, 11.41.21,Masuk,248086102286579,Hana Pertiwi,4,form_perizinan,4. Perizinan Kegiatan,
+23/11/2026, 11.41.22,Keluar,248086102286579,Hana Pertiwi,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :",form_perizinan,,
+23/11/2026, 11.41.28,Masuk,50955995340871,Febrynti,Merdeka,main,,
+23/11/2026, 11.41.28,Keluar,50955995340871,Febrynti,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.41.32,Masuk,280886750748780,Muhammad Agil,0,main,0 (kembali),
+23/11/2026, 11.41.33,Keluar,280886750748780,Muhammad Agil,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.41.38,Masuk,280886750748780,Muhammad Agil,4,form_perizinan,4. Perizinan Kegiatan,
+23/11/2026, 11.41.39,Keluar,280886750748780,Muhammad Agil,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :",form_perizinan,,
+23/11/2026, 11.41.53,Masuk,280886750748780,Muhammad Agil,0,main,0 (kembali),
+23/11/2026, 11.41.54,Keluar,280886750748780,Muhammad Agil,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.41.57,Masuk,91560247062629,Alvian Fahchisvico,P,main,,
+23/11/2026, 11.41.58,Keluar,91560247062629,Alvian Fahchisvico,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.41.58,Masuk,280886750748780,Muhammad Agil,3,penyampaian_menu,3. Penyampaian,
+23/11/2026, 11.41.59,Keluar,280886750748780,Muhammad Agil,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+23/11/2026, 11.42.06,Masuk,280886750748780,Muhammad Agil,1,form_penyampaian_partai,Laporan Partai,
+23/11/2026, 11.42.07,Keluar,280886750748780,Muhammad Agil,"*(Copy Pesan Ini)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi form berikut :
+Nama :
+Struktur :
+Jabatan :
+No KTA :
+
+Yang disampaikan :",form_penyampaian_partai,,
+23/11/2026, 11.42.10,Masuk,280886750748780,Muhammad Agil,0,main,0 (kembali),
+23/11/2026, 11.42.10,Keluar,280886750748780,Muhammad Agil,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.42.13,Masuk,91560247062629,Alvian Fahchisvico,6,informasi_menu,6. Informasi,
+23/11/2026, 11.42.14,Keluar,91560247062629,Alvian Fahchisvico,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+23/11/2026, 11.42.15,Masuk,248086102286579,Hana Pertiwi,0,main,0 (kembali),
+23/11/2026, 11.42.16,Keluar,248086102286579,Hana Pertiwi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.42.19,Masuk,248086102286579,Hana Pertiwi,3,penyampaian_menu,3. Penyampaian,
+23/11/2026, 11.42.20,Keluar,248086102286579,Hana Pertiwi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+23/11/2026, 11.42.28,Masuk,91560247062629,Alvian Fahchisvico,3,main,Pembuatan KTA,
+23/11/2026, 11.42.28,Keluar,91560247062629,Alvian Fahchisvico,"*Informasi Pembuatan KTA*
+Untuk Pembuatan KTA Bapak/Ibu/Saudara/I dapat melengkapi dokumen sebagai berikut dan dibawa ke Kantor DPC masing-masing wilayah atau ke kantor DPD, adapun dokumen yang perlu dibawa adalah sebagai berikut :
+1. Fotocopy KTP
+2. Fotocopy KK
+3. Pas foto berwarna terbaru
+4. Surat keterangan dari PAC/Ranting (jika ada)
+
+(Daftar dokumen di atas dapat disesuaikan dengan ketentuan terbaru)
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.42.30,Masuk,248086102286579,Hana Pertiwi,1,form_penyampaian_partai,Laporan Partai,
+23/11/2026, 11.42.30,Keluar,248086102286579,Hana Pertiwi,"*(Copy Pesan Ini)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi form berikut :
+Nama :
+Struktur :
+Jabatan :
+No KTA :
+
+Yang disampaikan :",form_penyampaian_partai,,
+23/11/2026, 11.42.43,Masuk,248086102286579,Hana Pertiwi,0,main,0 (kembali),
+23/11/2026, 11.42.44,Keluar,248086102286579,Hana Pertiwi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.42.48,Masuk,248086102286579,Hana Pertiwi,1,struktur_menu,1. Struktur Partai,
+23/11/2026, 11.42.48,Keluar,248086102286579,Hana Pertiwi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+23/11/2026, 11.42.55,Masuk,132461136736450,Saidpoil,Halo gais,main,,
+23/11/2026, 11.42.56,Masuk,248086102286579,Hana Pertiwi,1,form_struktur_dpd,DPD,
+23/11/2026, 11.42.56,Keluar,248086102286579,Hana Pertiwi,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+23/11/2026, 11.42.57,Keluar,132461136736450,Saidpoil,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.43.02,Masuk,132461136736450,Saidpoil,1,struktur_menu,1. Struktur Partai,
+23/11/2026, 11.43.03,Keluar,132461136736450,Saidpoil,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+23/11/2026, 11.43.05,Masuk,50955995340871,Febrynti,Merdeka,main,,
+23/11/2026, 11.43.05,Keluar,50955995340871,Febrynti,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.43.06,Masuk,132461136736450,Saidpoil,1,form_struktur_dpd,DPD,
+23/11/2026, 11.43.07,Keluar,132461136736450,Saidpoil,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+23/11/2026, 11.43.11,Masuk,50955995340871,Febrynti,3,penyampaian_menu,3. Penyampaian,
+23/11/2026, 11.43.11,Keluar,50955995340871,Febrynti,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+23/11/2026, 11.43.14,Masuk,132461136736450,Saidpoil,"Said
+Sekre",activity_dpd,,"{""form"":""Said\nSekre""}"
+23/11/2026, 11.43.14,Keluar,132461136736450,Saidpoil,"Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Piket Harian DPD
+2. Rapat Pleno/DPD
+3. Piket Harian & Pleno DPD
+4. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+5. Audiensi Eksternal
+6. Kegiatan Partai
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",activity_dpd,,
+23/11/2026, 11.43.21,Masuk,248086102286579,Hana Pertiwi,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama : said 
+Jabatan : staf sekretariat",activity_dpd,,"{""form"":""*(Copy Pesan Ini)*\nTolong masukan data Bapak/Ibu/Saudara/I :\nNama : said \nJabatan : staf sekretariat""}"
+23/11/2026, 11.43.22,Keluar,248086102286579,Hana Pertiwi,"Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Piket Harian DPD
+2. Rapat Pleno/DPD
+3. Piket Harian & Pleno DPD
+4. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+5. Audiensi Eksternal
+6. Kegiatan Partai
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",activity_dpd,,
+23/11/2026, 11.43.23,Masuk,132461136736450,Saidpoil,2,konfirmasi,2,
+23/11/2026, 11.43.24,Keluar,132461136736450,Saidpoil,"Konfirmasi Bapak/Ibu/Saudara/I pada kegiatan tersebut :
+1. Hadir
+2. Izin Dinas Pekerjaan
+3. Izin Acara/Keluarga
+4. Sakit
+5. Tidak hadir dengan Keterangan
+6. Tidak Hadir
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",konfirmasi,,
+23/11/2026, 11.43.32,Masuk,132461136736450,Saidpoil,6,main,6,
+23/11/2026, 11.43.33,Keluar,132461136736450,Saidpoil,"Terimakasih, atas konfirmasi Bapak/Ibu/Saudara/I,
+senang dapat membantu bapak/ibu/Saudara/I Sekalian.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.43.34,Masuk,50955995340871,Febrynti,1,form_penyampaian_partai,Laporan Partai,
+23/11/2026, 11.43.34,Keluar,50955995340871,Febrynti,"*(Copy Pesan Ini)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi form berikut :
+Nama :
+Struktur :
+Jabatan :
+No KTA :
+
+Yang disampaikan :",form_penyampaian_partai,,
+23/11/2026, 11.44.13,Masuk,132461136736450,Saidpoil,0,main,0 (kembali),
+23/11/2026, 11.44.13,Keluar,132461136736450,Saidpoil,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.44.17,Masuk,132461136736450,Saidpoil,6,informasi_menu,6. Informasi,
+23/11/2026, 11.44.18,Keluar,132461136736450,Saidpoil,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+23/11/2026, 11.44.26,Masuk,132461136736450,Saidpoil,2,main,Media Sosial,
+23/11/2026, 11.44.27,Keluar,132461136736450,Saidpoil,"*Media Sosial DPD PDI PERJUANGAN DKI JAKARTA*
+Instagram DPD : https://instagram.com/...
+Tiktok DPD : https://tiktok.com/@...
+Website DPD : https://...
+
+(Silahkan ganti link di atas dengan akun resmi asli)
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.44.28,Masuk,280886750748780,Muhammad Agil,1,struktur_menu,1. Struktur Partai,
+23/11/2026, 11.44.29,Keluar,280886750748780,Muhammad Agil,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+23/11/2026, 11.44.33,Masuk,280886750748780,Muhammad Agil,1,form_struktur_dpd,DPD,
+23/11/2026, 11.44.33,Keluar,280886750748780,Muhammad Agil,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+23/11/2026, 11.44.45,Masuk,132461136736450,Saidpoil,0,main,0 (kembali),
+23/11/2026, 11.44.46,Keluar,132461136736450,Saidpoil,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.44.50,Masuk,132461136736450,Saidpoil,6,informasi_menu,6. Informasi,
+23/11/2026, 11.44.51,Keluar,132461136736450,Saidpoil,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+23/11/2026, 11.44.55,Masuk,132461136736450,Saidpoil,3,main,Pembuatan KTA,
+23/11/2026, 11.44.56,Keluar,132461136736450,Saidpoil,"*Informasi Pembuatan KTA*
+Untuk Pembuatan KTA Bapak/Ibu/Saudara/I dapat melengkapi dokumen sebagai berikut dan dibawa ke Kantor DPC masing-masing wilayah atau ke kantor DPD, adapun dokumen yang perlu dibawa adalah sebagai berikut :
+1. Fotocopy KTP
+2. Fotocopy KK
+3. Pas foto berwarna terbaru
+4. Surat keterangan dari PAC/Ranting (jika ada)
+
+(Daftar dokumen di atas dapat disesuaikan dengan ketentuan terbaru)
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.45.03,Masuk,50955995340871,Febrynti,0,main,0 (kembali),
+23/11/2026, 11.45.04,Keluar,50955995340871,Febrynti,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.45.17,Masuk,248086102286579,Hana Pertiwi,0,main,0 (kembali),
+23/11/2026, 11.45.17,Keluar,248086102286579,Hana Pertiwi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.45.24,Masuk,248086102286579,Hana Pertiwi,1,struktur_menu,1. Struktur Partai,
+23/11/2026, 11.45.25,Keluar,248086102286579,Hana Pertiwi,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+23/11/2026, 11.47.21,Masuk,132461136736450,Saidpoil,5,form_pengiriman,5. Pengiriman,
+23/11/2026, 11.47.22,Keluar,132461136736450,Saidpoil,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+
+Nama Pengirim :
+Struktur/Badan/Sayap Partai/Instansi :
+Jabatan :
+No Telp/Whatsapp :
+
+Jenis Barang/Dokumen :
+Jumlah/Banyaknya :
+Tanggal Kirim :
+
+Ditujukan kepada :",form_pengiriman,,
+23/11/2026, 11.50.13,Masuk,248086102286579,Hana Pertiwi,1,form_struktur_dpd,DPD,
+23/11/2026, 11.50.14,Keluar,248086102286579,Hana Pertiwi,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :",form_struktur_dpd,,
+23/11/2026, 11.50.20,Masuk,248086102286579,Hana Pertiwi,0,main,0 (kembali),
+23/11/2026, 11.50.20,Keluar,248086102286579,Hana Pertiwi,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.50.39,Masuk,91560247062629,Alvian Fahchisvico,4,form_perizinan,4. Perizinan Kegiatan,
+23/11/2026, 11.50.40,Keluar,91560247062629,Alvian Fahchisvico,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :",form_perizinan,,
+23/11/2026, 11.51.42,Masuk,91560247062629,Alvian Fahchisvico,4,main,,"{""form"":""4""}"
+23/11/2026, 11.51.43,Keluar,91560247062629,Alvian Fahchisvico,"Terimakasih, atas Informasi Bapak/Ibu/Saudara/I,
+kami akan segera menindaklanjuti informasi yang bapak/ibu/Saudara/I Sekalian sampaikan.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.52.39,Masuk,224283695546564,roynaldo,P,main,,
+23/11/2026, 11.52.39,Keluar,224283695546564,roynaldo,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.52.47,Masuk,224283695546564,roynaldo,6,informasi_menu,6. Informasi,
+23/11/2026, 11.52.48,Keluar,224283695546564,roynaldo,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+23/11/2026, 11.52.58,Masuk,224283695546564,roynaldo,0,main,0 (kembali),
+23/11/2026, 11.52.59,Keluar,224283695546564,roynaldo,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.53.12,Masuk,224283695546564,roynaldo,3,penyampaian_menu,3. Penyampaian,
+23/11/2026, 11.53.12,Keluar,224283695546564,roynaldo,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+23/11/2026, 11.53.21,Masuk,224283695546564,roynaldo,1,form_penyampaian_partai,Laporan Partai,
+23/11/2026, 11.53.22,Keluar,224283695546564,roynaldo,"*(Copy Pesan Ini)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi form berikut :
+Nama :
+Struktur :
+Jabatan :
+No KTA :
+
+Yang disampaikan :",form_penyampaian_partai,,
+23/11/2026, 11.53.49,Masuk,50955995340871,Febrynti,5,form_pengiriman,5. Pengiriman,
+23/11/2026, 11.53.50,Keluar,50955995340871,Febrynti,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+
+Nama Pengirim :
+Struktur/Badan/Sayap Partai/Instansi :
+Jabatan :
+No Telp/Whatsapp :
+
+Jenis Barang/Dokumen :
+Jumlah/Banyaknya :
+Tanggal Kirim :
+
+Ditujukan kepada :",form_pengiriman,,
+23/11/2026, 11.54.25,Masuk,50955995340871,Febrynti,0,main,0 (kembali),
+23/11/2026, 11.54.25,Keluar,50955995340871,Febrynti,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 11.54.54,Masuk,50955995340871,Febrynti,3,penyampaian_menu,3. Penyampaian,
+23/11/2026, 11.54.55,Keluar,50955995340871,Febrynti,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+23/11/2026, 11.55.08,Masuk,50955995340871,Febrynti,1,form_penyampaian_partai,Laporan Partai,
+23/11/2026, 11.55.08,Keluar,50955995340871,Febrynti,"*(Copy Pesan Ini)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi form berikut :
+Nama :
+Struktur :
+Jabatan :
+No KTA :
+
+Yang disampaikan :",form_penyampaian_partai,,
+23/11/2026, 11.55.24,Masuk,50955995340871,Febrynti,0,main,0 (kembali),
+23/11/2026, 11.55.24,Keluar,50955995340871,Febrynti,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 12.43.19,Masuk,244650061344893,CHAIRUL ICHSAN-cibomisme,Tes,main,,
+23/11/2026, 12.43.19,Keluar,244650061344893,CHAIRUL ICHSAN-cibomisme,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 12.43.46,Masuk,7842643837119,Dedi DT,pagi,activity_dpd,,"{""form"":""pagi""}"
+23/11/2026, 12.43.47,Keluar,7842643837119,Dedi DT,"Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Piket Harian DPD
+2. Rapat Pleno/DPD
+3. Piket Harian & Pleno DPD
+4. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+5. Audiensi Eksternal
+6. Kegiatan Partai
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",activity_dpd,,
+23/11/2026, 12.43.54,Masuk,7842643837119,Dedi DT,siang,konfirmasi,siang,
+23/11/2026, 12.43.55,Keluar,7842643837119,Dedi DT,"Konfirmasi Bapak/Ibu/Saudara/I pada kegiatan tersebut :
+1. Hadir
+2. Izin Dinas Pekerjaan
+3. Izin Acara/Keluarga
+4. Sakit
+5. Tidak hadir dengan Keterangan
+6. Tidak Hadir
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",konfirmasi,,
+23/11/2026, 12.43.58,Masuk,7842643837119,Dedi DT,0,main,0 (kembali),
+23/11/2026, 12.43.59,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 12.44.19,Masuk,244650061344893,CHAIRUL ICHSAN-cibomisme,1,struktur_menu,1. Struktur Partai,
+23/11/2026, 12.44.19,Keluar,244650061344893,CHAIRUL ICHSAN-cibomisme,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",struktur_menu,,
+23/11/2026, 12.48.59,Masuk,7842643837119,Dedi DT,2,badan_menu,2. Badan/Sayap Partai,
+23/11/2026, 12.48.59,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. TMP
+2. BMI
+3. BBHAR
+4. BAMUSI
+5. GNTI
+6. BSPN
+7. BAGUNA
+8. BPEK
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",badan_menu,,
+23/11/2026, 12.50.25,Masuk,7842643837119,Dedi DT,o,badan_menu,,
+23/11/2026, 12.50.26,Keluar,7842643837119,Dedi DT,"Pilihan tidak dikenali. Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. TMP
+2. BMI
+3. BBHAR
+4. BAMUSI
+5. GNTI
+6. BSPN
+7. BAGUNA
+8. BPEK
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",badan_menu,,
+23/11/2026, 12.50.30,Masuk,7842643837119,Dedi DT,0,main,0 (kembali),
+23/11/2026, 12.50.31,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 12.50.35,Masuk,7842643837119,Dedi DT,6,informasi_menu,6. Informasi,
+23/11/2026, 12.50.36,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+23/11/2026, 12.51.23,Masuk,7842643837119,Dedi DT,3,main,Pembuatan KTA,
+23/11/2026, 12.51.24,Keluar,7842643837119,Dedi DT,"*Informasi Pembuatan KTA*
+Untuk Pembuatan KTA Bapak/Ibu/Saudara/I dapat melengkapi dokumen sebagai berikut dan dibawa ke Kantor DPC masing-masing wilayah atau ke kantor DPD, adapun dokumen yang perlu dibawa adalah sebagai berikut :
+1. Fotocopy KTP
+2. Fotocopy KK
+3. Pas foto berwarna terbaru
+4. Surat keterangan dari PAC/Ranting (jika ada)
+
+(Daftar dokumen di atas dapat disesuaikan dengan ketentuan terbaru)
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 12.51.34,Masuk,7842643837119,Dedi DT,0,main,0 (kembali),
+23/11/2026, 12.51.35,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 12.51.41,Masuk,7842643837119,Dedi DT,3,penyampaian_menu,3. Penyampaian,
+23/11/2026, 12.51.42,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+23/11/2026, 13.39.11,Masuk,7842643837119,Dedi DT,selamat siang,penyampaian_menu,,
+23/11/2026, 13.39.11,Keluar,7842643837119,Dedi DT,"Pilihan tidak dikenali. Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+23/11/2026, 13.39.19,Masuk,7842643837119,Dedi DT,siang,penyampaian_menu,,
+23/11/2026, 13.39.19,Keluar,7842643837119,Dedi DT,"Pilihan tidak dikenali. Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",penyampaian_menu,,
+23/11/2026, 13.39.35,Masuk,7842643837119,Dedi DT,0,main,0 (kembali),
+23/11/2026, 13.39.36,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 13.39.50,Masuk,7842643837119,Dedi DT,6,informasi_menu,6. Informasi,
+23/11/2026, 13.39.51,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+23/11/2026, 13.39.53,Masuk,7842643837119,Dedi DT,1,main,Alamat Kantor DPD,
+23/11/2026, 13.39.54,Keluar,7842643837119,Dedi DT,"*Alamat Kantor DPD PDI PERJUANGAN DKI JAKARTA*
+Jl. Agung Sedayu City No.10A, Cakung Bar., Kec. Cakung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13910
+
+_(Silahkan buka Google Maps dan cari ""Gedung DPD PDI PERJUANGAN PROV DKI JAKARTA"" untuk share lokasi)_
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 13.40.03,Masuk,7842643837119,Dedi DT,4,form_perizinan,4. Perizinan Kegiatan,
+23/11/2026, 13.40.04,Keluar,7842643837119,Dedi DT,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :",form_perizinan,,
+23/11/2026, 13.40.10,Masuk,7842643837119,Dedi DT,0,main,0 (kembali),
+23/11/2026, 13.40.10,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 13.40.14,Masuk,7842643837119,Dedi DT,6,informasi_menu,6. Informasi,
+23/11/2026, 13.40.15,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",informasi_menu,,
+23/11/2026, 13.40.18,Masuk,7842643837119,Dedi DT,4,dpc_menu,Alamat & Kontak DPC,
+23/11/2026, 13.40.19,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi berikut :
+1. DPC JAKARTA PUSAT
+2. DPC JAKARTA TIMUR
+3. DPC JAKARTA SELATAN
+4. DPC JAKARTA BARAT
+5. DPC JAKARTA UTARA
+6. KEPULAUAN SERIBU
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",dpc_menu,,
+23/11/2026, 13.40.21,Masuk,7842643837119,Dedi DT,1,main,Jakarta Pusat,
+23/11/2026, 13.40.21,Keluar,7842643837119,Dedi DT,"*DPC JAKARTA PUSAT*
+Alamat DPC Jakarta Pusat:
+Jl. Kalibaru Timur VI No. 106. RT.03/RW.08, Utan Panjang Kecamatan Kemayoran, Kota  Jakarta Pusat
+
+No Telp Sekretariat: ...
+
+Terimakasih, telah menghubungi NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,
+
+_(Ketik *0* kapan saja untuk kembali ke menu utama)_",main,,
+23/11/2026, 14.54.07,Masuk,7842643837119,Dedi DT,selamat siang,main,,
+23/11/2026, 14.54.08,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk kembali ke menu utama, ketik *#* untuk menu sebelumnya, ketik *9* untuk mengakhiri)_",main,,
+23/11/2026, 14.54.18,Masuk,7842643837119,Dedi DT,9,new,9 (akhiri),
+23/11/2026, 14.54.18,Keluar,7842643837119,Dedi DT,"Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",new,,
+23/11/2026, 14.54.51,Masuk,7842643837119,Dedi DT,siang,main,,
+23/11/2026, 14.54.52,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk kembali ke menu utama, ketik *#* untuk menu sebelumnya, ketik *9* untuk mengakhiri)_",main,,
+23/11/2026, 14.54.55,Masuk,7842643837119,Dedi DT,6,informasi_menu,6. Informasi,
+23/11/2026, 14.54.56,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* untuk kembali ke menu utama, ketik *#* untuk menu sebelumnya, ketik *9* untuk mengakhiri)_",informasi_menu,,
+23/11/2026, 14.55.00,Masuk,7842643837119,Dedi DT,4,dpc_menu,Alamat & Kontak DPC,
+23/11/2026, 14.55.01,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi berikut :
+1. DPC JAKARTA PUSAT
+2. DPC JAKARTA TIMUR
+3. DPC JAKARTA SELATAN
+4. DPC JAKARTA BARAT
+5. DPC JAKARTA UTARA
+6. KEPULAUAN SERIBU
+
+_(Ketik *0* untuk kembali ke menu utama, ketik *#* untuk menu sebelumnya, ketik *9* untuk mengakhiri)_",dpc_menu,,
+23/11/2026, 14.55.04,Masuk,7842643837119,Dedi DT,1,main,Jakarta Pusat,
+23/11/2026, 14.55.05,Keluar,7842643837119,Dedi DT,"*DPC JAKARTA PUSAT*
+Alamat DPC Jakarta Pusat:
+Jl. Kalibaru Timur VI No. 106. RT.03/RW.08, Utan Panjang Kecamatan Kemayoran, Kota  Jakarta Pusat
+
+No Telp Sekretariat: ...
+
+Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",main,,
+23/11/2026, 14.55.33,Masuk,7842643837119,Dedi DT,sore,main,,
+23/11/2026, 14.55.33,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk kembali ke menu utama, ketik *#* untuk menu sebelumnya, ketik *9* untuk mengakhiri)_",main,,
+23/11/2026, 14.55.55,Masuk,7842643837119,Dedi DT,jangan balas disini merusak sistem,main,,
+23/11/2026, 14.55.56,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk kembali ke menu utama, ketik *#* untuk menu sebelumnya, ketik *9* untuk mengakhiri)_",main,,
+23/11/2026, 15.01.39,Masuk,7842643837119,Dedi DT,sore,main,,
+23/11/2026, 15.01.40,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+23/11/2026, 15.01.46,Masuk,7842643837119,Dedi DT,3,penyampaian_menu,3. Penyampaian,
+23/11/2026, 15.01.47,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",penyampaian_menu,,
+23/11/2026, 15.01.50,Masuk,7842643837119,Dedi DT,9,main,9 (menu sebelumnya),
+23/11/2026, 15.01.51,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+23/11/2026, 15.01.56,Masuk,7842643837119,Dedi DT,#,new,# (akhiri),
+23/11/2026, 15.01.56,Keluar,7842643837119,Dedi DT,"Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",new,,
+23/11/2026, 15.05.35,Masuk,7842643837119,Dedi DT,sore,main,,
+23/11/2026, 15.05.36,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+23/11/2026, 15.05.39,Masuk,7842643837119,Dedi DT,1,struktur_menu,1. Struktur Partai,
+23/11/2026, 15.05.40,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",struktur_menu,,
+23/11/2026, 15.05.43,Masuk,7842643837119,Dedi DT,1,form_struktur_dpd,DPD,
+23/11/2026, 15.05.44,Keluar,7842643837119,Dedi DT,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",form_struktur_dpd,,
+23/11/2026, 15.05.49,Masuk,7842643837119,Dedi DT,9,struktur_menu,9 (menu sebelumnya),
+23/11/2026, 15.05.50,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",struktur_menu,,
+23/11/2026, 15.08.51,Keluar,7842643837119,Dedi DT,"Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",new,,
+23/11/2026, 15.12.42,Masuk,145874437038316,Kokuo,wew,main,,
+23/11/2026, 15.12.44,Keluar,145874437038316,Kokuo,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+23/11/2026, 15.12.55,Masuk,145874437038316,Kokuo,1,struktur_menu,1. Struktur Partai,
+23/11/2026, 15.12.55,Keluar,145874437038316,Kokuo,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",struktur_menu,,
+23/11/2026, 15.13.02,Masuk,145874437038316,Kokuo,5,form_struktur_lain,ANAK RANTING,
+23/11/2026, 15.13.03,Keluar,145874437038316,Kokuo,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",form_struktur_lain,,
+23/11/2026, 15.13.31,Masuk,145874437038316,Kokuo,"Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama : Bonichi
+Jabatan : Catty",activity_struktur_lain,,"{""form"":""Tolong masukan data Bapak/Ibu/Saudara/I :\nNama : Bonichi\nJabatan : Catty""}"
+23/11/2026, 15.13.32,Keluar,145874437038316,Kokuo,"Kegiatan yang Bapak/Ibu/Saudara/I ikuti adalah :
+1. Rapat gabungan (DPP/DPD/DPC/BADAN & SAYAP)
+2. Audiensi Eksternal
+3. Kegiatan Partai
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",activity_struktur_lain,,
+23/11/2026, 15.13.41,Masuk,145874437038316,Kokuo,3,konfirmasi,3,
+23/11/2026, 15.13.42,Keluar,145874437038316,Kokuo,"Konfirmasi Bapak/Ibu/Saudara/I pada kegiatan tersebut :
+1. Hadir
+2. Izin Dinas Pekerjaan
+3. Izin Acara/Keluarga
+4. Sakit
+5. Tidak hadir dengan Keterangan
+6. Tidak Hadir
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",konfirmasi,,
+23/11/2026, 15.13.48,Masuk,145874437038316,Kokuo,1,main,1,
+23/11/2026, 15.13.49,Keluar,145874437038316,Kokuo,"Terimakasih, atas konfirmasi Bapak/Ibu/Saudara/I,
+senang dapat membantu bapak/ibu/Saudara/I Sekalian.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN",main,,
+23/11/2026, 15.47.57,Masuk,150761975595158,Christian Imanuel,Kak aku mau daftar anggota dpc pdip perjuangan apakah bisa?,main,,
+23/11/2026, 15.47.58,Keluar,150761975595158,Christian Imanuel,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+23/11/2026, 15.48.29,Masuk,150761975595158,Christian Imanuel,3,penyampaian_menu,3. Penyampaian,
+23/11/2026, 15.48.30,Keluar,150761975595158,Christian Imanuel,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. Laporan Partai
+2. Aspirasi Kepartaian
+3. Aspirasi Warga Jakarta
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",penyampaian_menu,,
+23/11/2026, 15.48.56,Masuk,150761975595158,Christian Imanuel,9,main,9 (menu sebelumnya),
+23/11/2026, 15.48.57,Keluar,150761975595158,Christian Imanuel,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+23/11/2026, 15.51.57,Keluar,150761975595158,Christian Imanuel,"Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",new,,
+23/11/2026, 15.52.15,Masuk,150761975595158,Christian Imanuel,6,informasi_menu,6. Informasi,
+23/11/2026, 15.52.15,Keluar,150761975595158,Christian Imanuel,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",informasi_menu,,
+23/11/2026, 15.52.25,Masuk,150761975595158,Christian Imanuel,3,main,Pembuatan KTA,
+23/11/2026, 15.52.25,Keluar,150761975595158,Christian Imanuel,"*Informasi Pembuatan KTA*
+Untuk Pembuatan KTA Bapak/Ibu/Saudara/I dapat melengkapi dokumen sebagai berikut dan dibawa ke Kantor DPC masing-masing wilayah atau ke kantor DPD, adapun dokumen yang perlu dibawa adalah sebagai berikut :
+1. Fotocopy KTP
+2. Fotocopy KK
+3. Pas foto berwarna terbaru
+4. Surat keterangan dari PAC/Ranting (jika ada)
+
+(Daftar dokumen di atas dapat disesuaikan dengan ketentuan terbaru)
+
+Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",main,,
+23/11/2026, 15.59.33,Masuk,7842643837119,Dedi DT,tes,main,,
+23/11/2026, 15.59.34,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+23/11/2026, 15.59.46,Masuk,7842643837119,Dedi DT,1,struktur_menu,1. Struktur Partai,
+23/11/2026, 15.59.47,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih dari menu berikut :
+1. DPD
+2. DPC
+3. PAC
+4. RANTING
+5. ANAK RANTING
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",struktur_menu,,
+23/11/2026, 15.59.51,Masuk,7842643837119,Dedi DT,1,form_struktur_dpd,DPD,
+23/11/2026, 15.59.52,Keluar,7842643837119,Dedi DT,"*(Copy Pesan Ini)*
+Tolong masukan data Bapak/Ibu/Saudara/I :
+Nama :
+Jabatan :
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",form_struktur_dpd,,
+23/11/2026, 16.02.52,Keluar,7842643837119,Dedi DT,"Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",new,,
+23/11/2026, 17.22.18,Masuk,7842643837119,Dedi DT,sore,main,,
+23/11/2026, 17.22.19,Keluar,7842643837119,Dedi DT,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+23/11/2026, 17.22.21,Masuk,7842643837119,Dedi DT,6,informasi_menu,6. Informasi,
+23/11/2026, 17.22.22,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",informasi_menu,,
+23/11/2026, 17.22.25,Masuk,7842643837119,Dedi DT,4,dpc_menu,Alamat & Kontak DPC,
+23/11/2026, 17.22.26,Keluar,7842643837119,Dedi DT,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi berikut :
+1. DPC JAKARTA PUSAT
+2. DPC JAKARTA TIMUR
+3. DPC JAKARTA SELATAN
+4. DPC JAKARTA BARAT
+5. DPC JAKARTA UTARA
+6. KEPULAUAN SERIBU
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",dpc_menu,,
+23/11/2026, 17.22.28,Masuk,7842643837119,Dedi DT,1,main,Jakarta Pusat,
+23/11/2026, 17.22.29,Keluar,7842643837119,Dedi DT,"*DPC JAKARTA PUSAT*
+Alamat DPC Jakarta Pusat:
+Jl. Kalibaru Timur VI No. 106. RT.03/RW.08, Utan Panjang Kecamatan Kemayoran, Kota  Jakarta Pusat
+
+No Telp Sekretariat: ...
+
+Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",main,,
+23/11/2026, 17.22.42,Masuk,7842643837119,Dedi DT,#,new,# (akhiri),
+23/11/2026, 17.22.42,Keluar,7842643837119,Dedi DT,"Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",new,,
+23/11/2026, 17.32.22,Masuk,36661924728967,HNY Saduk,Sore,main,,
+23/11/2026, 17.32.23,Keluar,36661924728967,HNY Saduk,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+23/11/2026, 17.33.50,Masuk,36661924728967,HNY Saduk,4. Perizinan Ruangan,form_perizinan,4. Perizinan Kegiatan,
+23/11/2026, 17.33.51,Keluar,36661924728967,HNY Saduk,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama :
+Struktur/Badan/Sayap Partai :
+Jabatan :
+Jenis Kegiatan :
+Hari :
+Tanggal :
+Waktu :
+Jumlah Peserta :
+Ruangan/Lokasi Kegiatan :
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",form_perizinan,,
+23/11/2026, 17.35.55,Masuk,36661924728967,HNY Saduk,"*(Copy Pesan Berikut)*
+Silahkan Bapak/Ibu/Saudara/I lengkapi data berikut :
+Nama : Hizkia Saduk
+Struktur/Badan/Sayap Partai : TMP DKI Jakarta
+Jabatan : Sekertaris
+Jenis Kegiatan : Rapat bulanan
+Hari : Selasa
+Tanggal : 24 Nov 2026
+Waktu : jam 20.00
+Jumlah Peserta : 15 Orang
+Ruangan/Lokasi Kegiatan : Ruangan rapat kecil lt 2
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,0 (kembali),
+23/11/2026, 17.35.56,Keluar,36661924728967,HNY Saduk,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+23/11/2026, 17.38.57,Keluar,36661924728967,HNY Saduk,"Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",new,,
+24/11/2026, 11.39.43,Masuk,150761975595158,Christian Imanuel,Ak mau tanya ketentuannya gimana kalo  mau daftar jadi anggota PDIP,main,,
+24/11/2026, 11.39.44,Keluar,150761975595158,Christian Imanuel,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 11.39.52,Masuk,150761975595158,Christian Imanuel,6,informasi_menu,6. Informasi,
+24/11/2026, 11.39.52,Keluar,150761975595158,Christian Imanuel,"Silahkan Bapak/Ibu/Saudara/I pilih Informasi yang ingin di dapatkan :
+1. Informasi Alamat Kantor DPD
+2. Informasi Media Sosial
+3. Informasi Pembuatan KTA
+4. Informasi Alamat dan Kontak DPC
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",informasi_menu,,
+24/11/2026, 11.39.59,Masuk,150761975595158,Christian Imanuel,3,main,Pembuatan KTA,
+24/11/2026, 11.40.00,Keluar,150761975595158,Christian Imanuel,"*Informasi Pembuatan KTA*
+Untuk Pembuatan KTA Bapak/Ibu/Saudara/I dapat melengkapi dokumen sebagai berikut dan dibawa ke Kantor DPC masing-masing wilayah atau ke kantor DPD, adapun dokumen yang perlu dibawa adalah sebagai berikut :
+1. Fotocopy KTP
+2. Fotocopy KK
+3. Pas foto berwarna terbaru
+4. Surat keterangan dari PAC/Ranting (jika ada)
+
+(Daftar dokumen di atas dapat disesuaikan dengan ketentuan terbaru)
+
+Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",main,,
+24/11/2026, 17.51.53,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.51.54,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.51.54,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.51.54,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.51.55,Masuk,53627095879776,You Die 💝 Palestine,🇵🇸 Palestine Never Die,main,,
+24/11/2026, 17.51.55,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.51.56,Masuk,53627095879776,You Die 💝 Palestine,🇵🇸 Palestine will be free 🇮🇩,main,,
+24/11/2026, 17.51.57,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.51.57,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.51.57,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.51.57,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.51.58,Masuk,53627095879776,You Die 💝 Palestine,🇵🇸 Palestine will be free 🇮🇩,main,,
+24/11/2026, 17.51.58,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.51.59,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.51.59,Masuk,53627095879776,You Die 💝 Palestine,🇵🇸 Palestine will be free 🇮🇩,main,,
+24/11/2026, 17.51.59,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.51.59,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.00,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.00,Masuk,53627095879776,You Die 💝 Palestine,🇵🇸 Palestine Never Die,main,,
+24/11/2026, 17.52.01,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.52.01,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.01,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.02,Masuk,53627095879776,You Die 💝 Palestine,🇵🇸 And justice For All,main,,
+24/11/2026, 17.52.02,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.52.02,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.03,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.52.03,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.03,Masuk,53627095879776,You Die 💝 Palestine,🇵🇸 Palestine will be free 🇮🇩,main,,
+24/11/2026, 17.52.03,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.04,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.52.04,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.04,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.52.04,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.05,Masuk,53627095879776,You Die 💝 Palestine,""" Lend a helping hand to Palestine """,main,,
+24/11/2026, 17.52.05,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.05,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.52.05,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.06,Masuk,53627095879776,You Die 💝 Palestine,,main,,
+24/11/2026, 17.52.06,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.06,Masuk,53627095879776,You Die 💝 Palestine,""" thank you very much",main,,
+24/11/2026, 17.52.06,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.06,Masuk,53627095879776,You Die 💝 Palestine,🇵🇸 You Die 💝 Palestine 🇮🇩,main,,
+24/11/2026, 17.52.07,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.52.07,Keluar,53627095879776,You Die 💝 Palestine,"Merdeka !!!
+Semoga kita sehat selalu dalam lindungan Tuhan YME.
+
+Selamat datang di NARAHUBUNG
+DPD PDI PERJUANGAN DKI JAKARTA,
+yang terhubung dengan
+SEKRETARIAT DPD.
+
+""Orang Ikut Partai, Bukan Orang ikut Orang""
+
+Silahkan pilih keperluan Bapak/Ibu/Saudara/I di menu berikut :
+1. Struktur Partai
+2. Badan/Sayap Partai
+3. Penyampaian
+4. Perizinan Ruangan
+5. Pengiriman
+6. Informasi
+
+_(Ketik *0* untuk menu utama, ketik *9* untuk menu sebelumnya, ketik *#* untuk mengakhiri)_",main,,
+24/11/2026, 17.55.08,Keluar,53627095879776,You Die 💝 Palestine,"Terimakasih, telah menghubungi NARAHUBUNG DPD PDI PERJUANGAN DKI JAKARTA,
+Semoga informasi yang diberikan kepada bapak/ibu/Saudara/I Sekalian dapat bermanfaat.
+
+Sehat selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD PDI PERJUANGAN,",new,,
+25/11/2026, 19.58.27,Keluar,150761975595158,Christian Imanuel,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.27,Keluar,145874437038316,Kokuo,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.27,Keluar,244650061344893,CHAIRUL ICHSAN-cibomisme,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.28,Keluar,50955995340871,Febrynti,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.28,Keluar,224283695546564,roynaldo,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.28,Keluar,91560247062629,Alvian Fahchisvico,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.28,Keluar,248086102286579,Hana Pertiwi,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.28,Keluar,132461136736450,Saidpoil,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.29,Keluar,280886750748780,Muhammad Agil,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.29,Keluar,248489695002757,Putra Nababan,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.30,Keluar,138701724241981,Cindy Dafrina,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.30,Keluar,268027736150016,Drs.H.Bambang Mudjiono,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.30,Keluar,44964767612992,B,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.30,Keluar,208550794125475,"Jamalludin ,S.IP","Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.31,Keluar,66881415327955,Niko Atmaja,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.31,Keluar,111866751807736,Irwan Setiadi,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.31,Keluar,274156771876895,A L S,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.31,Keluar,214297544257658,Ardy,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.32,Keluar,61121746739425,Wisnu S. Winardi,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.32,Keluar,135283114823852,🤪😛😜,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.32,Keluar,235746845814942,R27,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.32,Keluar,171304955187437,EL,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.33,Keluar,142091057393820,Al,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.33,Keluar,59056303636550,Saddamkrnwn,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,
+25/11/2026, 19.58.33,Keluar,23845658427622,Adiyoga Nusyirwan,"Terimakasih, telah menghubungi DPD PDI PERJUANGAN DKI JAKARTA
+melalui kontak NARAHUBUNG kami dan semoga informasi yang diberikan dapat bermanfaat.
+
+Selamat Bertugas dan Sehat Selalu.
+Merdeka !!!
+
+SEKRETARIAT DPD.",closed,# Timeout 2 menit,

@@ -4,19 +4,55 @@ namespace App\Controllers;
 
 use App\Models\QuotationSettingModel;
 use App\Models\CompanyBankAccountModel;
+use App\Models\PurchaseOrderSettingModel;
 
 class Settings extends BaseController
 {
     private QuotationSettingModel $model;
+    private PurchaseOrderSettingModel $purchaseOrderModel;
 
     public function __construct()
     {
         $this->model = new QuotationSettingModel();
+        $this->purchaseOrderModel = new PurchaseOrderSettingModel();
     }
 
     public function quotation()
     {
         return view('settings/quotation', ['title' => 'Setting Quotation', 'settings' => $this->model->current(), 'bankAccounts' => (new CompanyBankAccountModel())->orderBy('is_default', 'DESC')->orderBy('bank_name')->findAll()]);
+    }
+
+    public function purchaseOrder()
+    {
+        $settings = $this->purchaseOrderModel->current();
+        foreach ($this->model->current() as $key => $value) {
+            if (! isset($settings[$key]) || $settings[$key] === null || $settings[$key] === '') $settings[$key] = $value;
+        }
+        return view('settings/purchase_order', ['title' => 'Setting Purchase Order', 'settings' => $settings]);
+    }
+
+    public function savePurchaseOrder()
+    {
+        $data = $this->request->getPost(['company_name', 'office_1', 'office_2', 'phone', 'email', 'tax_id', 'document_title', 'signer_name', 'signer_phone', 'default_payment_terms', 'default_delivery_terms', 'default_tax_percent', 'default_pph_percent']);
+        if (! $this->validateData($data, ['company_name' => 'required|max_length[180]', 'email' => 'permit_empty|valid_email', 'document_title' => 'permit_empty|max_length[120]', 'default_tax_percent' => 'required|decimal|greater_than_equal_to[0]|less_than_equal_to[100]', 'default_pph_percent' => 'required|decimal|greater_than_equal_to[0]|less_than_equal_to[100]'])) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+        $existing = $this->purchaseOrderModel->current();
+        foreach (['logo' => 'logo_path', 'signature' => 'signature_path', 'stamp' => 'stamp_path'] as $field => $column) {
+            $file = $this->request->getFile($field);
+            if ($file && $file->isValid() && ! $file->hasMoved()) {
+                $extension = strtolower($file->getExtension());
+                $allowed = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'];
+                if ($file->getSize() > 5242880 || ! isset($allowed[$extension]) || strtolower((string) $file->getMimeType()) !== $allowed[$extension]) return redirect()->back()->withInput()->with('errors', [$field => 'File ' . $field . ' harus JPG, PNG, atau WEBP maksimal 5 MB.']);
+                $directory = FCPATH . 'uploads/settings';
+                if (! is_dir($directory)) mkdir($directory, 0755, true);
+                $file->move($directory, $file->getRandomName());
+                $data[$column] = '/uploads/settings/' . $file->getName();
+            } elseif (! empty($existing[$column])) $data[$column] = $existing[$column];
+        }
+        $saved = $this->purchaseOrderModel->find(1) ? $this->purchaseOrderModel->update(1, $data) : $this->purchaseOrderModel->insert(array_merge(['id' => 1], $data));
+        if ($saved === false) return redirect()->back()->withInput()->with('errors', ['settings' => 'Setting PO gagal disimpan.']);
+        return redirect()->to('/settings/purchase-order')->with('message', 'Setting PO berhasil disimpan.');
     }
 
     public function saveBankAccount(?string $id = null)

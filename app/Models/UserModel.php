@@ -16,6 +16,7 @@ class UserModel extends BaseModel
         'password_hash',
         'role',
         'avatar_path',
+        'signature_path',
         'is_active',
         'failed_login_attempts',
         'locked_until',

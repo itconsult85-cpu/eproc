@@ -11,6 +11,7 @@ class PurchaseOrderModel extends BaseModel
     protected $allowedFields = [
         'vendor_id',
         'client_purchase_order_id',
+        'created_by',
         'po_no',
         'po_date',
         'expected_date',
@@ -40,9 +41,10 @@ class PurchaseOrderModel extends BaseModel
 
     public function detail(int $id): ?array
     {
-        $builder = $this->select('purchase_orders.*, vendors.name AS vendor_name, client_purchase_orders.po_no AS client_po_no')
+        $builder = $this->select('purchase_orders.*, vendors.name AS vendor_name, client_purchase_orders.po_no AS client_po_no, users.full_name AS created_by_name, users.signature_path AS created_by_signature_path')
             ->join('vendors', 'vendors.id = purchase_orders.vendor_id')
-            ->join('client_purchase_orders', 'client_purchase_orders.id = purchase_orders.client_purchase_order_id', 'left');
+            ->join('client_purchase_orders', 'client_purchase_orders.id = purchase_orders.client_purchase_order_id', 'left')
+            ->join('users', 'users.id = purchase_orders.created_by', 'left');
         $this->applyCompanyScope($builder);
         $row = $builder->find($id);
         if (! $row) return null;

@@ -299,6 +299,14 @@
                                 </a>
                             </li>
                         <?php endif; ?>
+                        <?php if (can('settings.purchase_order')): ?>
+                            <li class="nav-item">
+                                <a href="/settings/purchase-order" class="nav-link <?= $isSidebarActive('settings/purchase-order') ? 'active' : '' ?>">
+                                    <i class="nav-icon bi bi-cart-check"></i>
+                                    <p>Setting Purchase Order</p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                         <?php if (can('users.manage')): ?>
                             <li class="nav-item">
                                 <a href="/users" class="nav-link <?= $isSidebarActive('users') ? 'active' : '' ?>">

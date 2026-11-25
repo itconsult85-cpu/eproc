@@ -55,6 +55,19 @@ class Users extends BaseController
             $avatar->move($dir, $name);
             $data['avatar_path'] = '/uploads/avatars/' . $name;
         }
+        $signature = $this->request->getFile('signature');
+        if ($signature && $signature->isValid() && ! $signature->hasMoved()) {
+            $signatureMime = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'];
+            $signatureExtension = strtolower($signature->getExtension());
+            if ($signature->getSize() > 5242880 || ! isset($signatureMime[$signatureExtension]) || strtolower((string) $signature->getMimeType()) !== $signatureMime[$signatureExtension]) return redirect()->back()->withInput()->with('error', 'Tanda tangan harus JPG, PNG, atau WEBP maksimal 5 MB.');
+            $dir = FCPATH . 'uploads/users';
+            if (! is_dir($dir)) mkdir($dir, 0755, true);
+            $name = $signature->getRandomName();
+            $signature->move($dir, $name);
+            $data['signature_path'] = '/uploads/users/' . $name;
+        } elseif ($id && ! empty($existing['signature_path'])) {
+            $data['signature_path'] = $existing['signature_path'];
+        }
         $userId = $id ? $id : $this->users->insert($data, true);
         if ($id) $this->users->update($id, $data);
         $db = db_connect();

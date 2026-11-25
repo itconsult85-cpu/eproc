@@ -90,6 +90,17 @@
                             <input type="file" name="avatar" accept="image/jpeg,image/png,image/webp"
                                 class="form-control">
                         </div>
+                        <div class="col-md-6">
+                            <label class="field-label">
+                                Tanda tangan Prepared by
+                            </label>
+                            <input type="file" name="signature" accept="image/jpeg,image/png,image/webp"
+                                class="form-control">
+                            <small class="text-body-secondary">Format JPG, PNG, atau WEBP, maksimal 5 MB.</small>
+                            <?php if (! empty($user['signature_path'])): ?>
+                                <div class="mt-2"><img src="<?= esc(base_url(ltrim($user['signature_path'], '/'))) ?>" class="img-thumbnail" style="max-height:80px" alt="Tanda tangan user saat ini"></div>
+                            <?php endif; ?>
+                        </div>
                         <div class="col-12 form-check form-switch">
                             <input class="form-check-input" type="checkbox" name="is_active" value="1" id="active"
                                 <?= old('is_active', $user['is_active'] ?? 1) ? 'checked' : '' ?>>

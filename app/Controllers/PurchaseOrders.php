@@ -7,6 +7,7 @@ use App\Models\ProductModel;
 use App\Models\PurchaseOrderItemModel;
 use App\Models\PurchaseOrderModel;
 use App\Models\QuotationSettingModel;
+use App\Models\PurchaseOrderSettingModel;
 use App\Models\VendorModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -66,7 +67,11 @@ class PurchaseOrders extends BaseController
         $clientPo = ! empty($po['client_purchase_order_id'])
             ? (new ClientPurchaseOrderModel())->detail((int) $po['client_purchase_order_id'])
             : null;
-        $settings = (new QuotationSettingModel())->current();
+        $settings = (new PurchaseOrderSettingModel())->current();
+        $quotationSettings = (new QuotationSettingModel())->current();
+        foreach ($quotationSettings as $key => $value) {
+            if (! isset($settings[$key]) || $settings[$key] === null || $settings[$key] === '') $settings[$key] = $value;
+        }
         $options = new Options();
         $options->set('isRemoteEnabled', false);
         $dompdf = new Dompdf($options);
@@ -75,6 +80,10 @@ class PurchaseOrders extends BaseController
             'vendor' => $vendor,
             'clientPo' => $clientPo,
             'settings' => $settings,
+            'logoData' => $this->assetData($settings['logo_path'] ?? null),
+            'preparedSignatureData' => $this->assetData($po['created_by_signature_path'] ?? null),
+            'signatureData' => $this->assetData($settings['signature_path'] ?? null),
+            'stampData' => $this->assetData($settings['stamp_path'] ?? null),
         ]));
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
@@ -117,6 +126,7 @@ class PurchaseOrders extends BaseController
         $data['vendor_id'] = $vendorId;
         $data['client_purchase_order_id'] = $clientPoId > 0 ? $clientPoId : null;
         $data += ['use_ppn' => $usePpn, 'ppn_percent' => $ppn, 'tax_percent' => $ppn, 'use_pph' => $usePph, 'pph_percent' => $pph, 'pph_amount' => $pphAmount, 'tax_amount' => $ppnAmount, 'subtotal' => $subtotal, 'grand_total' => $subtotal + $ppnAmount - $pphAmount, 'created_at' => date('Y-m-d H:i:s')];
+        if (! $id) $data['created_by'] = (int) auth_user('id');
         if (trim((string) ($data['po_no'] ?? '')) === '' || ! in_array($data['status'] ?? '', ['draft', 'sent', 'approved', 'cancelled'], true)) return redirect()->back()->withInput()->with('error', 'Nomor dan status PO OUT wajib valid.');
         $duplicate = $this->model->where('po_no', trim((string) $data['po_no']))->first();
         if ($duplicate && (int) $duplicate['id'] !== (int) ($id ?? 0)) return redirect()->back()->withInput()->with('error', 'Nomor PO OUT sudah digunakan.');
@@ -155,6 +165,18 @@ class PurchaseOrders extends BaseController
 
     private function formContext(array $po, string $action): array
     {
-        return ['title' => empty($po) ? 'Buat PO OUT ke Vendor' : 'Edit PO OUT ke Vendor', 'po' => $po, 'vendors' => (new VendorModel())->where('is_active', 1)->findAll(), 'products' => (new ProductModel())->applyCompanyScope(allowed_company_ids())->orderBy('name')->findAll(), 'clientPurchaseOrders' => (new ClientPurchaseOrderModel())->withQuotation(), 'action' => $action];
+        $settings = (new PurchaseOrderSettingModel())->current();
+        if (empty($po)) {
+            $po = ['use_ppn' => ((float) ($settings['default_tax_percent'] ?? 0)) > 0, 'ppn_percent' => $settings['default_tax_percent'] ?? 11, 'use_pph' => ((float) ($settings['default_pph_percent'] ?? 0)) > 0, 'pph_percent' => $settings['default_pph_percent'] ?? 0];
+        }
+        return ['title' => empty($po['id']) ? 'Buat PO OUT ke Vendor' : 'Edit PO OUT ke Vendor', 'po' => $po, 'poSettings' => $settings, 'vendors' => (new VendorModel())->where('is_active', 1)->findAll(), 'products' => (new ProductModel())->applyCompanyScope(allowed_company_ids())->orderBy('name')->findAll(), 'clientPurchaseOrders' => (new ClientPurchaseOrderModel())->withQuotation(), 'action' => $action];
+    }
+
+    private function assetData(?string $path): ?string
+    {
+        if (! $path || ! is_file(FCPATH . ltrim($path, '/'))) return null;
+        $file = FCPATH . ltrim($path, '/');
+        $mime = mime_content_type($file) ?: 'image/png';
+        return 'data:' . $mime . ';base64,' . base64_encode((string) file_get_contents($file));
     }
 }
